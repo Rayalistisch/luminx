@@ -19,6 +19,10 @@
     if (color && color !== currentPanelColor) {
       currentPanelColor = color;
       section.setAttribute("data-bg-color", color);
+      // On mobile, theme.js doesn't fire (no window scroll), so set body bg directly
+      if (isMobile) {
+        document.body.style.backgroundColor = color;
+      }
     }
   }
 
