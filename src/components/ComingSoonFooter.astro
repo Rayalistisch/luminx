@@ -1,0 +1,112 @@
+<section class="cs-footer" data-bg-color="#0A0A0A">
+  <div class="cs-footer-content">
+    <h2 class="cs-footer-title">Binnenkort</h2>
+    <p class="cs-footer-text">Iets bijzonders is in de maak.</p>
+    <div class="cs-footer-dots" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const csFooter = document.querySelector('.cs-footer');
+  if (csFooter) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) csFooter.classList.add('is-visible');
+        });
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(csFooter);
+  }
+</script>
+
+<style>
+  .cs-footer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--black);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cs-footer-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cs-footer-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cs-footer.is-visible .cs-footer-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cs-footer-text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+    color: var(--gray);
+  }
+
+  .cs-footer.is-visible .cs-footer-text {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+
+  .cs-footer-dots {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 3rem;
+    opacity: 0;
+    transition: opacity 1s ease 0.5s;
+  }
+
+  .cs-footer.is-visible .cs-footer-dots {
+    opacity: 1;
+  }
+
+  .cs-footer-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--white);
+    opacity: 0.3;
+    animation: cs-dot-pulse 1.5s ease-in-out infinite;
+  }
+
+  .cs-footer-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .cs-footer-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes cs-dot-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+  }
+</style>

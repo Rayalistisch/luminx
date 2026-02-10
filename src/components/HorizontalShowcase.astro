@@ -1,0 +1,254 @@
+<section class="hs-section" data-bg-color="#E5D4ED" style="--hs-panels: 5;">
+  <div class="hs-sticky">
+    <div class="hs-track">
+
+      <div class="hs-panel hs-panel--intro" data-bg-color="#E5D4ED">
+        <div class="hs-panel-content">
+          <span class="hs-panel-index">01</span>
+          <h2 class="hs-panel-title">Wat Wij Bouwen</h2>
+          <div class="hs-panel-line"></div>
+        </div>
+      </div>
+
+      <div class="hs-panel" data-bg-color="#FFD6E8">
+        <div class="hs-panel-shape hs-panel-shape--pink" aria-hidden="true"></div>
+        <div class="hs-panel-content">
+          <span class="hs-panel-index">02</span>
+          <h2 class="hs-panel-title">Strategie</h2>
+          <p class="hs-panel-desc">Data-gedreven marketing die converteert</p>
+        </div>
+      </div>
+
+      <div class="hs-panel" data-bg-color="#C8E7F5">
+        <div class="hs-panel-shape hs-panel-shape--blue" aria-hidden="true"></div>
+        <div class="hs-panel-content">
+          <span class="hs-panel-index">03</span>
+          <h2 class="hs-panel-title">Automation</h2>
+          <p class="hs-panel-desc">Complete marketing automations</p>
+        </div>
+      </div>
+
+      <div class="hs-panel" data-bg-color="#D4F4DD">
+        <div class="hs-panel-shape hs-panel-shape--mint" aria-hidden="true"></div>
+        <div class="hs-panel-content">
+          <span class="hs-panel-index">04</span>
+          <h2 class="hs-panel-title">Impact</h2>
+          <p class="hs-panel-desc">Meetbare resultaten, schaalbare groei</p>
+        </div>
+      </div>
+
+      <div class="hs-panel" data-bg-color="#FFE5D4">
+        <div class="hs-panel-shape hs-panel-shape--peach" aria-hidden="true"></div>
+        <div class="hs-panel-content">
+          <span class="hs-panel-index">05</span>
+          <h2 class="hs-panel-title">Data</h2>
+          <p class="hs-panel-desc">Inzichten die de toekomst vormen</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hs-progress">
+      <div class="hs-progress-bar"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hs-section {
+    height: calc(var(--hs-panels, 5) * 100vh);
+    position: relative;
+  }
+
+  .hs-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .hs-track {
+    display: flex;
+    width: calc(var(--hs-panels, 5) * 100vw);
+    height: 100%;
+    will-change: transform;
+  }
+
+  .hs-panel {
+    width: 100vw;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem;
+  }
+
+  .hs-panel-shape {
+    position: absolute;
+    width: 50vmin;
+    height: 50vmin;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(60px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .hs-panel-shape--pink {
+    background: var(--pastel-pink);
+    right: 10%;
+    top: 15%;
+  }
+
+  .hs-panel-shape--blue {
+    background: var(--pastel-blue);
+    left: 10%;
+    bottom: 10%;
+  }
+
+  .hs-panel-shape--mint {
+    background: var(--pastel-mint);
+    right: 20%;
+    top: 30%;
+  }
+
+  .hs-panel-shape--peach {
+    background: var(--pastel-peach);
+    left: 15%;
+    top: 20%;
+  }
+
+  .hs-panel-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hs-panel.is-visible .hs-panel-content {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .hs-panel-index {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    opacity: 0.4;
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--black);
+  }
+
+  .hs-panel-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .hs-panel-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  .hs-panel--intro .hs-panel-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+
+  .hs-panel-line {
+    width: 80px;
+    height: 2px;
+    background: var(--black);
+    opacity: 0.3;
+    margin-top: 1.5rem;
+  }
+
+  .hs-progress {
+    position: absolute;
+    bottom: 2rem;
+    left: 4rem;
+    right: 4rem;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .hs-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--black);
+    opacity: 0.3;
+    border-radius: 1px;
+    will-change: width;
+  }
+
+  @media (max-width: 768px) {
+    .hs-section {
+      height: auto !important;
+    }
+
+    .hs-sticky {
+      position: relative;
+      height: 100vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .hs-track {
+      width: calc(var(--hs-panels, 5) * 100vw);
+      transform: none !important;
+    }
+
+    .hs-panel {
+      width: 100vw;
+      height: 100%;
+      padding: 4rem 2rem;
+      scroll-snap-align: start;
+    }
+
+    .hs-panel-content {
+      opacity: 1;
+      transform: none;
+    }
+
+    .hs-progress {
+      left: 2rem;
+      right: 2rem;
+    }
+
+    .hs-panel-shape {
+      width: 60vw;
+      height: 60vw;
+    }
+  }
+
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .hs-panel {
+      padding: 4rem 3rem;
+    }
+
+    .hs-panel-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+    }
+  }
+</style>

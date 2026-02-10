@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ComingSoonHero from "../components/ComingSoonHero.astro";
+import HorizontalShowcase from "../components/HorizontalShowcase.astro";
+import ComingSoonFooter from "../components/ComingSoonFooter.astro";
+---
+
+<BaseLayout title="LUMINX - Coming Soon" description="LUMINX. Binnenkort live.">
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <ComingSoonHero />
+  <HorizontalShowcase />
+  <ComingSoonFooter />
+  <script src="/scripts/horizontal-scroll.js" defer></script>
+</BaseLayout>
