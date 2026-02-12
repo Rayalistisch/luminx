@@ -1,12 +1,72 @@
 <nav>
   <a href="/" class="logo">LUMINX</a>
 
-  <ul class="nav-links">
-    <li><a href="#werk">Werk</a></li>
-    <li><a href="#diensten">Diensten</a></li>
-    <li><a href="#over">Over</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-pill">
+    <ul class="nav-links">
+      <li>
+        <a href="#werk" aria-label="Werk">
+          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          <span class="nav-label">Werk</span>
+        </a>
+      </li>
+      <li>
+        <a href="#diensten" aria-label="Diensten">
+          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <span class="nav-label">Diensten</span>
+        </a>
+      </li>
+      <li>
+        <a href="#over" aria-label="Over">
+          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="nav-label">Over</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contact" aria-label="Contact">
+          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M22 6l-10 7L2 6"/>
+          </svg>
+          <span class="nav-label">Contact</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 
-  <a href="#contact" class="nav-cta">Start Project</a>
+  <a href="#" class="nav-cta" data-overlay-open>
+    <span class="nav-cta-label">Get started</span>
+    <span class="nav-cta-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="7" y1="17" x2="17" y2="7"/>
+        <polyline points="7 7 17 7 17 17"/>
+      </svg>
+    </span>
+  </a>
+
+  <button class="nav-burger" aria-label="Menu">
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="mobile-menu">
+    <ul class="mobile-menu-links">
+      <li><a href="#werk">Werk</a></li>
+      <li><a href="#diensten">Diensten</a></li>
+      <li><a href="#over">Over</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#" class="mobile-menu-cta" data-overlay-open>Start Project</a>
+  </div>
 </nav>

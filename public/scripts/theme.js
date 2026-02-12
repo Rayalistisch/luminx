@@ -164,10 +164,61 @@
   // -------------------------
   // Update loop
   // -------------------------
+  // -------------------------
+  // Nav scroll state
+  // -------------------------
+  const nav = document.querySelector("nav");
+  const navLinkEls = document.querySelectorAll(".nav-links a");
+
+  function setActiveLink(link) {
+    navLinkEls.forEach((l) => l.classList.remove("active"));
+    if (link) link.classList.add("active");
+  }
+
+  function initNavIndicator() {
+    if (!navLinkEls.length) return;
+    setActiveLink(navLinkEls[0]);
+
+    navLinkEls.forEach((link) => {
+      link.addEventListener("click", () => setActiveLink(link));
+    });
+  }
+
+  // Mobile menu toggle
+  function initMobileMenu() {
+    const burger = document.querySelector(".nav-burger");
+    const mobileLinks = document.querySelectorAll(".mobile-menu a");
+    if (!burger || !nav) return;
+
+    burger.addEventListener("click", () => {
+      nav.classList.toggle("menu-open");
+      document.body.style.overflow = nav.classList.contains("menu-open") ? "hidden" : "";
+    });
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("menu-open");
+        document.body.style.overflow = "";
+      });
+    });
+  }
+
+  function updateNav() {
+    if (!nav) return;
+    const scrolled = window.scrollY > 80;
+
+    if (scrolled) {
+      nav.classList.add("nav--scrolled");
+    } else {
+      nav.classList.remove("nav--scrolled");
+    }
+  }
+
   function update() {
     const active = getActiveSection();
     const bg = getVisibleBackground(active);
     applyTheme(bg);
+    updateNav();
 
     // Parallax (let op: transform op hero-background kan soms blend-mode beïnvloeden
     // maar omdat nav niet op hero-background zit, is dit meestal ok)
@@ -184,6 +235,8 @@
 
       initReveal();
       initGridImageVars();
+      initNavIndicator();
+      initMobileMenu();
       update();
 
       let ticking = false;
