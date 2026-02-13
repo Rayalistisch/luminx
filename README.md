@@ -1,43 +1,79 @@
-# Astro Starter Kit: Minimal
+# LUMINX Website
+
+Astro-website voor LUMINX met dienstenpagina's, casepagina's en interactieve homepage-secties.
+
+## Commands
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## SEO Setup
 
-## 🚀 Project Structure
+SEO-head is centraal geregeld in `src/layouts/BaseLayout.astro`.
 
-Inside of your Astro project, you'll see the following folders and files:
+Toegevoegd:
+- `canonical`
+- `meta robots`
+- Open Graph tags (`og:type`, `og:site_name`, `og:locale`, `og:title`, `og:description`, `og:url`, `og:image`)
+- Twitter tags (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`)
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Gebruik per pagina
+
+Je kunt optioneel `robots` en `ogImage` doorgeven aan `BaseLayout`.
+
+Voorbeeld:
+
+```astro
+<BaseLayout
+  title="Pagina titel"
+  description="Korte omschrijving"
+  robots="index,follow,max-image-preview:large"
+  ogImage="/images/luminx-founder.png"
+>
+  ...
+</BaseLayout>
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Tracking (dataLayer)
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Tracking staat in `public/scripts/tracking.js` en wordt geladen via `BaseLayout`.
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Data layer init
+- `window.dataLayer = window.dataLayer || []`
+- Helper: `window.luminxTrack(eventName, payload)`
 
-## 🧞 Commands
+### Events
 
-All commands are run from the root of the project, from a terminal:
+1. `cta_click`
+- Trigger: klik op CTA-elementen (o.a. `[data-overlay-open]`, `.cta-button`, `.footer-contact-cta`, `.nav-cta`)
+- Payload:
+  - `cta_label`
+  - `cta_section`
+  - `page_path`
+  - `page_title`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+2. `contact_submit`
+- Trigger: submit van formulier `#contact-form` in overlay
+- Payload:
+  - `form_id` (`contact-form`)
+  - `page_path`
+  - `page_title`
 
-## 👀 Want to learn more?
+Implementatie submit-event zit in `public/scripts/contact-overlay.js`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Structuur
+
+Belangrijkste routes:
+- `/site` (hoofdsite)
+- `/diensten/*` (service detailpagina's)
+- `/cases/*` (case detailpagina's)
+
+Belangrijkste componenten:
+- `src/components/ServicePage.astro`
+- `src/components/CasePage.astro`
+- `src/components/ImageGrid.astro`
+- `src/components/Nav.astro`

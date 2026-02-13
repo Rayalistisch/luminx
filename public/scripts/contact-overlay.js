@@ -37,6 +37,19 @@
   // Form submit
   form?.addEventListener("submit", (e) => {
     e.preventDefault();
+    if (typeof window.luminxTrack === "function") {
+      window.luminxTrack("contact_submit", {
+        form_id: "contact-form",
+      });
+    } else {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "contact_submit",
+        form_id: "contact-form",
+        page_path: window.location.pathname,
+        page_title: document.title,
+      });
+    }
     form.style.display = "none";
     success?.classList.add("is-visible");
   });

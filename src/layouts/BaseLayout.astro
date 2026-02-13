@@ -1,6 +1,15 @@
 ---
 import "../styles/globals.css";
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  robots = "index,follow,max-image-preview:large",
+  ogImage = "/images/luminx-founder.png",
+} = Astro.props;
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+const ogImageUrl = new URL(ogImage, siteOrigin).toString();
 ---
 
 <!doctype html>
@@ -10,6 +19,21 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LUMINX" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +43,7 @@ const { title, description } = Astro.props;
     <script src="/scripts/cursor.js" defer></script>
     <script src="/scripts/theme.js" defer></script>
     <script src="/scripts/contact-overlay.js" defer></script>
+    <script src="/scripts/tracking.js" defer></script>
   </head>
 
   <body>
