@@ -278,22 +278,6 @@
     });
   }
 
-  function syncActiveLinkWithScroll() {
-    if (!sectionLinkMap.length) return;
-
-    const triggerY = window.innerHeight * 0.28;
-    let current = sectionLinkMap[0];
-
-    sectionLinkMap.forEach((item) => {
-      const rect = item.target.getBoundingClientRect();
-      if (rect.top <= triggerY) current = item;
-    });
-
-    const currentActive = document.querySelector(".nav-links a.active");
-    if (current?.link && currentActive !== current.link) {
-      setActiveLink(current.link);
-    }
-  }
 
   // Mobile menu toggle
   function initMobileMenu() {
@@ -314,10 +298,8 @@
     });
   }
 
-  function updateNav() {
+  function updateNavFromState(scrolled) {
     if (!nav) return;
-    const scrolled = window.scrollY > 80;
-
     if (scrolled === navWasScrolled) return;
 
     if (scrolled) {
@@ -333,18 +315,38 @@
     navWasScrolled = scrolled;
   }
 
+  // Cache hero-background reference
+  const heroBackground = document.querySelector(".hero-background");
+
   function update() {
+    // ---- READ PHASE (all layout reads first, no DOM writes) ----
     const active = getActiveSection();
     const bg = getVisibleBackground(active);
-    applyTheme(bg);
-    updateNav();
-    syncActiveLinkWithScroll();
+    const scrolled = window.scrollY > 80;
+    const scrollY = window.scrollY;
 
-    // Parallax (let op: transform op hero-background kan soms blend-mode beïnvloeden
-    // maar omdat nav niet op hero-background zit, is dit meestal ok)
-    const heroBackground = document.querySelector(".hero-background");
+    // Read active link bounding rects before any writes
+    let scrollSyncLink = null;
+    if (sectionLinkMap.length) {
+      const triggerY = window.innerHeight * 0.28;
+      let current = sectionLinkMap[0];
+      sectionLinkMap.forEach((item) => {
+        const rect = item.target.getBoundingClientRect();
+        if (rect.top <= triggerY) current = item;
+      });
+      const currentActive = document.querySelector(".nav-links a.active");
+      if (current?.link && currentActive !== current.link) {
+        scrollSyncLink = current.link;
+      }
+    }
+
+    // ---- WRITE PHASE (all DOM mutations after reads) ----
+    applyTheme(bg);
+    updateNavFromState(scrolled);
+    if (scrollSyncLink) setActiveLink(scrollSyncLink);
+
     if (heroBackground) {
-      heroBackground.style.transform = `translateY(${window.scrollY * 0.5}px)`;
+      heroBackground.style.transform = `translateY(${scrollY * 0.5}px)`;
     }
   }
 

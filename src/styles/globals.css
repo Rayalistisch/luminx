@@ -372,14 +372,13 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
       line-height: 0.95;
       margin-bottom: 2rem;
       letter-spacing: -0.03em;
-      animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) backwards;
     }
 
     .hero-subtitle {
       font-size: clamp(1.2rem, 2vw, 1.5rem);
       font-weight: 300;
       opacity: 0.9;
-      animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s backwards;
       letter-spacing: 0.02em;
     }
 
