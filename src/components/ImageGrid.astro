@@ -1,3 +1,10 @@
+---
+import { Image } from "astro:assets";
+import websiteGsmteamImage from "../assets/images/website-gsmteam.png";
+import repairPluginImage from "../assets/images/repair-plugin.png";
+import digitalMarketingImage from "../assets/images/digital-marketing-pexels.jpg";
+---
+
 <section class="image-grid-section" id="werk" data-bg-color="#FFD6E8">
   <div class="section-header">
     <h2>Geselecteerd Werk</h2>
@@ -6,7 +13,15 @@
 
   <div class="image-grid">
     <a class="grid-item large" href="/cases/migraties" aria-label="Bekijk project Migraties">
-      <img class="grid-item-image" src="/images/website-gsmteam.png" alt="Migraties">
+      <Image
+        class="grid-item-image"
+        src={websiteGsmteamImage}
+        alt="Migraties"
+        widths={[480, 768, 1200]}
+        sizes="(max-width: 1024px) 100vw, 60vw"
+        quality={72}
+        loading="lazy"
+      />
       <div class="grid-item-overlay">
         <div class="grid-item-content">
           <h3>Migraties</h3>
@@ -22,7 +37,15 @@
     </a>
 
     <a class="grid-item medium" href="/cases/custom-applicaties" aria-label="Bekijk project Custom applicaties">
-      <img class="grid-item-image" src="/images/repair-plugin.png" alt="Custom applicaties">
+      <Image
+        class="grid-item-image"
+        src={repairPluginImage}
+        alt="Custom applicaties"
+        widths={[420, 640, 900]}
+        sizes="(max-width: 1024px) 100vw, 40vw"
+        quality={72}
+        loading="lazy"
+      />
       <div class="grid-item-overlay">
         <div class="grid-item-content">
           <h3>Custom applicaties</h3>
@@ -38,7 +61,17 @@
     </a>
 
     <a class="grid-item medium" href="/cases/digital-marketing" aria-label="Bekijk project Digital Marketing">
-      <img class="grid-item-image" src="https://images.pexels.com/photos/5956915/pexels-photo-5956915.jpeg" alt="Digital Marketing">
+      <Image
+        class="grid-item-image"
+        src={digitalMarketingImage}
+        alt="Digital Marketing"
+        width={900}
+        height={620}
+        widths={[420, 640, 900]}
+        sizes="(max-width: 1024px) 100vw, 40vw"
+        quality={68}
+        loading="lazy"
+      />
       <div class="grid-item-overlay">
         <div class="grid-item-content">
           <h3>Digital Marketing</h3>

@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import founderImage from "../assets/images/luminx-founder.png";
+
 const services = [
   {
     icon: "◆",
@@ -69,20 +72,22 @@ const services = [
   </div>
 
   <div class="about-image-wrap">
-    <img
+    <Image
       class="about-image"
-      src="/images/luminx-founder.png"
+      src={founderImage}
       alt="Portret van de oprichter van LUMINX"
+      widths={[420, 640, 920]}
+      sizes="(max-width: 1024px) 100vw, 48vw"
       loading="lazy"
-      decoding="async"
     />
-    <img
+    <Image
       class="about-image-blur"
-      src="/images/luminx-founder.png"
+      src={founderImage}
       alt=""
       aria-hidden="true"
+      widths={[420, 640, 920]}
+      sizes="(max-width: 1024px) 100vw, 48vw"
       loading="lazy"
-      decoding="async"
     />
   </div>
 </section>
