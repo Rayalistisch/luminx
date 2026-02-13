@@ -1,0 +1,320 @@
+---
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import ContactOverlay from "./ContactOverlay.astro";
+
+interface Metric {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  client: string;
+  sector: string;
+  intro: string;
+  imageSrc: string;
+  imageAlt: string;
+  services: string[];
+  challenge: string[];
+  approach: string[];
+  results: string[];
+  metrics: Metric[];
+}
+
+const {
+  title,
+  client,
+  sector,
+  intro,
+  imageSrc,
+  imageAlt,
+  services,
+  challenge,
+  approach,
+  results,
+  metrics,
+} = Astro.props;
+---
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+<Nav basePath="/site" />
+
+<main class="case-page">
+  <section class="case-hero" data-bg-color="#0A0A0A">
+    <div class="case-hero-bg" aria-hidden="true"></div>
+    <div class="case-hero-grid">
+      <div class="case-hero-content">
+        <a href="/site#werk" class="case-back-link">Terug naar werk</a>
+        <span class="case-kicker">Case</span>
+        <h1>{title}</h1>
+        <p>{intro}</p>
+
+        <div class="case-meta">
+          <div>
+            <span>Klant</span>
+            <strong>{client}</strong>
+          </div>
+          <div>
+            <span>Sector</span>
+            <strong>{sector}</strong>
+          </div>
+          <div>
+            <span>Services</span>
+            <strong>{services.join(" · ")}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-hero-image-wrap">
+        <img src={imageSrc} alt={imageAlt} class="case-hero-image" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <section class="case-content" data-bg-color="#FEFEFE">
+    <div class="case-content-grid">
+      <article>
+        <h2>Uitdaging</h2>
+        <ul>
+          {challenge.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+
+      <article>
+        <h2>Aanpak</h2>
+        <ol>
+          {approach.map((item) => <li>{item}</li>)}
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section class="case-results" data-bg-color="#F6F8FB">
+    <div class="case-results-inner">
+      <h2>Resultaten</h2>
+
+      <div class="case-metrics">
+        {metrics.map((metric) => (
+          <article class="case-metric">
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+          </article>
+        ))}
+      </div>
+
+      <ul class="case-results-list">
+        {results.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+    <div class="cta-content">
+      <h2>Ook Zo'n Case<br/>Realiseren?</h2>
+      <p>Vertel ons je vraagstuk. We denken mee in aanpak, scope en implementatie.</p>
+      <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+    </div>
+  </section>
+
+  <Footer />
+  <ContactOverlay />
+</main>
+
+<style>
+  .case-page {
+    background: var(--white);
+  }
+
+  .case-hero {
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5rem;
+    overflow: hidden;
+  }
+
+  .case-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(255, 214, 232, 0.2), transparent 45%),
+      radial-gradient(circle at 85% 16%, rgba(200, 231, 245, 0.15), transparent 40%);
+  }
+
+  .case-hero-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .case-back-link {
+    display: inline-flex;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  .case-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+
+  .case-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.3rem, 5.6vw, 4.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+
+  .case-hero p {
+    max-width: 62ch;
+    opacity: 0.88;
+    line-height: 1.72;
+    margin-bottom: 1.6rem;
+  }
+
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .case-meta div {
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+    padding-top: 0.7rem;
+  }
+
+  .case-meta span {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 0.2rem;
+  }
+
+  .case-meta strong {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .case-hero-image-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 360px;
+  }
+
+  .case-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case-content,
+  .case-results {
+    padding: 5.5rem 4rem;
+  }
+
+  .case-content-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.2rem;
+  }
+
+  .case-content h2,
+  .case-results h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.06;
+    margin-bottom: 1.2rem;
+  }
+
+  .case-content ul,
+  .case-content ol,
+  .case-results-list {
+    display: grid;
+    gap: 0.8rem;
+    line-height: 1.7;
+    color: rgba(10, 10, 10, 0.82);
+    padding-left: 1.1rem;
+  }
+
+  .case-results-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .case-metrics {
+    margin: 1.2rem 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .case-metric {
+    border-top: 1px solid rgba(10, 10, 10, 0.2);
+    padding-top: 0.7rem;
+  }
+
+  .case-metric strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.45rem, 3vw, 2.35rem);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .case-metric span {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(10, 10, 10, 0.62);
+  }
+
+  @media (max-width: 1024px) {
+    .case-hero-grid,
+    .case-content-grid,
+    .case-metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .case-hero,
+    .case-content,
+    .case-results {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .case-hero {
+      padding-top: 8.5rem;
+    }
+
+    .case-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .case-hero-image-wrap {
+      min-height: 260px;
+    }
+  }
+</style>

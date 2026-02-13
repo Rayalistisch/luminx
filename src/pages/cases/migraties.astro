@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CasePage from "../../components/CasePage.astro";
+---
+
+<BaseLayout
+  title="Case: Migratie Wordpress naar Shopify | LUMINX"
+  description="Hoe we een complete webshop migratie realiseerden naar Shopify met betere performance en hogere conversie."
+>
+  <CasePage
+    title="Migratie van Wordpress naar Shopify"
+    client="GSM Team"
+    sector="Retail & E-commerce"
+    intro="Voor GSM Team hebben we de bestaande Wordpress/WooCommerce omgeving vervangen door een schaalbare Shopify-setup met betere beheerbaarheid, hogere snelheid en een strakkere koopflow."
+    imageSrc="/images/website-gsmteam.png"
+    imageAlt="Screenshot van de gemigreerde Shopify webshop"
+    services={[
+      "Web Development",
+      "Conversie-optimalisatie",
+      "Tracking"
+    ]}
+    challenge={[
+      "Technische performanceproblemen op mobiele apparaten",
+      "Beperkte schaalbaarheid voor productbeheer en campagnes",
+      "Inconsistent design over categorie-, product- en checkoutpagina's",
+      "Onvoldoende betrouwbare meetbaarheid van funnelstappen"
+    ]}
+    approach={[
+      "Technische en functionele audit van huidige shopomgeving",
+      "Nieuwe Shopify-informatiearchitectuur en templatestructuur",
+      "Migratie van content, productdata en redirects zonder SEO-verlies",
+      "Implementatie van tracking op product-, cart- en checkout-events"
+    ]}
+    results={[
+      "Duidelijk snellere gebruikerservaring op mobiel en desktop",
+      "Eenvoudiger beheer van assortiment en acties door het team",
+      "Consistente merkbeleving over alle kernpagina's",
+      "Betere funnelinzichten voor continue optimalisatie"
+    ]}
+    metrics={[
+      { value: "-38%", label: "Snellere laadtijd" },
+      { value: "+24%", label: "Hogere conversie" },
+      { value: "100%", label: "SEO redirects gemigreerd" }
+    ]}
+  />
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CasePage from "../../components/CasePage.astro";
+---
+
+<BaseLayout
+  title="Case: Digital Marketing Strategie | LUMINX"
+  description="Van losse campagnes naar een geïntegreerde digitale marketingstrategie met duidelijke KPI's en schaalbare groei."
+>
+  <CasePage
+    title="Digital marketing strategie over alle kanalen"
+    client="Groeiende dienstverlener"
+    sector="B2B Services"
+    intro="Voor deze klant hebben we losse campagnedata en kanaalacties samengebracht in één strategie met duidelijke prioriteiten, meetplan en optimalisatie-ritme."
+    imageSrc="https://images.pexels.com/photos/5956915/pexels-photo-5956915.jpeg"
+    imageAlt="Team bespreekt digitale marketingstrategie"
+    services={[
+      "Strategy",
+      "Marketing",
+      "Data & Tracking"
+    ]}
+    challenge={[
+      "Kanaalinzet was versnipperd en niet gekoppeld aan bedrijfsdoelen",
+      "Besluiten werden genomen op gevoel in plaats van data",
+      "Geen eenduidig KPI-framework voor teams en management",
+      "Onvoldoende zicht op kwaliteit van leads per kanaal"
+    ]}
+    approach={[
+      "Analyse van funneldata, doelgroepsegmenten en kanaalprestaties",
+      "Herdefinitie van proposities en kanaalrollen per fase",
+      "Inrichting van dashboards en KPI-structuur per team",
+      "Doorlopende optimalisatie met vaste evaluatiecadans"
+    ]}
+    results={[
+      "Meer focus op kanalen met aantoonbare impact",
+      "Sterkere leadkwaliteit en betere opvolging door sales",
+      "Transparante rapportage voor team en management",
+      "Snellere iteraties dankzij heldere besluitvorming"
+    ]}
+    metrics={[
+      { value: "+42%", label: "Meer kwalitatieve leads" },
+      { value: "-27%", label: "Lagere cost per lead" },
+      { value: "1 ritme", label: "Wekelijkse optimalisatie" }
+    ]}
+  />
+</BaseLayout>

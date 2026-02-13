@@ -169,19 +169,130 @@
   // -------------------------
   const nav = document.querySelector("nav");
   const navLinkEls = document.querySelectorAll(".nav-links a");
+  const navLinks = document.querySelector(".nav-links");
+  const navActiveIndicator = document.querySelector(".nav-active-indicator");
+  let navWasScrolled = false;
+  let navIndicatorReady = false;
+  let indicatorX = 0;
+  let indicatorW = 0;
+  const sectionLinkMap = [];
+
+  function getIndicatorMetrics() {
+    if (!navLinks || !navActiveIndicator) return null;
+    const linksRect = navLinks.getBoundingClientRect();
+    const indicatorRect = navActiveIndicator.getBoundingClientRect();
+    return {
+      x: indicatorRect.left - linksRect.left,
+      w: indicatorRect.width,
+    };
+  }
+
+  function setIndicatorPosition(x, w) {
+    if (!navActiveIndicator) return;
+    navActiveIndicator.style.left = `${x}px`;
+    navActiveIndicator.style.width = `${w}px`;
+    indicatorX = x;
+    indicatorW = w;
+  }
+
+  function animateElasticIndicator(fromX, fromW, toX, toW) {
+    if (!navActiveIndicator) return;
+
+    const distance = Math.abs(toX - fromX);
+    const overshoot = Math.min(26, 8 + distance * 0.14);
+    const movingRight = toX >= fromX;
+
+    const fromRight = fromX + fromW;
+    const toRight = toX + toW;
+
+    const stretchLeft = movingRight ? fromX : Math.min(toX - overshoot, fromX);
+    const stretchRight = movingRight ? Math.max(toRight + overshoot, fromRight) : fromRight;
+    const stretchWidth = Math.max(0, stretchRight - stretchLeft);
+
+    navActiveIndicator.animate(
+      [
+        { left: `${fromX}px`, width: `${fromW}px`, offset: 0, easing: "cubic-bezier(0.22, 0.61, 0.36, 1)" },
+        { left: `${stretchLeft}px`, width: `${stretchWidth}px`, offset: 0.52, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+        { left: `${toX}px`, width: `${toW}px`, offset: 1 },
+      ],
+      {
+        duration: 460,
+        fill: "forwards",
+        easing: "linear",
+      }
+    );
+  }
+
+  function moveNavIndicator(link, immediate = false) {
+    if (!navLinks || !navActiveIndicator || !link) return;
+
+    const linksRect = navLinks.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    const targetW = linkRect.width * 0.6;
+    const targetX = linkRect.left - linksRect.left + (linkRect.width - targetW) / 2;
+
+    if (!navIndicatorReady || immediate) {
+      navActiveIndicator.getAnimations().forEach((anim) => anim.cancel());
+      setIndicatorPosition(targetX, targetW);
+      navIndicatorReady = true;
+      return;
+    }
+
+    const liveMetrics = getIndicatorMetrics();
+    const fromX = liveMetrics ? liveMetrics.x : indicatorX;
+    const fromW = liveMetrics ? liveMetrics.w : indicatorW;
+
+    navActiveIndicator.getAnimations().forEach((anim) => anim.cancel());
+    setIndicatorPosition(fromX, fromW);
+    animateElasticIndicator(fromX, fromW, targetX, targetW);
+
+    indicatorX = targetX;
+    indicatorW = targetW;
+  }
 
   function setActiveLink(link) {
     navLinkEls.forEach((l) => l.classList.remove("active"));
-    if (link) link.classList.add("active");
+    if (link) {
+      link.classList.add("active");
+      moveNavIndicator(link);
+    }
   }
 
   function initNavIndicator() {
     if (!navLinkEls.length) return;
     setActiveLink(navLinkEls[0]);
+    moveNavIndicator(navLinkEls[0], true);
+
+    navLinkEls.forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      if (href.startsWith("#")) {
+        const target = document.querySelector(href);
+        if (target) {
+          sectionLinkMap.push({ link, target });
+        }
+      }
+    });
 
     navLinkEls.forEach((link) => {
       link.addEventListener("click", () => setActiveLink(link));
     });
+  }
+
+  function syncActiveLinkWithScroll() {
+    if (!sectionLinkMap.length) return;
+
+    const triggerY = window.innerHeight * 0.28;
+    let current = sectionLinkMap[0];
+
+    sectionLinkMap.forEach((item) => {
+      const rect = item.target.getBoundingClientRect();
+      if (rect.top <= triggerY) current = item;
+    });
+
+    const currentActive = document.querySelector(".nav-links a.active");
+    if (current?.link && currentActive !== current.link) {
+      setActiveLink(current.link);
+    }
   }
 
   // Mobile menu toggle
@@ -206,12 +317,16 @@
   function updateNav() {
     if (!nav) return;
     const scrolled = window.scrollY > 80;
+    const activeLink = document.querySelector(".nav-links a.active");
 
     if (scrolled) {
       nav.classList.add("nav--scrolled");
+      if (activeLink) moveNavIndicator(activeLink, !navWasScrolled);
     } else {
       nav.classList.remove("nav--scrolled");
     }
+
+    navWasScrolled = scrolled;
   }
 
   function update() {
@@ -219,6 +334,7 @@
     const bg = getVisibleBackground(active);
     applyTheme(bg);
     updateNav();
+    syncActiveLinkWithScroll();
 
     // Parallax (let op: transform op hero-background kan soms blend-mode beïnvloeden
     // maar omdat nav niet op hero-background zit, is dit meestal ok)
@@ -252,7 +368,14 @@
 
       window.addEventListener("resize", () => {
         initGridImageVars();
+        const activeLink = document.querySelector(".nav-links a.active");
+        if (activeLink) moveNavIndicator(activeLink, true);
         update();
+      });
+
+      window.addEventListener("load", () => {
+        const activeLink = document.querySelector(".nav-links a.active");
+        if (activeLink) moveNavIndicator(activeLink, true);
       });
     } catch (e) {
       // fallback: show all

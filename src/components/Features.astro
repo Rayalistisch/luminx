@@ -1,34 +1,88 @@
+---
+const services = [
+  {
+    icon: "◆",
+    title: "Procesautomation",
+    description: "Automatiseer repetitieve processen en maak je operatie sneller, consistenter en schaalbaar.",
+    href: "/diensten/procesautomation",
+  },
+  {
+    icon: "✦",
+    title: "Web Development",
+    description: "Websites met premium uitstraling, hoge performance en een duidelijke conversiefocus.",
+    href: "/diensten/web-development",
+  },
+  {
+    icon: "●",
+    title: "Strategy",
+    description: "Van positionering tot roadmap: concrete keuzes die je marketing en groei richting geven.",
+    href: "/diensten/strategy",
+  },
+  {
+    icon: "◉",
+    title: "(Web)app Development",
+    description: "Maatwerk webapps voor interne workflows, klantportalen en slimme schaalbare processen.",
+    href: "/diensten/webapp-development",
+  },
+];
+---
+
 <section class="features-section" id="diensten" data-bg-color="#C8E7F5">
   <div class="section-header">
-    <h2>Wat Wij Doen</h2>
-    <p>Niet alleen marketing strategie, wij adviseren jouw hele bedrijfsproces en automatiseren waar kan.</p>
+    <h2>Onze Diensten</h2>
+    <p>Klik op een dienst voor de details. We combineren strategie, technologie en uitvoering in een premium aanpak.</p>
   </div>
 
   <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">✦</div>
-      <h3>Online Marketing</h3>
-      <p>Advertenties online plaatsen is niet moeilijk, keuzes maken aan de hand van de juiste tracking wel.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">◆</div>
-      <h3>Marketing automation</h3>
-      <p>Ga zorgvuldig met je tijd om, veel handelingen kunnen vol geautomatiseerd gebeuren</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">●</div>
-      <h3>Applicatie ontwikkeling</h3>
-      <p>Van het beheer van uw wagenpark, tot complete reservering apps die de workflow efficiente verdubbelen.</p>
-    </div>
+    {services.map((service) => (
+      <a class="feature-card" href={service.href}>
+        <div class="feature-icon" aria-hidden="true">{service.icon}</div>
+        <h3>{service.title}</h3>
+        <p>{service.description}</p>
+        <div class="feature-card-footer">
+          <span class="feature-link-label">Bekijk dienst</span>
+          <span class="feature-hover-indicator" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </span>
+        </div>
+      </a>
+    ))}
   </div>
 </section>
 
-<!-- Kleine “Over” anchor zodat je menu niet dood linkt -->
-<section id="over" data-bg-color="#FEFEFE" style="padding: 8rem 4rem;">
-  <div class="section-header visible" style="opacity:1; transform:none;">
-    <h2>Over LUMINX</h2>
-    <p>We bouwen schaalbare, meetbare marketing en digitale experiences met een premium look & feel.</p>
+<section class="about-section" id="over" data-bg-color="#FEFEFE">
+  <div class="about-content">
+    <span class="about-kicker">Over LUMINX</span>
+    <h2>Creatief, technisch en altijd gericht op schaalbare groei.</h2>
+    <p>
+      LUMINX helpt merken groeien met strategie, automatisering en digitale producten die echt werken.
+      Geen losse acties, maar een doordachte aanpak waarin design, data en operatie samenkomen.
+    </p>
+    <p>
+      We bouwen oplossingen die je team tijd geven, meer grip op resultaat bieden en klaar zijn voor de
+      volgende fase van je bedrijf.
+    </p>
+    <a href="#" class="about-cta" data-overlay-open>Plan een kennismaking</a>
+  </div>
+
+  <div class="about-image-wrap">
+    <img
+      class="about-image"
+      src="/images/luminx-founder.png"
+      alt="Portret van de oprichter van LUMINX"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      class="about-image-blur"
+      src="/images/luminx-founder.png"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
   </div>
 </section>

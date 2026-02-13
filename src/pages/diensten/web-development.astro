@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+---
+
+<BaseLayout
+  title="Web Development | LUMINX"
+  description="Snelle, schaalbare websites met een premium uitstraling en focus op conversie."
+>
+  <ServicePage
+    title="Web Development"
+    icon="✦"
+    intro="We ontwerpen en bouwen websites die merkbeleving combineren met performance. Het resultaat: een platform dat sneller laadt, beter converteert en klaar is voor groei."
+    metrics={[
+      { value: "90+", label: "Core Web Vitals" },
+      { value: "3-6 weken", label: "Naar live" },
+      { value: "Conversion-led", label: "Design + data" },
+    ]}
+    painPoints={[
+      "Een site die visueel oké is maar technisch traag presteert",
+      "Onvoldoende structuur voor SEO en schaalbare content",
+      "Design en development sluiten niet aan op conversiedoelen",
+      "Geen betrouwbare tracking van gedrag en leadkwaliteit"
+    ]}
+    highlights={[
+      "Custom design en frontend met sterke merkidentiteit",
+      "Technische optimalisatie voor performance, SEO en toegankelijkheid",
+      "Modulaire opbouw zodat je website makkelijk doorontwikkelt",
+      "Robuuste analytics en eventtracking voor betere sturing"
+    ]}
+    process={[
+      "Strategische intake op doelen, doelgroep en propositie",
+      "UX-architectuur, wireframes en visuele richting",
+      "Development, QA en validatie op device- en browsertype",
+      "Lancering met meetplan en roadmap voor iteratieve groei"
+    ]}
+    outcomes={[
+      "Snellere website-ervaring en hogere gebruikskwaliteit",
+      "Meer kwalitatieve aanvragen via duidelijke funnels",
+      "Sterkere online merkbeleving over alle pagina's",
+      "Betere beslissingen op basis van betrouwbare data"
+    ]}
+  />
+</BaseLayout>

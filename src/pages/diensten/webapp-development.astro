@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+---
+
+<BaseLayout
+  title="Web App Development | LUMINX"
+  description="Ontwikkeling van webapplicaties die processen versnellen en teams slimmer laten werken."
+>
+  <ServicePage
+    title="(Web)app Development"
+    icon="◉"
+    intro="We ontwikkelen webapplicaties op maat voor teams die processen willen versnellen, fouten willen reduceren en volledige grip nodig hebben op hun operatie."
+    metrics={[
+      { value: "MVP in 6-10 weken", label: "Snelle validatie" },
+      { value: "API-first", label: "Koppelbaar" },
+      { value: "Schaalbaar", label: "Klaar voor groei" },
+    ]}
+    painPoints={[
+      "Kritieke processen draaien op losse tools zonder regie",
+      "Standaardsoftware sluit niet aan op jouw werkwijze",
+      "Data staat verspreid waardoor teams blind opereren",
+      "Wijzigingen kosten te veel tijd door technische schuld"
+    ]}
+    highlights={[
+      "Maatwerk functionaliteiten afgestemd op je operationele proces",
+      "Veilige architectuur met focus op betrouwbaarheid en performance",
+      "Integraties met bestaande systemen en databronnen",
+      "Heldere UI voor efficiënter dagelijks gebruik door teams"
+    ]}
+    process={[
+      "Scope en requirements met focus op waarde en haalbaarheid",
+      "UX-flow, prototype en validatie met eindgebruikers",
+      "Iteratieve ontwikkeling in korte feedbackcycli",
+      "Gefaseerde uitrol met support en release-ritme"
+    ]}
+    outcomes={[
+      "Minder afhankelijkheid van workarounds en losse tools",
+      "Hogere productiviteit in operationele teams",
+      "Betere datakwaliteit en realtime procesinzicht",
+      "Platform dat mee kan schalen met nieuwe processen"
+    ]}
+  />
+</BaseLayout>

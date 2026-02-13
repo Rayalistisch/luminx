@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+---
+
+<BaseLayout
+  title="Procesautomation | LUMINX"
+  description="Automatiseer terugkerende processen en maak je operatie sneller, consistenter en schaalbaar."
+>
+  <ServicePage
+    title="Procesautomation"
+    icon="◆"
+    intro="We brengen repetitieve taken in kaart en bouwen slimme automatiseringen die direct tijd besparen, fouten verminderen en teams meer focus geven op waardevol werk."
+    metrics={[
+      { value: "20-40%", label: "Minder handwerk" },
+      { value: "4-8 weken", label: "Eerste live flow" },
+      { value: "Senior-led", label: "Van analyse tot adoptie" },
+    ]}
+    painPoints={[
+      "Processen draaien op losse Excel-bestanden en e-mailafstemming",
+      "Veel fouten door handmatige overdracht tussen tools",
+      "Geen realtime inzicht in status, doorlooptijd en capaciteit",
+      "Het team verliest uren aan terugkerende operationele taken"
+    ]}
+    highlights={[
+      "Procesaudit met duidelijke bottlenecks en quick wins",
+      "Automatisering van handmatige stappen via no-code of maatwerk",
+      "Slimme integraties zodat data automatisch doorloopt",
+      "Dashboards met stuurinformatie voor operatie en management"
+    ]}
+    process={[
+      "Kickoff en procesmapping met stakeholders uit operatie en management",
+      "Selectie van quick wins, scope-definitie en implementatieplan",
+      "Bouw, test en gefaseerde livegang met fallback scenario's",
+      "Training, documentatie en doorlopende optimalisatie op data"
+    ]}
+    outcomes={[
+      "Kortere doorlooptijden in primaire processen",
+      "Minder operationele fouten en herstelwerk",
+      "Betere voorspelbaarheid van capaciteit en planning",
+      "Meer tijd in teams voor klantwaarde en groei"
+    ]}
+  />
+</BaseLayout>

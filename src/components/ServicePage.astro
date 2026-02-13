@@ -1,0 +1,519 @@
+---
+import Footer from "./Footer.astro";
+import ContactOverlay from "./ContactOverlay.astro";
+import Nav from "./Nav.astro";
+
+interface Metric {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  intro: string;
+  icon?: string;
+  highlights: string[];
+  process: string[];
+  painPoints: string[];
+  outcomes: string[];
+  metrics: Metric[];
+}
+
+const {
+  title,
+  intro,
+  icon = "✦",
+  highlights,
+  process,
+  painPoints,
+  outcomes,
+  metrics,
+} = Astro.props;
+---
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+<Nav basePath="/site" />
+
+<main class="service-page">
+  <section class="service-hero" data-bg-color="#0A0A0A">
+    <div class="service-hero-overlay" aria-hidden="true"></div>
+    <div class="service-hero-grid">
+      <div class="service-hero-content">
+        <a href="/site" class="service-back-link">Terug naar homepage</a>
+        <span class="service-kicker">Specialisme</span>
+        <h1>
+          <span class="service-icon" aria-hidden="true">{icon}</span>
+          {title}
+        </h1>
+        <p>{intro}</p>
+
+        <div class="service-hero-actions">
+          <a href="#contact" class="service-primary-link">Plan kennismaking</a>
+          <a href="#aanpak" class="service-secondary-link">Bekijk aanpak</a>
+        </div>
+
+        <div class="service-metrics">
+          {metrics.map((metric) => (
+            <article class="service-metric">
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <aside class="service-intro-panel">
+        <span>Wat je direct merkt</span>
+        <ul>
+          {outcomes.slice(0, 3).map((outcome) => <li>{outcome}</li>)}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="service-context" data-bg-color="#FEFEFE">
+    <div class="service-context-grid">
+      <article class="service-block">
+        <h2>Waar organisaties op vastlopen</h2>
+        <ul class="service-list service-list--muted">
+          {painPoints.map((point) => <li>{point}</li>)}
+        </ul>
+      </article>
+
+      <article class="service-block service-block--soft">
+        <h2>Wat wij concreet opleveren</h2>
+        <ul class="service-list">
+          {highlights.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="service-approach" id="aanpak" data-bg-color="#F7F9FC">
+    <div class="service-approach-head">
+      <span>Aanpak</span>
+      <h2>Van analyse naar implementatie in duidelijke fases.</h2>
+    </div>
+
+    <div class="service-approach-grid">
+      {process.map((step, index) => (
+        <article class="service-step">
+          <span class="service-step-index">0{index + 1}</span>
+          <p>{step}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="service-outcomes" data-bg-color="#0A0A0A">
+    <div class="service-outcomes-inner">
+      <h2>Resultaten die je mag verwachten</h2>
+      <div class="service-outcome-tags">
+        {outcomes.map((outcome) => <span>{outcome}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+    <div class="cta-content">
+      <h2>Klaar Voor De<br/>Volgende Stap?</h2>
+      <p>We vertalen jouw vraagstuk naar een praktisch plan met duidelijke prioriteiten, scope en resultaat.</p>
+      <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+    </div>
+  </section>
+
+  <Footer />
+  <ContactOverlay />
+</main>
+
+<style>
+  .service-page {
+    background: var(--white);
+  }
+
+  .service-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .service-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.18), transparent 42%),
+      radial-gradient(circle at 82% 24%, rgba(200, 231, 245, 0.14), transparent 38%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+  }
+
+  .service-hero-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .service-back-link {
+    display: inline-flex;
+    margin-bottom: 1.8rem;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.7;
+    font-size: 0.95rem;
+    transition: opacity 0.25s ease;
+  }
+
+  .service-back-link:hover { opacity: 1; }
+
+  .service-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .service-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .service-icon {
+    color: var(--pastel-pink);
+    font-size: 0.68em;
+  }
+
+  .service-hero p {
+    max-width: 700px;
+    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
+    opacity: 0.88;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .service-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .service-primary-link,
+  .service-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.9rem 1.45rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .service-primary-link {
+    color: var(--black);
+    background: var(--white);
+  }
+
+  .service-secondary-link {
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .service-primary-link:hover,
+  .service-secondary-link:hover {
+    transform: translateY(-2px);
+  }
+
+  .service-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    max-width: 720px;
+  }
+
+  .service-metric {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 0;
+    background: transparent;
+  }
+
+  .service-metric strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .service-metric span {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
+
+  .service-intro-panel {
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    background: transparent;
+  }
+
+  .service-intro-panel > span {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-intro-panel ul {
+    list-style: none;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .service-intro-panel li {
+    line-height: 1.55;
+    padding-left: 1rem;
+    position: relative;
+    opacity: 0.92;
+  }
+
+  .service-intro-panel li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+    position: absolute;
+    left: 0;
+    top: 0.62rem;
+  }
+
+  .service-context {
+    padding: 6rem 4rem;
+  }
+
+  .service-context-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  .service-block {
+    border-top: 1px solid rgba(10, 10, 10, 0.14);
+    padding: 1.8rem 0 0;
+    background: transparent;
+  }
+
+  .service-block--soft {
+    border-top-color: rgba(10, 10, 10, 0.28);
+  }
+
+  .service-block h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.85rem;
+    line-height: 1.06;
+    margin-bottom: 1.2rem;
+    max-width: 16ch;
+  }
+
+  .service-list {
+    list-style: none;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .service-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    line-height: 1.65;
+    color: rgba(10, 10, 10, 0.84);
+  }
+
+  .service-list li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--black);
+    position: absolute;
+    left: 0;
+    top: 0.64rem;
+  }
+
+  .service-list--muted li {
+    color: rgba(10, 10, 10, 0.7);
+  }
+
+  .service-list--muted li::before {
+    background: rgba(10, 10, 10, 0.42);
+  }
+
+  .service-approach {
+    padding: 6rem 4rem;
+  }
+
+  .service-approach-head {
+    max-width: 1240px;
+    margin: 0 auto 2rem;
+  }
+
+  .service-approach-head > span {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 0.9rem;
+  }
+
+  .service-approach-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4.3vw, 3.6rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    max-width: 18ch;
+  }
+
+  .service-approach-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(10, 10, 10, 0.16);
+    border-bottom: 1px solid rgba(10, 10, 10, 0.16);
+  }
+
+  .service-step {
+    padding: 1.4rem 1.2rem 1.5rem;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    border-right: 1px solid rgba(10, 10, 10, 0.12);
+  }
+
+  .service-step:last-child {
+    border-right: none;
+  }
+
+  .service-step-index {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    opacity: 0.52;
+  }
+
+  .service-step p {
+    color: rgba(10, 10, 10, 0.8);
+    line-height: 1.7;
+  }
+
+  .service-outcomes {
+    padding: 6rem 4rem;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .service-outcomes-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .service-outcomes h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.4rem;
+  }
+
+  .service-outcome-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .service-outcome-tags span {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0;
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 1100px) {
+    .service-hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-context-grid,
+    .service-approach-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .service-step:nth-child(2n) {
+      border-right: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .service-hero,
+    .service-context,
+    .service-approach,
+    .service-outcomes {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .service-hero {
+      padding-top: 8.6rem;
+      padding-bottom: 4.2rem;
+    }
+
+    .service-metrics,
+    .service-context-grid,
+    .service-approach-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-step {
+      border-right: none;
+      border-top: 1px solid rgba(10, 10, 10, 0.1);
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .service-step:first-child {
+      border-top: none;
+    }
+
+    .service-step {
+      min-height: auto;
+    }
+  }
+</style>

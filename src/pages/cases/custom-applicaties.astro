@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CasePage from "../../components/CasePage.astro";
+---
+
+<BaseLayout
+  title="Case: Custom Applicatie voor Afspraakbeheer | LUMINX"
+  description="Een maatwerk applicatie voor afspraakbeheer die planning en operationele workflow sterk verbeterde."
+>
+  <CasePage
+    title="Custom applicatie voor afspraakbeheer"
+    client="Serviceorganisatie"
+    sector="Operations"
+    intro="We ontwikkelden een maatwerk webapp die het volledige afspraakbeheer centraliseert. Hierdoor kreeg het team realtime overzicht, minder handmatig werk en minder fouten in de planning."
+    imageSrc="/images/repair-plugin.png"
+    imageAlt="Screenshot van de custom applicatie"
+    services={[
+      "(Web)app Development",
+      "Procesautomation",
+      "Integraties"
+    ]}
+    challenge={[
+      "Planning werd verspreid over losse tools en handmatige lijsten",
+      "Veel tijdverlies door dubbel invoerwerk en afstemming",
+      "Gebrek aan realtime status van afspraken en capaciteit",
+      "Hoge foutgevoeligheid bij wijzigingen en no-shows"
+    ]}
+    approach={[
+      "Procesmapping van intake tot uitvoering en terugkoppeling",
+      "Ontwerp van een taakgerichte interface voor planners en uitvoerders",
+      "Bouw van modules voor planning, notificaties en statusupdates",
+      "Koppeling met bestaande databronnen en uitrol per team"
+    ]}
+    results={[
+      "Eenduidige planning en inzicht voor alle betrokken teams",
+      "Minder handmatige handelingen in de dagelijkse operatie",
+      "Snellere afhandeling van wijzigingen en uitzonderingen",
+      "Betere voorspelbaarheid van bezetting en doorlooptijd"
+    ]}
+    metrics={[
+      { value: "-46%", label: "Minder handmatig werk" },
+      { value: "+31%", label: "Snellere afhandeling" },
+      { value: "Realtime", label: "Operationeel inzicht" }
+    ]}
+  />
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+---
+
+<BaseLayout
+  title="Strategy | LUMINX"
+  description="Heldere digitale strategie om marketing, technologie en operatie op elkaar te laten aansluiten."
+>
+  <ServicePage
+    title="Strategy"
+    icon="●"
+    intro="Van groeiplan tot executie: we vertalen ambitie naar een scherpe strategie met concrete keuzes, prioriteiten en KPI's die teams echt kunnen uitvoeren."
+    metrics={[
+      { value: "2-4 weken", label: "Strategie sprint" },
+      { value: "1 roadmap", label: "Met prioriteiten" },
+      { value: "Meetbaar", label: "KPI & governance" },
+    ]}
+    painPoints={[
+      "Veel initiatieven, maar geen heldere focus of prioritering",
+      "Marketing en operatie werken langs elkaar heen",
+      "Budget wordt verdeeld zonder duidelijke impacthypothese",
+      "KPI's zijn niet gekoppeld aan bedrijfsdoelen"
+    ]}
+    highlights={[
+      "Aanscherping van positionering en waardepropositie",
+      "Datagedreven kanaalkeuzes en investeringsprioriteiten",
+      "Roadmap met eigenaarschap, timing en afhankelijkheden",
+      "KPI-framework en ritme voor evaluatie en bijsturing"
+    ]}
+    process={[
+      "Analyse van markt, doelgroep, funnel en huidige prestaties",
+      "Strategische keuzes in focus, proposities en kanaalmix",
+      "Vertaling naar roadmap, planning en teamverantwoordelijkheden",
+      "Inrichting van governance, rapportage en besluitvorming"
+    ]}
+    outcomes={[
+      "Meer focus op initiatieven met aantoonbare impact",
+      "Snellere besluitvorming door duidelijke prioriteiten",
+      "Betere samenwerking tussen marketing, sales en operatie",
+      "Voorspelbare groei door structurele sturing op KPI's"
+    ]}
+  />
+</BaseLayout>
