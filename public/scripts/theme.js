@@ -250,18 +250,18 @@
     indicatorW = targetW;
   }
 
-  function setActiveLink(link) {
+  function setActiveLink(link, options = {}) {
+    const { immediate = false } = options;
+    if (link) moveNavIndicator(link, immediate);
     navLinkEls.forEach((l) => l.classList.remove("active"));
     if (link) {
       link.classList.add("active");
-      moveNavIndicator(link);
     }
   }
 
   function initNavIndicator() {
     if (!navLinkEls.length) return;
-    setActiveLink(navLinkEls[0]);
-    moveNavIndicator(navLinkEls[0], true);
+    setActiveLink(navLinkEls[0], { immediate: true });
 
     navLinkEls.forEach((link) => {
       const href = link.getAttribute("href") || "";
@@ -317,11 +317,15 @@
   function updateNav() {
     if (!nav) return;
     const scrolled = window.scrollY > 80;
-    const activeLink = document.querySelector(".nav-links a.active");
+
+    if (scrolled === navWasScrolled) return;
 
     if (scrolled) {
       nav.classList.add("nav--scrolled");
-      if (activeLink) moveNavIndicator(activeLink, !navWasScrolled);
+      const activeLink = document.querySelector(".nav-links a.active");
+      if (activeLink) {
+        requestAnimationFrame(() => moveNavIndicator(activeLink, true));
+      }
     } else {
       nav.classList.remove("nav--scrolled");
     }
