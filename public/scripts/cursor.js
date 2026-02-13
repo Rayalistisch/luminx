@@ -1,4 +1,9 @@
 (() => {
+  if (window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 1024px)").matches) {
+    document.documentElement.classList.add("no-custom-cursor");
+    return;
+  }
+
   const dot = document.querySelector(".cursor");
   const ring = document.querySelector(".cursor-follower");
   if (!dot || !ring) return;
