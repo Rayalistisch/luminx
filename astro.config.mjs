@@ -6,4 +6,9 @@ export default defineConfig({
   image: {
     domains: ['images.pexels.com'],
   },
+  vite: {
+    build: {
+      cssCodeSplit: false,
+    },
+  },
 });
