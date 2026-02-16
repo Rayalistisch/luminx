@@ -30,7 +30,16 @@
     </div>
 
     <div class="overlay-form-wrap">
-      <form class="overlay-form" id="contact-form">
+      <form
+        class="overlay-form"
+        id="contact-form"
+        method="POST"
+        action="https://formsubmit.co/ajax/hello@luminx.nl"
+      >
+        <input type="hidden" name="_subject" value="Nieuw contactverzoek via luminx.nl" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="form-honeypot" aria-hidden="true" />
         <div class="form-group">
           <label for="contact-name">Naam</label>
           <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="Je naam" />
@@ -51,6 +60,9 @@
           </svg>
         </button>
       </form>
+      <p class="form-error" id="form-error" role="alert">
+        Er ging iets mis bij het verzenden. Probeer het opnieuw of mail naar hello@luminx.nl.
+      </p>
       <div class="form-success" id="form-success">
         <h3>Bedankt!</h3>
         <p>We nemen zo snel mogelijk contact met je op.</p>
@@ -183,6 +195,15 @@
     position: relative;
   }
 
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .form-group label {
     font-family: 'Syne', sans-serif;
     font-size: 0.75rem;
@@ -260,6 +281,17 @@
     display: none;
     text-align: center;
     padding: 4rem 0;
+  }
+
+  .form-error {
+    display: none;
+    margin-top: 1rem;
+    color: #ffb7c7;
+    font-size: 0.95rem;
+  }
+
+  .form-error.is-visible {
+    display: block;
   }
 
   .form-success.is-visible {

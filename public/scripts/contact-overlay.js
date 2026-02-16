@@ -5,6 +5,10 @@
   const closeBtn = overlay.querySelector("[data-overlay-close]");
   const form = document.getElementById("contact-form");
   const success = document.getElementById("form-success");
+  const error = document.getElementById("form-error");
+  const submitBtn = form?.querySelector('button[type="submit"]');
+  const submitText = submitBtn?.querySelector(".form-submit-text");
+  const defaultSubmitLabel = submitText?.textContent || "Verstuur Bericht";
 
   function open() {
     overlay.classList.add("is-open");
@@ -34,23 +38,47 @@
     }
   });
 
-  // Form submit
-  form?.addEventListener("submit", (e) => {
+  // Form submit (real email delivery via FormSubmit)
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (typeof window.luminxTrack === "function") {
-      window.luminxTrack("contact_submit", {
-        form_id: "contact-form",
+    error?.classList.remove("is-visible");
+
+    if (!form.action) return;
+
+    if (submitBtn) submitBtn.disabled = true;
+    if (submitText) submitText.textContent = "Versturen...";
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
       });
-    } else {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "contact_submit",
-        form_id: "contact-form",
-        page_path: window.location.pathname,
-        page_title: document.title,
-      });
+
+      if (!response.ok) throw new Error("Form submit failed");
+
+      if (typeof window.luminxTrack === "function") {
+        window.luminxTrack("contact_submit", {
+          form_id: "contact-form",
+        });
+      } else {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "contact_submit",
+          form_id: "contact-form",
+          page_path: window.location.pathname,
+          page_title: document.title,
+        });
+      }
+
+      form.style.display = "none";
+      success?.classList.add("is-visible");
+    } catch (_err) {
+      error?.classList.add("is-visible");
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      if (submitText) submitText.textContent = defaultSubmitLabel;
     }
-    form.style.display = "none";
-    success?.classList.add("is-visible");
   });
 })();
