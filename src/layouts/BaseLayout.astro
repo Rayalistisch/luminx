@@ -16,7 +16,7 @@ const ogImageUrl = new URL(ogImage, siteOrigin).toString();
 const organizationSchema = {
   "@type": "Organization",
   "@id": `${siteOrigin}/#organization`,
-  name: "LUMINX",
+  name: "LuminX",
   url: siteOrigin,
   email: "hello@luminx.nl",
   logo: `${siteOrigin}/images/luminx-founder.png`,
@@ -26,7 +26,7 @@ const websiteSchema = {
   "@type": "WebSite",
   "@id": `${siteOrigin}/#website`,
   url: siteOrigin,
-  name: "LUMINX",
+  name: "LuminX",
   publisher: {
     "@id": `${siteOrigin}/#organization`,
   },
@@ -66,7 +66,7 @@ const graphSchema = {
     <link rel="canonical" href={canonicalUrl} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="LUMINX" />
+    <meta property="og:site_name" content="LuminX" />
     <meta property="og:locale" content="nl_NL" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -77,9 +77,10 @@ const graphSchema = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="alternate icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
