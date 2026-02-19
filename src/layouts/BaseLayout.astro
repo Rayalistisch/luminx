@@ -5,11 +5,52 @@ const {
   description,
   robots = "index,follow,max-image-preview:large",
   ogImage = "/images/luminx-founder.png",
+  structuredData,
 } = Astro.props;
 
 const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
 const ogImageUrl = new URL(ogImage, siteOrigin).toString();
+const organizationSchema = {
+  "@type": "Organization",
+  "@id": `${siteOrigin}/#organization`,
+  name: "LUMINX",
+  url: siteOrigin,
+  email: "hello@luminx.nl",
+  logo: `${siteOrigin}/images/luminx-founder.png`,
+  sameAs: [],
+};
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${siteOrigin}/#website`,
+  url: siteOrigin,
+  name: "LUMINX",
+  publisher: {
+    "@id": `${siteOrigin}/#organization`,
+  },
+};
+const webpageSchema = {
+  "@type": "WebPage",
+  "@id": `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: title,
+  description,
+  isPartOf: {
+    "@id": `${siteOrigin}/#website`,
+  },
+  about: {
+    "@id": `${siteOrigin}/#organization`,
+  },
+};
+const additionalSchemas = Array.isArray(structuredData)
+  ? structuredData
+  : structuredData
+    ? [structuredData]
+    : [];
+const graphSchema = {
+  "@context": "https://schema.org",
+  "@graph": [organizationSchema, websiteSchema, webpageSchema, ...additionalSchemas],
+};
 ---
 
 <!doctype html>
@@ -61,6 +102,7 @@ const ogImageUrl = new URL(ogImage, siteOrigin).toString();
     <script src="/scripts/theme.js" defer></script>
     <script src="/scripts/contact-overlay.js" defer></script>
     <script src="/scripts/tracking.js" defer></script>
+    <script type="application/ld+json" set:html={JSON.stringify(graphSchema)}></script>
   </head>
 
   <body>

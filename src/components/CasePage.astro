@@ -49,11 +49,32 @@ const localCaseImages: Record<string, ImageMetadata> = {
 
 const resolvedImageSrc = localCaseImages[imageSrc] ?? imageSrc;
 const isRemoteImage = typeof resolvedImageSrc === "string";
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+const imageUrl = imageSrc.startsWith("http")
+  ? imageSrc
+  : new URL(imageSrc, siteOrigin).toString();
+const caseSchema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: title,
+  description: intro,
+  url: canonicalUrl,
+  image: imageUrl,
+  about: services,
+  creator: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
 ---
 
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 <Nav basePath="/site" />
+<script type="application/ld+json" set:html={JSON.stringify(caseSchema)}></script>
 
 <main class="case-page">
   <section class="case-hero" data-bg-color="#0A0A0A">

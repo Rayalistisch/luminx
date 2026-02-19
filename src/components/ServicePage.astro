@@ -29,11 +29,30 @@ const {
   outcomes,
   metrics,
 } = Astro.props;
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: title,
+  description: intro,
+  serviceType: title,
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
 ---
 
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 <Nav basePath="/site" />
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
 
 <main class="service-page">
   <section class="service-hero" data-bg-color="#0A0A0A">
