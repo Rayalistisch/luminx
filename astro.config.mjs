@@ -5,6 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: "https://luminx.nl",
   redirects: {
+    "/site": "/",
     "/diensten/webapp-development": "/diensten/online-marketing",
   },
   image: {

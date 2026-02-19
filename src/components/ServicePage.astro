@@ -51,7 +51,7 @@ const serviceSchema = {
 
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
-<Nav basePath="/site" />
+<Nav />
 <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
 
 <main class="service-page">
@@ -59,7 +59,7 @@ const serviceSchema = {
     <div class="service-hero-overlay" aria-hidden="true"></div>
     <div class="service-hero-grid">
       <div class="service-hero-content">
-        <a href="/site" class="service-back-link">Terug naar homepage</a>
+        <a href="/" class="service-back-link">Terug naar homepage</a>
         <span class="service-kicker">Specialisme</span>
         <h1>
           <span class="service-icon" aria-hidden="true">{icon}</span>
