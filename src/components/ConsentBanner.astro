@@ -102,6 +102,8 @@
     }
 
     function openPreferences() {
+      if (analyticsInput) analyticsInput.checked = true;
+      if (marketingInput) marketingInput.checked = true;
       if (prefWrap) prefWrap.hidden = false;
       if (saveBtn) saveBtn.hidden = false;
       if (customizeBtn) customizeBtn.hidden = true;
@@ -117,6 +119,7 @@
       root.hidden = false;
       banner?.classList.add("is-open");
       if (manageBtn) manageBtn.hidden = true;
+      closePreferences();
     }
 
     function closeBanner() {
@@ -180,7 +183,7 @@
   }
 
   .consent-banner.is-open {
-    display: flex;
+    display: grid;
   }
 
   .consent-banner h3 {
@@ -203,6 +206,10 @@
     gap: 0.6rem;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     padding-top: 0.8rem;
+  }
+
+  .consent-preferences[hidden] {
+    display: none;
   }
 
   .consent-pref-item {
@@ -230,18 +237,26 @@
   }
 
   .consent-actions {
-    display: inline-flex;
-    gap: 0.55rem;
+    display: flex;
+    gap: 0.65rem;
     width: 100%;
     justify-content: flex-end;
+    align-items: center;
   }
 
   .consent-btn {
     border: 1px solid transparent;
     border-radius: 999px;
-    padding: 0.62rem 1rem;
-    font-size: 0.86rem;
+    padding: 0.72rem 1.2rem;
+    min-height: 46px;
+    min-width: 150px;
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
+  }
+
+  .consent-btn[hidden] {
+    display: none;
   }
 
   .consent-btn--ghost {
@@ -253,6 +268,7 @@
   .consent-btn--primary {
     background: #fff;
     color: #0a0a0a;
+    min-width: 180px;
   }
 
   .consent-manage {
