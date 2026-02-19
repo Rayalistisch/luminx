@@ -1,0 +1,199 @@
+<div class="consent-widget" data-consent-widget hidden>
+  <div class="consent-banner" role="dialog" aria-live="polite" aria-label="Cookievoorkeuren">
+    <p>
+      We gebruiken cookies voor analytics en marketing om de website te verbeteren.
+      Kies wat je wilt toestaan.
+    </p>
+    <div class="consent-actions">
+      <button type="button" class="consent-btn consent-btn--ghost" data-consent-reject>Weigeren</button>
+      <button type="button" class="consent-btn consent-btn--primary" data-consent-accept>Accepteren</button>
+    </div>
+  </div>
+
+  <button type="button" class="consent-manage" data-consent-manage hidden>
+    Cookie-instellingen
+  </button>
+</div>
+
+<script is:inline>
+  (() => {
+    const CONSENT_KEY = "luminx_consent_v1";
+    const root = document.querySelector("[data-consent-widget]");
+    if (!root) return;
+
+    const banner = root.querySelector(".consent-banner");
+    const acceptBtn = root.querySelector("[data-consent-accept]");
+    const rejectBtn = root.querySelector("[data-consent-reject]");
+    const manageBtn = root.querySelector("[data-consent-manage]");
+
+    const granted = {
+      ad_storage: "granted",
+      analytics_storage: "granted",
+      ad_user_data: "granted",
+      ad_personalization: "granted",
+      functionality_storage: "granted",
+      security_storage: "granted",
+    };
+
+    const denied = {
+      ad_storage: "denied",
+      analytics_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted",
+    };
+
+    function getStoredConsent() {
+      try {
+        return localStorage.getItem(CONSENT_KEY);
+      } catch (_e) {
+        return null;
+      }
+    }
+
+    function persistConsent(value) {
+      try {
+        localStorage.setItem(CONSENT_KEY, value);
+      } catch (_e) {
+        // ignore storage failures
+      }
+    }
+
+    function updateConsent(mode) {
+      const payload = mode === "granted" ? granted : denied;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag =
+        window.gtag ||
+        function () {
+          window.dataLayer.push(arguments);
+        };
+      window.gtag("consent", "update", payload);
+      window.dataLayer.push({
+        event: "consent_update",
+        consent_mode: mode,
+      });
+    }
+
+    function openBanner() {
+      root.hidden = false;
+      banner?.classList.add("is-open");
+      if (manageBtn) manageBtn.hidden = true;
+    }
+
+    function closeBanner() {
+      banner?.classList.remove("is-open");
+      if (manageBtn) manageBtn.hidden = false;
+    }
+
+    function applyChoice(mode) {
+      persistConsent(mode);
+      updateConsent(mode);
+      closeBanner();
+    }
+
+    const stored = getStoredConsent();
+    root.hidden = false;
+    if (stored === "granted" || stored === "denied") {
+      closeBanner();
+    } else {
+      openBanner();
+    }
+
+    acceptBtn?.addEventListener("click", () => applyChoice("granted"));
+    rejectBtn?.addEventListener("click", () => applyChoice("denied"));
+    manageBtn?.addEventListener("click", openBanner);
+  })();
+</script>
+
+<style>
+  .consent-widget {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 100000;
+    pointer-events: none;
+  }
+
+  .consent-banner {
+    pointer-events: auto;
+    max-width: 700px;
+    margin: 0 auto;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(10, 10, 10, 0.94);
+    color: #fff;
+    padding: 1rem;
+    display: none;
+    gap: 0.85rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .consent-banner.is-open {
+    display: flex;
+  }
+
+  .consent-banner p {
+    margin: 0;
+    max-width: 520px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  .consent-actions {
+    display: inline-flex;
+    gap: 0.55rem;
+    flex-shrink: 0;
+  }
+
+  .consent-btn {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.62rem 1rem;
+    font-size: 0.86rem;
+    cursor: pointer;
+  }
+
+  .consent-btn--ghost {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.34);
+    color: #fff;
+  }
+
+  .consent-btn--primary {
+    background: #fff;
+    color: #0a0a0a;
+  }
+
+  .consent-manage {
+    pointer-events: auto;
+    margin-left: 0;
+    margin-right: auto;
+    border-radius: 999px;
+    border: 1px solid rgba(10, 10, 10, 0.18);
+    background: rgba(255, 255, 255, 0.95);
+    color: #0a0a0a;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.78rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+  }
+
+  @media (max-width: 768px) {
+    .consent-banner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .consent-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .consent-btn {
+      width: 100%;
+    }
+  }
+</style>
