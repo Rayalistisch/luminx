@@ -470,37 +470,9 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
       transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       z-index: 0;
-      filter: saturate(1.05) contrast(1.02);
     }
 
     .grid-item:hover .grid-item-image { transform: scale(1.05); }
-
-    /* ===== MULTI-COLOR complementary effect on images =====
-       This duplicates the SAME image as a background layer and applies hue-rotate(180deg),
-       which flips every pixel to its complementary hue.
-    */
-    .grid-item::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index: 1;
-      pointer-events:none;
-
-      background-image: var(--img-url);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-
-      opacity: var(--img-comp-opacity);
-      mix-blend-mode: var(--img-comp-mode);
-      filter: hue-rotate(180deg) saturate(1.25) contrast(1.05);
-
-      transition: opacity .45s ease;
-    }
-
-    .grid-item:hover::after{
-      opacity: calc(var(--img-comp-opacity) + 0.10);
-    }
 
     .grid-item-overlay {
       position: absolute;
@@ -513,7 +485,7 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
       align-items: flex-end;
       justify-content: space-between;
       padding: 3rem;
-      z-index: 2; /* always above tint */
+      z-index: 2;
     }
 
     .grid-item-content { color: var(--white); }
@@ -654,33 +626,43 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
     }
 
     .feature-card-footer {
-      margin-top: 1.5rem;
+      margin-top: 1.65rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      border: 1px solid rgba(10, 10, 10, 0.12);
+      border-radius: 999px;
+      padding: 0.36rem 0.42rem 0.36rem 1rem;
+      background: rgba(255, 255, 255, 0.72);
+      transition: border-color 0.25s ease, background 0.25s ease;
     }
 
     .feature-hover-indicator {
-      width: 50px;
-      height: 50px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      border: 1px solid rgba(10, 10, 10, 0.25);
-      color: var(--black);
+      border: 1px solid rgba(10, 10, 10, 0.95);
+      color: var(--white);
+      background: var(--black);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      opacity: 0;
-      transform: translateY(10px) scale(0.92);
+      opacity: 1;
+      transform: translateY(0) scale(1);
       transition: opacity 0.28s ease, transform 0.28s ease, border-color 0.28s ease, background 0.28s ease;
     }
 
     .feature-card:hover .feature-hover-indicator {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      border-color: rgba(10, 10, 10, 0.5);
-      background: rgba(255, 255, 255, 0.8);
+      border-color: rgba(10, 10, 10, 1);
+      background: rgba(10, 10, 10, 0.94);
+      transform: translateX(2px);
+    }
+
+    .feature-card:hover .feature-card-footer {
+      border-color: rgba(10, 10, 10, 0.2);
+      background: rgba(255, 255, 255, 0.9);
     }
 
     /* About section */
@@ -783,7 +765,6 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
       object-fit: contain;
       object-position: 50% 50%;
       transform: scale(1.02);
-      filter: saturate(1.02) contrast(1.02);
       image-rendering: -webkit-optimize-contrast;
     }
 
@@ -1405,15 +1386,20 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
         line-height: 1.03;
       }
       .features-grid {
-        max-width: 560px;
+        max-width: 430px;
         margin-left: auto;
         margin-right: auto;
         gap: 1.35rem;
       }
+      .features-section .section-header {
+        max-width: 430px;
+        margin-left: auto;
+        margin-right: auto;
+      }
       .feature-card {
         margin-left: auto;
         margin-right: auto;
-        width: 100%;
+        width: min(100%, 430px);
         padding: 1.7rem;
       }
       .feature-icon {
@@ -1425,7 +1411,43 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
         text-align: center;
       }
       .feature-card-footer {
-        justify-content: center;
+        justify-content: space-between;
+        margin-top: 1.25rem;
+        padding-left: 0.95rem;
+      }
+      .about-section {
+        position: relative;
+        overflow: hidden;
+      }
+      .about-content {
+        position: relative;
+        z-index: 4;
+        max-width: none;
+      }
+      .about-image-wrap {
+        position: absolute;
+        inset: 0;
+        min-height: 100%;
+        z-index: 1;
+        opacity: 0.28;
+        pointer-events: none;
+      }
+      .about-image-wrap::after {
+        inset: 0;
+        height: auto;
+        background: linear-gradient(
+          180deg,
+          rgba(254, 254, 254, 0.92) 0%,
+          rgba(254, 254, 254, 0.78) 42%,
+          rgba(254, 254, 254, 0.9) 100%
+        );
+      }
+      .about-image {
+        object-position: 62% 52%;
+        transform: scale(1.14);
+      }
+      .about-image-blur {
+        display: none;
       }
       .stats-grid { grid-template-columns: 1fr; }
       body { cursor: auto; }
