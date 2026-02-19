@@ -1,12 +1,30 @@
 <div class="consent-widget" data-consent-widget hidden>
   <div class="consent-banner" role="dialog" aria-live="polite" aria-label="Cookievoorkeuren">
-    <p>
-      We gebruiken cookies voor analytics en marketing om de website te verbeteren.
-      Kies wat je wilt toestaan.
-    </p>
+    <h3>Deze website gebruikt cookies</h3>
+    <p>We gebruiken cookies voor analytics en marketing om de website te verbeteren.</p>
+
+    <div class="consent-preferences" data-consent-preferences hidden>
+      <label class="consent-pref-item">
+        <span>
+          <strong>Analytics</strong>
+          <small>Helpt ons prestaties en gebruik te meten.</small>
+        </span>
+        <input type="checkbox" data-consent-analytics />
+      </label>
+
+      <label class="consent-pref-item">
+        <span>
+          <strong>Marketing</strong>
+          <small>Voor advertentie-metingen en personalisatie.</small>
+        </span>
+        <input type="checkbox" data-consent-marketing />
+      </label>
+    </div>
+
     <div class="consent-actions">
-      <button type="button" class="consent-btn consent-btn--ghost" data-consent-reject>Weigeren</button>
-      <button type="button" class="consent-btn consent-btn--primary" data-consent-accept>Accepteren</button>
+      <button type="button" class="consent-btn consent-btn--ghost" data-consent-customize>Aanpassen</button>
+      <button type="button" class="consent-btn consent-btn--ghost" data-consent-save hidden>Opslaan</button>
+      <button type="button" class="consent-btn consent-btn--primary" data-consent-accept>Alles toestaan</button>
     </div>
   </div>
 
@@ -23,45 +41,48 @@
 
     const banner = root.querySelector(".consent-banner");
     const acceptBtn = root.querySelector("[data-consent-accept]");
-    const rejectBtn = root.querySelector("[data-consent-reject]");
+    const customizeBtn = root.querySelector("[data-consent-customize]");
+    const saveBtn = root.querySelector("[data-consent-save]");
+    const prefWrap = root.querySelector("[data-consent-preferences]");
+    const analyticsInput = root.querySelector("[data-consent-analytics]");
+    const marketingInput = root.querySelector("[data-consent-marketing]");
     const manageBtn = root.querySelector("[data-consent-manage]");
-
-    const granted = {
-      ad_storage: "granted",
-      analytics_storage: "granted",
-      ad_user_data: "granted",
-      ad_personalization: "granted",
-      functionality_storage: "granted",
-      security_storage: "granted",
-    };
-
-    const denied = {
-      ad_storage: "denied",
-      analytics_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
-      functionality_storage: "granted",
-      security_storage: "granted",
-    };
 
     function getStoredConsent() {
       try {
-        return localStorage.getItem(CONSENT_KEY);
+        const raw = localStorage.getItem(CONSENT_KEY);
+        if (!raw) return null;
+        if (raw === "granted") return { analytics: true, marketing: true };
+        if (raw === "denied") return { analytics: false, marketing: false };
+        return JSON.parse(raw);
       } catch (_e) {
         return null;
       }
     }
 
-    function persistConsent(value) {
+    function persistConsent(prefs) {
       try {
-        localStorage.setItem(CONSENT_KEY, value);
+        localStorage.setItem(CONSENT_KEY, JSON.stringify(prefs));
       } catch (_e) {
         // ignore storage failures
       }
     }
 
-    function updateConsent(mode) {
-      const payload = mode === "granted" ? granted : denied;
+    function toPayload(prefs) {
+      const analytics = prefs?.analytics ? "granted" : "denied";
+      const marketing = prefs?.marketing ? "granted" : "denied";
+      return {
+        ad_storage: marketing,
+        analytics_storage: analytics,
+        ad_user_data: marketing,
+        ad_personalization: marketing,
+        functionality_storage: "granted",
+        security_storage: "granted",
+      };
+    }
+
+    function updateConsent(prefs, mode) {
+      const payload = toPayload(prefs);
       window.dataLayer = window.dataLayer || [];
       window.gtag =
         window.gtag ||
@@ -75,6 +96,23 @@
       });
     }
 
+    function syncInputs(prefs) {
+      if (analyticsInput) analyticsInput.checked = !!prefs?.analytics;
+      if (marketingInput) marketingInput.checked = !!prefs?.marketing;
+    }
+
+    function openPreferences() {
+      if (prefWrap) prefWrap.hidden = false;
+      if (saveBtn) saveBtn.hidden = false;
+      if (customizeBtn) customizeBtn.hidden = true;
+    }
+
+    function closePreferences() {
+      if (prefWrap) prefWrap.hidden = true;
+      if (saveBtn) saveBtn.hidden = true;
+      if (customizeBtn) customizeBtn.hidden = false;
+    }
+
     function openBanner() {
       root.hidden = false;
       banner?.classList.add("is-open");
@@ -84,25 +122,37 @@
     function closeBanner() {
       banner?.classList.remove("is-open");
       if (manageBtn) manageBtn.hidden = false;
+      closePreferences();
     }
 
-    function applyChoice(mode) {
-      persistConsent(mode);
-      updateConsent(mode);
+    function applyChoice(prefs, mode) {
+      persistConsent(prefs);
+      updateConsent(prefs, mode);
       closeBanner();
     }
 
-    const stored = getStoredConsent();
+    const stored = getStoredConsent() || { analytics: false, marketing: false };
+    syncInputs(stored);
     root.hidden = false;
-    if (stored === "granted" || stored === "denied") {
+    if (getStoredConsent()) {
       closeBanner();
     } else {
       openBanner();
     }
 
-    acceptBtn?.addEventListener("click", () => applyChoice("granted"));
-    rejectBtn?.addEventListener("click", () => applyChoice("denied"));
-    manageBtn?.addEventListener("click", openBanner);
+    acceptBtn?.addEventListener("click", () => applyChoice({ analytics: true, marketing: true }, "granted"));
+    customizeBtn?.addEventListener("click", openPreferences);
+    saveBtn?.addEventListener("click", () => {
+      const prefs = {
+        analytics: !!analyticsInput?.checked,
+        marketing: !!marketingInput?.checked,
+      };
+      applyChoice(prefs, "custom");
+    });
+    manageBtn?.addEventListener("click", () => {
+      syncInputs(getStoredConsent() || { analytics: false, marketing: false });
+      openBanner();
+    });
   })();
 </script>
 
@@ -126,27 +176,64 @@
     color: #fff;
     padding: 1rem;
     display: none;
-    gap: 0.85rem;
-    align-items: center;
-    justify-content: space-between;
+    gap: 0.9rem;
   }
 
   .consent-banner.is-open {
     display: flex;
   }
 
+  .consent-banner h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-family: "Syne", sans-serif;
+    color: #fff;
+  }
+
   .consent-banner p {
     margin: 0;
-    max-width: 520px;
+    max-width: 640px;
     font-size: 0.92rem;
     line-height: 1.5;
     opacity: 0.9;
   }
 
+  .consent-preferences {
+    display: grid;
+    gap: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 0.8rem;
+  }
+
+  .consent-pref-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .consent-pref-item strong {
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  .consent-pref-item small {
+    display: block;
+    opacity: 0.76;
+    font-size: 0.78rem;
+    margin-top: 0.12rem;
+  }
+
+  .consent-pref-item input {
+    width: 18px;
+    height: 18px;
+  }
+
   .consent-actions {
     display: inline-flex;
     gap: 0.55rem;
-    flex-shrink: 0;
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .consent-btn {
@@ -195,13 +282,12 @@
 
   @media (max-width: 768px) {
     .consent-banner {
-      flex-direction: column;
       align-items: stretch;
     }
     .consent-actions {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
     .consent-btn {
       width: 100%;
