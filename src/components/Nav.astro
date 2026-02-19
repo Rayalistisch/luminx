@@ -54,6 +54,19 @@ const toSection = (id: string) => `${basePath}#${id}`;
       </li>
       <li class="nav-active-indicator" aria-hidden="true"></li>
     </ul>
+    <div class="nav-mobile-pill-actions">
+      <a href="#" class="nav-mobile-cta" data-overlay-open aria-label="Contact">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="7" y1="17" x2="17" y2="7"/>
+          <polyline points="7 7 17 7 17 17"/>
+        </svg>
+      </a>
+
+      <button class="nav-burger" aria-label="Menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
 
   <a href="#" class="nav-cta" data-overlay-open>
@@ -65,11 +78,6 @@ const toSection = (id: string) => `${basePath}#${id}`;
       </svg>
     </span>
   </a>
-
-  <button class="nav-burger" aria-label="Menu">
-    <span></span>
-    <span></span>
-  </button>
 
   <div class="mobile-menu">
     <ul class="mobile-menu-links">

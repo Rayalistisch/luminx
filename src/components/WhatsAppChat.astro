@@ -1,0 +1,189 @@
+---
+const whatsappNumber = "31613698596";
+---
+
+<div class="wa-widget" data-wa-widget>
+  <button class="wa-fab" type="button" aria-label="Open WhatsApp chat" data-wa-open>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19.05 4.94A9.9 9.9 0 0 0 12.02 2C6.5 2 2 6.49 2 12a9.9 9.9 0 0 0 1.36 5.01L2 22l5.13-1.34A9.9 9.9 0 0 0 12.02 22c5.52 0 10.01-4.49 10.01-10a9.93 9.93 0 0 0-2.98-7.06Zm-7.03 15.4a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.04.8.81-2.97-.2-.31A8.29 8.29 0 0 1 3.7 12c0-4.58 3.73-8.3 8.32-8.3a8.3 8.3 0 0 1 8.3 8.3 8.31 8.31 0 0 1-8.3 8.34Zm4.55-6.22c-.25-.12-1.48-.73-1.71-.81-.23-.09-.4-.12-.57.12-.17.24-.65.81-.8.98-.15.17-.3.18-.56.06-.25-.13-1.08-.4-2.05-1.26-.76-.68-1.28-1.52-1.43-1.77-.15-.24-.02-.37.11-.5.12-.12.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.12-.57-1.37-.78-1.88-.21-.5-.43-.43-.57-.44h-.49c-.17 0-.45.06-.68.32-.23.25-.88.86-.88 2.09 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.52.6.19 1.14.16 1.57.1.48-.07 1.48-.6 1.69-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29Z"></path>
+    </svg>
+  </button>
+
+  <section class="wa-panel" aria-label="WhatsApp chat" data-wa-panel>
+    <header class="wa-header">
+      <strong>Stuur ons een WhatsApp</strong>
+      <button type="button" aria-label="Sluit chatvenster" data-wa-close>&times;</button>
+    </header>
+    <div class="wa-body">
+      <p>Stel je vraag, wij reageren zo snel mogelijk.</p>
+      <textarea
+        rows="3"
+        placeholder="Typ je bericht..."
+        data-wa-message
+      ></textarea>
+      <button class="wa-send" type="button" data-wa-send>Versturen</button>
+    </div>
+  </section>
+</div>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-wa-widget]");
+    if (!root) return;
+
+    const panel = root.querySelector("[data-wa-panel]");
+    const openBtn = root.querySelector("[data-wa-open]");
+    const closeBtn = root.querySelector("[data-wa-close]");
+    const sendBtn = root.querySelector("[data-wa-send]");
+    const input = root.querySelector("[data-wa-message]");
+    const waNumber = {JSON.stringify(whatsappNumber)};
+    const fallbackMessage = "Hi LUMINX, ik wil graag meer informatie.";
+
+    const openPanel = () => {
+      panel?.classList.add("is-open");
+      input?.focus();
+    };
+
+    const closePanel = () => {
+      panel?.classList.remove("is-open");
+    };
+
+    const sendToWhatsapp = () => {
+      const raw = (input?.value || "").trim();
+      const text = encodeURIComponent(raw || fallbackMessage);
+      const url = `https://wa.me/${waNumber}?text=${text}`;
+
+      if (typeof window.luminxTrack === "function") {
+        window.luminxTrack("whatsapp_click", {
+          source: "floating_widget",
+        });
+      }
+
+      window.open(url, "_blank", "noopener,noreferrer");
+      closePanel();
+      if (input) input.value = "";
+    };
+
+    openBtn?.addEventListener("click", openPanel);
+    closeBtn?.addEventListener("click", closePanel);
+    sendBtn?.addEventListener("click", sendToWhatsapp);
+
+    input?.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendToWhatsapp();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .wa-widget {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 99999;
+  }
+
+  .wa-fab {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 0;
+    background: #25d366;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+  }
+
+  .wa-fab svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+  }
+
+  .wa-panel {
+    position: absolute;
+    right: 0;
+    bottom: 72px;
+    width: min(320px, calc(100vw - 2rem));
+    background: #fff;
+    color: #0a0a0a;
+    border-radius: 16px;
+    border: 1px solid rgba(10, 10, 10, 0.08);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+
+  .wa-panel.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .wa-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 0.9rem;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+    font-family: "Syne", sans-serif;
+  }
+
+  .wa-header button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .wa-body {
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .wa-body p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: rgba(10, 10, 10, 0.76);
+  }
+
+  .wa-body textarea {
+    width: 100%;
+    resize: none;
+    border: 1px solid rgba(10, 10, 10, 0.15);
+    border-radius: 10px;
+    padding: 0.65rem 0.72rem;
+    font: inherit;
+    color: inherit;
+  }
+
+  .wa-send {
+    border: 0;
+    border-radius: 999px;
+    background: #0a0a0a;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.72rem 1rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .wa-widget {
+      right: 1rem;
+      bottom: 1rem;
+    }
+    .wa-fab {
+      width: 54px;
+      height: 54px;
+    }
+  }
+</style>
