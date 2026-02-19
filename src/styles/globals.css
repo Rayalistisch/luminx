@@ -1432,13 +1432,84 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
         border-color: var(--pastel-pink);
       }
 
+      .cta-content,
+      .service-hero-content,
+      .case-hero-content {
+        min-width: 0;
+      }
+
+      .cta-content h2,
+      .cta-content p {
+        overflow-wrap: anywhere;
+      }
+
+      .section-header h2,
+      .service-hero h1,
+      .case-hero h1,
+      .cta-content h2 {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .section-header h2 {
+        font-size: clamp(2rem, 9vw, 2.8rem);
+        line-height: 1.06;
+      }
+
+      .cta-button,
+      .about-cta,
+      .footer-contact-cta,
+      .mobile-menu-cta,
+      .service-primary-link,
+      .service-secondary-link {
+        box-sizing: border-box;
+        max-width: 100%;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .cta-button {
+        width: min(100%, 22rem);
+        padding: 1rem 1.6rem;
+        text-align: center;
+      }
+
+      .image-grid {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 2rem 0.25rem;
+        scroll-padding-left: 2rem;
+        scroll-padding-right: 2rem;
+      }
+
+      .image-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .grid-item {
+        flex: 0 0 78vw;
+        min-width: 78vw;
+        scroll-snap-align: start;
+      }
+
+      .grid-item.large,
+      .grid-item.medium {
+        height: min(62vw, 440px);
+        grid-column: auto;
+      }
+
       .section-header, .image-grid, .features-section, .stats-section, .cta-section, footer {
         padding-left: 2rem;
         padding-right: 2rem;
       }
       .cta-content h2 {
-        font-size: clamp(2.2rem, 11vw, 3.2rem);
-        line-height: 1.03;
+        font-size: clamp(2rem, 9.5vw, 2.8rem);
+        line-height: 1.06;
       }
       .features-grid {
         max-width: 430px;
