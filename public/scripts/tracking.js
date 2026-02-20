@@ -22,7 +22,18 @@
     ".about-cta",
     ".service-primary-link",
     ".service-secondary-link",
+    ".videocall-cta-button",
   ].join(",");
+
+  // Track videocall link clicks in the contact overlay
+  document.addEventListener("click", (event) => {
+    const videocallLink = event.target?.closest?.('a[href="/videocall"]');
+    if (!videocallLink) return;
+    pushEvent("videocall_click", {
+      cta_label: "Plan een videocall",
+      cta_section: "contact-overlay",
+    });
+  });
 
   document.addEventListener("click", (event) => {
     const target = event.target?.closest?.(ctaSelector);

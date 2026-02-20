@@ -26,6 +26,7 @@
           </svg>
           <span>+31 6 1234 5678</span>
         </a>
+        <div id="overlay-calendar-button-slot"></div>
       </div>
     </div>
 
@@ -50,7 +51,7 @@
         </div>
         <div class="form-group">
           <label for="contact-message">Bericht</label>
-          <textarea id="contact-message" name="message" rows="4" required placeholder="Vertel ons over je project..."></textarea>
+          <textarea id="contact-message" name="message" rows="3" required placeholder="Vertel ons over je project..."></textarea>
         </div>
         <button type="submit" class="form-submit">
           <span class="form-submit-text">Verstuur Bericht</span>
@@ -71,6 +72,74 @@
   </div>
 </div>
 
+<script is:inline>
+  (function () {
+    var calendarUrl = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0KnPaRiH37bvNSB0ta7HrOtyHk8wT8EUaAMULRWJcV8kywKhl-TEVeRu1YsOLCFd3vzfBt6dve?gv=true";
+    var tries = 0;
+
+    function closeOverlay() {
+      var overlay = document.getElementById("contact-overlay");
+      if (!overlay) return;
+      overlay.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    // Watch for Google's popup iframe and boost its z-index above the overlay
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        m.addedNodes.forEach(function (node) {
+          if (node.nodeType !== 1) return;
+          // Google scheduling popup: iframe or container with iframe
+          var iframe = node.tagName === "IFRAME" ? node : node.querySelector && node.querySelector("iframe");
+          if (iframe && iframe.src && iframe.src.indexOf("calendar.google.com") !== -1) {
+            var target = iframe.parentElement && iframe.parentElement !== document.body ? iframe.parentElement : iframe;
+            target.style.setProperty("z-index", "99999999", "important");
+          }
+        });
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    function initSchedulingButton() {
+      var slot = document.getElementById("overlay-calendar-button-slot");
+      if (!slot || slot.dataset.initialized === "true") return;
+      if (!window.calendar || !window.calendar.schedulingButton) return;
+
+      window.calendar.schedulingButton.load({
+        url: calendarUrl,
+        color: "#A79B8E",
+        label: "Plan een videocall",
+        target: slot,
+      });
+
+      slot.dataset.initialized = "true";
+      slot.classList.add("is-ready");
+
+      // Close overlay when the Google button is clicked
+      slot.addEventListener("click", function () {
+        closeOverlay();
+      }, true);
+    }
+
+    function initWithRetry() {
+      var timer = window.setInterval(function () {
+        tries += 1;
+        initSchedulingButton();
+        var slot = document.getElementById("overlay-calendar-button-slot");
+        if ((slot && slot.dataset.initialized === "true") || tries >= 40) {
+          window.clearInterval(timer);
+        }
+      }, 100);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initWithRetry);
+    } else {
+      initWithRetry();
+    }
+  })();
+</script>
+
 <style>
   .overlay {
     position: fixed;
@@ -80,8 +149,7 @@
     color: var(--white);
     transform: translateY(-100%);
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
   }
 
   .overlay.is-open {
@@ -114,9 +182,9 @@
   .overlay-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    min-height: 100vh;
-    padding: 8rem 6rem 4rem;
+    gap: 4rem;
+    height: 100vh;
+    padding: 5.5rem 6rem 3rem;
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -130,16 +198,16 @@
     text-transform: uppercase;
     opacity: 0.4;
     display: block;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .overlay-title {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.03em;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     background: linear-gradient(135deg, var(--white) 0%, var(--pastel-pink) 50%, var(--pastel-blue) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -148,18 +216,18 @@
 
   .overlay-desc {
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 300;
-    line-height: 1.7;
+    line-height: 1.6;
     opacity: 0.6;
     max-width: 400px;
-    margin-bottom: 3rem;
+    margin-bottom: 1.75rem;
   }
 
   .overlay-details {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .overlay-detail {
@@ -184,11 +252,43 @@
     opacity: 0.5;
   }
 
+  #overlay-calendar-button-slot {
+    min-height: 28px;
+  }
+
+  #overlay-calendar-button-slot.is-ready {
+    min-height: 0;
+  }
+
+  #overlay-calendar-button-slot :is(button, a) {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 1rem;
+    color: var(--white) !important;
+    text-decoration: none !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    opacity: 0.7;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  #overlay-calendar-button-slot :is(button, a):hover {
+    opacity: 1;
+  }
+
   /* Form */
   .overlay-form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.25rem;
   }
 
   .form-group {
@@ -212,7 +312,7 @@
     text-transform: uppercase;
     opacity: 0.35;
     display: block;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 
   .form-group input,
@@ -225,7 +325,7 @@
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     font-weight: 300;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0;
     outline: none;
     transition: border-color 0.3s ease;
   }
@@ -252,14 +352,14 @@
     background: transparent;
     color: var(--white);
     border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 1.2rem 2.5rem;
+    padding: 1rem 2.2rem;
     border-radius: 50px;
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
     transition: border-color 0.4s ease, background 0.4s ease;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     align-self: flex-start;
   }
 
@@ -319,16 +419,23 @@
   /* Responsive */
   @media (max-width: 1024px) {
     .overlay-grid {
-      padding: 8rem 4rem 4rem;
-      gap: 4rem;
+      padding: 5rem 4rem 3rem;
+      gap: 3rem;
     }
   }
 
   @media (max-width: 768px) {
+    .overlay {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     .overlay-grid {
       grid-template-columns: 1fr;
-      padding: 6rem 2rem 3rem;
-      gap: 3rem;
+      height: auto;
+      min-height: 100vh;
+      padding: 5rem 2rem 3rem;
+      gap: 2.5rem;
       align-items: start;
     }
 
@@ -340,12 +447,12 @@
     }
 
     .overlay-title {
-      font-size: clamp(2.5rem, 10vw, 3.5rem);
+      font-size: clamp(2.2rem, 10vw, 3rem);
     }
 
     .overlay-desc {
-      font-size: 1rem;
-      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
     }
   }
 </style>
