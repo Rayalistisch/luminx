@@ -272,13 +272,15 @@ const caseSchema = {
     border-radius: 20px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    min-height: 360px;
+    height: 360px;
   }
 
   .case-hero-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
+    display: block;
   }
 
   .case-content,
@@ -369,7 +371,7 @@ const caseSchema = {
     }
 
     .case-hero-image-wrap {
-      min-height: 260px;
+      height: 260px;
     }
   }
 </style>
