@@ -382,9 +382,65 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
       letter-spacing: 0.02em;
     }
 
+    .hero-rainbow-btn {
+      --r1: #FFD6E8;
+      --r2: #E5D4ED;
+      --r3: #C8E7F5;
+      --r4: #D4F4DD;
+      --r5: #FFE5D4;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      border: 1.5px solid transparent;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      background:
+        linear-gradient(#121213, #121213),
+        linear-gradient(#121213 50%, rgba(18,18,19,0.6) 80%, rgba(18,18,19,0)),
+        linear-gradient(90deg, var(--r1), var(--r5), var(--r3), var(--r4), var(--r2));
+      background-size: 200%;
+      background-origin: border-box;
+      background-clip: padding-box, border-box, border-box;
+      animation: heroRainbow 4s infinite linear, fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-rainbow-btn::before {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 40%;
+      background: linear-gradient(90deg, var(--r1), var(--r5), var(--r3), var(--r4), var(--r2));
+      background-size: 200%;
+      filter: blur(14px);
+      opacity: 0.45;
+      animation: heroRainbow 4s infinite linear;
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .hero-rainbow-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    @keyframes heroRainbow {
+      0% { background-position: 0; }
+      100% { background-position: 200%; }
+    }
+
     .scroll-indicator {
       position: absolute;
-      bottom: 3rem;
+      bottom: 0.5rem;
       left: 50%;
       transform: translateX(-50%);
       animation: bounce 2s infinite;
@@ -394,10 +450,10 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
     .scroll-indicator span {
       display: block;
       width: 1px;
-      height: 60px;
+      height: 30px;
       background: var(--white);
       opacity: 0.5;
-      margin: 0 auto 0.5rem;
+      margin: 0 auto 0.4rem;
     }
 
     /* Image Grid Section */
