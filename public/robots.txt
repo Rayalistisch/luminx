@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://luminx.nl/sitemap.xml
+Sitemap: https://luminx.nl/sitemap-index.xml
