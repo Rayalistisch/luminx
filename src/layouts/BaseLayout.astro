@@ -166,6 +166,18 @@ const graphSchema = {
     <script src="/scripts/theme.js" defer></script>
     <script src="/scripts/contact-overlay.js" defer></script>
     <script src="/scripts/tracking.js" defer></script>
+    <script>
+      import Lenis from 'lenis';
+      const lenis = new Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify(graphSchema)}></script>
   </head>
 

@@ -1,0 +1,665 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "SEO – Zoekmachineoptimalisatie",
+  description: "Hogere organische posities via technische SEO, contentstrategie en linkbuilding die duurzaam verkeer en leads opleveren.",
+  serviceType: "Search Engine Optimization",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const specialismen = [
+  {
+    icon: "◎",
+    title: "Technische SEO",
+    description: "Crawling, indexering, Core Web Vitals en sitespeed: we lossen de technische blokkades op die Google ervan weerhouden jouw site te ranken.",
+  },
+  {
+    icon: "◈",
+    title: "Zoekwoordstrategie",
+    description: "Intent-based zoekwoordonderzoek dat focust op de zoekopdrachten die daadwerkelijk leads en omzet opleveren, niet alleen op volume.",
+  },
+  {
+    icon: "◉",
+    title: "Content SEO",
+    description: "Contentstrategie en -productie die aansluit op elke fase van de klantreis, van oriëntatie tot aankoop.",
+  },
+  {
+    icon: "◌",
+    title: "Linkbuilding",
+    description: "Autoriteitsopbouw via kwalitatieve publicaties, gastartikelen en digitale PR die duurzame rankings ondersteunen.",
+  },
+  {
+    icon: "✦",
+    title: "Lokale SEO",
+    description: "Zichtbaarheid in de regio via Google Business Profile, lokale citaties en geo-gerichte contentoptimalisatie.",
+  },
+  {
+    icon: "●",
+    title: "E-commerce SEO",
+    description: "Categoriestructuur, productpagina-optimalisatie en schema markup die organisch verkeer direct omzetten in conversies.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Duurzame traffic zonder doorlopend advertentiebudget",
+    body: "Organisch verkeer blijft komen ook als je stopt met investeren, in tegenstelling tot SEA waarbij de stroom direct ophoudt. Eenmaal goed gerankt, lever je elke dag gratis bezoekers.",
+  },
+  {
+    title: "Technische expertise die intern zelden aanwezig is",
+    body: "SEO raakt aan crawling, sitespeed, serverconfiguratie, JavaScript rendering en Core Web Vitals. Een specialist brengt de technische diepgang die de meeste marketing- of webteams intern missen.",
+  },
+  {
+    title: "Data-gedreven beslissingen op rankings en conversies",
+    body: "We rapporteren niet alleen op posities, maar op verkeer, conversies en omzet. Zo weet je precies welke SEO-inspanningen daadwerkelijk bijdragen aan jouw bedrijfsdoelen.",
+  },
+  {
+    title: "Geïntegreerde aanpak: techniek, content én autoriteit",
+    body: "De drie pijlers van SEO werken als een systeem. Techniek zorgt voor indexeerbaarheid, content voor relevantie, en linkbuilding voor autoriteit. We optimaliseren alle drie in samenhang.",
+  },
+  {
+    title: "Schaalbaar zonder extra headcount",
+    body: "Je hebt een volledig SEO-team ter beschikking, technisch specialist, contentstrateeg en linkbuilder, zonder zelf te werven, in te werken of capaciteit te managen.",
+  },
+];
+
+const faq = [
+  {
+    q: "Hoe lang duurt het voor SEO resultaat zichtbaar is?",
+    a: "De eerste meetbare verbeteringen zijn doorgaans zichtbaar na drie tot zes maanden. Technische fixes kunnen sneller effect hebben, maar contentposities en autoriteitsopbouw vragen meer tijd. Na zes tot twaalf maanden zie je doorgaans substantiële groei in organisch verkeer en rankings.",
+  },
+  {
+    q: "Wat kost SEO uitbesteden?",
+    a: "De kosten zijn afhankelijk van de scope: technische complexiteit, het aantal pagina's, de concurrentie in jouw markt en of we ook content produceren. We werken altijd met een helder voorstel zodat je precies weet wat je betaalt en wat je terugkrijgt.",
+  },
+  {
+    q: "Wat is het verschil tussen SEO en SEA?",
+    a: "SEO richt zich op organische (gratis) posities via techniek, content en linkbuilding. Dat kost tijd maar heeft een duurzame impact. SEA werkt met betaalde advertenties die direct bovenaan de zoekresultaten verschijnen. De meeste bedrijven profiteren van een combinatie van beide.",
+  },
+  {
+    q: "Kunnen jullie ook content schrijven?",
+    a: "Ja. Contentcreatie is een integraal onderdeel van onze SEO-aanpak. We schrijven op basis van zoekintentie, klantreis en E-E-A-T-richtlijnen, met teksten die zowel goed scoren als overtuigen.",
+  },
+  {
+    q: "Welke tools gebruiken jullie voor SEO?",
+    a: "We werken met Screaming Frog, Ahrefs, Google Search Console, SEMrush en Google Analytics 4. Deze combinatie geeft inzicht in technische issues, backlinks, zoekwoorden, concurrentie en conversies.",
+  },
+];
+---
+
+<BaseLayout
+  title="SEO Uitbesteden – Zoekmachineoptimalisatie | LuminX"
+  description="Hogere organische posities via technische SEO, contentstrategie en linkbuilding die duurzaam verkeer en leads opleveren. Professionele SEO door LuminX."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="seo-page">
+
+    <section class="seo-hero" data-bg-color="#0A0A0A">
+      <div class="seo-hero-overlay" aria-hidden="true"></div>
+      <div class="seo-hero-inner">
+        <div class="seo-hero-content">
+          <a href="/" class="seo-back-link">← Terug naar homepage</a>
+          <span class="seo-kicker">Specialisme</span>
+          <h1><span class="seo-icon" aria-hidden="true">◎</span> SEO</h1>
+          <p class="seo-intro-p">We bouwen een SEO-fundament dat jouw site vindbaar maakt voor de zoekopdrachten die er écht toe doen — met techniek, content en autoriteit als drie pijlers.</p>
+          <div class="seo-actions">
+            <a href="#contact" class="seo-btn-primary">Plan kennismaking</a>
+            <a href="#aanpak" class="seo-btn-secondary">Bekijk aanpak</a>
+          </div>
+          <div class="seo-metrics">
+            <article class="seo-metric">
+              <strong>3–6 mnd</strong>
+              <span>Eerste meetbare stijging</span>
+            </article>
+            <article class="seo-metric">
+              <strong>+40–120%</strong>
+              <span>Meer organisch verkeer</span>
+            </article>
+            <article class="seo-metric">
+              <strong>Duurzaam</strong>
+              <span>Geen afhankelijkheid van ads</span>
+            </article>
+          </div>
+        </div>
+        <aside class="seo-hero-panel">
+          <span>Wat je direct merkt</span>
+          <ul>
+            <li>Hogere organische posities op commerciële zoekwoorden</li>
+            <li>Meer kwalitatief verkeer zonder doorlopende advertentiekosten</li>
+            <li>Betere gebruikerservaring door technisch gezonde website</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="seo-what" data-bg-color="#FEFEFE">
+      <div class="seo-container seo-what-grid">
+        <div class="seo-what-text">
+          <span class="seo-label">Wat is SEO?</span>
+          <h2>Organische zichtbaarheid als langetermijn groeistrategie</h2>
+          <p>Search Engine Optimisation (SEO) is het structureel verbeteren van de vindbaarheid van jouw website in zoekmachines als Google. Dat doe je via drie pijlers: techniek, content en autoriteit — elk onmisbaar voor duurzame rankings.</p>
+          <p>SEO vraagt meer geduld dan betaald adverteren, maar bouwt iets blijvends op. Eenmaal goed gepositioneerd genereer je dag na dag gratis, kwalitatief verkeer zonder dat je elke klik betaalt. Dat maakt SEO op termijn het meest rendabele marketingkanaal.</p>
+          <a href="#contact" class="seo-inline-cta" data-overlay-open>Gratis SEO-analyse →</a>
+        </div>
+        <div class="seo-what-visual" aria-hidden="true">
+          <div class="seo-stat-stack">
+            <div class="seo-stat-item">
+              <span class="seo-stat-value">+40–120%</span>
+              <span class="seo-stat-desc">Meer organisch verkeer</span>
+            </div>
+            <div class="seo-stat-item">
+              <span class="seo-stat-value">3–6 mnd</span>
+              <span class="seo-stat-desc">Eerste meetbare stijging</span>
+            </div>
+            <div class="seo-stat-item">
+              <span class="seo-stat-value">Duurzaam</span>
+              <span class="seo-stat-desc">Geen afhankelijkheid van ads</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-services" data-bg-color="#F7F9FC">
+      <div class="seo-container">
+        <div class="seo-section-head centered">
+          <span class="seo-label">Specialismen</span>
+          <h2>Wat wij voor je optimaliseren</h2>
+          <p>Van technische audits tot contentstrategie en linkbuilding — we beheersen het volledige SEO-spectrum en zetten elk onderdeel in op de juiste prioriteit.</p>
+        </div>
+        <div class="seo-cards-grid">
+          {specialismen.map((item) => (
+            <div class="seo-card">
+              <div class="seo-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-benefits" data-bg-color="#FEFEFE">
+      <div class="seo-container seo-benefits-grid">
+        <div class="seo-benefits-left">
+          <span class="seo-label">Waarom uitbesteden?</span>
+          <h2>Voordelen van professionele SEO-begeleiding</h2>
+          <p>SEO is een vakgebied dat voortdurend evolueert. Google rolt meerdere algoritme-updates per jaar uit en de lat voor technische kwaliteit en content stijgt continu. Dit zijn de voordelen van samenwerken met een specialist.</p>
+          <div class="seo-benefit-stats">
+            <div class="seo-bstat">
+              <strong>90%</strong>
+              <span>van onze klanten ziet binnen 6 maanden rankingstijging</span>
+            </div>
+            <div class="seo-bstat">
+              <strong>100%</strong>
+              <span>eigenaarschap van je content en data</span>
+            </div>
+          </div>
+        </div>
+        <div class="seo-benefits-right">
+          {benefits.map((b) => (
+            <details class="seo-benefit-item">
+              <summary>{b.title}</summary>
+              <p>{b.body}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-approach" id="aanpak" data-bg-color="#F7F9FC">
+      <div class="seo-container">
+        <div class="seo-section-head">
+          <span class="seo-label">Aanpak</span>
+          <h2>Van audit naar duurzame organische groei in vier fases.</h2>
+        </div>
+        <div class="seo-steps">
+          <article class="seo-step">
+            <span class="seo-step-num">01</span>
+            <h3>Audit & analyse</h3>
+            <p>Technische SEO-audit, zoekwoordonderzoek op basis van intent en volume, en concurrentieanalyse op jouw meest waardevolle zoekterms.</p>
+          </article>
+          <article class="seo-step">
+            <span class="seo-step-num">02</span>
+            <h3>Strategie</h3>
+            <p>Prioriteitenlijst per pijler: welke technische issues eerst, welke contentkansen het meest renderen, en waar linkbuilding het hardst nodig is.</p>
+          </article>
+          <article class="seo-step">
+            <span class="seo-step-num">03</span>
+            <h3>Implementatie</h3>
+            <p>Technische fixes, contentcreatie en -optimalisatie, en structurele linkbuilding via relevante publicaties en digitale PR.</p>
+          </article>
+          <article class="seo-step">
+            <span class="seo-step-num">04</span>
+            <h3>Meten & optimaliseren</h3>
+            <p>Maandelijkse rapportage op rankings, organisch verkeer en conversies. We passen de strategie aan op basis van data en algoritme-updates.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-context" data-bg-color="#FEFEFE">
+      <div class="seo-container seo-context-grid">
+        <article class="seo-block">
+          <h2>Waar organisaties op vastlopen</h2>
+          <ul class="seo-list seo-list--muted">
+            <li>De website staat niet op relevante zoekwoorden in Google</li>
+            <li>Technische fouten blokkeren crawling en indexering</li>
+            <li>Content sluit niet aan op de zoekintenties van de doelgroep</li>
+            <li>Concurrenten domineren de zoekresultaten in de regio of niche</li>
+            <li>Geen inzicht in welke SEO-activiteiten daadwerkelijk omzet genereren</li>
+            <li>Rankings fluctueren zonder duidelijke oorzaak of strategie</li>
+          </ul>
+        </article>
+        <article class="seo-block seo-block--soft">
+          <h2>Wat wij concreet opleveren</h2>
+          <ul class="seo-list">
+            <li>Technische SEO-audit met prioriteitenlijst en directe fixes</li>
+            <li>Zoekwoordstrategie op basis van volume, intent en haalbaarheid</li>
+            <li>Contentplan en -productie afgestemd op de klantreis</li>
+            <li>Linkbuilding en autoriteitsopbouw via relevante publicaties</li>
+            <li>Maandelijkse rapportage op rankings, verkeer en conversies</li>
+            <li>Proactief advies bij algoritme-updates van Google</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="seo-faq" data-bg-color="#F7F9FC">
+      <div class="seo-container seo-faq-grid">
+        <div class="seo-faq-left">
+          <span class="seo-label">Veelgestelde vragen</span>
+          <h2>Alles over SEO uitbesteden</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="seo-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="seo-faq-right">
+          {faq.map((item) => (
+            <details class="seo-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-outcomes" data-bg-color="#0A0A0A">
+      <div class="seo-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="seo-outcome-tags">
+          <span>Hogere organische posities</span>
+          <span>Meer kwalitatief verkeer</span>
+          <span>Betere technische websitekwaliteit</span>
+          <span>Lagere kosten per lead</span>
+          <span>Duurzame zichtbaarheid</span>
+          <span>Meer conversies uit organisch verkeer</span>
+          <span>Sterke contentstrategie</span>
+          <span>Autoriteitsopbouw in jouw niche</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Klaar voor structurele<br/>organische groei?</h2>
+        <p>We analyseren jouw huidige SEO-situatie en presenteren een concreet plan met prioriteiten, tijdlijn en verwachte resultaten.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .seo-page { background: var(--white); }
+
+  .seo-container { max-width: 1240px; margin: 0 auto; }
+
+  .seo-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .seo-section-head { margin-bottom: 3rem; }
+  .seo-section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }
+  .seo-section-head.centered { text-align: center; }
+  .seo-section-head.centered h2,
+  .seo-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .seo-section-head.centered p { max-width: 560px; }
+  .seo-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  .seo-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .seo-inline-cta:hover { opacity: 0.6; }
+
+  .seo-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .seo-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.18), transparent 42%),
+      radial-gradient(circle at 82% 24%, rgba(200, 231, 245, 0.14), transparent 38%);
+  }
+
+  .seo-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .seo-back-link {
+    display: inline-flex;
+    margin-bottom: 1.8rem;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.6;
+    font-size: 0.9rem;
+    transition: opacity 0.25s ease;
+  }
+  .seo-back-link:hover { opacity: 1; }
+
+  .seo-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .seo-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .seo-icon { color: var(--pastel-pink); font-size: 0.68em; }
+
+  .seo-intro-p {
+    max-width: 700px;
+    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
+    opacity: 0.88;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .seo-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .seo-btn-primary,
+  .seo-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.9rem 1.45rem;
+    transition: transform 0.25s ease;
+  }
+  .seo-btn-primary { color: var(--black); background: var(--white); }
+  .seo-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .seo-btn-primary:hover, .seo-btn-secondary:hover { transform: translateY(-2px); }
+
+  .seo-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    max-width: 720px;
+  }
+
+  .seo-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+  .seo-metric strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .seo-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
+
+  .seo-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .seo-hero-panel > span {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 0.75rem;
+  }
+  .seo-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .seo-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
+  .seo-hero-panel li::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+    position: absolute;
+    left: 0; top: 0.62rem;
+  }
+
+  .seo-what { padding: 7rem 4rem; }
+  .seo-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .seo-what-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.25rem;
+  }
+  .seo-what-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .seo-what-visual { display: flex; justify-content: center; align-items: flex-start; }
+
+  .seo-stat-stack {
+    width: 100%;
+    max-width: 340px;
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
+  }
+
+  .seo-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .seo-stat-item:last-child { border-bottom: none; }
+  .seo-stat-item::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--pastel-pink), var(--pastel-blue));
+  }
+
+  .seo-stat-value {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .seo-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+
+  .seo-services { padding: 7rem 4rem; }
+  .seo-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  .seo-card {
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .seo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+
+  .seo-card-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(10,10,10,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin: 0 auto 1.25rem;
+    transition: background 0.3s ease;
+  }
+  .seo-card:hover .seo-card-icon { background: var(--black); color: var(--white); }
+  .seo-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .seo-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  .seo-benefits { padding: 7rem 4rem; }
+  .seo-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .seo-benefits-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1rem;
+  }
+  .seo-benefits-left p { color: rgba(10,10,10,0.68); line-height: 1.8; }
+  .seo-benefit-stats { margin-top: 2rem; display: grid; gap: 1.25rem; }
+  .seo-bstat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .seo-bstat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .seo-bstat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  .seo-benefit-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .seo-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .seo-benefit-item summary {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .seo-benefit-item summary::-webkit-details-marker { display: none; }
+  .seo-benefit-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .seo-benefit-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .seo-benefit-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .seo-approach { padding: 6rem 4rem; }
+  .seo-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(10,10,10,0.14);
+    border-bottom: 1px solid rgba(10,10,10,0.14);
+    margin-top: 2rem;
+  }
+  .seo-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .seo-step:last-child { border-right: none; }
+  .seo-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .seo-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .seo-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  .seo-context { padding: 6rem 4rem; }
+  .seo-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .seo-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
+  .seo-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .seo-block h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 16ch; }
+  .seo-list { list-style: none; display: grid; gap: 0.8rem; }
+  .seo-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
+  .seo-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
+  .seo-list--muted li { color: rgba(10,10,10,0.65); }
+  .seo-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  .seo-faq { padding: 7rem 4rem; }
+  .seo-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .seo-faq-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .seo-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+  .seo-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .seo-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .seo-faq-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .seo-faq-item summary::-webkit-details-marker { display: none; }
+  .seo-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .seo-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .seo-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .seo-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
+  .seo-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+  .seo-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .seo-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
+
+  @media (max-width: 1100px) {
+    .seo-hero-inner, .seo-what-grid, .seo-benefits-grid, .seo-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .seo-cards-grid { grid-template-columns: 1fr 1fr; }
+    .seo-steps { grid-template-columns: 1fr 1fr; }
+    .seo-step:nth-child(2n) { border-right: none; }
+    .seo-context-grid { grid-template-columns: 1fr; }
+    .seo-what-visual { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .seo-hero, .seo-what, .seo-services, .seo-benefits, .seo-approach, .seo-context, .seo-faq, .seo-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .seo-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .seo-cards-grid { grid-template-columns: 1fr; }
+    .seo-steps { grid-template-columns: 1fr; }
+    .seo-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .seo-step:first-child { border-top: none; }
+    .seo-metrics { grid-template-columns: 1fr 1fr; }
+    .seo-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+  }
+</style>

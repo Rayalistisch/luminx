@@ -1,0 +1,55 @@
+---
+const items = [
+  {
+    icon: "◎",
+    title: "SEO",
+    description: "Hogere organische posities via technische optimalisatie, content en linkbuilding die duurzaam verkeer opleveren.",
+    href: "/diensten/seo",
+  },
+  {
+    icon: "◈",
+    title: "SEA",
+    description: "Google Ads campagnes die op het juiste moment zichtbaar zijn, gericht op conversie en een sterke ROAS.",
+    href: "/diensten/sea",
+  },
+  {
+    icon: "◉",
+    title: "Social Advertising",
+    description: "Meta, LinkedIn en TikTok campagnes die je doelgroep bereiken en merkbekendheid omzetten in leads.",
+    href: "/diensten/social-advertising",
+  },
+  {
+    icon: "◌",
+    title: "Emailmarketing",
+    description: "Geautomatiseerde e-mailflows en nieuwsbrieven die leads nurturen en klanten activeren op het juiste moment.",
+    href: "/diensten/emailmarketing",
+  },
+];
+---
+
+<section class="om-section" id="online-marketing" data-bg-color="#0A0A0A">
+  <div class="om-header">
+    <span class="om-kicker">Onze diensten</span>
+    <h2>Online marketing</h2>
+    <p>Van zoekmachineoptimalisatie tot betaalde advertenties: wij bouwen een compleet kanaalstrategie die zichtbaarheid, verkeer en conversies oplevert.</p>
+  </div>
+
+  <div class="om-grid">
+    {items.map((item) => (
+      <a class="om-card" href={item.href}>
+        <div class="om-card-icon" aria-hidden="true">{item.icon}</div>
+        <h3>{item.title}</h3>
+        <p>{item.description}</p>
+        <div class="om-card-footer">
+          <span class="om-link-label">Meer over {item.title}</span>
+          <span class="om-hover-indicator" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

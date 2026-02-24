@@ -1,0 +1,535 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Social Advertising",
+  description: "Social advertising campagnes op Meta, LinkedIn en TikTok die je doelgroep bereiken en merkbekendheid omzetten in leads.",
+  serviceType: "Social Media Advertising",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const kanalen = [
+  {
+    icon: "◉",
+    title: "Meta Ads",
+    description: "Facebook en Instagram campagnes met precieze doelgroepsturing op demografie, interesse en gedrag — van awareness tot directe conversie.",
+  },
+  {
+    icon: "◈",
+    title: "LinkedIn Ads",
+    description: "B2B-campagnes gericht op functietitel, sector en bedrijfsgrootte. Ideaal voor het bereiken van beslissers met een gerichte boodschap.",
+  },
+  {
+    icon: "◌",
+    title: "TikTok Ads",
+    description: "Native video-advertenties die opgaan in de feed. Sterk in merkbekendheid en het bereiken van jongere, actief betrokken doelgroepen.",
+  },
+  {
+    icon: "◎",
+    title: "Pinterest Ads",
+    description: "Visuele productadvertenties voor lifestyle, wonen, mode en food. Bereik mensen actief op zoek naar inspiratie en aankoopideeën.",
+  },
+  {
+    icon: "✦",
+    title: "Retargeting",
+    description: "Warme doelgroepen opnieuw bereiken: websitebezoekers, videokijkers en abandon-cart segmenten met gepersonaliseerde boodschappen.",
+  },
+  {
+    icon: "●",
+    title: "UGC & Creator content",
+    description: "Authentieke advertenties op basis van user-generated content en creator-samenwerkingen die de verborgen kosten per resultaat verlagen.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Precisiemeting op doelgroep en kanaal",
+    body: "We testen systematisch welke doelgroepen, kanalen en formats het beste presteren. Elk euro advertentiebudget wordt ingezet op basis van bewezen data, niet op aannames.",
+  },
+  {
+    title: "Creative testing op schaal",
+    body: "Creatives zijn de grootste hefboom in paid social. We draaien gestructureerde A/B-tests op tekst, beeld, format en call-to-action om de winnaars te identificeren en op te schalen.",
+  },
+  {
+    title: "Full-funnel aanpak van awareness tot conversie",
+    body: "We bouwen campagnes voor elke fase van de klantreis: awareness voor nieuwe doelgroepen, consideration voor geïnteresseerden, en conversie voor warme leads die klaar zijn om te handelen.",
+  },
+  {
+    title: "Snelle iteratie op basis van realtime data",
+    body: "Social advertising heeft korte feedbackcycli. We optimaliseren wekelijks op basis van actuele data — dat betekent dat slechte advertenties snel stoppen en winnaars meer budget krijgen.",
+  },
+  {
+    title: "Volledig accounteigenaarschap bij de klant",
+    body: "We werken altijd in jouw eigen advertentieaccounts, nooit in gedeelde agentschapsaccounts. Volledige transparantie op budget, resultaten en kosten is voor ons een basisvereiste.",
+  },
+];
+
+const faq = [
+  {
+    q: "Welk social kanaal is het beste voor mijn bedrijf?",
+    a: "Dat hangt af van jouw doelgroep, product en doelstelling. B2B-bedrijven die beslissers willen bereiken kiezen vaak LinkedIn. Voor brede consumentenmerken werkt Meta sterk. TikTok is krachtig voor merken die jonger publiek zoeken. We adviseren altijd op basis van jouw specifieke situatie — niet op basis van trends.",
+  },
+  {
+    q: "Wat kost social advertising?",
+    a: "De kosten bestaan uit het advertentiebudget dat rechtstreeks naar het platform gaat, en de beheervergoeding aan LuminX. De beheervergoeding is afhankelijk van de campagnecomplexiteit en het maandbudget. We werken altijd met een transparant voorstel.",
+  },
+  {
+    q: "Hoe meet je succes bij social advertising?",
+    a: "We meten op basis van jouw doelstelling: merkbekendheid op bereik en videoviews, leadgeneratie op cost per lead en leadkwaliteit, conversies op ROAS en cost per purchase. Alle data is toegankelijk via jouw eigen dashboard.",
+  },
+  {
+    q: "Hoe onderscheiden jullie creatives zich?",
+    a: "We combineren strategisch inzicht in de doelgroep met een visueel sterke uitvoering. Onze creatives zijn opgebouwd vanuit gedragswetenschappelijke principes — de eerste seconden bepalen of iemand stopt met scrollen. We testen continu en leren van elke iteratie.",
+  },
+  {
+    q: "Wat is het verschil tussen organisch en betaald social?",
+    a: "Organisch social is je aanwezigheid via berichten, stories en reels die je gratis plaatst. Bereik is beperkt tot je bestaande volgers. Betaald social (advertising) geeft je de mogelijkheid om gericht nieuwe doelgroepen te bereiken, te segmenteren en te schalen op basis van resultaat.",
+  },
+];
+---
+
+<BaseLayout
+  title="Social Advertising – Meta, LinkedIn & TikTok Ads | LuminX"
+  description="Social advertising campagnes op Meta, LinkedIn en TikTok die je doelgroep bereiken en merkbekendheid omzetten in leads en conversies."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="social-page">
+
+    <section class="social-hero" data-bg-color="#0A0A0A">
+      <div class="social-hero-overlay" aria-hidden="true"></div>
+      <div class="social-hero-inner">
+        <div class="social-hero-content">
+          <a href="/" class="social-back-link">← Terug naar homepage</a>
+          <span class="social-kicker">Specialisme</span>
+          <h1><span class="social-icon" aria-hidden="true">◉</span> Social Advertising</h1>
+          <p class="social-intro-p">We bouwen paid social campagnes die meer doen dan bereik genereren — ze trekken de juiste mensen aan, op het kanaal waar ze al zijn, met creatives die converteren.</p>
+          <div class="social-actions">
+            <a href="#contact" class="social-btn-primary">Plan kennismaking</a>
+            <a href="#aanpak" class="social-btn-secondary">Bekijk aanpak</a>
+          </div>
+          <div class="social-metrics">
+            <article class="social-metric">
+              <strong>2–5×</strong>
+              <span>Hogere engagement rate</span>
+            </article>
+            <article class="social-metric">
+              <strong>−25–50%</strong>
+              <span>Lagere CPM vs. benchmark</span>
+            </article>
+            <article class="social-metric">
+              <strong>3 kanalen</strong>
+              <span>Meta · LinkedIn · TikTok</span>
+            </article>
+          </div>
+        </div>
+        <aside class="social-hero-panel">
+          <span>Wat je direct merkt</span>
+          <ul>
+            <li>Meer merkbekendheid bij de juiste doelgroep</li>
+            <li>Hogere kwaliteit leads via gerichte funnelcampagnes</li>
+            <li>Lagere kosten per conversie door voortdurende creatieve tests</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="social-what" data-bg-color="#FEFEFE">
+      <div class="social-container social-what-grid">
+        <div class="social-what-text">
+          <span class="social-label">Wat is social advertising?</span>
+          <h2>Betaalde social campagnes die verder gaan dan bereik</h2>
+          <p>Social advertising is het inzetten van betaalde advertenties op social platforms als Meta, LinkedIn en TikTok. Je bereikt specifieke doelgroepen op basis van hun gedrag, interesses en demografische kenmerken — niet alleen je eigen volgers.</p>
+          <p>Waar organisch social afhankelijk is van algoritmes en bestaande volgers, geeft betaald social je de controle. Je bepaalt wie je bereikt, met welke boodschap en op welk moment. Goed ingezet is social advertising een schaalbare machine die merkbekendheid en leads genereert.</p>
+          <a href="#contact" class="social-inline-cta" data-overlay-open>Gratis campagneadvies →</a>
+        </div>
+        <div class="social-what-visual" aria-hidden="true">
+          <div class="social-stat-stack">
+            <div class="social-stat-item">
+              <span class="social-stat-value">2–5×</span>
+              <span class="social-stat-desc">Hogere engagement rate</span>
+            </div>
+            <div class="social-stat-item">
+              <span class="social-stat-value">−25–50%</span>
+              <span class="social-stat-desc">Lagere CPM vs. benchmark</span>
+            </div>
+            <div class="social-stat-item">
+              <span class="social-stat-value">Meta · LinkedIn · TikTok</span>
+              <span class="social-stat-desc">Kanaalcoverage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-services" data-bg-color="#F7F9FC">
+      <div class="social-container">
+        <div class="social-section-head centered">
+          <span class="social-label">Kanalen & formats</span>
+          <h2>Wat wij voor je beheren</h2>
+          <p>Van Facebook tot LinkedIn en TikTok — we beheersen elk platform en zetten het juiste kanaal in op het juiste moment in de funnel.</p>
+        </div>
+        <div class="social-cards-grid">
+          {kanalen.map((item) => (
+            <div class="social-card">
+              <div class="social-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="social-benefits" data-bg-color="#FEFEFE">
+      <div class="social-container social-benefits-grid">
+        <div class="social-benefits-left">
+          <span class="social-label">Waarom uitbesteden?</span>
+          <h2>Voordelen van professioneel social advertising-beheer</h2>
+          <p>Social platforms veranderen continu: algoritmes, advertentieformats, doelgroepsturing en biedstrategieën evolueren snel. Een specialist houdt bij wat werkt en past dit direct toe op jouw campagnes.</p>
+          <div class="social-benefit-stats">
+            <div class="social-bstat">
+              <strong>3×</strong>
+              <span>meer leads gemiddeld in het eerste kwartaal</span>
+            </div>
+            <div class="social-bstat">
+              <strong>100%</strong>
+              <span>accounteigenaarschap bij de klant</span>
+            </div>
+          </div>
+        </div>
+        <div class="social-benefits-right">
+          {benefits.map((b) => (
+            <details class="social-benefit-item">
+              <summary>{b.title}</summary>
+              <p>{b.body}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="social-approach" id="aanpak" data-bg-color="#F7F9FC">
+      <div class="social-container">
+        <div class="social-section-head">
+          <span class="social-label">Aanpak</span>
+          <h2>Van doelgroeponderzoek naar schaalbare campagnes in vier fases.</h2>
+        </div>
+        <div class="social-steps">
+          <article class="social-step">
+            <span class="social-step-num">01</span>
+            <h3>Doelgroep & strategie</h3>
+            <p>Doelgroeponderzoek, kanaaladvies en campagnestrategie op basis van jouw doelstellingen, budget en de fase in de klantreis.</p>
+          </article>
+          <article class="social-step">
+            <span class="social-step-num">02</span>
+            <h3>Creatie & opzet</h3>
+            <p>Creatieve concepten en copy per doelgroep en kanaal, campagne-opzet, pixel- en eventinstallatie voor correcte conversietracking.</p>
+          </article>
+          <article class="social-step">
+            <span class="social-step-num">03</span>
+            <h3>Livegang & optimalisatie</h3>
+            <p>Livegang en wekelijkse optimalisatie in de eerste maand op doelgroepen, plaatsingen, creatives en biedstrategieën.</p>
+          </article>
+          <article class="social-step">
+            <span class="social-step-num">04</span>
+            <h3>Schalen & uitbreiden</h3>
+            <p>Schaalstrategie op basis van bewezen winnaars en datapunten. Uitbreiding naar nieuwe doelgroepen, kanalen en advertentieformats.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-context" data-bg-color="#FEFEFE">
+      <div class="social-container social-context-grid">
+        <article class="social-block">
+          <h2>Waar organisaties op vastlopen</h2>
+          <ul class="social-list social-list--muted">
+            <li>Social ads bereiken veel mensen maar leveren nauwelijks leads</li>
+            <li>Creatives worden eenmalig gemaakt zonder structurele tests</li>
+            <li>Doelgroepinstellingen zijn te breed of niet afgestemd op de funnel</li>
+            <li>Geen retargeting-strategie voor bezoekers die al interesse toonden</li>
+            <li>Budget verdwijnt zonder inzicht in welke campagnes converteren</li>
+            <li>Pixel en conversietracking zijn niet correct ingesteld</li>
+          </ul>
+        </article>
+        <article class="social-block social-block--soft">
+          <h2>Wat wij concreet opleveren</h2>
+          <ul class="social-list">
+            <li>Kanaalstrategie per fase: awareness, overweging en conversie</li>
+            <li>Creatieve concepten en copy per doelgroep en kanaal</li>
+            <li>Uitgebreide A/B-tests op doelgroepen, creatives en formats</li>
+            <li>Retargeting-funnels voor warme doelgroepen en lookalikes</li>
+            <li>Volledige conversietracking via Pixel, CAPI en GA4</li>
+            <li>Maandelijkse rapportage met conclusies en aanbevelingen</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="social-faq" data-bg-color="#F7F9FC">
+      <div class="social-container social-faq-grid">
+        <div class="social-faq-left">
+          <span class="social-label">Veelgestelde vragen</span>
+          <h2>Alles over social advertising uitbesteden</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="social-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="social-faq-right">
+          {faq.map((item) => (
+            <details class="social-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="social-outcomes" data-bg-color="#0A0A0A">
+      <div class="social-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="social-outcome-tags">
+          <span>Meer merkbekendheid bij de juiste doelgroep</span>
+          <span>Hogere kwaliteit leads</span>
+          <span>Lagere kosten per conversie</span>
+          <span>Consistente leadinstroom</span>
+          <span>Schaalbare creatieve tests</span>
+          <span>Volledige accounttransparantie</span>
+          <span>Sterke retargeting-funnels</span>
+          <span>Geïntegreerde kanaalstrategie</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Klaar voor social campagnes<br/>die écht converteren?</h2>
+        <p>We vertalen jouw doelstellingen naar een concreet campagneplan met kanaaladvies, creatieve richting en verwachte resultaten.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .social-page { background: var(--white); }
+
+  .social-container { max-width: 1240px; margin: 0 auto; }
+
+  .social-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .social-section-head { margin-bottom: 3rem; }
+  .social-section-head h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.022em; }
+  .social-section-head.centered { text-align: center; }
+  .social-section-head.centered h2, .social-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .social-section-head.centered p { max-width: 560px; }
+  .social-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  .social-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .social-inline-cta:hover { opacity: 0.6; }
+
+  .social-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .social-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.18), transparent 42%),
+      radial-gradient(circle at 82% 24%, rgba(200, 231, 245, 0.14), transparent 38%);
+  }
+
+  .social-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .social-back-link { display: inline-flex; margin-bottom: 1.8rem; color: var(--white); text-decoration: none; opacity: 0.6; font-size: 0.9rem; transition: opacity 0.25s ease; }
+  .social-back-link:hover { opacity: 1; }
+
+  .social-kicker { display: block; font-family: 'Syne', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.48; margin-bottom: 1rem; }
+
+  .social-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .social-icon { color: var(--pastel-pink); font-size: 0.68em; }
+
+  .social-intro-p { max-width: 700px; font-size: clamp(1.04rem, 2.3vw, 1.3rem); opacity: 0.88; margin-bottom: 2rem; line-height: 1.7; }
+
+  .social-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .social-btn-primary, .social-btn-secondary { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; text-decoration: none; font-weight: 500; padding: 0.9rem 1.45rem; transition: transform 0.25s ease; }
+  .social-btn-primary { color: var(--black); background: var(--white); }
+  .social-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .social-btn-primary:hover, .social-btn-secondary:hover { transform: translateY(-2px); }
+
+  .social-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; max-width: 720px; }
+  .social-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+  .social-metric strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .social-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
+
+  .social-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .social-hero-panel > span { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.58; margin-bottom: 0.75rem; }
+  .social-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .social-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
+  .social-hero-panel li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue)); position: absolute; left: 0; top: 0.62rem; }
+
+  .social-what { padding: 7rem 4rem; }
+  .social-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .social-what-text h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1.25rem; }
+  .social-what-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .social-what-visual { display: flex; justify-content: center; align-items: flex-start; }
+
+  .social-stat-stack { width: 100%; max-width: 340px; border: 1px solid rgba(10,10,10,0.1); border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 8px 40px rgba(10,10,10,0.07); }
+  .social-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .social-stat-item:last-child { border-bottom: none; }
+  .social-stat-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--pastel-pink), var(--pastel-blue)); }
+  .social-stat-value { display: block; font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--black); line-height: 1; margin-bottom: 0.4rem; }
+  .social-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+
+  .social-services { padding: 7rem 4rem; }
+  .social-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  .social-card { background: #fff; border: 1px solid rgba(10,10,10,0.09); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+  .social-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+  .social-card-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(10,10,10,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem; transition: background 0.3s ease; }
+  .social-card:hover .social-card-icon { background: var(--black); color: var(--white); }
+  .social-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .social-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  .social-benefits { padding: 7rem 4rem; }
+  .social-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .social-benefits-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1rem; }
+  .social-benefits-left p { color: rgba(10,10,10,0.68); line-height: 1.8; }
+  .social-benefit-stats { margin-top: 2rem; display: grid; gap: 1.25rem; }
+  .social-bstat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .social-bstat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .social-bstat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  .social-benefit-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .social-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .social-benefit-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .social-benefit-item summary::-webkit-details-marker { display: none; }
+  .social-benefit-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .social-benefit-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .social-benefit-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .social-approach { padding: 6rem 4rem; }
+  .social-steps { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(10,10,10,0.14); border-bottom: 1px solid rgba(10,10,10,0.14); margin-top: 2rem; }
+  .social-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .social-step:last-child { border-right: none; }
+  .social-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .social-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .social-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  .social-context { padding: 6rem 4rem; }
+  .social-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .social-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
+  .social-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .social-block h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 16ch; }
+  .social-list { list-style: none; display: grid; gap: 0.8rem; }
+  .social-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
+  .social-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
+  .social-list--muted li { color: rgba(10,10,10,0.65); }
+  .social-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  .social-faq { padding: 7rem 4rem; }
+  .social-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .social-faq-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .social-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+  .social-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .social-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .social-faq-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .social-faq-item summary::-webkit-details-marker { display: none; }
+  .social-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .social-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .social-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .social-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
+  .social-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+  .social-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .social-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
+
+  @media (max-width: 1100px) {
+    .social-hero-inner, .social-what-grid, .social-benefits-grid, .social-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .social-cards-grid { grid-template-columns: 1fr 1fr; }
+    .social-steps { grid-template-columns: 1fr 1fr; }
+    .social-step:nth-child(2n) { border-right: none; }
+    .social-context-grid { grid-template-columns: 1fr; }
+    .social-what-visual { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .social-hero, .social-what, .social-services, .social-benefits, .social-approach, .social-context, .social-faq, .social-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .social-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .social-cards-grid { grid-template-columns: 1fr; }
+    .social-steps { grid-template-columns: 1fr; }
+    .social-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .social-step:first-child { border-top: none; }
+    .social-metrics { grid-template-columns: 1fr 1fr; }
+    .social-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+  }
+</style>

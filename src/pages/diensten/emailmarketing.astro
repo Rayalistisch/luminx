@@ -1,0 +1,535 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Emailmarketing & Marketing Automation",
+  description: "Geautomatiseerde e-mailflows en nieuwsbrieven die leads nurturen, klanten activeren en omzet genereren op het juiste moment.",
+  serviceType: "Email Marketing",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const flows = [
+  {
+    icon: "◌",
+    title: "Welkomstflow",
+    description: "Stel nieuwe abonnees voor aan je merk, product en toegevoegde waarde. De eerste indruk bepaalt de langetermijnrelatie.",
+  },
+  {
+    icon: "◎",
+    title: "Nurture flow",
+    description: "Educeer leads stap voor stap richting een aankoopbeslissing. Timing en relevantie op basis van gedrag, niet op aannames.",
+  },
+  {
+    icon: "◈",
+    title: "Abandoned cart & browse",
+    description: "Haal geïnteresseerde bezoekers terug die een product bekeken of een bestelling niet afrondden. Geautomatiseerd en gepersonaliseerd.",
+  },
+  {
+    icon: "◉",
+    title: "Post-purchase flow",
+    description: "Activeer klanten na aankoop met upsell-suggesties, review-verzoeken en loyaliteitsprikkels voor terugkerende omzet.",
+  },
+  {
+    icon: "✦",
+    title: "Re-engagement flow",
+    description: "Win inactieve contacten terug met een gerichte campagne of verwijder ze om je lijstkwaliteit en deliverability te beschermen.",
+  },
+  {
+    icon: "●",
+    title: "Promotionele campagnes",
+    description: "Seizoensacties, lanceringen en nieuwsbrieven die je bestaande lijst activeren zonder afbreuk te doen aan de relatie.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Hoogste ROI van alle digitale kanalen",
+    body: "Emailmarketing genereert gemiddeld 8 tot 14 keer de investering terug ten opzichte van andere kanalen. Dat komt doordat je communiceert met mensen die al interesse hebben getoond — geen koud bereik, maar opgebouwde relaties.",
+  },
+  {
+    title: "Volledig eigenaarschap van het kanaal",
+    body: "In tegenstelling tot social media of zoekmachines is je e-maillijst van jou. Geen algoritme dat je bereik beperkt, geen platform dat de spelregels verandert. Je hebt directe toegang tot je doelgroep, altijd.",
+  },
+  {
+    title: "Schaalbare automation zonder extra FTE",
+    body: "Eenmaal gebouwde flows werken dag en nacht, zeven dagen per week. Of je nu 100 of 100.000 contacten hebt: de juiste mail wordt op het juiste moment gestuurd zonder dat er iemand aan te pas hoeft te komen.",
+  },
+  {
+    title: "Diepgaande segmentatie en personalisatie",
+    body: "We segmenteren op basis van gedrag, aankoophistorie, fase in de funnel en interesse. Dat zorgt dat elke ontvanger een relevante boodschap krijgt, wat leidt tot hogere openrates, meer clicks en betere conversies.",
+  },
+  {
+    title: "Meetbare impact op omzet per mail",
+    body: "We richten e-commerce tracking in zodat je per flow en per campagne exact ziet hoeveel omzet er gegenereerd wordt. Geen vaag 'engagement' als KPI, maar harde euro's die teruggaan naar investering.",
+  },
+];
+
+const faq = [
+  {
+    q: "Welk emailplatform gebruiken jullie?",
+    a: "We werken platform-onafhankelijk en adviseren op basis van jouw situatie: Klaviyo voor e-commerce, ActiveCampaign of HubSpot voor B2B, en Mailchimp of Brevo voor kleinere lijsten en budgetten. We kunnen bestaande platformen overnemen of een nieuw platform opzetten.",
+  },
+  {
+    q: "Wat kost emailmarketing uitbesteden?",
+    a: "De kosten zijn afhankelijk van het aantal flows, de complexiteit van segmentatie en of we ook copywriting en design verzorgen. We werken altijd met een transparant voorstel zodat je precies weet wat je betaalt en wat je terugkrijgt.",
+  },
+  {
+    q: "Hoe bouw je een goede e-maillijst op?",
+    a: "Via relevante lead magnets, opt-in formulieren op strategische plekken op de website, en eventueel betaalde campagnes om nieuwe contacten te werven. We adviseren over de hele lijstopbouwstrategie, niet alleen over de flows achteraf.",
+  },
+  {
+    q: "Hoe vermijd je de spam-folder?",
+    a: "Door correcte technische configuratie (SPF, DKIM, DMARC), een schone lijst zonder inactieve contacten, consistente verzendfrequentie en relevante content. We doen een deliverability-audit als onderdeel van het onboardingproces.",
+  },
+  {
+    q: "Werkt emailmarketing ook voor B2B?",
+    a: "Zeker. B2B heeft langere salescycli, wat emailmarketing juist krachtig maakt: je kunt leads nurturen over weken of maanden, kennis delen, vertrouwen opbouwen en op het juiste moment conversiegerichte mails sturen. We bouwen flows specifiek op de B2B-klantreis.",
+  },
+];
+---
+
+<BaseLayout
+  title="Emailmarketing & Marketing Automation | LuminX"
+  description="Geautomatiseerde e-mailflows en nieuwsbrieven die leads nurturen, klanten activeren en omzet genereren op het juiste moment."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="email-page">
+
+    <section class="email-hero" data-bg-color="#0A0A0A">
+      <div class="email-hero-overlay" aria-hidden="true"></div>
+      <div class="email-hero-inner">
+        <div class="email-hero-content">
+          <a href="/" class="email-back-link">← Terug naar homepage</a>
+          <span class="email-kicker">Specialisme</span>
+          <h1><span class="email-icon" aria-hidden="true">◌</span> Emailmarketing</h1>
+          <p class="email-intro-p">We bouwen e-mailflows die werken als een stille verkoper: gepersonaliseerd, getimed en volledig geautomatiseerd — zodat geen lead of klant meer door de mazen glipt.</p>
+          <div class="email-actions">
+            <a href="#contact" class="email-btn-primary">Plan kennismaking</a>
+            <a href="#aanpak" class="email-btn-secondary">Bekijk aanpak</a>
+          </div>
+          <div class="email-metrics">
+            <article class="email-metric">
+              <strong>35–45%</strong>
+              <span>Gemiddelde open rate</span>
+            </article>
+            <article class="email-metric">
+              <strong>8–14×</strong>
+              <span>ROI vs. andere kanalen</span>
+            </article>
+            <article class="email-metric">
+              <strong>Volledig</strong>
+              <span>Geautomatiseerde flows</span>
+            </article>
+          </div>
+        </div>
+        <aside class="email-hero-panel">
+          <span>Wat je direct merkt</span>
+          <ul>
+            <li>Meer omzet uit bestaande contacten zonder extra advertentiebudget</li>
+            <li>Hogere leadconversie door tijdige en relevante opvolging</li>
+            <li>Minder handmatige opvolging dankzij slimme automatisering</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="email-what" data-bg-color="#FEFEFE">
+      <div class="email-container email-what-grid">
+        <div class="email-what-text">
+          <span class="email-label">Wat is emailmarketing?</span>
+          <h2>Je meest waardevolle kanaal is er al — je gebruikt het alleen niet optimaal</h2>
+          <p>Emailmarketing is het strategisch inzetten van e-mail om leads te nurturen, klanten te activeren en omzet te genereren. Via geautomatiseerde flows communiceer je op het juiste moment met de juiste persoon, gebaseerd op gedrag en fase in de klantreis.</p>
+          <p>In tegenstelling tot social media of advertenties ben jij eigenaar van je e-maillijst. Geen algoritme dat je bereik beperkt. Geen platform dat de spelregels verandert. Gewoon directe toegang tot mensen die al interesse hebben getoond — en dat is onbetaalbaar.</p>
+          <a href="#contact" class="email-inline-cta" data-overlay-open>Gratis flow-analyse →</a>
+        </div>
+        <div class="email-what-visual" aria-hidden="true">
+          <div class="email-stat-stack">
+            <div class="email-stat-item">
+              <span class="email-stat-value">35–45%</span>
+              <span class="email-stat-desc">Gemiddelde open rate</span>
+            </div>
+            <div class="email-stat-item">
+              <span class="email-stat-value">8–14×</span>
+              <span class="email-stat-desc">ROI vs. andere kanalen</span>
+            </div>
+            <div class="email-stat-item">
+              <span class="email-stat-value">Volledig</span>
+              <span class="email-stat-desc">Geautomatiseerde flows</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="email-services" data-bg-color="#F7F9FC">
+      <div class="email-container">
+        <div class="email-section-head centered">
+          <span class="email-label">Flows & campagnes</span>
+          <h2>Wat wij voor je bouwen</h2>
+          <p>Van welkomstflow tot re-engagement — we bouwen het volledige e-maillandschap dat jouw lijst omzet in omzet, zonder dat er dagelijks iemand aan te pas hoeft te komen.</p>
+        </div>
+        <div class="email-cards-grid">
+          {flows.map((item) => (
+            <div class="email-card">
+              <div class="email-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="email-benefits" data-bg-color="#FEFEFE">
+      <div class="email-container email-benefits-grid">
+        <div class="email-benefits-left">
+          <span class="email-label">Waarom uitbesteden?</span>
+          <h2>Voordelen van professionele emailmarketing</h2>
+          <p>Effectieve emailmarketing gaat verder dan een nieuwsbrief versturen. Het vereist strategie, segmentatie, automatiseringslogica, copywriting en technische deliverability-kennis. Dit zijn de voordelen van samenwerken met een specialist.</p>
+          <div class="email-benefit-stats">
+            <div class="email-bstat">
+              <strong>8–14×</strong>
+              <span>gemiddelde ROI ten opzichte van andere kanalen</span>
+            </div>
+            <div class="email-bstat">
+              <strong>100%</strong>
+              <span>eigenaarschap van je lijst en data</span>
+            </div>
+          </div>
+        </div>
+        <div class="email-benefits-right">
+          {benefits.map((b) => (
+            <details class="email-benefit-item">
+              <summary>{b.title}</summary>
+              <p>{b.body}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="email-approach" id="aanpak" data-bg-color="#F7F9FC">
+      <div class="email-container">
+        <div class="email-section-head">
+          <span class="email-label">Aanpak</span>
+          <h2>Van lijstaudit naar volledig geautomatiseerde flow-architectuur.</h2>
+        </div>
+        <div class="email-steps">
+          <article class="email-step">
+            <span class="email-step-num">01</span>
+            <h3>Audit & analyse</h3>
+            <p>Audit van huidige lijst, platform, bestaande flows en deliverability. We brengen in kaart wat er al is en waar de grootste kansen liggen.</p>
+          </article>
+          <article class="email-step">
+            <span class="email-step-num">02</span>
+            <h3>Strategie & opzet</h3>
+            <p>Flowstrategie, segmentatieopzet en contentplan per fase in de klantreis. Welke flows eerst, met welke boodschap en welke triggers.</p>
+          </article>
+          <article class="email-step">
+            <span class="email-step-num">03</span>
+            <h3>Implementatie</h3>
+            <p>Technische bouw van flows, copywriting, visuele opmaak en testrondes op deliverability, weergave en automatiseringslogica.</p>
+          </article>
+          <article class="email-step">
+            <span class="email-step-num">04</span>
+            <h3>Optimalisatie</h3>
+            <p>Maandelijkse optimalisatie op openrates, clicks en omzet per flow. A/B-tests op onderwerpregels, timing en call-to-actions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="email-context" data-bg-color="#FEFEFE">
+      <div class="email-container email-context-grid">
+        <article class="email-block">
+          <h2>Waar organisaties op vastlopen</h2>
+          <ul class="email-list email-list--muted">
+            <li>Leads worden niet opgevolgd na het eerste contactmoment</li>
+            <li>Nieuwsbrieven worden ad hoc verstuurd zonder strategie</li>
+            <li>E-mails zijn generiek en niet afgestemd op gedrag of fase</li>
+            <li>Geen inzicht in welke e-mails daadwerkelijk omzet genereren</li>
+            <li>Hoge afmeldpercentages door irrelevante of te frequente mails</li>
+            <li>Deliverability-problemen door technische configuratiefouten</li>
+          </ul>
+        </article>
+        <article class="email-block email-block--soft">
+          <h2>Wat wij concreet opleveren</h2>
+          <ul class="email-list">
+            <li>Welkomst-, nurture- en re-engagementflows op maat</li>
+            <li>Segmentatie op basis van gedrag, interesse en fase in de funnel</li>
+            <li>Gepersonaliseerde content en dynamische productaanbevelingen</li>
+            <li>A/B-tests op onderwerpregels, timing en CTA's</li>
+            <li>Technische deliverability-configuratie (SPF, DKIM, DMARC)</li>
+            <li>Maandelijkse rapportage op opens, clicks en gegenereerde omzet</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="email-faq" data-bg-color="#F7F9FC">
+      <div class="email-container email-faq-grid">
+        <div class="email-faq-left">
+          <span class="email-label">Veelgestelde vragen</span>
+          <h2>Alles over emailmarketing uitbesteden</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="email-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="email-faq-right">
+          {faq.map((item) => (
+            <details class="email-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="email-outcomes" data-bg-color="#0A0A0A">
+      <div class="email-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="email-outcome-tags">
+          <span>Meer omzet uit bestaande contacten</span>
+          <span>Hogere leadconversie</span>
+          <span>Minder handmatige opvolging</span>
+          <span>Duurzame klantrelaties</span>
+          <span>Hogere open- en clickrates</span>
+          <span>Schaalbare automation</span>
+          <span>Volledige lijsteigenaarschap</span>
+          <span>Meetbare omzet per flow</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Klaar voor e-mailflows die<br/>24/7 voor je werken?</h2>
+        <p>We analyseren jouw huidige e-mailsituatie en presenteren een concreet plan voor flows, segmentatie en verwachte resultaten.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .email-page { background: var(--white); }
+
+  .email-container { max-width: 1240px; margin: 0 auto; }
+
+  .email-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .email-section-head { margin-bottom: 3rem; }
+  .email-section-head h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.022em; }
+  .email-section-head.centered { text-align: center; }
+  .email-section-head.centered h2, .email-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .email-section-head.centered p { max-width: 560px; }
+  .email-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  .email-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .email-inline-cta:hover { opacity: 0.6; }
+
+  .email-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .email-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.18), transparent 42%),
+      radial-gradient(circle at 82% 24%, rgba(200, 231, 245, 0.14), transparent 38%);
+  }
+
+  .email-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .email-back-link { display: inline-flex; margin-bottom: 1.8rem; color: var(--white); text-decoration: none; opacity: 0.6; font-size: 0.9rem; transition: opacity 0.25s ease; }
+  .email-back-link:hover { opacity: 1; }
+
+  .email-kicker { display: block; font-family: 'Syne', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.48; margin-bottom: 1rem; }
+
+  .email-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .email-icon { color: var(--pastel-pink); font-size: 0.68em; }
+
+  .email-intro-p { max-width: 700px; font-size: clamp(1.04rem, 2.3vw, 1.3rem); opacity: 0.88; margin-bottom: 2rem; line-height: 1.7; }
+
+  .email-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .email-btn-primary, .email-btn-secondary { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; text-decoration: none; font-weight: 500; padding: 0.9rem 1.45rem; transition: transform 0.25s ease; }
+  .email-btn-primary { color: var(--black); background: var(--white); }
+  .email-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .email-btn-primary:hover, .email-btn-secondary:hover { transform: translateY(-2px); }
+
+  .email-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; max-width: 720px; }
+  .email-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+  .email-metric strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .email-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
+
+  .email-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .email-hero-panel > span { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.58; margin-bottom: 0.75rem; }
+  .email-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .email-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
+  .email-hero-panel li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue)); position: absolute; left: 0; top: 0.62rem; }
+
+  .email-what { padding: 7rem 4rem; }
+  .email-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .email-what-text h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1.25rem; }
+  .email-what-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .email-what-visual { display: flex; justify-content: center; align-items: flex-start; }
+
+  .email-stat-stack { width: 100%; max-width: 340px; border: 1px solid rgba(10,10,10,0.1); border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 8px 40px rgba(10,10,10,0.07); }
+  .email-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .email-stat-item:last-child { border-bottom: none; }
+  .email-stat-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--pastel-pink), var(--pastel-blue)); }
+  .email-stat-value { display: block; font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--black); line-height: 1; margin-bottom: 0.4rem; }
+  .email-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+
+  .email-services { padding: 7rem 4rem; }
+  .email-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  .email-card { background: #fff; border: 1px solid rgba(10,10,10,0.09); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+  .email-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+  .email-card-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(10,10,10,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem; transition: background 0.3s ease; }
+  .email-card:hover .email-card-icon { background: var(--black); color: var(--white); }
+  .email-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .email-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  .email-benefits { padding: 7rem 4rem; }
+  .email-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .email-benefits-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1rem; }
+  .email-benefits-left p { color: rgba(10,10,10,0.68); line-height: 1.8; }
+  .email-benefit-stats { margin-top: 2rem; display: grid; gap: 1.25rem; }
+  .email-bstat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .email-bstat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .email-bstat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  .email-benefit-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .email-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .email-benefit-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .email-benefit-item summary::-webkit-details-marker { display: none; }
+  .email-benefit-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .email-benefit-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .email-benefit-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .email-approach { padding: 6rem 4rem; }
+  .email-steps { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(10,10,10,0.14); border-bottom: 1px solid rgba(10,10,10,0.14); margin-top: 2rem; }
+  .email-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .email-step:last-child { border-right: none; }
+  .email-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .email-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .email-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  .email-context { padding: 6rem 4rem; }
+  .email-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .email-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
+  .email-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .email-block h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 16ch; }
+  .email-list { list-style: none; display: grid; gap: 0.8rem; }
+  .email-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
+  .email-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
+  .email-list--muted li { color: rgba(10,10,10,0.65); }
+  .email-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  .email-faq { padding: 7rem 4rem; }
+  .email-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .email-faq-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .email-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+  .email-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .email-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .email-faq-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .email-faq-item summary::-webkit-details-marker { display: none; }
+  .email-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .email-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .email-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .email-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
+  .email-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+  .email-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .email-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
+
+  @media (max-width: 1100px) {
+    .email-hero-inner, .email-what-grid, .email-benefits-grid, .email-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .email-cards-grid { grid-template-columns: 1fr 1fr; }
+    .email-steps { grid-template-columns: 1fr 1fr; }
+    .email-step:nth-child(2n) { border-right: none; }
+    .email-context-grid { grid-template-columns: 1fr; }
+    .email-what-visual { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .email-hero, .email-what, .email-services, .email-benefits, .email-approach, .email-context, .email-faq, .email-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .email-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .email-cards-grid { grid-template-columns: 1fr; }
+    .email-steps { grid-template-columns: 1fr; }
+    .email-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .email-step:first-child { border-top: none; }
+    .email-metrics { grid-template-columns: 1fr 1fr; }
+    .email-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+  }
+</style>

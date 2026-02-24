@@ -1,0 +1,956 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "SEA – Google Ads",
+  description: "Google Ads campagnes die op het juiste moment zichtbaar zijn, gericht op conversie en een sterke ROAS.",
+  serviceType: "Search Engine Advertising",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const campaignTypes = [
+  {
+    icon: "◈",
+    title: "Google Search Ads",
+    description: "Tekstadvertenties die verschijnen bij relevante zoekopdrachten. Hoge koopintentie, directe conversies.",
+  },
+  {
+    icon: "◉",
+    title: "Google Shopping",
+    description: "Productadvertenties met afbeelding, prijs en naam, ideaal voor e-commerce en productgerichte bedrijven.",
+  },
+  {
+    icon: "◎",
+    title: "Display & Remarketing",
+    description: "Visuele advertenties op het Google Display Netwerk om eerdere bezoekers terug te halen en merkbekendheid op te bouwen.",
+  },
+  {
+    icon: "◌",
+    title: "Performance Max",
+    description: "AI-gestuurde campagnes die automatisch het beste kanaal en format kiezen voor maximale conversie-output.",
+  },
+  {
+    icon: "✦",
+    title: "YouTube Ads",
+    description: "Videoadvertenties die doelgroepen bereiken vóór en tijdens relevante YouTube-content met meetbare resultaten.",
+  },
+  {
+    icon: "●",
+    title: "Microsoft Advertising",
+    description: "Bing-campagnes voor een aanvullend zoeknetwerk met lagere CPC en minder concurrentie dan Google.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Direct resultaat zonder leercurve",
+    body: "Een specialist heeft al honderden campagnes opgezet en geoptimaliseerd. Jij profiteert direct van die ervaring — zonder zelf fouten te hoeven maken met jouw budget.",
+  },
+  {
+    title: "Toegang tot professionele tooling",
+    body: "We werken met SEMrush, Google Keyword Planner, Search Ads 360 en geavanceerde biedalgoritmen die voor de meeste bedrijven niet rendabel zijn om zelf aan te schaffen.",
+  },
+  {
+    title: "Continu bijgesteld op data",
+    body: "SEA is geen campagne instellen en vergeten. Dagelijkse monitoring, wekelijkse optimalisatie en maandelijkse strategische evaluatie zorgen dat het rendement structureel verbetert.",
+  },
+  {
+    title: "Volledige transparantie en eigenaarschap",
+    body: "Je hebt altijd toegang tot jouw eigen Google Ads-account. We rapporteren helder over kosten, conversies en ROAS — zonder verborgen marges op het advertentiebudget.",
+  },
+  {
+    title: "Schaalbaar zonder extra overhead",
+    body: "Wil je meer budget inzetten of uitbreiden naar een nieuw product of regio? Dat schalen we snel op zonder dat jij extra personeel hoeft aan te nemen.",
+  },
+];
+
+const faq = [
+  {
+    q: "Wat doet een SEA specialist precies?",
+    a: "Een SEA specialist beheert betaalde advertentiecampagnes via platformen als Google Ads en Microsoft Advertising. Dat omvat zoekwoordonderzoek, campagne-opzet, advertentieteksten schrijven, biedstrategieën instellen en dagelijkse optimalisatie op basis van data. Het doel is altijd hetzelfde: zo veel mogelijk resultaat halen uit elk advertentie-euro.",
+  },
+  {
+    q: "Wat kost Google Ads beheer?",
+    a: "De kosten bestaan uit twee onderdelen: het advertentiebudget dat rechtstreeks naar Google gaat, en de beheervergoeding aan LuminX. De beheervergoeding is afhankelijk van de campagnecomplexiteit en het maandbudget. We werken altijd met een helder voorstel zodat je precies weet wat je betaalt — en wat je terugkrijgt.",
+  },
+  {
+    q: "Hoe snel zie ik resultaat met SEA?",
+    a: "Dat is één van de grootste voordelen van SEA ten opzichte van SEO: resultaat is snel zichtbaar. Zodra een campagne live gaat, kunnen eerste klikken en conversies al op dag één binnenkomen. De eerste twee tot vier weken gebruiken we voor optimalisatie. Na acht tot twaalf weken zijn we in staat om op basis van data consistente prognoses te maken.",
+  },
+  {
+    q: "Wat is het verschil tussen SEO en SEA?",
+    a: "SEO richt zich op organische (gratis) posities in Google via techniek, content en linkbuilding. Dat kost tijd maar heeft een duurzame impact. SEA werkt met betaalde advertenties die direct bovenaan de zoekresultaten verschijnen. Ideaal voor snelle resultaten, seizoensacties of terwijl je SEO nog wordt opgebouwd. De meeste bedrijven profiteren van een combinatie van beide.",
+  },
+  {
+    q: "Behouden we toegang tot ons eigen Google Ads account?",
+    a: "Altijd. We werken in jouw eigen Google Ads account, nooit in een gedeeld agentschapsaccount. Volledige transparantie en eigenaarschap staan bij ons centraal. Als de samenwerking ooit eindigt, neem jij het account gewoon mee.",
+  },
+];
+---
+
+<BaseLayout
+  title="SEA Uitbesteden – Google Ads Specialist | LuminX"
+  description="Google Ads campagnes die op het juiste moment zichtbaar zijn, gericht op conversie en een sterke ROAS. Professioneel SEA beheer door LuminX."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="sea-page">
+
+    <!-- Hero -->
+    <section class="sea-hero" data-bg-color="#0A0A0A">
+      <div class="sea-hero-overlay" aria-hidden="true"></div>
+      <div class="sea-hero-inner">
+        <div class="sea-hero-content">
+          <a href="/" class="sea-back-link">← Terug naar homepage</a>
+          <span class="sea-kicker">Specialisme</span>
+          <h1><span class="sea-icon" aria-hidden="true">◈</span> SEA</h1>
+          <p class="sea-intro-p">We zetten betaald zoeken in als een precisiemiddel: de juiste boodschap, op het juiste moment, voor de juiste doelgroep, met elke euro verantwoord.</p>
+          <div class="sea-actions">
+            <a href="#contact" class="sea-btn-primary">Plan kennismaking</a>
+            <a href="#aanpak" class="sea-btn-secondary">Bekijk aanpak</a>
+          </div>
+          <div class="sea-metrics">
+            <article class="sea-metric">
+              <strong>4–8×</strong>
+              <span>Gemiddelde ROAS</span>
+            </article>
+            <article class="sea-metric">
+              <strong>−20–40%</strong>
+              <span>Lagere kosten per lead</span>
+            </article>
+            <article class="sea-metric">
+              <strong>2–4 wkn</strong>
+              <span>Eerste campagne live</span>
+            </article>
+          </div>
+        </div>
+        <aside class="sea-hero-panel">
+          <span>Wat je direct merkt</span>
+          <ul>
+            <li>Lagere kosten per acquisitie met hogere leadkwaliteit</li>
+            <li>Volledige transparantie via realtime dashboard</li>
+            <li>Minder budgetverspilling door strakke doelgroepsturing</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Intro: wat is SEA -->
+    <section class="sea-what" data-bg-color="#FEFEFE">
+      <div class="sea-container sea-what-grid">
+        <div class="sea-what-text">
+          <span class="sea-label">Wat is SEA?</span>
+          <h2>Betaald adverteren in Google als strategisch groeimiddel</h2>
+          <p>Search Engine Advertising (SEA) is het plaatsen van betaalde advertenties in zoekmachines zoals Google en Bing. Je betaalt per klik en verschijnt direct bovenaan de zoekresultaten, vóór organische resultate, op exact de zoektermen die relevant zijn voor jouw bedrijf.</p>
+          <p>Waar SEO maanden vraagt om resultaat te boeken, geeft SEA je directe zichtbaarheid. Dat maakt het bij uitstek geschikt voor het genereren van snelle leads, het testen van nieuwe markten of het ondersteunen van seizoensacties. Goed ingezet is SEA geen kostenpost maar een voorspelbare groeimotor.</p>
+          <a href="#contact" class="sea-inline-cta" data-overlay-open>Gratis adviesgesprek →</a>
+        </div>
+        <div class="sea-what-visual" aria-hidden="true">
+          <div class="sea-stat-stack">
+            <div class="sea-stat-item">
+              <span class="sea-stat-value">4–8×</span>
+              <span class="sea-stat-desc">Gemiddelde ROAS</span>
+            </div>
+            <div class="sea-stat-item">
+              <span class="sea-stat-value">−40%</span>
+              <span class="sea-stat-desc">Lagere kosten per lead</span>
+            </div>
+            <div class="sea-stat-item">
+              <span class="sea-stat-value">vanaf dag 1</span>
+              <span class="sea-stat-desc">Eerste klikken</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Campagnetypes / Services -->
+    <section class="sea-services" data-bg-color="#F7F9FC">
+      <div class="sea-container">
+        <div class="sea-section-head centered">
+          <span class="sea-label">Campagnetypes</span>
+          <h2>Wat wij voor je beheren</h2>
+          <p>Van zoekadvertenties tot video, we beheersen het volledige Google Ads ecosysteem en zetten elk format in op het juiste moment in de klantreis.</p>
+        </div>
+        <div class="sea-cards-grid">
+          {campaignTypes.map((type) => (
+            <div class="sea-card">
+              <div class="sea-card-icon" aria-hidden="true">{type.icon}</div>
+              <h3>{type.title}</h3>
+              <p>{type.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Voordelen: tekst links + accordion rechts -->
+    <section class="sea-benefits" data-bg-color="#FEFEFE">
+      <div class="sea-container sea-benefits-grid">
+        <div class="sea-benefits-left">
+          <span class="sea-label">Waarom uitbesteden?</span>
+          <h2>Voordelen van professioneel SEA-beheer</h2>
+          <p>Google Ads is een vakgebied op zich. De interface verandert continu, biedstrategieën worden complexer en de concurrentie neemt toe. Dit zijn de voordelen van samenwerken met een specialist.</p>
+          <div class="sea-benefit-stats">
+            <div class="sea-bstat">
+              <strong>95%</strong>
+              <span>van onze klanten ziet binnen 60 dagen resultaatstijging</span>
+            </div>
+            <div class="sea-bstat">
+              <strong>100%</strong>
+              <span>accounteigenaarschap bij de klant</span>
+            </div>
+          </div>
+        </div>
+        <div class="sea-benefits-right">
+          {benefits.map((b) => (
+            <details class="sea-benefit-item">
+              <summary>{b.title}</summary>
+              <p>{b.body}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Aanpak / Process -->
+    <section class="sea-approach" id="aanpak" data-bg-color="#F7F9FC">
+      <div class="sea-container">
+        <div class="sea-section-head">
+          <span class="sea-label">Aanpak</span>
+          <h2>Van analyse naar winstgevende campagnes in vier fases.</h2>
+        </div>
+        <div class="sea-steps">
+          <article class="sea-step">
+            <span class="sea-step-num">01</span>
+            <h3>Audit & strategie</h3>
+            <p>We analyseren je bestaande account (of starten vanaf nul), voeren zoekwoordonderzoek uit, brengen de concurrentie in kaart en definiëren doelstellingen, KPI's en budgetallocatie.</p>
+          </article>
+          <article class="sea-step">
+            <span class="sea-step-num">02</span>
+            <h3>Opzet & creatie</h3>
+            <p>We bouwen de campagnestructuur, schrijven advertentieteksten, installeren conversietracking via GTM en GA4, en richten remarketingdoelgroepen in.</p>
+          </article>
+          <article class="sea-step">
+            <span class="sea-step-num">03</span>
+            <h3>Livegang & monitoring</h3>
+            <p>De campagnes gaan live. In de eerste weken monitoren we dagelijks op kwaliteitsscore, impressieshare, CTR en conversies. Snel bijsturen is hier cruciaal.</p>
+          </article>
+          <article class="sea-step">
+            <span class="sea-step-num">04</span>
+            <h3>Optimalisatie & schaling</h3>
+            <p>Op basis van data optimaliseren we biedstrategieën, sluiten we verliesgevende zoekwoorden uit, testen we nieuwe advertentieformats en schalen we bewezen campagnes op.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pijnpunten vs oplossingen -->
+    <section class="sea-context" data-bg-color="#FEFEFE">
+      <div class="sea-container sea-context-grid">
+        <article class="sea-block">
+          <h2>Waar organisaties op vastlopen</h2>
+          <ul class="sea-list sea-list--muted">
+            <li>Google Ads-budget verdwijnt zonder aantoonbaar resultaat</li>
+            <li>Campagnes draaien breed zonder focus op de juiste doelgroep</li>
+            <li>Slechte match tussen advertentie, zoekwoord en landingspagina</li>
+            <li>Geen structurele optimalisatie op basis van data en conversies</li>
+            <li>Onduidelijk welke campagnes daadwerkelijk omzet genereren</li>
+            <li>Accountstructuur is onoverzichtelijk en moeilijk bij te sturen</li>
+          </ul>
+        </article>
+        <article class="sea-block sea-block--soft">
+          <h2>Wat wij concreet opleveren</h2>
+          <ul class="sea-list">
+            <li>Campagnestructuur op basis van zoekintent en klantreis</li>
+            <li>Strakke advertentieteksten en A/B-tests voor betere CTR</li>
+            <li>Conversiegerichte landingspagina-analyse en advies</li>
+            <li>Wekelijkse optimalisatie op ROAS, CPL en kwaliteitsscore</li>
+            <li>Volledige conversietracking via GA4 en Google Tag Manager</li>
+            <li>Maandelijkse rapportage met conclusies en aanbevelingen</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sea-faq" data-bg-color="#F7F9FC">
+      <div class="sea-container sea-faq-grid">
+        <div class="sea-faq-left">
+          <span class="sea-label">Veelgestelde vragen</span>
+          <h2>Alles over SEA uitbesteden</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="sea-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="sea-faq-right">
+          {faq.map((item) => (
+            <details class="sea-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Outcomes -->
+    <section class="sea-outcomes" data-bg-color="#0A0A0A">
+      <div class="sea-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="sea-outcome-tags">
+          <span>Lagere kosten per acquisitie</span>
+          <span>Hogere leadkwaliteit</span>
+          <span>Realtime inzicht via dashboard</span>
+          <span>Snelle schaalbaarheid</span>
+          <span>Minder budgetverspilling</span>
+          <span>Voorspelbare leadinstroom</span>
+          <span>Volledig accounteigenaarschap</span>
+          <span>Geïntegreerde kanaalstrategie</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Klaar voor winstgevende<br/>Google Ads campagnes?</h2>
+        <p>We vertalen jouw doelstellingen naar een concreet campagneplan met duidelijke KPI's, scope en verwachte resultaten.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .sea-page { background: var(--white); }
+
+  /* ── Shared ── */
+  .sea-container {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .sea-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .sea-section-head { margin-bottom: 3rem; }
+  .sea-section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }
+
+  .sea-section-head.centered { text-align: center; }
+  .sea-section-head.centered h2,
+  .sea-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .sea-section-head.centered p { max-width: 560px; }
+  .sea-section-head p {
+    color: rgba(10,10,10,0.62);
+    line-height: 1.8;
+    margin-top: 0.75rem;
+    max-width: 600px;
+  }
+
+  .sea-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+
+  .sea-inline-cta:hover { opacity: 0.6; }
+
+  /* ── Hero ── */
+  .sea-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .sea-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.18), transparent 42%),
+      radial-gradient(circle at 82% 24%, rgba(200, 231, 245, 0.14), transparent 38%);
+  }
+
+  .sea-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .sea-back-link {
+    display: inline-flex;
+    margin-bottom: 1.8rem;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.6;
+    font-size: 0.9rem;
+    transition: opacity 0.25s ease;
+  }
+  .sea-back-link:hover { opacity: 1; }
+
+  .sea-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .sea-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .sea-icon { color: var(--pastel-pink); font-size: 0.68em; }
+
+  .sea-intro-p {
+    max-width: 700px;
+    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
+    opacity: 0.88;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .sea-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .sea-btn-primary,
+  .sea-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.9rem 1.45rem;
+    transition: transform 0.25s ease;
+  }
+  .sea-btn-primary { color: var(--black); background: var(--white); }
+  .sea-btn-secondary {
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.06);
+  }
+  .sea-btn-primary:hover,
+  .sea-btn-secondary:hover { transform: translateY(-2px); }
+
+  .sea-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    max-width: 720px;
+  }
+
+  .sea-metric {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding: 0.75rem 0;
+  }
+  .sea-metric strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 0.2rem;
+  }
+  .sea-metric span {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
+
+  .sea-hero-panel {
+    border-left: 1px solid rgba(255,255,255,0.25);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+  }
+  .sea-hero-panel > span {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 0.75rem;
+  }
+  .sea-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .sea-hero-panel li {
+    line-height: 1.55;
+    padding-left: 1rem;
+    position: relative;
+    opacity: 0.92;
+  }
+  .sea-hero-panel li::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+    position: absolute;
+    left: 0; top: 0.62rem;
+  }
+
+  /* ── Wat is SEA ── */
+  .sea-what { padding: 7rem 4rem; }
+
+  .sea-what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .sea-what-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.25rem;
+  }
+  .sea-what-text p {
+    color: rgba(10,10,10,0.72);
+    line-height: 1.8;
+    margin-bottom: 0.9rem;
+  }
+
+  .sea-what-visual {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .sea-stat-stack {
+    width: 100%;
+    max-width: 340px;
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
+  }
+
+  .sea-stat-item {
+    padding: 1.75rem 2rem 1.75rem 2.5rem;
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+    position: relative;
+  }
+
+  .sea-stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .sea-stat-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--pastel-pink), var(--pastel-blue));
+  }
+
+  .sea-stat-value {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .sea-stat-desc {
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+  }
+
+  /* ── Service Cards ── */
+  .sea-services { padding: 7rem 4rem; }
+
+  .sea-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .sea-card {
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .sea-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(10,10,10,0.09);
+  }
+
+  .sea-card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(10,10,10,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin: 0 auto 1.25rem;
+    transition: background 0.3s ease;
+  }
+
+  .sea-card:hover .sea-card-icon {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .sea-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  .sea-card p {
+    font-size: 0.88rem;
+    color: rgba(10,10,10,0.65);
+    line-height: 1.7;
+  }
+
+  /* ── Benefits ── */
+  .sea-benefits { padding: 7rem 4rem; }
+
+  .sea-benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .sea-benefits-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1rem;
+  }
+  .sea-benefits-left p {
+    color: rgba(10,10,10,0.68);
+    line-height: 1.8;
+  }
+
+  .sea-benefit-stats {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .sea-bstat {
+    border-left: 3px solid var(--black);
+    padding-left: 1rem;
+  }
+  .sea-bstat strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .sea-bstat span {
+    font-size: 0.85rem;
+    color: rgba(10,10,10,0.65);
+    line-height: 1.5;
+  }
+
+  .sea-benefit-item {
+    border-top: 1px solid rgba(10,10,10,0.1);
+    padding: 1.25rem 0;
+  }
+  .sea-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+
+  .sea-benefit-item summary {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .sea-benefit-item summary::-webkit-details-marker { display: none; }
+  .sea-benefit-item summary::after {
+    content: "+";
+    font-size: 1.3rem;
+    font-weight: 300;
+    flex-shrink: 0;
+    opacity: 0.45;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .sea-benefit-item[open] summary::after {
+    transform: rotate(45deg);
+    opacity: 1;
+  }
+  .sea-benefit-item p {
+    margin-top: 0.75rem;
+    color: rgba(10,10,10,0.68);
+    line-height: 1.8;
+    font-size: 0.92rem;
+  }
+
+  /* ── Approach ── */
+  .sea-approach { padding: 6rem 4rem; }
+
+  .sea-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(10,10,10,0.14);
+    border-bottom: 1px solid rgba(10,10,10,0.14);
+    margin-top: 2rem;
+  }
+
+  .sea-step {
+    padding: 1.75rem 1.25rem;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    border-right: 1px solid rgba(10,10,10,0.1);
+  }
+  .sea-step:last-child { border-right: none; }
+
+  .sea-step-num {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    opacity: 0.4;
+  }
+  .sea-step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .sea-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  /* ── Context ── */
+  .sea-context { padding: 6rem 4rem; }
+
+  .sea-context-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  .sea-block {
+    border-top: 1px solid rgba(10,10,10,0.14);
+    padding: 1.8rem 0 0;
+  }
+  .sea-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .sea-block h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.75rem;
+    line-height: 1.08;
+    margin-bottom: 1.2rem;
+    max-width: 16ch;
+  }
+
+  .sea-list { list-style: none; display: grid; gap: 0.8rem; }
+  .sea-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    line-height: 1.65;
+    color: rgba(10,10,10,0.84);
+  }
+  .sea-list li::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--black);
+    position: absolute;
+    left: 0; top: 0.64rem;
+  }
+  .sea-list--muted li { color: rgba(10,10,10,0.65); }
+  .sea-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  /* ── FAQ ── */
+  .sea-faq { padding: 7rem 4rem; }
+
+  .sea-faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .sea-faq-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .sea-faq-left p {
+    color: rgba(10,10,10,0.65);
+    line-height: 1.8;
+    font-size: 0.92rem;
+  }
+
+  .sea-faq-item {
+    border-top: 1px solid rgba(10,10,10,0.1);
+    padding: 1.25rem 0;
+  }
+  .sea-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .sea-faq-item summary {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .sea-faq-item summary::-webkit-details-marker { display: none; }
+  .sea-faq-item summary::after {
+    content: "+";
+    font-size: 1.3rem;
+    font-weight: 300;
+    flex-shrink: 0;
+    opacity: 0.45;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .sea-faq-item[open] summary::after {
+    transform: rotate(45deg);
+    opacity: 1;
+  }
+  .sea-faq-item p {
+    margin-top: 0.75rem;
+    color: rgba(10,10,10,0.68);
+    line-height: 1.8;
+    font-size: 0.92rem;
+  }
+
+  /* ── Outcomes ── */
+  .sea-outcomes {
+    padding: 6rem 4rem;
+    background: var(--black);
+    color: var(--white);
+  }
+  .sea-outcomes h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.4rem;
+  }
+  .sea-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .sea-outcome-tags span {
+    border-bottom: 1px solid rgba(255,255,255,0.35);
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    margin-right: 0.4rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .sea-hero-inner,
+    .sea-what-grid,
+    .sea-benefits-grid,
+    .sea-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .sea-cards-grid { grid-template-columns: 1fr 1fr; }
+    .sea-steps { grid-template-columns: 1fr 1fr; }
+    .sea-step:nth-child(2n) { border-right: none; }
+    .sea-context-grid { grid-template-columns: 1fr; }
+    .sea-what-visual { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .sea-hero,
+    .sea-what,
+    .sea-services,
+    .sea-benefits,
+    .sea-approach,
+    .sea-context,
+    .sea-faq,
+    .sea-outcomes {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .sea-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .sea-cards-grid { grid-template-columns: 1fr; }
+    .sea-steps { grid-template-columns: 1fr; }
+    .sea-step {
+      border-right: none;
+      border-top: 1px solid rgba(10,10,10,0.1);
+      padding-left: 0; padding-right: 0;
+      min-height: auto;
+    }
+    .sea-step:first-child { border-top: none; }
+    .sea-metrics { grid-template-columns: 1fr 1fr; }
+    .sea-hero-panel {
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-left: 0; padding-top: 1rem;
+    }
+  }
+</style>

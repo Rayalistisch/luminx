@@ -133,7 +133,7 @@
   // -------------------------
   function initReveal() {
     const els = document.querySelectorAll(
-      ".section-header, .grid-item, .feature-card, .stat-item, .full-image-section"
+      ".section-header, .grid-item, .feature-card, .stat-item, .full-image-section, .om-card"
     );
     if (!els.length) return;
 
@@ -143,7 +143,7 @@
           if (entry.isIntersecting) entry.target.classList.add("visible");
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
 
     els.forEach((el) => observer.observe(el));
@@ -386,7 +386,7 @@
     } catch (e) {
       // fallback: show all
       document
-        .querySelectorAll(".section-header, .grid-item, .feature-card, .stat-item, .full-image-section")
+        .querySelectorAll(".section-header, .grid-item, .feature-card, .stat-item, .full-image-section, .om-card")
         .forEach((el) => el.classList.add("visible"));
       console.error("[theme.js] crashed:", e);
     }

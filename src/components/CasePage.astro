@@ -186,7 +186,7 @@ const caseSchema = {
     position: relative;
     background: var(--black);
     color: var(--white);
-    padding: 10rem 4rem 5rem;
+    padding: 9rem 4rem 0;
     overflow: hidden;
   }
 
@@ -204,9 +204,13 @@ const caseSchema = {
     max-width: 1240px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 420px;
-    gap: 2rem;
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .case-hero-content {
+    padding-bottom: 4rem;
   }
 
   .case-back-link {
@@ -214,8 +218,12 @@ const caseSchema = {
     margin-bottom: 1.5rem;
     color: var(--white);
     text-decoration: none;
-    opacity: 0.7;
+    opacity: 0.55;
+    font-size: 0.88rem;
+    transition: opacity 0.2s ease;
   }
+
+  .case-back-link:hover { opacity: 1; }
 
   .case-kicker {
     display: block;
@@ -224,55 +232,65 @@ const caseSchema = {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     opacity: 0.5;
-    margin-bottom: 1rem;
+    margin-bottom: 0.9rem;
   }
 
   .case-hero h1 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(2.3rem, 5.6vw, 4.8rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.2rem;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+    max-width: 18ch;
   }
 
   .case-hero p {
-    max-width: 62ch;
-    opacity: 0.88;
-    line-height: 1.72;
-    margin-bottom: 1.6rem;
+    max-width: 58ch;
+    opacity: 0.75;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
   }
 
   .case-meta {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem;
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
 
   .case-meta div {
-    border-top: 1px solid rgba(255, 255, 255, 0.24);
-    padding-top: 0.7rem;
+    flex: 1;
+    padding: 0.9rem 1rem 0.9rem 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .case-meta div:last-child {
+    border-right: none;
   }
 
   .case-meta span {
     display: block;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0.6;
-    margin-bottom: 0.2rem;
+    opacity: 0.45;
+    margin-bottom: 0.3rem;
   }
 
   .case-meta strong {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
     line-height: 1.4;
+    opacity: 0.9;
   }
 
   .case-hero-image-wrap {
-    border-radius: 20px;
+    border-radius: 16px 16px 0 0;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    height: 360px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-bottom: none;
+    height: 440px;
+    align-self: end;
   }
 
   .case-hero-image {
