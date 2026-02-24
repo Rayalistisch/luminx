@@ -199,4 +199,159 @@ export const services: Record<string, ServiceDef> = {
       "Voorspelbare groei door structurele sturing op KPI's",
     ],
   },
+  sea: {
+    label: "SEA & Google Ads",
+    icon: "▲",
+    metaTitle: (city) => `SEA & Google Ads ${city} | LuminX — Bureau Twente`,
+    metaDesc: (city) =>
+      `Google Ads bureau in ${city}? LuminX beheert betaalde campagnes voor bedrijven in ${city} met focus op lagere kosten en meer kwalitatieve leads in Twente.`,
+    intro: (city, context) =>
+      `${context} LuminX beheert voor bedrijven in ${city} betaalde zoekcampagnes die direct zichtbaar zijn op de momenten die ertoe doen — met scherpe targeting en aantoonbaar rendement.`,
+    metrics: [
+      { value: "-20-40%", label: "Lagere CPC" },
+      { value: "+35-65%", label: "Meer conversies" },
+      { value: "Wekelijks", label: "Optimalisatiecyclus" },
+    ],
+    painPoints: [
+      "Hoog advertentiebudget met weinig aantoonbare return",
+      "Campagnes draaien op standaardinstellingen zonder optimalisatie",
+      "Onvoldoende inzicht in welke zoekwoorden echt converteren",
+      "Geen koppeling tussen advertentiedata en CRM of omzet",
+    ],
+    highlights: [
+      "Zoekwoordstrategie op basis van intentie en concurrentieanalyse",
+      "Campagnestructuur voor Search, Display en Remarketing",
+      "Conversietracking en attributie voor betrouwbare sturing",
+      "Wekelijkse optimalisatie op kwaliteitsscore, bod en advertentieteksten",
+    ],
+    process: [
+      "Accountaudit en analyse van huidige campagnes en budget",
+      "Zoekwoordonderzoek en campagnearchitectuur per doelstelling",
+      "Opzet van tracking, doelgroepen en remarketinglijsten",
+      "Continue optimalisatie met maandelijkse rapportage",
+    ],
+    outcomes: [
+      "Meer zichtbaarheid op relevante zoekopdrachten in de regio",
+      "Lagere kosten per klik en kosten per conversie",
+      "Betere leadkwaliteit door scherpe targeting",
+      "Volledig inzicht in rendement per campagne en zoekwoord",
+    ],
+  },
+  "bedrijfsautomatisering": {
+    label: "Bedrijfsautomatisering",
+    icon: "⬡",
+    metaTitle: (city) =>
+      `Bedrijfsautomatisering ${city} | LuminX — Bureau Twente`,
+    metaDesc: (city) =>
+      `Bedrijfsautomatisering in ${city}? LuminX helpt bedrijven in ${city} handmatige processen elimineren en operationele efficiëntie structureel verbeteren.`,
+    intro: (city, context) =>
+      `${context} LuminX helpt bedrijven in ${city} hun operatie te stroomlijnen door slimme automatisering van terugkerende taken — van offertes en facturatie tot voorraadbeheer en klantcommunicatie.`,
+    metrics: [
+      { value: "30-60%", label: "Minder handmatig werk" },
+      { value: "4-10 weken", label: "Eerste resultaat" },
+      { value: "ROI-first", label: "Prioriteit op rendement" },
+    ],
+    painPoints: [
+      "Medewerkers besteden uren aan repetitief administratief werk",
+      "Fouten door handmatige overdracht tussen systemen en afdelingen",
+      "Processen zijn niet schaalbaar naarmate het bedrijf groeit",
+      "Geen realtime overzicht van status, capaciteit of doorlooptijd",
+    ],
+    highlights: [
+      "Procesaudit met prioritering op basis van tijdsbesparing en ROI",
+      "Automatisering van administratieve workflows en goedkeuringsstromen",
+      "Koppelingen tussen ERP, CRM, boekhouding en communicatietools",
+      "Dashboards voor operationele sturing en managementrapportage",
+    ],
+    process: [
+      "Inventarisatie van handmatige processen en bottlenecks",
+      "Selectie van automatiseringen met hoogste impact per tijdsinvestering",
+      "Bouw, test en gefaseerde implementatie met terugvalscenario's",
+      "Adoptieondersteuning, training en doorlopende optimalisatie",
+    ],
+    outcomes: [
+      "Significant minder tijd kwijt aan administratieve taken",
+      "Minder fouten en herstelwerk in de dagelijkse operatie",
+      "Sneller schalen zonder evenredige groei in personeel",
+      "Beter inzicht in operationele prestaties en capaciteit",
+    ],
+  },
+  "marketing-automation": {
+    label: "Marketing Automation",
+    icon: "◈",
+    metaTitle: (city) =>
+      `Marketing Automation ${city} | LuminX — Bureau Twente`,
+    metaDesc: (city) =>
+      `Marketing automation in ${city}? LuminX bouwt geautomatiseerde marketingflows voor bedrijven in ${city} die leads nurturen en conversies verhogen zonder extra handwerk.`,
+    intro: (city, context) =>
+      `${context} LuminX bouwt voor bedrijven in ${city} geautomatiseerde marketingflows die leads op het juiste moment opvolgen, nurturen en converteren — zonder handmatig ingrijpen.`,
+    metrics: [
+      { value: "+40-80%", label: "Hogere leadopvolging" },
+      { value: "-50%", label: "Minder handmatig werk" },
+      { value: "Altijd-aan", label: "Nurturing flows" },
+    ],
+    painPoints: [
+      "Leads vallen weg omdat opvolging te traag of inconsistent is",
+      "Marketingcampagnes zijn losstaand zonder geautomatiseerde opvolging",
+      "Geen gepersonaliseerde communicatie op basis van gedrag",
+      "Te veel tijd kwijt aan handmatige e-mails en segmentatie",
+    ],
+    highlights: [
+      "Leadnurturing flows op basis van gedrag en funnel-fase",
+      "Geautomatiseerde opvolging via e-mail, SMS en retargeting",
+      "CRM-integratie voor naadloze overdracht van marketing naar sales",
+      "A/B-testing en optimalisatie van flows op conversie",
+    ],
+    process: [
+      "Klantreis in kaart brengen van eerste contact tot aankoop",
+      "Opzet van segmentatie, triggers en communicatieflows",
+      "Technische implementatie en koppeling met CRM en analytics",
+      "Doorlopende optimalisatie op openrates, clicks en conversies",
+    ],
+    outcomes: [
+      "Consistente en tijdige opvolging van elke lead",
+      "Meer conversies zonder extra marketinginspanning",
+      "Beter inzicht in welke content en flows het beste presteren",
+      "Schaalbare marketingmachine die groeit met je bedrijf",
+    ],
+  },
+  "emailmarketing": {
+    label: "E-mailmarketing",
+    icon: "◉",
+    metaTitle: (city) =>
+      `E-mailmarketing ${city} | LuminX — Marketingbureau Twente`,
+    metaDesc: (city) =>
+      `E-mailmarketing bureau in ${city}? LuminX ontwikkelt e-mailstrategieën en campagnes voor bedrijven in ${city} die leiden tot meer omzet en klantbinding in Twente.`,
+    intro: (city, context) =>
+      `${context} LuminX ontwikkelt voor bedrijven in ${city} e-mailmarketingstrategieën die verder gaan dan nieuwsbrieven — gericht op relevantie, timing en meetbare omzetbijdrage.`,
+    metrics: [
+      { value: "35-55%", label: "Gemiddelde open rate" },
+      { value: "+25%", label: "Meer herhaalomzet" },
+      { value: "GDPR-proof", label: "Compliant & veilig" },
+    ],
+    painPoints: [
+      "Nieuwsbrieven worden nauwelijks geopend of doorgelezen",
+      "Geen segmentatie: iedereen ontvangt dezelfde berichten",
+      "Onvoldoende inzicht in wat e-mailcampagnes daadwerkelijk opleveren",
+      "Handmatig versturen kost tijd en leidt tot inconsistente planning",
+    ],
+    highlights: [
+      "E-mailstrategie afgestemd op klantreis en bedrijfsdoelen",
+      "Segmentatie en personalisatie op basis van gedrag en profiel",
+      "Template-ontwerp dat aansluit op merkidentiteit en converteert",
+      "Volledige rapportage op opens, clicks, conversies en omzet",
+    ],
+    process: [
+      "Analyse van huidige lijst, segmenten en campagnehistorie",
+      "Strategie voor frequentie, inhoud en automatiseringsmomenten",
+      "Opzet van templates, flows en integrations met je platform",
+      "Continue optimalisatie op basis van data en A/B-tests",
+    ],
+    outcomes: [
+      "Hogere openrates en doorklikratio's door betere relevantie",
+      "Meer omzet uit bestaande klanten via gerichte opvolging",
+      "Consistente communicatie zonder extra tijdsinvestering",
+      "Volledig inzicht in de bijdrage van e-mail aan je groei",
+    ],
+  },
 };
