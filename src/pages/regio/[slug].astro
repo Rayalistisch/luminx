@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+import { cities, services } from "../../data/regional";
+import type { City, ServiceDef } from "../../data/regional";
+
+export function getStaticPaths() {
+  const paths = [];
+  for (const city of cities) {
+    for (const [serviceKey, service] of Object.entries(services)) {
+      paths.push({
+        params: { slug: `${serviceKey}-${city.slug}` },
+        props: { city, service },
+      });
+    }
+  }
+  return paths;
+}
+
+interface Props {
+  city: City;
+  service: ServiceDef;
+}
+
+const { city, service } = Astro.props;
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+
+const localBusinessSchema = {
+  "@type": "ProfessionalService",
+  name: "LuminX",
+  url: siteOrigin,
+  email: "hello@luminx.nl",
+  areaServed: {
+    "@type": "City",
+    name: city.name,
+    containedInPlace: {
+      "@type": "AdministrativeArea",
+      name: "Twente",
+    },
+  },
+  serviceType: service.label,
+};
+---
+
+<BaseLayout
+  title={service.metaTitle(city.name)}
+  description={service.metaDesc(city.name)}
+  structuredData={localBusinessSchema}
+>
+  <ServicePage
+    title={`${service.label} in ${city.name}`}
+    icon={service.icon}
+    intro={service.intro(city.name, city.context)}
+    metrics={service.metrics}
+    painPoints={service.painPoints}
+    highlights={service.highlights}
+    process={service.process}
+    outcomes={service.outcomes}
+  />
+</BaseLayout>
