@@ -122,6 +122,45 @@ export const services: Record<string, ServiceDef> = {
       "Groei die schaalbaar is zonder verlies aan kwaliteit",
     ],
   },
+  seo: {
+    label: "SEO",
+    icon: "◎",
+    metaTitle: (city) =>
+      `SEO Specialist ${city} | LuminX — SEO Bureau Twente`,
+    metaDesc: (city) =>
+      `Op zoek naar een SEO specialist in ${city}? LuminX vergroot je organisch bereik met technische SEO, contentstrategie en linkbuilding voor bedrijven in ${city} en Twente.`,
+    intro: (city, context) =>
+      `${context} LuminX helpt bedrijven in ${city} structureel hoger scoren in Google — met een SEO-aanpak die technisch sterk is, aansluit op zoekintentie en langdurig resultaat oplevert.`,
+    metrics: [
+      { value: "+40-120%", label: "Meer organisch verkeer" },
+      { value: "3-6 mnd", label: "Eerste aantoonbare stijging" },
+      { value: "Duurzaam", label: "Geen afhankelijkheid van ads" },
+    ],
+    painPoints: [
+      "Nauwelijks zichtbaar in Google buiten branded zoekopdrachten",
+      "Concurrenten scoren hoger op zoekwoorden die voor jou relevant zijn",
+      "Bestaande content genereert weinig organisch verkeer of leads",
+      "Geen inzicht in welke pagina's presteren en waarom",
+    ],
+    highlights: [
+      "Technische SEO-audit en doorlopende optimalisatie van crawlbaarheid",
+      "Zoekwoordstrategie op basis van intentie, volume en haalbaarheid",
+      "On-page optimalisatie van content, structuur en interne linking",
+      "Linkbuilding met kwalitatieve, relevante bronnen in jouw niche",
+    ],
+    process: [
+      "Technische audit, zoekwoordonderzoek en concurrentieanalyse",
+      "Prioriteiten op basis van impact: techniek, content of autoriteit",
+      "Implementatie van optimalisaties on-page en off-page",
+      "Maandelijkse rapportage op rankings, organisch verkeer en conversie",
+    ],
+    outcomes: [
+      "Hogere organische posities op commercieel relevante zoektermen",
+      "Structureel meer kwalitatief verkeer zonder lopend advertentiebudget",
+      "Betere gebruikerservaring en hogere conversie vanuit organisch kanaal",
+      "Inzicht in SEO-prestaties via heldere maandrapportage",
+    ],
+  },
   procesautomation: {
     label: "Procesautomation",
     icon: "◆",
