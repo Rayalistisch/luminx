@@ -22,7 +22,7 @@ export const cities: City[] = [
     name: "Enschede",
     slug: "enschede",
     context:
-      "Als grootste stad van Twente is Enschede een bruisend centrum voor tech, innovatie en ondernemerschap — mede aangedreven door de Universiteit Twente.",
+      "Als grootste stad van Twente is Enschede een bruisend centrum voor tech, innovatie en ondernemerschap, mede aangedreven door de Universiteit Twente, Grolsch en het prachtige Fc Twente.",
   },
   {
     name: "Hengelo",
@@ -48,9 +48,9 @@ export const services: Record<string, ServiceDef> = {
   "web-development": {
     label: "Web Development",
     icon: "✦",
-    metaTitle: (city) => `Web Development ${city} | LuminX — Webbureau Twente`,
+    metaTitle: (city) => `Web Development ${city} | LuminX — Marketing Partner in Twente`,
     metaDesc: (city) =>
-      `Op zoek naar een professioneel webbureau in ${city}? LuminX bouwt snelle, converterende websites voor bedrijven in ${city} en heel Twente.`,
+      `Op zoek naar een professionele partner in ${city}? LuminX bouwt snelle, converterende websites voor bedrijven in ${city} en heel Twente.`,
     intro: (city, context) =>
       `${context} LuminX helpt bedrijven in ${city} met een website die niet alleen premium oogt, maar ook technisch sterk presteert en meetbaar meer oplevert.`,
     metrics: [
