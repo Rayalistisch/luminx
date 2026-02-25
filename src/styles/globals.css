@@ -1260,7 +1260,22 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
       background: var(--black);
       color: var(--white);
       padding: 5rem 4rem 3rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gradient that bleeds down from the CTA section */
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 320px;
+      background:
+        radial-gradient(ellipse 60% 80% at 25% 0%, rgba(255, 182, 193, 0.1) 0%, transparent 100%),
+        radial-gradient(ellipse 50% 60% at 78% 0%, rgba(173, 216, 230, 0.08) 0%, transparent 100%);
+      pointer-events: none;
     }
 
     .footer-inner {
