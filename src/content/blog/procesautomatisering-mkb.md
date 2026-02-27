@@ -1,7 +1,7 @@
 ---
 title: 5 processen in je bedrijf die je nu al kunt automatiseren
 description: 'Veel MKB-bedrijven laten dagelijks uren liggen aan handmatig werk dat volledig geautomatiseerd kan worden. Dit zijn de vijf meest voorkomend, en hoe je ermee begint.'
-pubDate: 2025-04-02T00:00:00.000Z
+pubDate: 2026-02-27T01:00:00.000Z
 author: Ray Huffenreuter
 category: Procesautomatisering
 image: /images/marketing-automatisering.png
@@ -89,4 +89,4 @@ Breng het in kaart: welke stappen zijn er, wie voert ze uit, hoe lang duurt het?
 
 Bij LuminX begeleiden we bedrijven bij het identificeren van de juiste processen en het bouwen van de automatiseringen die er daadwerkelijk toe doen. Geen generieke software-implementaties, maar maatwerk dat past bij hoe jouw bedrijf werkt.
 
-Wil je weten welke processen in jouw organisatie het meest opleveren als je ze automatiseert? [Plan een vrijblijvend gesprek](https://luminx.nl/#contact). We kijken het samen door.
+Wil je weten welke processen in jouw organisatie het meest opleveren als je ze automatiseert? [Plan een vrijblijvend gesprek](https://luminx.nl#contact). We kijken het samen door.
