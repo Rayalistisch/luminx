@@ -130,7 +130,7 @@ export const services: Record<string, ServiceDef> = {
     metaDesc: (city) =>
       `Op zoek naar een SEO specialist in ${city}? LuminX vergroot je organisch bereik met technische SEO, contentstrategie en linkbuilding voor bedrijven in ${city} en Twente.`,
     intro: (city, context) =>
-      `${context} LuminX helpt bedrijven in ${city} structureel hoger scoren in Google — met een SEO-aanpak die technisch sterk is, aansluit op zoekintentie en langdurig resultaat oplevert.`,
+      `${context} LuminX helpt bedrijven in ${city} structureel hoger scoren in Google. Met een SEO-aanpak die technisch sterk is, aansluit op zoekintentie en langdurig resultaat oplevert.`,
     metrics: [
       { value: "+40-120%", label: "Meer organisch verkeer" },
       { value: "3-6 mnd", label: "Eerste aantoonbare stijging" },
