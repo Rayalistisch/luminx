@@ -199,9 +199,9 @@ const { slides } = Astro.props;
   /* Vertical label on closed cards */
   .cs-card-label {
     position: absolute;
-    bottom: 1.4rem;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%) rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(-90deg);
     transform-origin: center center;
     white-space: nowrap;
     font-family: 'Syne', sans-serif;
@@ -209,7 +209,7 @@ const { slides } = Astro.props;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(10, 10, 10, 1);
     transition: opacity 0.3s ease;
     pointer-events: none;
   }
