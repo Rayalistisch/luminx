@@ -7,7 +7,7 @@ category: Online Marketing
 image: /images/IMG_5521.PNG
 ---
 
-Online marketing voor bedrijven in Twente werkt anders dan een generieke campagne uit een leerboek. De regio heeft eigen kenmerken — industriële wortels, een sterke MKB-basis, en steden als Enschede, Hengelo en Almelo die elk hun eigen dynamiek kennen.
+Online marketing voor bedrijven in Twente werkt anders dan een generieke campagne uit een leerboek. De regio heeft eigen kenmerken, industriële wortels, een sterke MKB-basis, en steden als Enschede, Hengelo en Almelo die elk hun eigen dynamiek kennen.
 
 Dit artikel is gebaseerd op wat wij dagelijks zien bij bedrijven die wij begeleiden in de regio.
 
@@ -39,15 +39,15 @@ SEO is trager, maar heeft een duurzame impact. Bedrijven die nu investeren in lo
 * Pagina's op je website die gericht zijn op regiospecifieke zoektermen
 * Kwalitatieve backlinks vanuit lokale media, brancheorganisaties en zakenpartners
 
-### 3. LinkedIn voor B2B
+### 3. Linkedin, Meta en andere kanalen voor B2B
 
-Twente heeft een sterk B2B-ecosysteem met grote namen als Thales in Hengelo, de Universiteit Twente in Enschede, en talloze MKB-toeleveranciers. LinkedIn is voor B2B-bedrijven in de regio een onderschat kanaal.
+Twente heeft een sterk B2B-ecosysteem met grote namen als Thales in Hengelo, de Universiteit Twente in Enschede, en talloze MKB-toeleveranciers. LinkedIn is voor B2B-bedrijven in de regio een onderschat kanaal, maar ook direct één van de duurste kanalen. Het is dus belangrijk om hier een goede overweging in te maken wat een lead jouw als bedrijf mag kosten.
 
 Gerichte campagnes op functietitels, bedrijfsgrootte en locatie leveren hier hogere leadkwaliteit op dan brede display campagnes.
 
-## Wat de meeste Twentse bedrijven fout doen
+## Waar de meeste bedrijven nog kunnen winnen:
 
-We zien een aantal terugkerende fouten:
+We zien een aantal terugkerende verbeterpunten:
 
 **Te generiek adverteren.** Campagnes die geen onderscheid maken tussen regio's of doelgroepen leveren veel irrelevant verkeer op. Specificiteit loont altijd.
 
