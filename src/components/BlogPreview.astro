@@ -1,0 +1,198 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+{posts.length > 0 && (
+  <section class="blog-preview-section" data-bg-color="#FEFEFE">
+    <div class="blog-preview-inner">
+      <div class="blog-preview-head">
+        <div>
+          <span class="blog-preview-kicker">Kennisbank</span>
+          <h2>Laatste artikelen</h2>
+        </div>
+        <a href="/blog" class="blog-preview-all">Alle artikelen →</a>
+      </div>
+
+      <div class="blog-preview-grid">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="blog-preview-card">
+            {post.data.image && (
+              <div class="blog-preview-image">
+                <img src={post.data.image} alt={post.data.title} loading="lazy" decoding="async" />
+              </div>
+            )}
+            <div class="blog-preview-body">
+              {post.data.category && (
+                <span class="blog-preview-cat">{post.data.category}</span>
+              )}
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <div class="blog-preview-footer">
+                <span class="blog-preview-date">{formatDate(post.data.pubDate)}</span>
+                <span class="blog-preview-link">Lees artikel →</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .blog-preview-section {
+    padding: 6rem 4rem;
+    background: var(--white);
+    border-top: 1px solid rgba(10,10,10,0.08);
+  }
+
+  .blog-preview-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .blog-preview-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+  }
+
+  .blog-preview-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.42;
+    margin-bottom: 0.6rem;
+  }
+
+  .blog-preview-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--black);
+  }
+
+  .blog-preview-all {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--black);
+    text-decoration: none;
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    padding-bottom: 0.3rem;
+  }
+  .blog-preview-all:hover { opacity: 1; }
+
+  .blog-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .blog-preview-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--black);
+    background: var(--white);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .blog-preview-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(10,10,10,0.08);
+    border-color: rgba(10,10,10,0.2);
+  }
+
+  .blog-preview-image {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #f0f2f5;
+  }
+
+  .blog-preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .blog-preview-card:hover .blog-preview-image img {
+    transform: scale(1.04);
+  }
+
+  .blog-preview-body {
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .blog-preview-cat {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.4);
+  }
+
+  .blog-preview-body h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .blog-preview-body p {
+    font-size: 0.88rem;
+    color: rgba(10,10,10,0.6);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .blog-preview-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(10,10,10,0.08);
+  }
+
+  .blog-preview-date {
+    font-size: 0.78rem;
+    color: rgba(10,10,10,0.38);
+  }
+
+  .blog-preview-link {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .blog-preview-section { padding: 5rem 2rem; }
+    .blog-preview-grid { grid-template-columns: 1fr; }
+    .blog-preview-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+</style>

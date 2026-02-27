@@ -1,7 +1,203 @@
 <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
-  <div class="cta-content">
-    <h2>Laten we iets<br/>moois bouwen</h2>
-    <p>Plan een vrijblijvend kennismakingsgesprek en ontdek wat we samen kunnen bereiken.</p>
-    <a href="#" class="cta-button" data-overlay-open>Plan een gesprek</a>
+  <div class="cta-inner">
+    <div class="cta-left">
+      <span class="cta-kicker">Contact</span>
+      <h2>Laten we iets<br/>moois bouwen</h2>
+      <p>Heb je een project in gedachten? We horen graag van je en reageren binnen 24 uur.</p>
+    </div>
+
+    <div class="cta-right">
+      <div class="cta-contact-items">
+        <a href="mailto:hello@luminx.nl" class="cta-contact-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M22 6l-10 7L2 6"/>
+          </svg>
+          <span>hello@luminx.nl</span>
+        </a>
+        <a href="tel:+31613698596" class="cta-contact-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>+31 6 1369 8596</span>
+        </a>
+        <div id="cta-calendar-button-slot"></div>
+      </div>
+
+      <div class="cta-divider"></div>
+
+      <a href="#" class="cta-button" data-overlay-open>
+        Stuur een bericht
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    var calendarUrl = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0KnPaRiH37bvNSB0ta7HrOtyHk8wT8EUaAMULRWJcV8kywKhl-TEVeRu1YsOLCFd3vzfBt6dve?gv=true";
+    var tries = 0;
+
+    function initCtaCalendarButton() {
+      var slot = document.getElementById("cta-calendar-button-slot");
+      if (!slot || slot.dataset.initialized === "true") return;
+      if (!window.calendar || !window.calendar.schedulingButton) return;
+
+      window.calendar.schedulingButton.load({
+        url: calendarUrl,
+        color: "#A79B8E",
+        label: "Plan een videocall",
+        target: slot,
+      });
+
+      slot.dataset.initialized = "true";
+      slot.classList.add("is-ready");
+    }
+
+    function initWithRetry() {
+      var timer = window.setInterval(function () {
+        tries += 1;
+        initCtaCalendarButton();
+        var slot = document.getElementById("cta-calendar-button-slot");
+        if ((slot && slot.dataset.initialized === "true") || tries >= 40) {
+          window.clearInterval(timer);
+        }
+      }, 100);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initWithRetry);
+    } else {
+      initWithRetry();
+    }
+  })();
+</script>
+
+<style>
+  .cta-section {
+    background: var(--black);
+    color: var(--white);
+    padding: 7rem 4rem;
+  }
+
+  .cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .cta-kicker {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  .cta-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+
+  .cta-left p {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.6;
+    max-width: 380px;
+    margin: auto;
+  }
+
+  .cta-contact-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.25s ease;
+  }
+
+  .cta-contact-item:hover { opacity: 1; }
+
+  .cta-contact-item svg { opacity: 0.5; flex-shrink: 0; }
+
+  #cta-calendar-button-slot { min-height: 28px; }
+  #cta-calendar-button-slot.is-ready { min-height: 0; }
+
+  #cta-calendar-button-slot :is(button, a) {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 1rem;
+    color: var(--white) !important;
+    text-decoration: none !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    opacity: 0.7;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  }
+
+  #cta-calendar-button-slot :is(button, a):hover { opacity: 1; }
+
+  .cta-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-bottom: 2rem;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    padding: 1rem 2.2rem;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  }
+
+  .cta-button:hover { opacity: 0.88; }
+
+  @media (max-width: 768px) {
+    .cta-section { padding: 5rem 2rem; }
+    .cta-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .cta-left p { max-width: 100%; }
+  }
+</style>
