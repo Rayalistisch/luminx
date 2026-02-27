@@ -1,9 +1,10 @@
 ---
-title: "5 processen in je bedrijf die je nu al kunt automatiseren"
-description: "Veel MKB-bedrijven laten dagelijks uren liggen aan handmatig werk dat volledig geautomatiseerd kan worden. Dit zijn de vijf meest voorkomende — en hoe je ermee begint."
-pubDate: 2025-04-02
-author: "Ray Huffenreuter"
-category: "Procesautomatisering"
+title: 5 processen in je bedrijf die je nu al kunt automatiseren
+description: Veel MKB-bedrijven laten dagelijks uren liggen aan handmatig werk dat volledig geautomatiseerd kan worden. Dit zijn de vijf meest voorkomende — en hoe je ermee begint.
+pubDate: 2025-04-02T00:00:00.000Z
+author: Ray Huffenreuter
+category: Procesautomatisering
+image: /images/marketing-automatisering.png
 ---
 
 Als ondernemer of manager weet je precies welke taken je team keer op keer uitvoert. Offertes die handmatig worden opgesteld, klantgegevens die worden overgetypt van het ene systeem naar het andere, facturen die worden verstuurd op vaste momenten. Routinewerk.
@@ -22,10 +23,10 @@ In de praktijk zien we dat leads nog steeds handmatig worden verwerkt: iemand le
 
 Wat je kunt automatiseren:
 
-- Automatische bevestiging naar de lead zodra het formulier is ingevuld
-- Aanmaken van contactrecord in je CRM (HubSpot, Pipedrive, Monday)
-- Toewijzing aan de juiste medewerker op basis van regio of dienst
-- Herinnering als er na twee dagen geen opvolging heeft plaatsgevonden
+* Automatische bevestiging naar de lead zodra het formulier is ingevuld
+* Aanmaken van contactrecord in je CRM (HubSpot, Pipedrive, Monday)
+* Toewijzing aan de juiste medewerker op basis van regio of dienst
+* Herinnering als er na twee dagen geen opvolging heeft plaatsgevonden
 
 Het resultaat: elke lead wordt direct en consistent opgevolgd, zonder dat iemand er handmatig aan te pas hoeft te komen.
 
@@ -35,9 +36,9 @@ Factureren is essentieel, maar handmatig facturen opstellen en versturen kost on
 
 Automatisering maakt het mogelijk om:
 
-- Facturen automatisch aan te maken op basis van afgeronde opdrachten of vaste momenten
-- Herinneringsmails te sturen bij overschrijding van de betaaltermijn
-- Betalingen te koppelen aan je boekhoudpakket zonder handmatige invoer
+* Facturen automatisch aan te maken op basis van afgeronde opdrachten of vaste momenten
+* Herinneringsmails te sturen bij overschrijding van de betaaltermijn
+* Betalingen te koppelen aan je boekhoudpakket zonder handmatige invoer
 
 Tools als Moneybird, Exact of Twinfield ondersteunen dit grotendeels uit de doos. De integratie met je andere systemen is wat het verschil maakt.
 
@@ -47,10 +48,10 @@ Een nieuwe klant of medewerker vraagt altijd om dezelfde reeks stappen: document
 
 Geautomatiseerde onboarding kan bestaan uit:
 
-- Een welkomstmail met relevante documenten, links en instructies
-- Automatische aanmaak van accounts in tools die je gebruikt
-- Een stap-voor-stap checklist die de nieuwe klant of medewerker zelf doorloopt
-- Notificaties voor interne betrokkenen op het juiste moment
+* Een welkomstmail met relevante documenten, links en instructies
+* Automatische aanmaak van accounts in tools die je gebruikt
+* Een stap-voor-stap checklist die de nieuwe klant of medewerker zelf doorloopt
+* Notificaties voor interne betrokkenen op het juiste moment
 
 Goed opgezette onboarding verhoogt de klanttevredenheid en vermindert de druk op je team.
 
@@ -60,9 +61,9 @@ Wekelijkse of maandelijkse rapportages worden bij veel bedrijven nog handmatig s
 
 Dit is volledig automatiseerbaar. Met tools als Looker Studio, Supermetrics of een koppeling via Make of Zapier kun je:
 
-- Data automatisch ophalen uit meerdere bronnen
-- Dashboards bouwen die altijd actueel zijn
-- Rapporten automatisch versturen naar de juiste mensen op vaste momenten
+* Data automatisch ophalen uit meerdere bronnen
+* Dashboards bouwen die altijd actueel zijn
+* Rapporten automatisch versturen naar de juiste mensen op vaste momenten
 
 Je team hoeft de data niet meer op te halen — ze kunnen direct focussen op de interpretatie en besluitvorming.
 
@@ -72,13 +73,13 @@ Wanneer er een nieuwe opdracht binnenkomt, een klant iets aanvraagt of een deadl
 
 Automatisering van taakbeheer kan er als volgt uitzien:
 
-- Nieuwe klantopdracht → automatisch aanmaken van project in je taakbeheertool (Asana, Monday, ClickUp)
-- Deadline nadert → automatische herinnering naar de verantwoordelijke
-- Klant stuurt een mail → automatisch aanmaken van een ticket in je helpdesk
+* Nieuwe klantopdracht → automatisch aanmaken van project in je taakbeheertool (Asana, Monday, ClickUp)
+* Deadline nadert → automatische herinnering naar de verantwoordelijke
+* Klant stuurt een mail → automatisch aanmaken van een ticket in je helpdesk
 
 Dit zijn kleine ingrepen die grote impact hebben op de operationele rust binnen je team.
 
----
+***
 
 ## Waar begin je?
 
