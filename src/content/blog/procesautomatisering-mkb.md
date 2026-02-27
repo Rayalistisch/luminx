@@ -11,7 +11,7 @@ Als ondernemer of manager weet je precies welke taken je team keer op keer uitvo
 
 Het probleem? Routinewerk kost tijd die je liever investeert in klanten, groei of strategie. En het introduceert menselijke fouten die je achteraf moet herstellen.
 
-Procesautomatisering lost dat op — niet door mensen te vervangen, maar door repetitieve taken over te dragen aan systemen die het sneller, foutlozer en 24/7 uitvoeren.
+Procesautomatisering lost dat op, niet door mensen te vervangen, maar door repetitieve taken over te dragen aan systemen die het sneller, foutlozer en 24/7 uitvoeren.
 
 Dit zijn de vijf processen die wij het meest tegenkomen bij bedrijven die stappen willen zetten.
 
@@ -19,7 +19,7 @@ Dit zijn de vijf processen die wij het meest tegenkomen bij bedrijven die stappe
 
 Wanneer een potentiële klant een formulier invult op je website, begint de klok te tikken. De snelheid van opvolging bepaalt in grote mate of iemand daadwerkelijk klant wordt.
 
-In de praktijk zien we dat leads nog steeds handmatig worden verwerkt: iemand leest de mail, zet het contactgegeven in een spreadsheet of CRM, en plant handmatig een opvolgactie. Dat kost tijd — en er vallen leads tussen wal en schip.
+In de praktijk zien we dat leads nog steeds handmatig worden verwerkt: iemand leest de mail, zet de contactgegevens in een spreadsheet of CRM, en plant handmatig een opvolgactie. Dat kost tijd, en er vallen leads tussen wal en schip.
 
 Wat je kunt automatiseren:
 
@@ -59,13 +59,13 @@ Goed opgezette onboarding verhoogt de klanttevredenheid en vermindert de druk op
 
 Wekelijkse of maandelijkse rapportages worden bij veel bedrijven nog handmatig samengesteld: cijfers ophalen uit Google Analytics, Ads-platforms, CRM en boekhoudpakket, en dat samenbrengen in een Word- of Exceldocument.
 
-Dit is volledig automatiseerbaar. Met tools als Looker Studio, Supermetrics of een koppeling via Make of Zapier kun je:
+Dit is volledig automatiseerbaar. Met onze eigen tool kun je:
 
 * Data automatisch ophalen uit meerdere bronnen
 * Dashboards bouwen die altijd actueel zijn
 * Rapporten automatisch versturen naar de juiste mensen op vaste momenten
 
-Je team hoeft de data niet meer op te halen — ze kunnen direct focussen op de interpretatie en besluitvorming.
+Je team hoeft de data niet meer op te halen, ze kunnen direct focussen op de interpretatie en besluitvorming.
 
 ## 5. Interne communicatie en taakbeheer
 
@@ -89,4 +89,4 @@ Breng het in kaart: welke stappen zijn er, wie voert ze uit, hoe lang duurt het?
 
 Bij LuminX begeleiden we bedrijven bij het identificeren van de juiste processen en het bouwen van de automatiseringen die er daadwerkelijk toe doen. Geen generieke software-implementaties, maar maatwerk dat past bij hoe jouw bedrijf werkt.
 
-Wil je weten welke processen in jouw organisatie het meest opleveren als je ze automatiseert? [Plan een vrijblijvend gesprek](#contact) — we kijken het samen door.
+Wil je weten welke processen in jouw organisatie het meest opleveren als je ze automatiseert? [Plan een vrijblijvend gesprek](https://luminx.nl/#contact). We kijken het samen door.
