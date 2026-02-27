@@ -2,7 +2,7 @@
 title: 5 processen in je bedrijf die je nu al kunt automatiseren
 description: 'Veel MKB-bedrijven laten dagelijks uren liggen aan handmatig werk dat volledig geautomatiseerd kan worden. Dit zijn de vijf meest voorkomend, en hoe je ermee begint.'
 pubDate: 2026-02-27T01:00:00.000Z
-author: Ray Huffenreuter
+author: Ray
 category: Procesautomatisering
 image: /images/marketing-automatisering.png
 ---
