@@ -28,7 +28,7 @@ const formatDate = (date: Date) =>
         <a href="/" class="blog-back-link">Terug naar homepage</a>
         <span class="blog-kicker">Kennisbank</span>
         <h1>Blog</h1>
-        <p>Praktische inzichten over online marketing, SEO en digitale groei — geschreven vanuit de praktijk.</p>
+        <p>Praktische inzichten over online marketing, SEO en digitale groei. Geschreven vanuit de praktijk.</p>
       </div>
     </section>
 
@@ -52,10 +52,10 @@ const formatDate = (date: Date) =>
                   )}
                   <h2 class="blog-card-title">{post.data.title}</h2>
                   <p class="blog-card-desc">{post.data.description}</p>
-                  <footer class="blog-card-footer">
+                  <div class="blog-card-footer">
                     <span class="blog-card-date">{formatDate(post.data.pubDate)}</span>
                     <span class="blog-card-read">Lees artikel →</span>
-                  </footer>
+                  </div>
                 </div>
               </a>
             </li>
