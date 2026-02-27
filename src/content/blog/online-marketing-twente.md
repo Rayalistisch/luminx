@@ -68,4 +68,4 @@ Vanuit die basis bepaal je welke kanalen op welk moment de meeste impact hebben.
 
 ***
 
-Wil je weten hoe je online marketingstrategie er voor jouw bedrijf uit zou kunnen zien? [Plan een vrijblijvend gesprek](#contact). we kijken samen naar de kansen in jouw markt.
+Wil je weten hoe je online marketingstrategie er voor jouw bedrijf uit zou kunnen zien? [Plan een vrijblijvend gesprek](https://luminx.nl/#contact). we kijken samen naar de kansen in jouw markt.
