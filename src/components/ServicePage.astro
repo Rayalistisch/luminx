@@ -8,6 +8,16 @@ interface Metric {
   label: string;
 }
 
+interface RelatedRegion {
+  label: string;
+  href: string;
+}
+
+interface FAQ {
+  q: string;
+  a: string;
+}
+
 interface Props {
   title: string;
   intro: string;
@@ -17,6 +27,9 @@ interface Props {
   painPoints: string[];
   outcomes: string[];
   metrics: Metric[];
+  relatedRegions?: RelatedRegion[];
+  faq?: FAQ[];
+  parentService?: { label: string; href: string };
 }
 
 const {
@@ -28,6 +41,9 @@ const {
   painPoints,
   outcomes,
   metrics,
+  relatedRegions,
+  faq,
+  parentService,
 } = Astro.props;
 
 const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
@@ -39,7 +55,9 @@ const serviceSchema = {
   description: intro,
   serviceType: title,
   url: canonicalUrl,
-  areaServed: "NL",
+  areaServed: relatedRegions?.length
+    ? ["Twente", "Enschede", "Hengelo", "Almelo", "Oldenzaal"]
+    : "NL",
   provider: {
     "@type": "Organization",
     "@id": `${siteOrigin}/#organization`,
@@ -47,19 +65,33 @@ const serviceSchema = {
     url: siteOrigin,
   },
 };
+
+const faqSchema = faq?.length ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+} : null;
 ---
 
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 <Nav basePath="/" />
 <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+{faqSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>}
 
 <main class="service-page">
   <section class="service-hero" data-bg-color="#0A0A0A">
     <div class="service-hero-overlay" aria-hidden="true"></div>
     <div class="service-hero-grid">
       <div class="service-hero-content">
-        <a href="/" class="service-back-link">Terug naar homepage</a>
+        {parentService
+          ? <a href={parentService.href} class="service-back-link">← {parentService.label}</a>
+          : <a href="/" class="service-back-link">Terug naar homepage</a>
+        }
         <span class="service-kicker">Specialisme</span>
         <h1>
           <span class="service-icon" aria-hidden="true">{icon}</span>
@@ -133,6 +165,43 @@ const serviceSchema = {
       </div>
     </div>
   </section>
+
+  {relatedRegions && relatedRegions.length > 0 && (
+    <section class="service-regions" data-bg-color="#F7F9FC">
+      <div class="service-regions-inner">
+        <span class="service-regions-kicker">Regionale aanwezigheid</span>
+        <h2>Actief in heel Twente</h2>
+        <p>LuminX werkt voor bedrijven door heel Twente. Bekijk onze aanpak per regio.</p>
+        <ul class="service-regions-grid">
+          {relatedRegions.map((region) => (
+            <li>
+              <a href={region.href} class="service-region-card">
+                <span>{region.label}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {faq && faq.length > 0 && (
+    <section class="service-faq" data-bg-color="#FEFEFE">
+      <div class="service-faq-inner">
+        <span class="service-faq-kicker">Veelgestelde vragen</span>
+        <h2>Antwoorden op veelgestelde vragen</h2>
+        <dl class="service-faq-list">
+          {faq.map(({ q, a }) => (
+            <div class="service-faq-item">
+              <dt>{q}</dt>
+              <dd>{a}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )}
 
   <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
     <div class="cta-content">
@@ -485,6 +554,124 @@ const serviceSchema = {
     font-size: 0.9rem;
   }
 
+  /* Regions section */
+  .service-regions {
+    padding: 6rem 4rem;
+  }
+
+  .service-regions-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .service-regions-kicker {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 0.9rem;
+  }
+
+  .service-regions h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+
+  .service-regions > div > p {
+    color: rgba(10, 10, 10, 0.65);
+    margin-bottom: 2rem;
+  }
+
+  .service-regions-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .service-region-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid rgba(10, 10, 10, 0.12);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--black);
+    font-weight: 500;
+    font-size: 0.95rem;
+    background: var(--white);
+    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .service-region-card:hover {
+    border-color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
+  }
+
+  /* FAQ section */
+  .service-faq {
+    padding: 6rem 4rem;
+  }
+
+  .service-faq-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .service-faq-kicker {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 0.9rem;
+  }
+
+  .service-faq h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+
+  .service-faq-list {
+    display: grid;
+    gap: 0;
+  }
+
+  .service-faq-item {
+    border-top: 1px solid rgba(10, 10, 10, 0.12);
+    padding: 1.6rem 0;
+  }
+
+  .service-faq-item:last-child {
+    border-bottom: 1px solid rgba(10, 10, 10, 0.12);
+  }
+
+  .service-faq-item dt {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.65rem;
+    color: var(--black);
+  }
+
+  .service-faq-item dd {
+    color: rgba(10, 10, 10, 0.72);
+    line-height: 1.75;
+    max-width: 70ch;
+  }
+
   @media (max-width: 1100px) {
     .service-hero-grid {
       grid-template-columns: 1fr;
@@ -500,13 +687,25 @@ const serviceSchema = {
     }
   }
 
+  @media (max-width: 1100px) {
+    .service-regions-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   @media (max-width: 768px) {
     .service-hero,
     .service-context,
     .service-approach,
-    .service-outcomes {
+    .service-outcomes,
+    .service-regions,
+    .service-faq {
       padding-left: 2rem;
       padding-right: 2rem;
+    }
+
+    .service-regions-grid {
+      grid-template-columns: 1fr 1fr;
     }
 
     .service-hero {

@@ -4,13 +4,13 @@ import ServicePage from "../../components/ServicePage.astro";
 ---
 
 <BaseLayout
-  title="Online Marketing | LuminX"
-  description="Performance marketing en funneloptimalisatie voor voorspelbare groei en betere leadkwaliteit."
+  title="Online Marketing Bureau Twente | LuminX — Meetbare Groei"
+  description="LuminX is het online marketing bureau in Twente voor bedrijven in Enschede, Hengelo, Almelo en Oldenzaal. Wij realiseren meetbare groei via SEA, SEO, social en funneloptimalisatie."
 >
   <ServicePage
     title="Online Marketing"
     icon="✧"
-    intro="We bouwen een online marketingmachine die kanalen, campagnes en conversie samenbrengt in een schaalbare aanpak met meetbare impact."
+    intro="We bouwen een online marketingmachine die kanalen, campagnes en conversie samenbrengt in een schaalbare aanpak met meetbare impact. Voor bedrijven in Twente die willen groeien op basis van data."
     metrics={[
       { value: "+30-70%", label: "Meer kwalitatieve leads" },
       { value: "-15-35%", label: "Lagere CPA" },
@@ -39,6 +39,30 @@ import ServicePage from "../../components/ServicePage.astro";
       "Betere marketingrendementen per kanaal en campagne",
       "Snellere iteraties door duidelijke datafeedback",
       "Groei die schaalbaar is zonder verlies aan kwaliteit"
+    ]}
+    relatedRegions={[
+      { label: "Online Marketing Enschede", href: "/regio/online-marketing-enschede" },
+      { label: "Online Marketing Hengelo",  href: "/regio/online-marketing-hengelo"  },
+      { label: "Online Marketing Almelo",   href: "/regio/online-marketing-almelo"   },
+      { label: "Online Marketing Oldenzaal",href: "/regio/online-marketing-oldenzaal"},
+    ]}
+    faq={[
+      {
+        q: "Wat doet een online marketing bureau voor mijn bedrijf?",
+        a: "Een online marketing bureau zoals LuminX zorgt dat jouw bedrijf zichtbaar is op de juiste plekken — via zoekmachines, social media en betaalde advertenties. We combineren strategie, campagnebeheer en data-analyse om meetbare groei te realiseren in leads, omzet en marktaandeel."
+      },
+      {
+        q: "Wat is het verschil tussen SEO en SEA?",
+        a: "SEO (zoekmachineoptimalisatie) zorgt voor organische zichtbaarheid in Google zonder directe advertentiekosten. Resultaten bouwen over tijd op. SEA (zoekmachineadvertising) plaatst betaalde advertenties bovenaan Google en levert direct verkeer. De meeste bedrijven profiteren van een combinatie van beide."
+      },
+      {
+        q: "Hoe snel zie ik resultaten van online marketing?",
+        a: "Betaalde campagnes (SEA, social ads) leveren doorgaans binnen 2-4 weken meetbare resultaten op. SEO heeft een langere doorlooptijd — eerste verbeteringen zijn zichtbaar na 3-6 maanden, structurele groei na 6-12 maanden. We stemmen verwachtingen altijd af in een heldere roadmap."
+      },
+      {
+        q: "Werkt LuminX ook voor bedrijven buiten Enschede?",
+        a: "Ja. LuminX is actief voor bedrijven door heel Twente — inclusief Hengelo, Almelo en Oldenzaal. We werken grotendeels remote, met periodieke sessies op locatie waar gewenst. Regio is geen drempel."
+      },
     ]}
   />
 </BaseLayout>
