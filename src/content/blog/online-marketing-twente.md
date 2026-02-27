@@ -4,6 +4,7 @@ description: 'Hoe bouw je als bedrijf in Enschede, Hengelo of Almelo een online 
 pubDate: 2026-02-27T00:00:00.000Z
 author: Ray
 category: Online Marketing
+image: /images/IMG_5521.PNG
 ---
 
 Online marketing voor bedrijven in Twente werkt anders dan een generieke campagne uit een leerboek. De regio heeft eigen kenmerken — industriële wortels, een sterke MKB-basis, en steden als Enschede, Hengelo en Almelo die elk hun eigen dynamiek kennen.
@@ -68,4 +69,4 @@ Vanuit die basis bepaal je welke kanalen op welk moment de meeste impact hebben.
 
 ***
 
-Wil je weten hoe je online marketingstrategie er voor jouw bedrijf uit zou kunnen zien? [Plan een vrijblijvend gesprek](https://luminx.nl/#contact). we kijken samen naar de kansen in jouw markt.
+Wil je weten hoe je online marketingstrategie er voor jouw bedrijf uit zou kunnen zien? [Plan een vrijblijvend gesprek](https://luminx.nl#contact). we kijken samen naar de kansen in jouw markt.
