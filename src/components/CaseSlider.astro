@@ -146,7 +146,7 @@ const { slides } = Astro.props;
   }
 
   .cs-card {
-    --closed: 4.5rem;
+    --closed: 3.5rem;
     --open: 999px; /* flex will cap at available space */
 
     position: relative;
@@ -156,44 +156,44 @@ const { slides } = Astro.props;
     cursor: pointer;
     transition: flex-basis 0.55s cubic-bezier(0.77, 0, 0.175, 1);
     outline: none;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(10, 10, 10, 0.08);
+    background: #f0f2f5;
   }
 
   .cs-card[data-active] {
     flex: 1 1 var(--open);
   }
 
-  /* Screenshot fills the card */
+  /* Portrait screenshot — contain so the full UI is visible */
   .cs-card-img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: top;
+    object-fit: contain;
+    object-position: center top;
     display: block;
     transition: transform 0.55s ease;
   }
 
   .cs-card[data-active] .cs-card-img {
-    transform: scale(1.015);
+    transform: scale(1.02);
   }
 
-  /* Dark gradient overlay */
+  /* Subtle vignette at bottom for text legibility */
   .cs-card-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(10, 10, 10, 0.25) 0%,
-      rgba(10, 10, 10, 0.0) 40%,
-      rgba(10, 10, 10, 0.72) 100%
+      transparent 55%,
+      rgba(10, 10, 10, 0.55) 100%
     );
     transition: opacity 0.4s ease;
   }
 
   .cs-card:not([data-active]) .cs-card-overlay {
-    background: rgba(10, 10, 10, 0.62);
+    background: rgba(240, 242, 245, 0.55);
   }
 
   /* Vertical label on closed cards */
