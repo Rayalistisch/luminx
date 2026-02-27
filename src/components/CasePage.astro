@@ -4,6 +4,7 @@ import type { ImageMetadata } from "astro";
 import Nav from "./Nav.astro";
 import Footer from "./Footer.astro";
 import ContactOverlay from "./ContactOverlay.astro";
+import CaseSlider from "./CaseSlider.astro";
 import websiteGsmteamImage from "../assets/images/website-gsmteam.png";
 import repairPluginImage from "../assets/images/repair-plugin.png";
 import digitalMarketingImage from "../assets/images/digital-marketing-pexels.jpg";
@@ -16,6 +17,8 @@ interface Metric {
 interface GalleryImage {
   src: string;
   alt: string;
+  title?: string;
+  desc?: string;
 }
 
 interface Props {
@@ -155,13 +158,7 @@ const caseSchema = {
 
   {gallery && gallery.length > 0 && (
     <section class="case-gallery" data-bg-color="#F6F8FB">
-      <div class="case-gallery-inner">
-        {gallery.map((img) => (
-          <div class="case-gallery-item">
-            <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
-          </div>
-        ))}
-      </div>
+      <CaseSlider slides={gallery} />
     </section>
   )}
 
@@ -321,53 +318,12 @@ const caseSchema = {
   }
 
   .case-content,
-  .case-gallery,
   .case-results {
     padding: 5.5rem 4rem;
   }
 
-  .case-gallery-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-  }
-
-  .case-gallery-item {
-    border-radius: 12px;
-    overflow: hidden;
-    background: #e8eaed;
-    aspect-ratio: 16/10;
-  }
-
-  .case-gallery-item:first-child:nth-last-child(n+4),
-  .case-gallery-item:first-child:nth-last-child(n+4) ~ .case-gallery-item:nth-child(-n+2) {
-    grid-column: span 1;
-  }
-
-  /* First image spans full width if 5 images (2+3 layout) */
-  .case-gallery-inner:has(.case-gallery-item:nth-child(5)) .case-gallery-item:nth-child(1),
-  .case-gallery-inner:has(.case-gallery-item:nth-child(5)) .case-gallery-item:nth-child(2) {
-    grid-column: span 1;
-  }
-
-  .case-gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-  }
-
-  .case-gallery-item:hover img {
-    transform: scale(1.03);
-  }
-
-  @media (max-width: 768px) {
-    .case-gallery-inner {
-      grid-template-columns: 1fr;
-    }
+  .case-gallery {
+    padding: 2rem 0 0;
   }
 
   .case-content-grid {
