@@ -13,6 +13,11 @@ interface Metric {
   label: string;
 }
 
+interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
 interface Props {
   title: string;
   client: string;
@@ -25,6 +30,7 @@ interface Props {
   approach: string[];
   results: string[];
   metrics: Metric[];
+  gallery?: GalleryImage[];
 }
 
 const {
@@ -39,6 +45,7 @@ const {
   approach,
   results,
   metrics,
+  gallery,
 } = Astro.props;
 
 const localCaseImages: Record<string, ImageMetadata> = {
@@ -145,6 +152,18 @@ const caseSchema = {
       </article>
     </div>
   </section>
+
+  {gallery && gallery.length > 0 && (
+    <section class="case-gallery" data-bg-color="#F6F8FB">
+      <div class="case-gallery-inner">
+        {gallery.map((img) => (
+          <div class="case-gallery-item">
+            <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="case-results" data-bg-color="#F6F8FB">
     <div class="case-results-inner">
@@ -302,8 +321,53 @@ const caseSchema = {
   }
 
   .case-content,
+  .case-gallery,
   .case-results {
     padding: 5.5rem 4rem;
+  }
+
+  .case-gallery-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .case-gallery-item {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #e8eaed;
+    aspect-ratio: 16/10;
+  }
+
+  .case-gallery-item:first-child:nth-last-child(n+4),
+  .case-gallery-item:first-child:nth-last-child(n+4) ~ .case-gallery-item:nth-child(-n+2) {
+    grid-column: span 1;
+  }
+
+  /* First image spans full width if 5 images (2+3 layout) */
+  .case-gallery-inner:has(.case-gallery-item:nth-child(5)) .case-gallery-item:nth-child(1),
+  .case-gallery-inner:has(.case-gallery-item:nth-child(5)) .case-gallery-item:nth-child(2) {
+    grid-column: span 1;
+  }
+
+  .case-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .case-gallery-item:hover img {
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 768px) {
+    .case-gallery-inner {
+      grid-template-columns: 1fr;
+    }
   }
 
   .case-content-grid {
