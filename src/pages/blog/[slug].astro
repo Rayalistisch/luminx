@@ -1,0 +1,287 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import ContactOverlay from '../../components/ContactOverlay.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<'blog'> };
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const siteOrigin = Astro.site?.toString() ?? 'https://luminx.nl';
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: post.data.author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    '@id': `${siteOrigin}/#organization`,
+    name: 'LuminX',
+  },
+  url: canonicalUrl,
+  ...(post.data.image ? { image: new URL(post.data.image, siteOrigin).toString() } : {}),
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} | LuminX Blog`}
+  description={post.data.description}
+  ogImage={post.data.image ?? '/images/luminx-founder.png'}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="post-page">
+    <section class="post-hero" data-bg-color="#0A0A0A">
+      <div class="post-hero-overlay" aria-hidden="true"></div>
+      <div class="post-hero-inner">
+        <a href="/blog" class="post-back-link">← Blog</a>
+        {post.data.category && (
+          <span class="post-kicker">{post.data.category}</span>
+        )}
+        <h1>{post.data.title}</h1>
+        <p class="post-meta">
+          <span>{formatDate(post.data.pubDate)}</span>
+          <span>·</span>
+          <span>{post.data.author}</span>
+        </p>
+      </div>
+    </section>
+
+    {post.data.image && (
+      <div class="post-cover">
+        <img src={post.data.image} alt={post.data.title} loading="eager" decoding="async" />
+      </div>
+    )}
+
+    <article class="post-content" data-bg-color="#FEFEFE">
+      <div class="post-prose">
+        <Content />
+      </div>
+    </article>
+
+    <section class="post-cta" data-bg-color="#0A0A0A">
+      <div class="post-cta-inner">
+        <h2>Hulp nodig met online marketing?</h2>
+        <p>Plan een vrijblijvend gesprek en ontdek wat LuminX voor jouw bedrijf kan betekenen.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan een gesprek</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .post-page { background: var(--white); }
+
+  /* Hero */
+  .post-hero {
+    min-height: 50vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 4.5rem;
+    overflow: hidden;
+  }
+
+  .post-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.15), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(200, 231, 245, 0.12), transparent 38%);
+  }
+
+  .post-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .post-back-link {
+    display: inline-flex;
+    margin-bottom: 1.8rem;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.6;
+    font-size: 0.9rem;
+    transition: opacity 0.25s ease;
+  }
+  .post-back-link:hover { opacity: 1; }
+
+  .post-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .post-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.4rem;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    opacity: 0.55;
+  }
+
+  /* Cover image */
+  .post-cover {
+    max-width: 900px;
+    margin: -3rem auto 0;
+    padding: 0 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .post-cover img {
+    width: 100%;
+    border-radius: 14px;
+    display: block;
+    box-shadow: 0 24px 60px rgba(10,10,10,0.18);
+  }
+
+  /* Article body */
+  .post-content {
+    padding: 5rem 4rem 6rem;
+  }
+
+  .post-prose {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: clamp(1rem, 1.8vw, 1.08rem);
+    line-height: 1.85;
+    color: rgba(10,10,10,0.84);
+  }
+
+  .post-prose :global(h2) {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin: 2.8rem 0 1rem;
+  }
+
+  .post-prose :global(h3) {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--black);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .post-prose :global(p) {
+    margin-bottom: 1.4rem;
+  }
+
+  .post-prose :global(ul),
+  .post-prose :global(ol) {
+    padding-left: 1.4rem;
+    margin-bottom: 1.4rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .post-prose :global(li) {
+    line-height: 1.75;
+  }
+
+  .post-prose :global(strong) {
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  .post-prose :global(a) {
+    color: var(--black);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .post-prose :global(blockquote) {
+    border-left: 3px solid var(--black);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 1.8rem 0;
+    color: rgba(10,10,10,0.65);
+    font-style: italic;
+  }
+
+  .post-prose :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(10,10,10,0.12);
+    margin: 2.5rem 0;
+  }
+
+  /* Bottom CTA */
+  .post-cta {
+    padding: 6rem 4rem;
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+  }
+
+  .post-cta-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .post-cta h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.9rem;
+  }
+
+  .post-cta p {
+    opacity: 0.72;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .post-hero,
+    .post-content,
+    .post-cta {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .post-hero { padding-top: 8rem; }
+    .post-cover { padding: 0 2rem; margin-top: -2rem; }
+  }
+</style>
