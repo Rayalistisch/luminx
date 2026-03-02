@@ -71,41 +71,139 @@ const localBusinessSchema = {
     parentService={parentServiceMap[serviceKey]}
   >
     {serviceKey === "online-marketing" && (
-      <div slot="body" class="regional-body">
-        <div class="regional-col">
-          <h2>De markt in {city.name}</h2>
-          <p>{city.marketNote}</p>
-          <p>LuminX is het <a href="/diensten/online-marketing">online marketing bureau</a> dat voor bedrijven in {city.name} meetbare groei realiseert via de kanalen die echt bijdragen.</p>
-        </div>
-
-        <div class="regional-col">
-          <h2>Kanalen die we inzetten</h2>
-          <ul>
-            <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
-            <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
-            <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
-            <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
-          </ul>
-          <p class="regional-other">
-            Ook actief in:
-            {otherCities.map((c, i) => (
-              <>
-                <a href={`/regio/online-marketing-${c.slug}`}>{c.name}</a>{i < otherCities.length - 1 ? ", " : ""}
-              </>
-            ))}
-          </p>
-        </div>
+      <div slot="body" class={`regional-body regional-body--${city.layout ?? 'cols'}`}>
+        {city.layout === "highlight" ? (
+          <>
+            <div class="regional-highlight">
+              <p class="regional-highlight-label">De markt in {city.name}</p>
+              <p class="regional-highlight-note">{city.marketNote}</p>
+              <p>LuminX is het <a href="/diensten/online-marketing">online marketing bureau</a> dat voor bedrijven in {city.name} meetbare groei realiseert via de kanalen die echt bijdragen.</p>
+            </div>
+            <div class="regional-channels">
+              <h2>Kanalen die we inzetten</h2>
+              <ul>
+                <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
+                <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
+                <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
+                <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
+              </ul>
+              <p class="regional-other">
+                Ook actief in:
+                {otherCities.map((c, i) => (
+                  <>
+                    <a href={`/regio/online-marketing-${c.slug}`}>{c.name}</a>{i < otherCities.length - 1 ? ", " : ""}
+                  </>
+                ))}
+              </p>
+            </div>
+          </>
+        ) : city.layout === "cards" ? (
+          <>
+            <div class="regional-card">
+              <h2>De markt in {city.name}</h2>
+              <p>{city.marketNote}</p>
+              <p>LuminX is het <a href="/diensten/online-marketing">online marketing bureau</a> dat voor bedrijven in {city.name} meetbare groei realiseert.</p>
+            </div>
+            <div class="regional-card">
+              <h2>Kanalen die we inzetten</h2>
+              <ul>
+                <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
+                <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
+                <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
+                <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
+              </ul>
+              <p class="regional-other">
+                Ook actief in:
+                {otherCities.map((c, i) => (
+                  <>
+                    <a href={`/regio/online-marketing-${c.slug}`}>{c.name}</a>{i < otherCities.length - 1 ? ", " : ""}
+                  </>
+                ))}
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div class="regional-col">
+              <h2>De markt in {city.name}</h2>
+              <p>{city.marketNote}</p>
+              <p>LuminX is het <a href="/diensten/online-marketing">online marketing bureau</a> dat voor bedrijven in {city.name} meetbare groei realiseert via de kanalen die echt bijdragen.</p>
+            </div>
+            <div class="regional-col">
+              <h2>Kanalen die we inzetten</h2>
+              <ul>
+                <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
+                <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
+                <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
+                <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
+              </ul>
+              <p class="regional-other">
+                Ook actief in:
+                {otherCities.map((c, i) => (
+                  <>
+                    <a href={`/regio/online-marketing-${c.slug}`}>{c.name}</a>{i < otherCities.length - 1 ? ", " : ""}
+                  </>
+                ))}
+              </p>
+            </div>
+          </>
+        )}
       </div>
     )}
   </ServicePage>
 </BaseLayout>
 
 <style>
+  /* Base: cols (Enschede) */
   .regional-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: start;
+  }
+
+  /* cols-reverse (Hengelo) */
+  .regional-body--cols-reverse {
+    direction: rtl;
+  }
+  .regional-body--cols-reverse > * {
+    direction: ltr;
+  }
+
+  /* cards (Almelo) */
+  .regional-body--cards {
+    gap: 2rem;
+  }
+  .regional-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  /* highlight (Oldenzaal) */
+  .regional-body--highlight {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .regional-highlight {
+    background: #f5f5f3;
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .regional-highlight-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+    margin-bottom: 0.75rem !important;
+  }
+  .regional-highlight-note {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.25rem !important;
   }
 
   .regional-other {
@@ -115,9 +213,13 @@ const localBusinessSchema = {
   }
 
   @media (max-width: 768px) {
-    .regional-body {
+    .regional-body,
+    .regional-body--highlight {
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+    .regional-body--cols-reverse {
+      direction: ltr;
     }
   }
 </style>

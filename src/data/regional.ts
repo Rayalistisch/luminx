@@ -1,8 +1,11 @@
+export type CityLayout = 'cols' | 'cols-reverse' | 'cards' | 'highlight';
+
 export interface City {
   name: string;
   slug: string;
   context: string;
   marketNote?: string;
+  layout?: CityLayout;
 }
 
 export interface ServiceDef {
@@ -22,6 +25,7 @@ export const cities: City[] = [
   {
     name: "Enschede",
     slug: "enschede",
+    layout: "cols",
     context:
       "Als grootste stad van Twente is Enschede een bruisend centrum voor tech, innovatie en ondernemerschap, mede aangedreven door de Universiteit Twente, Grolsch en het prachtige Fc Twente.",
     marketNote:
@@ -30,6 +34,7 @@ export const cities: City[] = [
   {
     name: "Hengelo",
     slug: "hengelo",
+    layout: "cols-reverse",
     context:
       "Hengelo is een industriële sleutelstad in Twente met grote namen als Thales en een sterk B2B-ecosysteem dat steeds verder digitaliseert.",
     marketNote:
@@ -38,6 +43,7 @@ export const cities: City[] = [
   {
     name: "Almelo",
     slug: "almelo",
+    layout: "cards",
     context:
       "Almelo is een ondernemende stad in het hart van Twente, met een sterk MKB-klimaat en groeiende behoefte aan digitale aanwezigheid en procesefficiëntie.",
     marketNote:
@@ -46,6 +52,7 @@ export const cities: City[] = [
   {
     name: "Oldenzaal",
     slug: "oldenzaal",
+    layout: "highlight",
     context:
       "Oldenzaal is een compacte ondernemersstad op de grens met Duitsland — strategisch gelegen en volop in beweging voor lokale en regionale groei.",
     marketNote:
