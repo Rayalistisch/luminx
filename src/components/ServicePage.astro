@@ -619,6 +619,19 @@ const faqSchema = faq?.length ? {
     top: 0.65rem;
   }
 
+  .service-body-inner :global(a) {
+    color: var(--black);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: opacity 0.2s ease;
+  }
+
+  .service-body-inner :global(a:hover) {
+    opacity: 0.6;
+  }
+
   @media (max-width: 768px) {
     .service-body { padding: 4rem 2rem; }
   }
