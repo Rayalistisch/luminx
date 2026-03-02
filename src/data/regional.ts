@@ -2,6 +2,7 @@ export interface City {
   name: string;
   slug: string;
   context: string;
+  marketNote?: string;
 }
 
 export interface ServiceDef {
@@ -23,24 +24,32 @@ export const cities: City[] = [
     slug: "enschede",
     context:
       "Als grootste stad van Twente is Enschede een bruisend centrum voor tech, innovatie en ondernemerschap, mede aangedreven door de Universiteit Twente, Grolsch en het prachtige Fc Twente.",
+    marketNote:
+      "De concurrentie in Enschede is online merkbaar: veel lokale dienstverleners zijn al actief met Google Ads en SEO. Wie nu investeert in een doordachte aanpak, bouwt een voorsprong die moeilijk in te halen is.",
   },
   {
     name: "Hengelo",
     slug: "hengelo",
     context:
       "Hengelo is een industriële sleutelstad in Twente met grote namen als Thales en een sterk B2B-ecosysteem dat steeds verder digitaliseert.",
+    marketNote:
+      "Hengelose bedrijven — zeker in de B2B-sector — lopen vaak achter op digitale zichtbaarheid. Dat is een kans: wie nu een sterke online positie opbouwt, pakt marktaandeel van concurrenten die nog niet bewegen.",
   },
   {
     name: "Almelo",
     slug: "almelo",
     context:
       "Almelo is een ondernemende stad in het hart van Twente, met een sterk MKB-klimaat en groeiende behoefte aan digitale aanwezigheid en procesefficiëntie.",
+    marketNote:
+      "In Almelo is de online marketing markt nog relatief open. Voor MKB-bedrijven die nu starten met een gestructureerde aanpak, zijn de kosten per lead lager dan in grotere steden — met hogere kansen op een sterke lokale positie.",
   },
   {
     name: "Oldenzaal",
     slug: "oldenzaal",
     context:
       "Oldenzaal is een compacte ondernemersstad op de grens met Duitsland — strategisch gelegen en volop in beweging voor lokale en regionale groei.",
+    marketNote:
+      "De ligging van Oldenzaal maakt het interessant voor bedrijven die zowel de Nederlandse als de Duitse markt willen bedienen. Online marketing kan die tweeledige doelgroep effectief bereiken.",
   },
 ];
 

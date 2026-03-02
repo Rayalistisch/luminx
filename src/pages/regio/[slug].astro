@@ -71,37 +71,53 @@ const localBusinessSchema = {
     parentService={parentServiceMap[serviceKey]}
   >
     {serviceKey === "online-marketing" && (
-      <div slot="body">
-        <h2>Online marketing in {city.name}: wat werkt er echt?</h2>
-        <p>
-          Bedrijven in {city.name} die online willen groeien, hebben meer nodig dan losse campagnes. Een samenhangende strategie — waarbij SEO, Google Ads en social advertising elkaar versterken — is wat het verschil maakt tussen zichtbaarheid en daadwerkelijke leadgeneratie.
-        </p>
-        <p>
-          LuminX is het <a href="/diensten/online-marketing">online marketing bureau</a> dat voor bedrijven in {city.name} en heel Twente meetbare groei realiseert. We combineren de juiste kanalen op basis van jouw doelgroep, budget en groeifase.
-        </p>
+      <div slot="body" class="regional-body">
+        <div class="regional-col">
+          <h2>De markt in {city.name}</h2>
+          <p>{city.marketNote}</p>
+          <p>LuminX is het <a href="/diensten/online-marketing">online marketing bureau</a> dat voor bedrijven in {city.name} meetbare groei realiseert via de kanalen die echt bijdragen.</p>
+        </div>
 
-        <h2>De kanalen die we voor {city.name} inzetten</h2>
-        <p>Afhankelijk van jouw markt en ambitie zetten we een of meerdere kanalen in:</p>
-        <ul>
-          <li><a href="/diensten/seo">SEO in {city.name}</a> — structurele zichtbaarheid in Google zonder doorlopende advertentiekosten. Ideaal voor bedrijven die langdurige autoriteit willen opbouwen.</li>
-          <li><a href="/diensten/sea">Google Ads (SEA) in {city.name}</a> — directe zichtbaarheid op het moment dat iemand zoekt naar jouw product of dienst. Meetbaar rendement per klik.</li>
-          <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik via Meta en LinkedIn op doelgroepen die jouw bedrijf nog niet kennen. Sterk voor merkbekendheid en retargeting.</li>
-          <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — geautomatiseerde flows die leads nurturen en bestaande klanten activeren op het juiste moment.</li>
-        </ul>
-
-        <h2>Waarom lokale focus belangrijk is</h2>
-        <p>
-          {city.context} Voor bedrijven in {city.name} betekent dat: er is een actieve lokale markt, maar ook concurrentie die online al zichtbaar is. Door nu te investeren in een doordachte online marketingaanpak, bouw je een positie op die moeilijk in te halen is.
-        </p>
-        <p>
-          LuminX werkt ook voor bedrijven in andere steden in Twente:
-          {otherCities.map((c, i) => (
-            <>
-              <a href={`/regio/online-marketing-${c.slug}`}>Online Marketing {c.name}</a>{i < otherCities.length - 1 ? ", " : "."}
-            </>
-          ))}
-        </p>
+        <div class="regional-col">
+          <h2>Kanalen die we inzetten</h2>
+          <ul>
+            <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
+            <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
+            <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
+            <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
+          </ul>
+          <p class="regional-other">
+            Ook actief in:
+            {otherCities.map((c, i) => (
+              <>
+                <a href={`/regio/online-marketing-${c.slug}`}>{c.name}</a>{i < otherCities.length - 1 ? ", " : ""}
+              </>
+            ))}
+          </p>
+        </div>
       </div>
     )}
   </ServicePage>
 </BaseLayout>
+
+<style>
+  .regional-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .regional-other {
+    font-size: 0.85rem !important;
+    opacity: 0.6;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .regional-body {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
