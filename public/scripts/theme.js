@@ -99,6 +99,11 @@
   function getVisibleBackground(node) {
     if (!node) return getComputedStyle(document.body).backgroundColor;
 
+    // data-bg-ignore: section opts out of body background changes.
+    if (node.hasAttribute("data-bg-ignore")) {
+      return currentBg || getComputedStyle(document.body).backgroundColor;
+    }
+
     // data-bg-color takes priority: it defines the desired BODY color,
     // which can differ from the section's own CSS background.
     const attrBg = node.getAttribute?.("data-bg-color");
