@@ -166,6 +166,14 @@ const faqSchema = faq?.length ? {
     </div>
   </section>
 
+  {Astro.slots.has('body') && (
+    <section class="service-body" data-bg-color="#FEFEFE">
+      <div class="service-body-inner">
+        <slot name="body" />
+      </div>
+    </section>
+  )}
+
   {relatedRegions && relatedRegions.length > 0 && (
     <section class="service-regions" data-bg-color="#F7F9FC">
       <div class="service-regions-inner">
@@ -552,6 +560,67 @@ const faqSchema = faq?.length ? {
     border-radius: 0;
     padding: 0.3rem 0;
     font-size: 0.9rem;
+  }
+
+  /* Body / article section */
+  .service-body {
+    padding: 6rem 4rem;
+    background: var(--white);
+  }
+
+  .service-body-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .service-body-inner :global(h2) {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin: 2.5rem 0 1rem;
+  }
+
+  .service-body-inner :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .service-body-inner :global(p) {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(10,10,10,0.75);
+    margin-bottom: 1.2rem;
+  }
+
+  .service-body-inner :global(ul) {
+    list-style: none;
+    margin: 1rem 0 1.5rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .service-body-inner :global(ul li) {
+    position: relative;
+    padding-left: 1.2rem;
+    color: rgba(10,10,10,0.8);
+    line-height: 1.65;
+  }
+
+  .service-body-inner :global(ul li)::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--black);
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+  }
+
+  @media (max-width: 768px) {
+    .service-body { padding: 4rem 2rem; }
   }
 
   /* Regions section */
