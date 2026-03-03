@@ -8,34 +8,15 @@ jobs:
   indexnow:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Give Vercel ~90 seconds to finish deploying before we tell Bing to crawl
+      - name: Wait for Vercel deployment
+        run: sleep 90
+
       - name: Submit sitemap URLs to IndexNow
-        run: |
-          # Fetch sitemap and extract all <loc> URLs
-          SITEMAP=$(curl -s https://luminx.nl/sitemap-index.xml)
-          SITEMAP_URL=$(echo "$SITEMAP" | grep -oP '(?<=<loc>)[^<]+' | head -1)
-
-          if [ -z "$SITEMAP_URL" ]; then
-            echo "No sitemap URL found, using default"
-            SITEMAP_URL="https://luminx.nl/sitemap-0.xml"
-          fi
-
-          URLS=$(curl -s "$SITEMAP_URL" | grep -oP '(?<=<loc>)[^<]+')
-
-          # Build JSON array of URLs
-          URL_JSON=$(echo "$URLS" | python3 -c "
-          import sys, json
-          urls = [u.strip() for u in sys.stdin if u.strip()]
-          print(json.dumps(urls))
-          ")
-
-          echo "Submitting $(echo "$URLS" | wc -l) URLs to IndexNow..."
-
-          curl -s -X POST "https://api.indexnow.org/indexnow" \
-            -H "Content-Type: application/json; charset=utf-8" \
-            -d "{
-              \"host\": \"luminx.nl\",
-              \"key\": \"6fc4a3c06d2c444aa371db2f55a450c8\",
-              \"keyLocation\": \"https://luminx.nl/6fc4a3c06d2c444aa371db2f55a450c8.txt\",
-              \"urlList\": $URL_JSON
-            }" \
-            -w "\nHTTP status: %{http_code}\n"
+        run: node scripts/indexnow.mjs
