@@ -10,16 +10,40 @@ const {
   structuredData,
 } = Astro.props;
 
-const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const siteOrigin = (Astro.site?.toString() ?? "https://luminx.nl").replace(/\/$/, "");
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
 const ogImageUrl = new URL(ogImage, siteOrigin).toString();
+const founderSchema = {
+  "@type": "Person",
+  "@id": `${siteOrigin}/#ray`,
+  name: "Ray Huffenreuter",
+  jobTitle: "Oprichter & Digital Strategist",
+  url: siteOrigin,
+  email: "hello@luminx.nl",
+  worksFor: { "@id": `${siteOrigin}/#organization` },
+};
 const organizationSchema = {
   "@type": "Organization",
   "@id": `${siteOrigin}/#organization`,
   name: "LuminX",
+  legalName: "LuminX",
   url: siteOrigin,
   email: "hello@luminx.nl",
-  logo: `${siteOrigin}/images/luminx-founder.png`,
+  telephone: "+31613698596",
+  logo: {
+    "@type": "ImageObject",
+    url: `${siteOrigin}/images/luminx-founder.png`,
+  },
+  founder: { "@id": `${siteOrigin}/#ray` },
+  description: "LuminX is een digitaal bureau in Enschede, Twente. Wij helpen MKB-bedrijven groeien via SEO, Google Ads, social advertising, e-mailmarketing, procesautomatisering en webdevelopment.",
+  areaServed: [
+    { "@type": "City", name: "Enschede" },
+    { "@type": "City", name: "Hengelo" },
+    { "@type": "City", name: "Almelo" },
+    { "@type": "City", name: "Oldenzaal" },
+    { "@type": "AdministrativeArea", name: "Twente" },
+  ],
+  knowsAbout: ["SEO", "Google Ads", "Online Marketing", "Social Advertising", "E-mailmarketing", "Webdevelopment", "Procesautomatisering"],
   sameAs: [],
 };
 const websiteSchema = {
@@ -51,7 +75,7 @@ const additionalSchemas = Array.isArray(structuredData)
     : [];
 const graphSchema = {
   "@context": "https://schema.org",
-  "@graph": [organizationSchema, websiteSchema, webpageSchema, ...additionalSchemas],
+  "@graph": [founderSchema, organizationSchema, websiteSchema, webpageSchema, ...additionalSchemas],
 };
 ---
 

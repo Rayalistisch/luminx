@@ -20,7 +20,7 @@ const { Content } = await post.render();
 const formatDate = (date: Date) =>
   date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
 
-const siteOrigin = Astro.site?.toString() ?? 'https://luminx.nl';
+const siteOrigin = (Astro.site?.toString() ?? 'https://luminx.nl').replace(/\/$/, '');
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
 
 const articleSchema = {
@@ -29,10 +29,9 @@ const articleSchema = {
   headline: post.data.title,
   description: post.data.description,
   datePublished: post.data.pubDate.toISOString(),
-  author: {
-    '@type': 'Person',
-    name: post.data.author,
-  },
+  dateModified: post.data.pubDate.toISOString(),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+  author: { '@type': 'Person', '@id': `${siteOrigin}/#ray`, name: 'Ray Huffenreuter' },
   publisher: {
     '@type': 'Organization',
     '@id': `${siteOrigin}/#organization`,
@@ -40,6 +39,17 @@ const articleSchema = {
   },
   url: canonicalUrl,
   ...(post.data.image ? { image: new URL(post.data.image, siteOrigin).toString() } : {}),
+  ...(post.data.category ? { keywords: post.data.category } : {}),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteOrigin },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteOrigin}/blog` },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: canonicalUrl },
+  ],
 };
 ---
 
@@ -49,6 +59,7 @@ const articleSchema = {
   ogImage={post.data.image ?? '/images/luminx-founder.png'}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />
