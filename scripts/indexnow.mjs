@@ -83,7 +83,10 @@ async function main() {
     console.log("URLs submitted successfully.");
   } else if (res.status === 429) {
     console.warn("Rate limited by IndexNow — will retry on next deploy.");
-    // Don't fail the workflow for rate limiting
+  } else if (res.status === 403) {
+    console.warn("403 Forbidden — site not yet verified in Bing Webmaster Tools.");
+    console.warn("Verify luminx.nl at https://www.bing.com/webmasters and retry.");
+    // Don't fail the workflow — site verification is a one-time manual step
   } else {
     console.error(`Unexpected status ${res.status} — check key file and host.`);
     process.exit(1);
