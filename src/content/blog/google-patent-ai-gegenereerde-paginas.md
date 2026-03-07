@@ -1,9 +1,9 @@
 ---
-title: 'Google patenteerde AI-gegenereerde pagina''s in zoekresultaten — wat betekent dat voor jouw website?'
+title: 'Google patenteerde AI-gegenereerde pagina''s in zoekresultaten, wat betekent dat voor jouw website?'
 description: 'Google heeft een patent ingediend voor een systeem dat automatisch landingspagina''s genereert voor bedrijven in zoekresultaten. Een potentiële gamechanger voor SEO en online marketing.'
 pubDate: 2026-03-07T00:00:00.000Z
 author: Ray
-category: SEO
+category: SEO/GEO
 image: /images/nieuw-google-patent1.png
 ---
 
@@ -62,4 +62,6 @@ De bedrijven die dit het best doorstaan, zijn degenen die investeren in een bred
 
 ---
 
-Wil je weten hoe jouw website ervoor staat op dit soort ontwikkelingen? [Plan een gesprek](https://luminx.nl#contact) en we kijken samen wat er eventueel versterkt kan worden.
+Wil je weten hoe jouw website ervoor staat op dit soort ontwikkelingen? We kijken samen wat er eventueel versterkt kan worden.
+
+<a href="#" class="cta-button" data-overlay-open>Plan een gesprek</a>
