@@ -1,7 +1,8 @@
 ---
+const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
 ---
 
-<div class="seo-overlay" id="seoScanOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Gratis SEO scan">
+<div class="seo-overlay" id="seoScanOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Gratis SEO scan" data-psi-key={psiKey}>
   <div class="seo-modal">
     <button class="seo-close" id="seoClose" aria-label="Sluiten">&times;</button>
 
@@ -202,7 +203,7 @@
     const ticker = setInterval(() => { loadMsg.textContent = messages[Math.min(++mi, messages.length - 1)]; }, 4000);
 
     try {
-      const apiKey = window._PSI_KEY || '';
+      const apiKey = overlay.dataset.psiKey || '';
       const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=seo${apiKey ? '&key=' + apiKey : ''}`;
       const res = await fetch(apiUrl);
       clearInterval(ticker);
