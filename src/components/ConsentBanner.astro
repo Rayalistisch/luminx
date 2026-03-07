@@ -297,15 +297,12 @@
   }
 
   @media (max-width: 768px) {
-    /* Stretch widget full-screen so we can position children independently */
+    /* Push banner above the mobile bottom bar */
     .consent-widget {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      align-items: flex-end;
-      padding: 1rem 1rem calc(90px + env(safe-area-inset-bottom));
+      top: auto;
+      left: 1rem;
+      right: 1rem;
+      bottom: calc(80px + env(safe-area-inset-bottom));
     }
 
     .consent-banner {
@@ -325,12 +322,13 @@
       width: 100%;
     }
 
-    /* Cookie manage button: left side, vertically centered */
+    /* Cookie manage button: fixed left-center, independent of banner */
     .consent-manage {
-      position: absolute;
+      position: fixed;
       left: 1rem;
       top: 50%;
       transform: translateY(-50%);
+      bottom: auto;
       margin: 0;
     }
   }
