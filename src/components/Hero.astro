@@ -16,6 +16,10 @@
     <p class="hero-sub">Strategie, automatisering en online marketing die schaalbare resultaten opleveren voor ambitieuze merken.</p>
     <div class="hero-actions">
       <a href="#contact" class="hero-cta" data-overlay-open>Plan kennismaking</a>
+      <button type="button" class="hero-scan-btn" data-seoscan-open>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Gratis SEO scan
+      </button>
       <a href="#werk" class="hero-link">Bekijk werk ↓</a>
     </div>
   </div>
@@ -147,6 +151,26 @@
   .hero-cta:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba(255, 255, 255, 0.12);
+  }
+
+  .hero-scan-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+  .hero-scan-btn:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.06);
   }
 
   .hero-link {

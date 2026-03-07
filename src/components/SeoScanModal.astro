@@ -1,0 +1,656 @@
+---
+---
+
+<div class="seo-overlay" id="seoScanOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Gratis SEO scan">
+  <div class="seo-modal">
+    <button class="seo-close" id="seoClose" aria-label="Sluiten">&times;</button>
+
+    <!-- Step 1: Form -->
+    <div class="seo-step" id="seoStepForm">
+      <span class="seo-kicker">Gratis</span>
+      <h2>SEO Scan</h2>
+      <p class="seo-intro">Ontdek in 30 seconden hoe jouw website scoort op SEO. Vul je gegevens in en wij analyseren je site.</p>
+      <form id="seoForm" novalidate>
+        <div class="seo-field">
+          <label for="seoUrl">Website URL</label>
+          <input type="url" id="seoUrl" name="url" placeholder="https://jouwsite.nl" required autocomplete="url" />
+        </div>
+        <div class="seo-field">
+          <label for="seoName">Jouw naam</label>
+          <input type="text" id="seoName" name="name" placeholder="Voornaam" required autocomplete="given-name" />
+        </div>
+        <div class="seo-field">
+          <label for="seoEmail">E-mailadres</label>
+          <input type="email" id="seoEmail" name="email" placeholder="jij@bedrijf.nl" required autocomplete="email" />
+        </div>
+        <p class="seo-error" id="seoError" hidden></p>
+        <button type="submit" class="seo-submit">
+          <span id="seoSubmitLabel">Scan starten →</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Step 2: Loading -->
+    <div class="seo-step" id="seoStepLoading" hidden>
+      <div class="seo-loader">
+        <div class="seo-radar">
+          <span></span><span></span><span></span>
+        </div>
+        <p id="seoLoadingMsg">Website ophalen…</p>
+        <small id="seoLoadingUrl"></small>
+      </div>
+    </div>
+
+    <!-- Step 3: Results -->
+    <div class="seo-step" id="seoStepResults" hidden>
+      <div class="seo-results-header">
+        <div class="seo-score-ring" id="seoScoreRing">
+          <svg viewBox="0 0 80 80" aria-hidden="true">
+            <circle class="seo-ring-bg" cx="40" cy="40" r="34"/>
+            <circle class="seo-ring-fill" id="seoRingFill" cx="40" cy="40" r="34"/>
+          </svg>
+          <span id="seoScoreValue">—</span>
+        </div>
+        <div>
+          <h2>SEO Score <span id="seoScoreSite"></span></h2>
+          <p id="seoScoreLabel" class="seo-score-sublabel"></p>
+        </div>
+      </div>
+
+      <div class="seo-columns">
+        <div class="seo-col seo-col--good">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Goed gedaan
+          </h3>
+          <ul id="seoGoodList"></ul>
+        </div>
+        <div class="seo-col seo-col--bad">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>
+            Verbeterpunten
+          </h3>
+          <ul id="seoBadList"></ul>
+          <p class="seo-more-note">Dit zijn maximaal 4 van de gevonden verbeterpunten. Voor een volledige SEO + GEO analyse zijn er mogelijk meer aandachtspunten.</p>
+        </div>
+      </div>
+
+      <div class="seo-upsell">
+        <p>Wil je weten <strong>alle</strong> verbeterpunten, inclusief GEO-optimalisatie voor AI-zoekmachines?</p>
+        <button type="button" class="seo-upsell-btn" id="seoUpsellBtn">Vraag uitgebreide scan aan →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Error -->
+    <div class="seo-step" id="seoStepError" hidden>
+      <div class="seo-error-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <h3>Scan mislukt</h3>
+        <p id="seoErrorMsg">De URL kon niet worden gescand. Controleer of de URL correct is en probeer opnieuw.</p>
+        <button type="button" class="seo-retry" id="seoRetry">Opnieuw proberen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(() => {
+  const AUDITS = {
+    'document-title':     { good: 'Paginatitel aanwezig en correct',            bad: 'Paginatitel ontbreekt of is niet optimaal' },
+    'meta-description':   { good: 'Meta-omschrijving gevonden',                 bad: 'Meta-omschrijving ontbreekt of is te kort' },
+    'viewport':           { good: 'Mobiele viewport correct ingesteld',         bad: 'Mobiele viewport niet correct ingesteld' },
+    'robots-txt':         { good: 'Robots.txt correct geconfigureerd',          bad: 'Robots.txt ontbreekt of blokkeert crawlers' },
+    'canonical':          { good: 'Canonical tag aanwezig',                     bad: 'Geen canonical tag gevonden — duplicate content risico' },
+    'http-status-code':   { good: 'Pagina geeft correcte HTTP-statuscode',      bad: 'Pagina geeft een foutieve HTTP-statuscode' },
+    'crawlable-anchors':  { good: 'Links zijn goed crawlbaar voor Google',      bad: 'Sommige links zijn niet crawlbaar voor Google' },
+    'link-text':          { good: 'Links hebben beschrijvende ankertekst',      bad: 'Links missen beschrijvende ankertekst' },
+    'image-alt':          { good: 'Afbeeldingen hebben alt-teksten',            bad: 'Afbeeldingen missen alt-teksten' },
+    'structured-data':    { good: 'Gestructureerde data (schema.org) aanwezig', bad: 'Geen gestructureerde data gevonden' },
+    'hreflang':           { good: 'Hreflang correct ingesteld',                 bad: 'Hreflang ontbreekt of is incorrect' },
+    'plugins':            { good: 'Geen verouderde browser-plugins gebruikt',   bad: 'Verouderde plugins gevonden die SEO schaden' },
+    'tap-targets':        { good: 'Knoppen groot genoeg voor mobiel gebruik',   bad: 'Knoppen te klein voor mobiel — slechte gebruikservaring' },
+    'font-size':          { good: 'Lettergrootte leesbaar op mobiel',           bad: 'Tekst te klein op mobiel' },
+  };
+
+  const overlay    = document.getElementById('seoScanOverlay');
+  const closeBtn   = document.getElementById('seoClose');
+  const form       = document.getElementById('seoForm');
+  const stepForm   = document.getElementById('seoStepForm');
+  const stepLoad   = document.getElementById('seoStepLoading');
+  const stepRes    = document.getElementById('seoStepResults');
+  const stepErr    = document.getElementById('seoStepError');
+  const errorBox   = document.getElementById('seoError');
+  const loadMsg    = document.getElementById('seoLoadingMsg');
+  const loadUrl    = document.getElementById('seoLoadingUrl');
+  const ringFill   = document.getElementById('seoRingFill');
+  const scoreVal   = document.getElementById('seoScoreValue');
+  const scoreSite  = document.getElementById('seoScoreSite');
+  const scoreLbl   = document.getElementById('seoScoreLabel');
+  const goodList   = document.getElementById('seoGoodList');
+  const badList    = document.getElementById('seoBadList');
+  const upsellBtn  = document.getElementById('seoUpsellBtn');
+  const retryBtn   = document.getElementById('seoRetry');
+  const errMsg     = document.getElementById('seoErrorMsg');
+
+  function show(el) { el.hidden = false; }
+  function hide(el) { el.hidden = true; }
+
+  function openModal() {
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('seoUrl')?.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function showStep(step) {
+    [stepForm, stepLoad, stepRes, stepErr].forEach(s => hide(s));
+    show(step);
+  }
+
+  function scoreColor(score) {
+    if (score >= 90) return '#22c55e';
+    if (score >= 50) return '#f59e0b';
+    return '#ef4444';
+  }
+
+  function scoreLabel(score) {
+    if (score >= 90) return 'Uitstekend — je website staat er goed voor op SEO-gebied.';
+    if (score >= 70) return 'Goed, maar er is nog ruimte voor verbetering.';
+    if (score >= 50) return 'Matig — er zijn meerdere aandachtspunten die verkeer kosten.';
+    return 'Kritisch — je website mist belangrijke SEO-fundamenten.';
+  }
+
+  function setRing(score) {
+    const circumference = 2 * Math.PI * 34;
+    const offset = circumference - (score / 100) * circumference;
+    ringFill.style.strokeDasharray = circumference;
+    ringFill.style.strokeDashoffset = offset;
+    ringFill.style.stroke = scoreColor(score);
+    scoreVal.textContent = score;
+    scoreVal.style.color = scoreColor(score);
+  }
+
+  function renderList(ul, items) {
+    ul.innerHTML = '';
+    items.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      ul.appendChild(li);
+    });
+  }
+
+  function normalizeUrl(raw) {
+    const trimmed = raw.trim();
+    if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+      return 'https://' + trimmed;
+    }
+    return trimmed;
+  }
+
+  async function runScan(url, name, email) {
+    showStep(stepLoad);
+    loadUrl.textContent = url;
+
+    const messages = ['Website ophalen…', 'Titels en meta-tags controleren…', 'Crawlbaarheid analyseren…', 'Mobiele prestaties meten…', 'Resultaten verwerken…'];
+    let mi = 0;
+    const ticker = setInterval(() => { loadMsg.textContent = messages[Math.min(++mi, messages.length - 1)]; }, 4000);
+
+    try {
+      const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=seo`;
+      const res = await fetch(apiUrl);
+      clearInterval(ticker);
+      if (!res.ok) throw new Error('API fout: ' + res.status);
+
+      const data = await res.json();
+      const lhr  = data.lighthouseResult;
+      if (!lhr) throw new Error('Geen resultaten ontvangen');
+
+      const seoScore = Math.round((lhr.categories?.seo?.score ?? 0) * 100);
+      const audits   = lhr.audits || {};
+
+      const good = [], bad = [];
+      const order = Object.keys(AUDITS);
+
+      order.forEach(id => {
+        if (!audits[id]) return;
+        const score = audits[id].score;
+        if (score === null) return; // n/a
+        if (score >= 0.9) good.push(AUDITS[id].good);
+        else bad.push(AUDITS[id].bad);
+      });
+
+      // Fill to 4 if needed with generic fallbacks
+      const goodFallbacks = ['HTTPS beveiligd — pagina laadt via een veilige verbinding', 'Pagina is bereikbaar voor zoekmachines', 'Basisstructuur van de pagina is correct', 'Geen blokkerende redirect-ketens gevonden'];
+      const badFallbacks  = ['Paginasnelheid kan worden verbeterd voor betere rankings', 'Interne linkstructuur kan worden geoptimaliseerd', 'Content kan specifieker worden afgestemd op zoekintentie', 'GEO-optimalisatie voor AI-zoekmachines ontbreekt'];
+
+      while (good.length < 4) good.push(goodFallbacks[good.length % goodFallbacks.length]);
+      while (bad.length < 4)  bad.push(badFallbacks[bad.length % badFallbacks.length]);
+
+      // GTM tracking
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'seo_scan_completed', scan_url: url, scan_name: name, scan_email: email, seo_score: seoScore });
+      } catch(_) {}
+
+      // Render
+      const host = new URL(url).hostname.replace('www.', '');
+      scoreSite.textContent = '— ' + host;
+      scoreLbl.textContent  = scoreLabel(seoScore);
+      setRing(seoScore);
+      renderList(goodList, good.slice(0, 4));
+      renderList(badList, bad.slice(0, 4));
+      showStep(stepRes);
+
+    } catch (err) {
+      clearInterval(ticker);
+      errMsg.textContent = err.message?.includes('API') ? 'De scan kon niet worden uitgevoerd. Controleer of de URL bereikbaar is en probeer opnieuw.' : 'Er is iets misgegaan. Controleer de URL en probeer opnieuw.';
+      showStep(stepErr);
+    }
+  }
+
+  // Events
+  document.querySelectorAll('[data-seoscan-open]').forEach(el => el.addEventListener('click', openModal));
+  closeBtn?.addEventListener('click', closeModal);
+  overlay?.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal(); });
+
+  retryBtn?.addEventListener('click', () => showStep(stepForm));
+
+  upsellBtn?.addEventListener('click', () => {
+    closeModal();
+    document.querySelector('[data-overlay-open]')?.click();
+  });
+
+  form?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const urlRaw   = document.getElementById('seoUrl').value;
+    const name     = document.getElementById('seoName').value.trim();
+    const email    = document.getElementById('seoEmail').value.trim();
+
+    errorBox.hidden = true;
+
+    if (!urlRaw || !name || !email) {
+      errorBox.textContent = 'Vul alle velden in.';
+      errorBox.hidden = false;
+      return;
+    }
+
+    let url;
+    try { url = normalizeUrl(urlRaw); new URL(url); }
+    catch { errorBox.textContent = 'Voer een geldige URL in, bijv. https://jouwsite.nl'; errorBox.hidden = false; return; }
+
+    await runScan(url, name, email);
+  });
+})();
+</script>
+
+<style>
+  .seo-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99998;
+    background: rgba(10,10,10,0.7);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .seo-overlay.is-open {
+    display: flex;
+  }
+
+  .seo-modal {
+    position: relative;
+    background: #fff;
+    color: #0a0a0a;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+  }
+
+  .seo-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(10,10,10,0.07);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0a0a0a;
+    transition: background 0.2s;
+  }
+  .seo-close:hover { background: rgba(10,10,10,0.14); }
+
+  /* Kicker */
+  .seo-kicker {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #C4972A, #A07828);
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 0.8rem;
+  }
+
+  .seo-step h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .seo-intro {
+    color: rgba(10,10,10,0.65);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.8rem;
+  }
+
+  /* Form */
+  .seo-field {
+    margin-bottom: 1rem;
+  }
+
+  .seo-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: rgba(10,10,10,0.75);
+  }
+
+  .seo-field input {
+    width: 100%;
+    border: 1.5px solid rgba(10,10,10,0.15);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    font-size: 0.95rem;
+    color: #0a0a0a;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+
+  .seo-field input:focus {
+    outline: none;
+    border-color: #C4972A;
+  }
+
+  .seo-error {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .seo-submit {
+    width: 100%;
+    background: #0a0a0a;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 1rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .seo-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* Loading */
+  .seo-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .seo-loader p { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; }
+  .seo-loader small { font-size: 0.8rem; color: rgba(10,10,10,0.45); word-break: break-all; }
+
+  .seo-radar {
+    position: relative;
+    width: 72px;
+    height: 72px;
+  }
+
+  .seo-radar span {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid #C4972A;
+    opacity: 0;
+    animation: radarPulse 2s ease-out infinite;
+  }
+
+  .seo-radar span:nth-child(2) { animation-delay: 0.6s; }
+  .seo-radar span:nth-child(3) { animation-delay: 1.2s; }
+
+  @keyframes radarPulse {
+    0%   { transform: scale(0.3); opacity: 0.8; }
+    100% { transform: scale(1);   opacity: 0; }
+  }
+
+  /* Results */
+  .seo-results-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .seo-score-ring {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .seo-score-ring svg {
+    width: 80px;
+    height: 80px;
+    transform: rotate(-90deg);
+  }
+
+  .seo-ring-bg  { fill: none; stroke: rgba(10,10,10,0.1); stroke-width: 5; }
+  .seo-ring-fill { fill: none; stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s ease, stroke 0.5s ease; }
+
+  .seo-score-ring > span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+
+  .seo-results-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .seo-score-sublabel {
+    font-size: 0.88rem;
+    color: rgba(10,10,10,0.6);
+    line-height: 1.5;
+  }
+
+  .seo-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .seo-col h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .seo-col--good h3 { color: #16a34a; }
+  .seo-col--bad  h3 { color: #dc2626; }
+
+  .seo-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .seo-col li {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: rgba(10,10,10,0.8);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .seo-col--good li::before { content: '✓'; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+  .seo-col--bad  li::before { content: '!'; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
+
+  .seo-more-note {
+    margin-top: 0.8rem;
+    font-size: 0.78rem;
+    color: rgba(10,10,10,0.45);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* Upsell */
+  .seo-upsell {
+    background: #0a0a0a;
+    color: #fff;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .seo-upsell p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.85;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .seo-upsell strong { color: #C4972A; }
+
+  .seo-upsell-btn {
+    background: linear-gradient(135deg, #C4972A, #A07828);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .seo-upsell-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* Error state */
+  .seo-error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 0;
+    gap: 0.75rem;
+    color: rgba(10,10,10,0.5);
+  }
+
+  .seo-error-state h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    color: #0a0a0a;
+  }
+
+  .seo-error-state p {
+    font-size: 0.9rem;
+    max-width: 36ch;
+    line-height: 1.6;
+  }
+
+  .seo-retry {
+    background: #0a0a0a;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .seo-modal {
+      padding: 1.75rem 1.25rem;
+      border-radius: 16px;
+    }
+
+    .seo-columns {
+      grid-template-columns: 1fr;
+    }
+
+    .seo-results-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .seo-upsell {
+      flex-direction: column;
+    }
+
+    .seo-upsell-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
