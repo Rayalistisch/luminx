@@ -202,13 +202,22 @@
     const ticker = setInterval(() => { loadMsg.textContent = messages[Math.min(++mi, messages.length - 1)]; }, 4000);
 
     try {
-      const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=seo`;
+      const apiKey = window._PSI_KEY || '';
+      const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=seo${apiKey ? '&key=' + apiKey : ''}`;
       const res = await fetch(apiUrl);
       clearInterval(ticker);
-      if (!res.ok) throw new Error('API fout: ' + res.status);
 
       const data = await res.json();
-      const lhr  = data.lighthouseResult;
+
+      if (!res.ok) {
+        const msg = data?.error?.message || '';
+        if (msg.includes('Quota') || res.status === 429) {
+          throw new Error('QUOTA');
+        }
+        throw new Error('API fout ' + res.status + (msg ? ': ' + msg : ''));
+      }
+
+      const lhr = data.lighthouseResult;
       if (!lhr) throw new Error('Geen resultaten ontvangen');
 
       const seoScore = Math.round((lhr.categories?.seo?.score ?? 0) * 100);
@@ -249,7 +258,11 @@
 
     } catch (err) {
       clearInterval(ticker);
-      errMsg.textContent = err.message?.includes('API') ? 'De scan kon niet worden uitgevoerd. Controleer of de URL bereikbaar is en probeer opnieuw.' : 'Er is iets misgegaan. Controleer de URL en probeer opnieuw.';
+      errMsg.textContent = err.message === 'QUOTA'
+        ? 'De scan service is tijdelijk niet beschikbaar (daglimiet bereikt). Probeer het later opnieuw of neem direct contact op.'
+        : err.message?.includes('API')
+          ? 'De scan kon niet worden uitgevoerd. Controleer of de URL bereikbaar is en probeer opnieuw.'
+          : 'Er is iets misgegaan. Controleer de URL en probeer opnieuw.';
       showStep(stepErr);
     }
   }
