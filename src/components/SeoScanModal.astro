@@ -45,17 +45,8 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     <!-- Step 3: Results -->
     <div class="seo-step" id="seoStepResults" hidden>
       <div class="seo-results-header">
-        <div class="seo-score-ring" id="seoScoreRing">
-          <svg viewBox="0 0 80 80" aria-hidden="true">
-            <circle class="seo-ring-bg" cx="40" cy="40" r="34"/>
-            <circle class="seo-ring-fill" id="seoRingFill" cx="40" cy="40" r="34"/>
-          </svg>
-          <span id="seoScoreValue">—</span>
-        </div>
-        <div>
-          <h2>SEO Score <span id="seoScoreSite"></span></h2>
-          <p id="seoScoreLabel" class="seo-score-sublabel"></p>
-        </div>
+        <h2>Resultaten <span id="seoScoreSite"></span></h2>
+        <p id="seoScoreLabel" class="seo-score-sublabel"></p>
       </div>
 
       <div class="seo-columns">
@@ -123,8 +114,6 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
   const errorBox   = document.getElementById('seoError');
   const loadMsg    = document.getElementById('seoLoadingMsg');
   const loadUrl    = document.getElementById('seoLoadingUrl');
-  const ringFill   = document.getElementById('seoRingFill');
-  const scoreVal   = document.getElementById('seoScoreValue');
   const scoreSite  = document.getElementById('seoScoreSite');
   const scoreLbl   = document.getElementById('seoScoreLabel');
   const goodList   = document.getElementById('seoGoodList');
@@ -139,25 +128,19 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
   function openModal() {
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     document.getElementById('seoUrl')?.focus();
   }
 
   function closeModal() {
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }
 
   function showStep(step) {
     [stepForm, stepLoad, stepRes, stepErr].forEach(s => hide(s));
     show(step);
-  }
-
-  function scoreColor(score) {
-    if (score >= 90) return '#22c55e';
-    if (score >= 50) return '#f59e0b';
-    return '#ef4444';
   }
 
   function scoreLabel(score) {
@@ -167,17 +150,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     return 'Kritisch — je website mist belangrijke SEO-fundamenten.';
   }
 
-  function setRing(score) {
-    const circumference = 2 * Math.PI * 34;
-    const offset = circumference - (score / 100) * circumference;
-    ringFill.style.strokeDasharray = circumference;
-    ringFill.style.strokeDashoffset = offset;
-    ringFill.style.stroke = scoreColor(score);
-    scoreVal.textContent = score;
-    scoreVal.style.color = scoreColor(score);
-  }
-
-  function renderList(ul, items) {
+function renderList(ul, items) {
     ul.innerHTML = '';
     items.forEach(text => {
       const li = document.createElement('li');
@@ -252,8 +225,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
       const host = new URL(url).hostname.replace('www.', '');
       scoreSite.textContent = '— ' + host;
       scoreLbl.textContent  = scoreLabel(seoScore);
-      setRing(seoScore);
-      renderList(goodList, good.slice(0, 4));
+renderList(goodList, good.slice(0, 4));
       renderList(badList, bad.slice(0, 4));
       showStep(stepRes);
 
@@ -402,7 +374,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     border-radius: 10px;
     padding: 0.75rem 1rem;
     font: inherit;
-    font-size: 0.95rem;
+    font-size: 16px; /* min 16px voorkomt iOS auto-zoom */
     color: #0a0a0a;
     transition: border-color 0.2s;
     box-sizing: border-box;
