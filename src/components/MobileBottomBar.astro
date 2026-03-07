@@ -1,40 +1,172 @@
 ---
-const whatsappNumber = "31613698596";
-const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hi LuminX, ik wil graag meer informatie.")}`;
 ---
 
-<div class="mobile-bottom-bar">
-  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="mbb-btn mbb-whatsapp">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M19.05 4.94A9.9 9.9 0 0 0 12.02 2C6.5 2 2 6.49 2 12a9.9 9.9 0 0 0 1.36 5.01L2 22l5.13-1.34A9.9 9.9 0 0 0 12.02 22c5.52 0 10.01-4.49 10.01-10a9.93 9.93 0 0 0-2.98-7.06Zm-7.03 15.4a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.04.8.81-2.97-.2-.31A8.29 8.29 0 0 1 3.7 12c0-4.58 3.73-8.3 8.32-8.3a8.3 8.3 0 0 1 8.3 8.3 8.31 8.31 0 0 1-8.3 8.34Zm4.55-6.22c-.25-.12-1.48-.73-1.71-.81-.23-.09-.4-.12-.57.12-.17.24-.65.81-.8.98-.15.17-.3.18-.56.06-.25-.13-1.08-.4-2.05-1.26-.76-.68-1.28-1.52-1.43-1.77-.15-.24-.02-.37.11-.5.12-.12.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.12-.57-1.37-.78-1.88-.21-.5-.43-.43-.57-.44h-.49c-.17 0-.45.06-.68.32-.23.25-.88.86-.88 2.09 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.52.6.19 1.14.16 1.57.1.48-.07 1.48-.6 1.69-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29Z"/>
-    </svg>
-    WhatsApp
-  </a>
-  <a href="#" class="mbb-btn mbb-afspraak" data-overlay-open>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="18" rx="2"/>
-      <line x1="16" y1="2" x2="16" y2="6"/>
-      <line x1="8" y1="2" x2="8" y2="6"/>
-      <line x1="3" y1="10" x2="21" y2="10"/>
-    </svg>
-    Plan Afspraak
-  </a>
+<div class="mbb-wrap">
+  <!-- WhatsApp chat panel -->
+  <div class="mbb-chat-panel" id="mbbChatPanel" aria-hidden="true">
+    <div class="mbb-chat-header">
+      <span>Stuur ons een WhatsApp</span>
+      <button type="button" aria-label="Sluit" id="mbbChatClose">&times;</button>
+    </div>
+    <div class="mbb-chat-body">
+      <p>Stel je vraag, wij reageren zo snel mogelijk.</p>
+      <textarea rows="3" placeholder="Typ je bericht..." id="mbbChatInput"></textarea>
+      <button type="button" class="mbb-send" id="mbbChatSend">Versturen</button>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="mbb-bar">
+    <button type="button" class="mbb-btn mbb-whatsapp" id="mbbWaBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M19.05 4.94A9.9 9.9 0 0 0 12.02 2C6.5 2 2 6.49 2 12a9.9 9.9 0 0 0 1.36 5.01L2 22l5.13-1.34A9.9 9.9 0 0 0 12.02 22c5.52 0 10.01-4.49 10.01-10a9.93 9.93 0 0 0-2.98-7.06Zm-7.03 15.4a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.04.8.81-2.97-.2-.31A8.29 8.29 0 0 1 3.7 12c0-4.58 3.73-8.3 8.32-8.3a8.3 8.3 0 0 1 8.3 8.3 8.31 8.31 0 0 1-8.3 8.34Zm4.55-6.22c-.25-.12-1.48-.73-1.71-.81-.23-.09-.4-.12-.57.12-.17.24-.65.81-.8.98-.15.17-.3.18-.56.06-.25-.13-1.08-.4-2.05-1.26-.76-.68-1.28-1.52-1.43-1.77-.15-.24-.02-.37.11-.5.12-.12.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.12-.57-1.37-.78-1.88-.21-.5-.43-.43-.57-.44h-.49c-.17 0-.45.06-.68.32-.23.25-.88.86-.88 2.09 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.52.6.19 1.14.16 1.57.1.48-.07 1.48-.6 1.69-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29Z"/>
+      </svg>
+      WhatsApp
+    </button>
+    <a href="#" class="mbb-btn mbb-afspraak" data-overlay-open>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      Plan Afspraak
+    </a>
+  </div>
 </div>
 
+<script is:inline>
+  (() => {
+    const panel   = document.getElementById('mbbChatPanel');
+    const waBtn   = document.getElementById('mbbWaBtn');
+    const closeBtn = document.getElementById('mbbChatClose');
+    const sendBtn  = document.getElementById('mbbChatSend');
+    const input    = document.getElementById('mbbChatInput');
+    const waNumber = '31613698596';
+    const fallback = 'Hi LuminX, ik wil graag meer informatie.';
+
+    const openPanel  = () => { panel.classList.add('is-open'); panel.setAttribute('aria-hidden', 'false'); };
+    const closePanel = () => { panel.classList.remove('is-open'); panel.setAttribute('aria-hidden', 'true'); };
+
+    const send = () => {
+      const text = encodeURIComponent((input.value || '').trim() || fallback);
+      if (typeof window.luminxTrack === 'function') window.luminxTrack('whatsapp_click', { source: 'mobile_bottom_bar' });
+      window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank', 'noopener,noreferrer');
+      closePanel();
+      input.value = '';
+    };
+
+    waBtn?.addEventListener('click', () => panel.classList.contains('is-open') ? closePanel() : openPanel());
+    closeBtn?.addEventListener('click', closePanel);
+    sendBtn?.addEventListener('click', send);
+    input?.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+  })();
+</script>
+
 <style>
-  .mobile-bottom-bar {
+  .mbb-wrap {
     display: none;
   }
 
   @media (max-width: 768px) {
-    .mobile-bottom-bar {
-      display: flex;
+    .mbb-wrap {
+      display: block;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       z-index: 9000;
-      padding-bottom: env(safe-area-inset-bottom);
+      padding: 0 1rem calc(1rem + env(safe-area-inset-bottom));
+    }
+
+    /* Chat panel */
+    .mbb-chat-panel {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid rgba(10,10,10,0.1);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .mbb-chat-panel.is-open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .mbb-chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(10,10,10,0.08);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #0a0a0a;
+    }
+
+    .mbb-chat-header button {
+      border: none;
+      background: transparent;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      color: rgba(10,10,10,0.5);
+    }
+
+    .mbb-chat-body {
+      padding: 0.9rem 1rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .mbb-chat-body p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: rgba(10,10,10,0.65);
+    }
+
+    .mbb-chat-body textarea {
+      width: 100%;
+      resize: none;
+      border: 1px solid rgba(10,10,10,0.15);
+      border-radius: 10px;
+      padding: 0.65rem 0.75rem;
+      font: inherit;
+      font-size: 0.92rem;
+      color: #0a0a0a;
+      box-sizing: border-box;
+    }
+
+    .mbb-send {
+      border: none;
+      border-radius: 999px;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.72rem 1rem;
+      cursor: pointer;
+    }
+
+    /* Floating bar */
+    .mbb-bar {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(15, 15, 15, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 0.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .mbb-btn {
@@ -42,29 +174,32 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      padding: 1rem;
+      gap: 0.45rem;
+      padding: 0.85rem 0.5rem;
+      border-radius: 14px;
       font-family: 'Syne', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
       border: none;
-      transition: opacity 0.2s ease;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.15s ease;
     }
 
     .mbb-btn:active {
-      opacity: 0.85;
+      opacity: 0.8;
+      transform: scale(0.97);
     }
 
     .mbb-whatsapp {
-      background: #1a1f2e;
+      background: rgba(255,255,255,0.1);
       color: #fff;
     }
 
     .mbb-afspraak {
-      background: #25d366;
+      background: linear-gradient(135deg, #C4972A 0%, #A07828 100%);
       color: #fff;
+      box-shadow: 0 2px 12px rgba(196,151,42,0.35);
     }
   }
 </style>
