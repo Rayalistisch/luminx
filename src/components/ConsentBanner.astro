@@ -297,16 +297,41 @@
   }
 
   @media (max-width: 768px) {
+    /* Stretch widget full-screen so we can position children independently */
+    .consent-widget {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem 1rem calc(90px + env(safe-area-inset-bottom));
+    }
+
     .consent-banner {
       align-items: stretch;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
     }
+
     .consent-actions {
       width: 100%;
       display: grid;
       grid-template-columns: 1fr;
     }
+
     .consent-btn {
       width: 100%;
+    }
+
+    /* Cookie manage button: left side, vertically centered */
+    .consent-manage {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
     }
   }
 </style>
