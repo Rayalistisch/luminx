@@ -322,13 +322,13 @@
       width: 100%;
     }
 
-    /* Cookie manage button: fixed left-center, independent of banner */
+    /* Cookie manage button: naast de bottom bar onderin */
     .consent-manage {
       position: fixed;
       left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      bottom: auto;
+      bottom: calc(1rem + env(safe-area-inset-bottom));
+      top: auto;
+      transform: none;
       margin: 0;
     }
   }
