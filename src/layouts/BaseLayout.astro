@@ -115,6 +115,7 @@ const graphSchema = {
           window.dataLayer.push(arguments);
         };
 
+      // EER + VK: toestemming vereist (GDPR)
       window.gtag("consent", "default", {
         ad_storage: "denied",
         analytics_storage: "denied",
@@ -122,7 +123,18 @@ const graphSchema = {
         ad_personalization: "denied",
         functionality_storage: "granted",
         security_storage: "granted",
-        wait_for_update: 500
+        wait_for_update: 500,
+        region: ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]
+      });
+
+      // Buiten EER: standaard toestemming verlenen
+      window.gtag("consent", "default", {
+        ad_storage: "granted",
+        analytics_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        functionality_storage: "granted",
+        security_storage: "granted"
       });
 
       try {
