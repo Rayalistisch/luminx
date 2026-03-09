@@ -205,15 +205,19 @@ const graphSchema = {
     <script src="/scripts/tracking.js" defer></script>
     <script>
       import Lenis from 'lenis';
-      const lenis = new Lenis({
-        duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      function raf(time) {
-        lenis.raf(time);
+      // Lenis alleen op niet-touch apparaten: op mobiel veroorzaken
+      // de touch event listeners van Lenis klik-problemen op iOS.
+      if (!window.matchMedia('(pointer: coarse)').matches) {
+        const lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
       }
-      requestAnimationFrame(raf);
     </script>
     <script type="application/ld+json" set:html={JSON.stringify(graphSchema)}></script>
   </head>
