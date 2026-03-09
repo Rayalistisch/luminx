@@ -90,7 +90,9 @@
 
 nav{
   position: fixed;
-  inset: 0 0 auto 0;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: 2rem 4rem;
   display: flex;
   justify-content: space-between;
@@ -98,9 +100,13 @@ nav{
   z-index: 999999;
   background: transparent;
   border: 0;
-  pointer-events: auto;
+  pointer-events: none;
   transition: padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
               background 0.5s ease;
+}
+
+nav > * {
+  pointer-events: auto;
 }
 
 nav.nav--scrolled {
@@ -1469,6 +1475,7 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
         padding: 1.5rem 2rem;
         transition: none;
         align-items: flex-start;
+        pointer-events: auto;
       }
 
       nav.menu-open .logo {
