@@ -101,7 +101,7 @@ Voor websites met voldoende traffic kan Google via AI-gebaseerde conversiemodell
 Laten we de theorie loslaten en kijken naar resultaten:
 
 | Bedrijf / Situatie | Resultaat |
-|---|---|
+|:---|:---|
 | Grote verzekeraar na correcte GTM-implementatie | **+37% conversies**, -7% kosten per conversie |
 | E-commerce na abandoned cart-analyse via GTM | **+18% conversies** in 3 maanden |
 | Retail na gecentraliseerde GTM-tracking | **+20% verkoopconversies** in Q1 |

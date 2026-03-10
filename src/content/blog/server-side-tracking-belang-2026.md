@@ -59,7 +59,7 @@ Het resultaat: **browsers blokkeren jouw tracking niet**, cookies leven maanden 
 De cijfers uit de praktijk zijn overtuigend:
 
 | Situatie | Resultaat |
-|---|---|
+|:---|:---|
 | Petrol Industries (mode) | +100% ROAS op Meta, +20% op Google Ads |
 | Skincare brand | Gemeten aankopen: 1.724 naar 4.512 (+162%) |
 | Special-Butikken (retail) | +55% meer conversies via Google Ads |
