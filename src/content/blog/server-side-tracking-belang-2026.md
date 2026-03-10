@@ -115,8 +115,8 @@ Server-side tracking wordt gerealiseerd via **Google Tag Manager Server-Side** (
 
 Je hebt daarvoor:
 1. **Een sGTM-container** in je Google Tag Manager-account
-2. **Een managed hosting-provider** — geen eigen server nodig. Nederlandse providers zoals [TAGGRS](https://taggrs.io) bieden dit voor €19 tot €65/maand. Data blijft in de EU, wat AVG-compliance eenvoudiger maakt.
-3. **Een subdomein** op je eigen website (bijv. `gtm.jouwnaam.nl`) dat verwijst naar de sGTM-server
+2. **Een managed hosting-provider** — geen eigen server nodig. Nederlandse providers zoals TAGGRS of Stape bieden dit voor €19 tot €65/maand. Data blijft in de EU, wat AVG-compliance eenvoudiger maakt.
+3. **Een subdomein** op je eigen website (bijv. gtm.jouwnaam.nl) dat verwijst naar de sGTM-server
 4. **Client-side tags vervangen** door server-side equivalenten voor GA4, Meta CAPI, Google Ads
 
 Een standaard implementatie duurt twee tot vier weken. Complexere setups met e-commerce datalagen of custom API-integraties nemen meer tijd.
@@ -157,4 +157,4 @@ Het resultaat: meer data, betere campagnesturing, lagere kosten per conversie, e
 **Wil je weten hoeveel data jouw website nu verliest?**
 Bij LuminX doen we een gratis tracking-audit: we analyseren jouw GTM-container, GA4-implementatie en Consent Mode v2 — en laten zien wat je nu mist. Inclusief advies over of server-side tracking voor jouw situatie zinvol is.
 
-[Start je gratis tracking-audit](/tracking-audit) en ontdek wat je conversiedata je nu niet vertelt.
+Neem contact op en ontdek wat je conversiedata je nu niet vertelt.
