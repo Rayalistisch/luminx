@@ -154,6 +154,6 @@ Zonder die fundering bouw je op drijfzand.
 ---
 
 **Wil je weten of de tracking van jouw website betrouwbaar is?**
-Bij Cyan Crater voeren we een volledige tracking-audit uit: van GTM-configuratie tot Consent Mode v2, van GA4-implementatie tot Google Ads conversietracking. We zorgen dat je data klopt — zodat elke marketingbeslissing op een solide basis staat.
+Bij LuminX voeren we een volledige tracking-audit uit: van GTM-configuratie tot Consent Mode v2, van GA4-implementatie tot Google Ads conversietracking. We zorgen dat je data klopt — zodat elke marketingbeslissing op een solide basis staat.
 
 [Plan een gratis kennismaking](#contact) en ontdek wat jouw tracking nu mist.
