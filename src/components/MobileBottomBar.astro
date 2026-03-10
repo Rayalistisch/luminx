@@ -78,6 +78,7 @@
       z-index: 9000;
       padding: 0 1rem calc(1rem + env(safe-area-inset-bottom));
       padding-left: calc(1rem + 44px + 0.5rem);
+      pointer-events: none;
     }
 
     /* Chat panel */
@@ -97,7 +98,7 @@
     .mbb-chat-panel.is-open {
       opacity: 1;
       transform: translateY(0);
-      pointer-events: auto;
+      pointer-events: auto; /* re-enable when open */
     }
 
     .mbb-chat-header {
@@ -159,6 +160,7 @@
 
     /* Floating bar */
     .mbb-bar {
+      pointer-events: auto;
       display: flex;
       gap: 0.5rem;
       background: rgba(15, 15, 15, 0.88);
