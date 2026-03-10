@@ -61,11 +61,11 @@ De cijfers uit de praktijk zijn overtuigend:
 | Situatie | Resultaat |
 |---|---|
 | Petrol Industries (mode) | +100% ROAS op Meta, +20% op Google Ads |
-| Skincare brand | Gemeten aankopen: 1.724 → 4.512 (+162%) |
+| Skincare brand | Gemeten aankopen: 1.724 naar 4.512 (+162%) |
 | Special-Butikken (retail) | +55% meer conversies via Google Ads |
-| Transparent Digital | -39% CPA op Google Ads, Meta match quality >9 |
-| Bolighuset (woonwinkel) | ROAS 10 → 12, +56% omzet |
-| Calendly | 2× hogere ROAS |
+| Transparent Digital | -39% CPA op Google Ads, Meta match quality 9+ |
+| Bolighuset (woonwinkel) | ROAS 10 naar 12, +56% omzet |
+| Calendly | 2x hogere ROAS |
 
 In 200+ onderzochte cases verbeterde server-side tracking het bijgehouden aantal conversies met **18 tot 40%**. Dat is geen technisch randdetail — dat is het verschil tussen een winstgevende en een verlieslatende campagne.
 
