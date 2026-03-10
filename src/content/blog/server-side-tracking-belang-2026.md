@@ -1,5 +1,5 @@
 ---
-title: Server-side tracking in 2026: waarom je tot 60% van je conversies misloopt
+title: "Server-side tracking in 2026: waarom je tot 60% van je conversies misloopt"
 description: Ad blockers, Safari ITP en iOS-privacy zorgen ervoor dat je met client-side tracking 20 tot 60 procent van je conversies niet meer ziet. Server-side tracking lost dit op. Lees wanneer het loont en hoe je begint.
 pubDate: 2026-03-10T09:00:00.000Z
 author: Ray Huffenreuter
