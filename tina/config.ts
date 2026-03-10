@@ -65,6 +65,7 @@ export default defineConfig({
               "Strategie",
               "Web Development",
               "Procesautomatisering",
+              "Analytics & Tracking",
             ],
           },
           {
