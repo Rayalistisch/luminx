@@ -1,0 +1,737 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Google Tag Manager – Professionele implementatie & beheer",
+  description: "Correcte GTM-implementatie met event tracking, conversie meting en Consent Mode v2 voor betrouwbare data en betere marketingbeslissingen.",
+  serviceType: "Tag Management",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const specialismen = [
+  {
+    icon: "◎",
+    title: "GTM-implementatie",
+    description: "Een schone, gestructureerde GTM-container ingericht met duidelijke naamgeving, versiebeheer en gedocumenteerde tags voor GA4, Google Ads en overige pixels.",
+  },
+  {
+    icon: "◈",
+    title: "Event & conversie tracking",
+    description: "Formulierinzendingen, klikken, scroll-diepte, videoweergaven en andere interacties nauwkeurig bijhouden — volledig aanpasbaar aan jouw funnel.",
+  },
+  {
+    icon: "◉",
+    title: "Google Ads conversietracking",
+    description: "Correcte koppeling tussen Google Ads campagnes en daadwerkelijke conversies, zodat je biedstrategie op echte data optimaliseert en niet op schijnconversies.",
+  },
+  {
+    icon: "◌",
+    title: "Consent Mode v2",
+    description: "Regiogebaseerde GTM-configuratie die voldoet aan de DMA: EER-gebruikers standaard geweigerd, overige regio's standaard toegestaan — met behoud van maximale data.",
+  },
+  {
+    icon: "✦",
+    title: "DataLayer implementatie",
+    description: "Gestructureerde dataLayer-opzet voor e-commerce, leadkwaliteit en gedragsdata, zodat jouw marketingdata altijd betrouwbaar en schaalbaar is.",
+  },
+  {
+    icon: "●",
+    title: "GTM-audit & opschoning",
+    description: "Beoordeling van bestaande containers: dubbele tags opsporen, verouderde pixels verwijderen, triggers controleren en de container opschonen voor betrouwbare rapportage.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Geen afhankelijkheid van development bij elke trackingwijziging",
+    body: "Met GTM beheer je alle trackingcodes vanuit één centrale plek. Nieuwe campagne, nieuw formulier of nieuwe pixel — je voegt het zelf toe in minuten, zonder wachtrij bij het dev-team.",
+  },
+  {
+    title: "Betrouwbare data als fundering voor marketingbeslissingen",
+    body: "Slechte tracking leidt tot verkeerde beslissingen. Een correcte GTM-implementatie zorgt dat je precies weet welke kanalen, campagnes en zoekwoorden daadwerkelijk leads en omzet opleveren.",
+  },
+  {
+    title: "Juridisch compliant met DMA en GDPR via Consent Mode v2",
+    body: "Zonder correcte Consent Mode v2 riskeer je zowel dataverlies als non-compliance. We configureren een regiogebaseerde toestemmingsstructuur die zowel de privacy van bezoekers respecteert als je datakwaliteit beschermt.",
+  },
+  {
+    title: "Volledige controle over welke data naar welk platform gaat",
+    body: "Via GTM stuur je bewust welke informatie naar Google Ads, Meta, LinkedIn of andere platformen gaat. Zo behoud je eigenaarschap over je data en voorkom je ongewenste lekken.",
+  },
+  {
+    title: "Sneller debuggen en problemen oplossen",
+    body: "Met de GTM preview-modus en gelaagd versiebeheer kun je tracking issues snel lokaliseren en oplossen zonder de live site te raken. Alles is traceerbaar naar een specifieke containerversie.",
+  },
+];
+
+const faq = [
+  {
+    q: "Wat is het verschil tussen Google Tag Manager en Google Analytics?",
+    a: "Google Tag Manager is het beheersysteem: het laadt en stuurt alle trackingcodes op je website. Google Analytics is één van de tools die via GTM wordt geladen. GTM zelf verzamelt geen data — het regelt dat de juiste tools op het juiste moment actief zijn.",
+  },
+  {
+    q: "Mijn website heeft al tracking. Waarom zou ik een audit laten doen?",
+    a: "Veelgemaakte problemen zijn pas zichtbaar bij een audit: dubbele tags die conversies opblazen, triggers die op het verkeerde moment vuren, een niet-gepubliceerde container of pixels die al jaren ongebruikt in de container staan. Slechte tracking is vaak erger dan geen tracking.",
+  },
+  {
+    q: "Wat is Consent Mode v2 en heb ik dat nodig?",
+    a: "Consent Mode v2 is verplicht voor alle websites in de EU/EER die Google Ads of GA4 gebruiken. Zonder correcte implementatie worden geen remarketing-audiences aangevuld en ontvangt GA4 geen data van bezoekers die tracking weigeren. Dit is geen optie meer — het is een vereiste.",
+  },
+  {
+    q: "Hoe snel is een GTM-implementatie gerealiseerd?",
+    a: "Een volledige implementatie van GTM met GA4, Google Ads conversietracking en Consent Mode v2 is doorgaans binnen één tot twee werkweken gerealiseerd. Een audit en opschoning van een bestaande container kan sneller gaan.",
+  },
+  {
+    q: "Kunnen jullie ook de koppeling met Google Ads maken?",
+    a: "Ja. We richten niet alleen GTM in, maar verzorgen ook de volledige koppeling met Google Ads conversietracking en remarketinglijsten. Zo zijn jouw campagnes gebaseerd op betrouwbare data vanaf dag één.",
+  },
+];
+---
+
+<BaseLayout
+  title="Google Tag Manager Implementatie & Beheer | LuminX Twente"
+  description="Professionele GTM-implementatie met event tracking, conversie meting en Consent Mode v2. Betrouwbare data als basis voor betere marketingbeslissingen."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="gtm-page">
+
+    <section class="gtm-hero" data-bg-color="#0A0A0A">
+      <div class="gtm-hero-overlay" aria-hidden="true"></div>
+      <div class="gtm-hero-inner">
+        <div class="gtm-hero-content">
+          <a href="/diensten/online-marketing" class="gtm-back-link">← Online Marketing</a>
+          <span class="gtm-kicker">Specialisme</span>
+          <h1><span class="gtm-icon" aria-hidden="true">◎</span> Google Tag Manager</h1>
+          <p class="gtm-intro-p">Wij richten GTM in als een betrouwbaar datasysteem: gestructureerd, gedocumenteerd en volledig afgestemd op jouw funnel, campagnes en privacyvereisten.</p>
+          <div class="gtm-actions">
+            <a href="#contact" class="gtm-btn-primary" data-overlay-open>Gratis tracking-audit</a>
+            <a href="#aanpak" class="gtm-btn-secondary">Bekijk aanpak</a>
+          </div>
+          <div class="gtm-metrics">
+            <article class="gtm-metric">
+              <strong>1–2 weken</strong>
+              <span>Volledige implementatie</span>
+            </article>
+            <article class="gtm-metric">
+              <strong>100%</strong>
+              <span>Betrouwbare conversiedata</span>
+            </article>
+            <article class="gtm-metric">
+              <strong>DMA-proof</strong>
+              <span>Consent Mode v2 inbegrepen</span>
+            </article>
+          </div>
+        </div>
+        <aside class="gtm-hero-panel">
+          <span>Wat je direct merkt</span>
+          <ul>
+            <li>Inzicht in welke campagnes echt converteren</li>
+            <li>Geen developer nodig bij trackingwijzigingen</li>
+            <li>Juridisch compliant met GDPR en DMA</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="gtm-what" data-bg-color="#FEFEFE">
+      <div class="gtm-container gtm-what-grid">
+        <div class="gtm-what-text">
+          <span class="gtm-label">Wat is GTM?</span>
+          <h2>De fundering van elke data-gedreven marketingstrategie</h2>
+          <p>Google Tag Manager is het centrale beheersysteem voor alle trackingcodes op jouw website. In plaats van losse scripts verspreid door je broncode, beheer je via GTM alles vanuit één gestructureerde container: GA4, Google Ads, Meta Pixel, LinkedIn Tag en meer.</p>
+          <p>Maar GTM is meer dan gemak. Een correct ingericht systeem bepaalt of jouw marketingdata betrouwbaar is — en daarmee of jouw marketingbeslissingen op feiten of fictie zijn gebaseerd.</p>
+          <a href="/tracking-audit" class="gtm-inline-cta">Controleer jouw tracking gratis →</a>
+        </div>
+        <div class="gtm-what-visual" aria-hidden="true">
+          <div class="gtm-stat-stack">
+            <div class="gtm-stat-item">
+              <span class="gtm-stat-value">67%</span>
+              <span class="gtm-stat-desc">van besluitvormers vertrouwt eigen data niet</span>
+            </div>
+            <div class="gtm-stat-item">
+              <span class="gtm-stat-value">+37%</span>
+              <span class="gtm-stat-desc">meer conversies na correcte GTM-setup</span>
+            </div>
+            <div class="gtm-stat-item">
+              <span class="gtm-stat-value">–76%</span>
+              <span class="gtm-stat-desc">lagere cost per lead door data-gedreven bijsturing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gtm-services" data-bg-color="#F7F9FC">
+      <div class="gtm-container">
+        <div class="gtm-section-head centered">
+          <span class="gtm-label">Specialismen</span>
+          <h2>Wat wij voor je implementeren</h2>
+          <p>Van een schone container-opzet tot complexe e-commerce datalagen — we beheersen het volledige GTM-spectrum en stemmen elk onderdeel af op jouw marketingstrategie.</p>
+        </div>
+        <div class="gtm-cards-grid">
+          {specialismen.map((item) => (
+            <div class="gtm-card">
+              <div class="gtm-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gtm-benefits" data-bg-color="#FEFEFE">
+      <div class="gtm-container gtm-benefits-grid">
+        <div class="gtm-benefits-left">
+          <span class="gtm-label">Waarom uitbesteden?</span>
+          <h2>Voordelen van een correcte GTM-implementatie</h2>
+          <p>Een GTM-container die niet klopt werkt net als een kapotte meetlat: alles ziet er gemeten uit, maar de uitkomsten kloppen niet. Dit zijn de voordelen van een professioneel ingerichte container.</p>
+          <div class="gtm-benefit-stats">
+            <div class="gtm-bstat">
+              <strong>1–2 wkn</strong>
+              <span>Van audit naar live implementatie</span>
+            </div>
+            <div class="gtm-bstat">
+              <strong>100%</strong>
+              <span>Eigenaarschap van jouw data</span>
+            </div>
+          </div>
+        </div>
+        <div class="gtm-benefits-right">
+          {benefits.map((b) => (
+            <details class="gtm-benefit-item">
+              <summary>{b.title}</summary>
+              <p>{b.body}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gtm-approach" id="aanpak" data-bg-color="#F7F9FC">
+      <div class="gtm-container">
+        <div class="gtm-section-head">
+          <span class="gtm-label">Aanpak</span>
+          <h2>Van rommelige container naar betrouwbaar datasysteem in vier stappen.</h2>
+        </div>
+        <div class="gtm-steps">
+          <article class="gtm-step">
+            <span class="gtm-step-num">01</span>
+            <h3>Audit & inventarisatie</h3>
+            <p>Analyse van de bestaande container (of een nulmeting bij nieuwe implementatie): welke tags, triggers en variabelen zijn aanwezig, kloppen ze, en wat ontbreekt?</p>
+          </article>
+          <article class="gtm-step">
+            <span class="gtm-step-num">02</span>
+            <h3>Structuur & opzet</h3>
+            <p>Inrichting van een schone container met logische naamgeving, versiebeheer en gedocumenteerde structuur. GA4, Google Ads en Consent Mode v2 als basis.</p>
+          </article>
+          <article class="gtm-step">
+            <span class="gtm-step-num">03</span>
+            <h3>Implementatie & testen</h3>
+            <p>Tags live zetten via de preview-modus, testen op alle relevante apparaten en browsers, en valideren via GA4 DebugView en Google Ads Tag Diagnostics.</p>
+          </article>
+          <article class="gtm-step">
+            <span class="gtm-step-num">04</span>
+            <h3>Overdracht & documentatie</h3>
+            <p>Volledige documentatie van de container, overdracht aan jouw team en optionele kennissessie. Daarna continue beschikbaarheid voor aanpassingen en uitbreidingen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gtm-context" data-bg-color="#FEFEFE">
+      <div class="gtm-container gtm-context-grid">
+        <article class="gtm-block">
+          <h2>Waar organisaties op vastlopen</h2>
+          <ul class="gtm-list gtm-list--muted">
+            <li>Dubbele GA4-tracking die conversies kunstmatig opblaast</li>
+            <li>Triggers die vuren op de verkeerde momenten</li>
+            <li>Container niet gepubliceerd na wijzigingen</li>
+            <li>Geen Consent Mode v2 terwijl dit verplicht is</li>
+            <li>Pixels van verlopen campagnes die nog steeds laden</li>
+            <li>Geen inzicht in welke tags actief zijn en waarom</li>
+          </ul>
+        </article>
+        <article class="gtm-block gtm-block--soft">
+          <h2>Wat wij concreet opleveren</h2>
+          <ul class="gtm-list">
+            <li>Schone, gedocumenteerde GTM-container met versiebeheer</li>
+            <li>GA4 implementatie met correcte event- en conversietracking</li>
+            <li>Google Ads conversietracking en remarketinglijsten</li>
+            <li>Consent Mode v2 regiogebaseerd geconfigureerd</li>
+            <li>Validatie via preview, DebugView en Tag Diagnostics</li>
+            <li>Volledige overdracht en documentatie voor jouw team</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="gtm-related" data-bg-color="#F7F9FC">
+      <div class="gtm-container">
+        <div class="gtm-section-head">
+          <span class="gtm-label">Gerelateerde diensten</span>
+          <h2>Combineer GTM met de juiste analytics-strategie</h2>
+        </div>
+        <div class="gtm-related-grid">
+          <a href="/diensten/ga4-implementatie" class="gtm-related-card">
+            <span class="gtm-related-icon" aria-hidden="true">◈</span>
+            <h3>GA4 Implementatie</h3>
+            <p>Volledige Google Analytics 4 inrichting met event tracking, conversies en rapportage afgestemd op jouw KPI's.</p>
+            <span class="gtm-related-link">Meer over GA4 →</span>
+          </a>
+          <a href="/diensten/consent-mode-v2" class="gtm-related-card">
+            <span class="gtm-related-icon" aria-hidden="true">◉</span>
+            <h3>Consent Mode v2</h3>
+            <p>DMA-compliant toestemmingsbeheer dat zowel juridisch waterdicht is als jouw datakwaliteit maximaliseert.</p>
+            <span class="gtm-related-link">Meer over Consent Mode →</span>
+          </a>
+          <a href="/tracking-audit" class="gtm-related-card gtm-related-card--cta">
+            <span class="gtm-related-icon" aria-hidden="true">✦</span>
+            <h3>Gratis Tracking-audit</h3>
+            <p>Laat ons jouw huidige tracking doorlichten en ontdek welke data je nu mist of verkeerd meet.</p>
+            <span class="gtm-related-link">Start gratis audit →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gtm-faq" data-bg-color="#FEFEFE">
+      <div class="gtm-container gtm-faq-grid">
+        <div class="gtm-faq-left">
+          <span class="gtm-label">Veelgestelde vragen</span>
+          <h2>Alles over Google Tag Manager</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="gtm-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="gtm-faq-right">
+          {faq.map((item) => (
+            <details class="gtm-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gtm-outcomes" data-bg-color="#0A0A0A">
+      <div class="gtm-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="gtm-outcome-tags">
+          <span>Betrouwbare conversiedata</span>
+          <span>Correcte Google Ads attributie</span>
+          <span>DMA & GDPR-compliance</span>
+          <span>Geen dubbele tags</span>
+          <span>Snellere tracking-aanpassingen</span>
+          <span>Volledig gedocumenteerde container</span>
+          <span>Betere marketingbeslissingen</span>
+          <span>Lager cost per lead</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Weet jij zeker dat jouw<br/>tracking klopt?</h2>
+        <p>We analyseren jouw GTM-container en trackingopzet, en presenteren concreet wat er beter kan — inclusief directe fixes en prioriteiten.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan gratis tracking-audit</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .gtm-page { background: var(--white); }
+  .gtm-container { max-width: 1240px; margin: 0 auto; }
+
+  .gtm-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .gtm-section-head { margin-bottom: 3rem; }
+  .gtm-section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }
+  .gtm-section-head.centered { text-align: center; }
+  .gtm-section-head.centered h2,
+  .gtm-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .gtm-section-head.centered p { max-width: 560px; }
+  .gtm-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  .gtm-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .gtm-inline-cta:hover { opacity: 0.6; }
+
+  /* Hero */
+  .gtm-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .gtm-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(180, 220, 255, 0.16), transparent 42%),
+      radial-gradient(circle at 80% 26%, rgba(200, 255, 220, 0.12), transparent 38%);
+  }
+
+  .gtm-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .gtm-back-link {
+    display: inline-flex;
+    margin-bottom: 1.8rem;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.6;
+    font-size: 0.9rem;
+    transition: opacity 0.25s ease;
+  }
+  .gtm-back-link:hover { opacity: 1; }
+
+  .gtm-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .gtm-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .gtm-icon { color: #7DD3FC; font-size: 0.68em; }
+
+  .gtm-intro-p {
+    max-width: 700px;
+    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
+    opacity: 0.88;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .gtm-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .gtm-btn-primary,
+  .gtm-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.9rem 1.45rem;
+    transition: transform 0.25s ease;
+  }
+  .gtm-btn-primary { color: var(--black); background: var(--white); }
+  .gtm-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .gtm-btn-primary:hover, .gtm-btn-secondary:hover { transform: translateY(-2px); }
+
+  .gtm-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    max-width: 720px;
+  }
+
+  .gtm-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+  .gtm-metric strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .gtm-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
+
+  .gtm-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .gtm-hero-panel > span {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 0.75rem;
+  }
+  .gtm-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .gtm-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
+  .gtm-hero-panel li::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7DD3FC, #86EFAC);
+    position: absolute;
+    left: 0; top: 0.62rem;
+  }
+
+  /* What section */
+  .gtm-what { padding: 7rem 4rem; }
+  .gtm-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .gtm-what-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.25rem;
+  }
+  .gtm-what-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .gtm-what-visual { display: flex; justify-content: center; align-items: flex-start; }
+
+  .gtm-stat-stack {
+    width: 100%;
+    max-width: 340px;
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
+  }
+
+  .gtm-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .gtm-stat-item:last-child { border-bottom: none; }
+  .gtm-stat-item::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #7DD3FC, #86EFAC);
+  }
+
+  .gtm-stat-value {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .gtm-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+
+  /* Services grid */
+  .gtm-services { padding: 7rem 4rem; }
+  .gtm-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  .gtm-card {
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .gtm-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+
+  .gtm-card-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(10,10,10,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin: 0 auto 1.25rem;
+    transition: background 0.3s ease;
+  }
+  .gtm-card:hover .gtm-card-icon { background: var(--black); color: var(--white); }
+  .gtm-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .gtm-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  /* Benefits */
+  .gtm-benefits { padding: 7rem 4rem; }
+  .gtm-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .gtm-benefits-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1rem;
+  }
+  .gtm-benefits-left p { color: rgba(10,10,10,0.68); line-height: 1.8; }
+  .gtm-benefit-stats { margin-top: 2rem; display: grid; gap: 1.25rem; }
+  .gtm-bstat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .gtm-bstat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .gtm-bstat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  .gtm-benefit-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .gtm-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .gtm-benefit-item summary {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .gtm-benefit-item summary::-webkit-details-marker { display: none; }
+  .gtm-benefit-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .gtm-benefit-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .gtm-benefit-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  /* Approach */
+  .gtm-approach { padding: 6rem 4rem; }
+  .gtm-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(10,10,10,0.14);
+    border-bottom: 1px solid rgba(10,10,10,0.14);
+    margin-top: 2rem;
+  }
+  .gtm-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .gtm-step:last-child { border-right: none; }
+  .gtm-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .gtm-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .gtm-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  /* Context */
+  .gtm-context { padding: 6rem 4rem; }
+  .gtm-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .gtm-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
+  .gtm-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .gtm-block h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 16ch; }
+  .gtm-list { list-style: none; display: grid; gap: 0.8rem; }
+  .gtm-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
+  .gtm-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
+  .gtm-list--muted li { color: rgba(10,10,10,0.65); }
+  .gtm-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  /* Related services */
+  .gtm-related { padding: 6rem 4rem; }
+  .gtm-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+
+  .gtm-related-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    color: var(--black);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .gtm-related-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+  .gtm-related-card--cta { background: var(--black); color: var(--white); }
+  .gtm-related-card--cta h3 { color: var(--white); }
+  .gtm-related-card--cta p { color: rgba(255,255,255,0.7); }
+  .gtm-related-card--cta .gtm-related-link { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.4); }
+
+  .gtm-related-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+  .gtm-related-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .gtm-related-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; flex: 1; }
+  .gtm-related-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 700;
+    border-bottom: 1.5px solid rgba(10,10,10,0.3);
+    padding-bottom: 2px;
+  }
+
+  /* FAQ */
+  .gtm-faq { padding: 7rem 4rem; }
+  .gtm-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .gtm-faq-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .gtm-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+  .gtm-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .gtm-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .gtm-faq-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .gtm-faq-item summary::-webkit-details-marker { display: none; }
+  .gtm-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .gtm-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .gtm-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  /* Outcomes */
+  .gtm-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
+  .gtm-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+  .gtm-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .gtm-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
+
+  @media (max-width: 1100px) {
+    .gtm-hero-inner, .gtm-what-grid, .gtm-benefits-grid, .gtm-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .gtm-cards-grid { grid-template-columns: 1fr 1fr; }
+    .gtm-steps { grid-template-columns: 1fr 1fr; }
+    .gtm-step:nth-child(2n) { border-right: none; }
+    .gtm-context-grid { grid-template-columns: 1fr; }
+    .gtm-what-visual { display: none; }
+    .gtm-related-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .gtm-hero, .gtm-what, .gtm-services, .gtm-benefits, .gtm-approach, .gtm-context, .gtm-related, .gtm-faq, .gtm-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .gtm-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .gtm-cards-grid { grid-template-columns: 1fr; }
+    .gtm-steps { grid-template-columns: 1fr; }
+    .gtm-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .gtm-step:first-child { border-top: none; }
+    .gtm-metrics { grid-template-columns: 1fr 1fr; }
+    .gtm-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+    .gtm-related-grid { grid-template-columns: 1fr; }
+  }
+</style>

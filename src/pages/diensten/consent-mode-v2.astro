@@ -1,0 +1,437 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Google Consent Mode v2 Implementatie",
+  description: "DMA-conforme Consent Mode v2 implementatie die juridisch waterdicht is en jouw datakwaliteit maximaliseert. Verplicht voor alle Nederlandse websites met Google Ads of GA4.",
+  serviceType: "Privacy Compliance",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const specialismen = [
+  {
+    icon: "◎",
+    title: "Regiogebaseerde standaardinstellingen",
+    description: "EER-landen standaard op 'denied' totdat de bezoeker toestemming geeft. Overige regio's standaard op 'granted'. Correct geconfigureerd via GTM met de juiste parameterlijst.",
+  },
+  {
+    icon: "◈",
+    title: "Cookiebanner integratie",
+    description: "Koppeling van Consent Mode v2 aan jouw bestaande cookiebanner of CMP, zodat gebruikerstoestemming automatisch doorgestuurd wordt naar Google's toestemmingssignalen.",
+  },
+  {
+    icon: "◉",
+    title: "Alle vier de toestemmingsparameters",
+    description: "Correcte configuratie van ad_storage, analytics_storage, ad_user_data én ad_personalization — de vier parameters die verplicht zijn onder DMA en Consent Mode v2.",
+  },
+  {
+    icon: "◌",
+    title: "Advanced Mode configuratie",
+    description: "Implementatie in Advanced Mode zodat GA4 en Google Ads anonieme signaaldata kunnen ontvangen van bezoekers die tracking weigeren, voor betere conversiemodellering.",
+  },
+  {
+    icon: "✦",
+    title: "Validatie & compliance-check",
+    description: "Volledige validatie via de Google Tag Assistant, Consent Mode debugger en handmatige verificatie dat de toestemmingssignalen correct doorgestuurd worden.",
+  },
+  {
+    icon: "●",
+    title: "Consent Mode audit",
+    description: "Voor websites met een bestaande Consent Mode setup: beoordeling of de configuratie correct is, volledig en DMA-compliant — inclusief veelgemaakte fouten zoals onjuiste regio-parameters.",
+  },
+];
+
+const gevolgen = [
+  "Geen remarketing-audiences voor EER-gebruikers in Google Ads",
+  "Geen GA4-data van nieuwe bezoekers uit Nederland en Europa",
+  "Verlies van Google Ads conversie-optimalisatie voor EU-verkeer",
+  "Historische data is permanent verloren — geen backfill mogelijk",
+  "Risico op non-compliance met de Digital Markets Act (DMA)",
+  "Onjuiste rapportage door ontbrekende EER-datapunten",
+];
+
+const opleveringen = [
+  "Regiogebaseerde Consent Mode v2 correct in GTM geconfigureerd",
+  "Alle vier DMA-verplichte parameters correct ingesteld",
+  "Integratie met bestaande cookiebanner of CMP",
+  "Advanced Mode voor maximale data-modellering",
+  "Validatierapport met bewijs van correcte werking",
+  "Documentatie voor jouw team en eventuele audits",
+];
+
+const faq = [
+  {
+    q: "Is Consent Mode v2 verplicht voor mijn website?",
+    a: "Ja, als je Google Ads of GA4 gebruikt en bezoekers target in de EER (waaronder Nederland). Consent Mode v2 is verplicht gesteld door Google in het kader van de Digital Markets Act. Zonder correcte implementatie worden geen GA4-data verzameld en geen remarketing-audiences gevuld voor EER-bezoekers.",
+  },
+  {
+    q: "Wat zijn de nieuwe parameters in Consent Mode v2?",
+    a: "Consent Mode v2 introduceert twee nieuwe verplichte parameters naast de bestaande: ad_user_data (toestemming voor het sturen van gebruikersdata naar Google voor advertenties) en ad_personalization (toestemming voor gepersonaliseerde advertenties). Beide moeten correct zijn geconfigureerd.",
+  },
+  {
+    q: "Wat is het verschil tussen Basic Mode en Advanced Mode?",
+    a: "In Basic Mode worden tracking-tags pas geladen na toestemming van de gebruiker. In Advanced Mode worden tags altijd geladen maar zonder identificerende data bij geweigerde toestemming — dit maakt conversiemodellering via AI mogelijk. Advanced Mode geeft meer data en betere modellering.",
+  },
+  {
+    q: "Ik heb al een cookiebanner. Is dat genoeg?",
+    a: "Een cookiebanner alleen is niet genoeg. De banner moet technisch verbonden zijn met Consent Mode v2 zodat de toestemmingssignalen correct naar Google worden doorgestuurd. Veel websites hebben een banner die visueel werkt maar technisch geen correcte signalen doorgeeft.",
+  },
+  {
+    q: "Verlies ik data van bezoekers die tracking weigeren?",
+    a: "Met Advanced Mode verlies je minder data dan je denkt. Google kan via AI-gebaseerde conversiemodellering tot 65-70% van verloren data reconstrueren als er voldoende toestemmingsdata beschikbaar is als referentie. Dit werkt alleen als Consent Mode correct in Advanced Mode is geconfigureerd.",
+  },
+];
+---
+
+<BaseLayout
+  title="Consent Mode v2 Implementatie | LuminX Twente"
+  description="DMA-conforme Consent Mode v2 implementatie voor Nederlandse websites. Juridisch waterdicht en maximale datakwaliteit via correcte GTM-configuratie."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="cm-page">
+
+    <section class="cm-hero" data-bg-color="#0A0A0A">
+      <div class="cm-hero-overlay" aria-hidden="true"></div>
+      <div class="cm-hero-inner">
+        <div class="cm-hero-content">
+          <a href="/diensten/google-tag-manager" class="cm-back-link">← Google Tag Manager</a>
+          <span class="cm-kicker">Compliance & Tracking</span>
+          <h1><span class="cm-icon" aria-hidden="true">◉</span> Consent Mode v2</h1>
+          <p class="cm-intro-p">Verplicht voor elke Nederlandse website met Google Ads of GA4. Wij implementeren Consent Mode v2 correct — zodat je juridisch compliant bent én maximale data behoudt.</p>
+          <div class="cm-actions">
+            <a href="#contact" class="cm-btn-primary" data-overlay-open>Plan kennismaking</a>
+            <a href="#gevolgen" class="cm-btn-secondary">Wat staat er op het spel?</a>
+          </div>
+          <div class="cm-metrics">
+            <article class="cm-metric">
+              <strong>Verplicht</strong>
+              <span>Sinds maart 2024 (DMA)</span>
+            </article>
+            <article class="cm-metric">
+              <strong>4 parameters</strong>
+              <span>Correct configureren</span>
+            </article>
+            <article class="cm-metric">
+              <strong>Advanced Mode</strong>
+              <span>Max. dataherstel</span>
+            </article>
+          </div>
+        </div>
+        <aside class="cm-hero-panel">
+          <span>Wat je beschermt</span>
+          <ul>
+            <li>Remarketing-audiences voor EER-bezoekers</li>
+            <li>GA4-data van Nederlandse bezoekers</li>
+            <li>Compliance met DMA en GDPR</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="cm-urgency" id="gevolgen" data-bg-color="#FEFEFE">
+      <div class="cm-container cm-urgency-grid">
+        <div class="cm-urgency-text">
+          <span class="cm-label">Waarom dit urgent is</span>
+          <h2>Zonder Consent Mode v2 verlies je data — permanent</h2>
+          <p>Consent Mode v2 is niet optioneel. Websites die Google Ads of GA4 gebruiken en bezoekers targeten in de EER zijn verplicht om Consent Mode v2 te implementeren als onderdeel van de Digital Markets Act.</p>
+          <p>De gevolgen van een incorrecte of ontbrekende implementatie zijn direct en onomkeerbaar. Gemiste data kan achteraf niet worden teruggehaald.</p>
+        </div>
+        <div class="cm-urgency-panel">
+          <div class="cm-consequence-list">
+            <h3>Gevolgen bij incorrecte implementatie</h3>
+            <ul>
+              {gevolgen.map((g) => (
+                <li>
+                  <span class="cm-x" aria-hidden="true">✕</span>
+                  {g}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cm-services" data-bg-color="#F7F9FC">
+      <div class="cm-container">
+        <div class="cm-section-head centered">
+          <span class="cm-label">Wat wij implementeren</span>
+          <h2>Een correcte Consent Mode v2 van begin tot eind</h2>
+          <p>Wij zorgen dat jouw Consent Mode v2 niet alleen visueel correct is, maar technisch waterdicht — gevalideerd, gedocumenteerd en DMA-compliant.</p>
+        </div>
+        <div class="cm-cards-grid">
+          {specialismen.map((item) => (
+            <div class="cm-card">
+              <div class="cm-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="cm-context" data-bg-color="#FEFEFE">
+      <div class="cm-container cm-context-grid">
+        <article class="cm-block">
+          <h2>Veelgemaakte fouten die we tegenkomen</h2>
+          <ul class="cm-list cm-list--muted">
+            <li>Consent Mode ingesteld voor alle regio's als "denied" — ook buiten EER</li>
+            <li>Consent Mode ingesteld voor alle regio's als "granted" — ook voor EER (GDPR-risico)</li>
+            <li>Cookiebanner werkt visueel maar stuurt geen signalen door naar GTM</li>
+            <li>Alleen de twee oude parameters geconfigureerd, ad_user_data en ad_personalization ontbreken</li>
+            <li>Basic Mode in plaats van Advanced Mode — minder modellering</li>
+            <li>Consent Mode aanwezig maar nooit gevalideerd of getest</li>
+          </ul>
+        </article>
+        <article class="cm-block cm-block--soft">
+          <h2>Wat wij opleveren</h2>
+          <ul class="cm-list">
+            {opleveringen.map((o) => <li>{o}</li>)}
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="cm-approach" data-bg-color="#F7F9FC">
+      <div class="cm-container">
+        <div class="cm-section-head">
+          <span class="cm-label">Aanpak</span>
+          <h2>Van compliance-risico naar waterdichte configuratie in drie stappen.</h2>
+        </div>
+        <div class="cm-steps">
+          <article class="cm-step">
+            <span class="cm-step-num">01</span>
+            <h3>Audit van huidige situatie</h3>
+            <p>Beoordeling van bestaande Consent Mode configuratie, cookiebanner-integratie en GTM-container. Welke parameters zijn aanwezig, kloppen ze, en wat ontbreekt?</p>
+          </article>
+          <article class="cm-step">
+            <span class="cm-step-num">02</span>
+            <h3>Implementatie & integratie</h3>
+            <p>Regiogebaseerde configuratie in GTM, alle vier verplichte parameters instellen, Advanced Mode activeren en cookiebanner technisch koppelen aan toestemmingssignalen.</p>
+          </article>
+          <article class="cm-step">
+            <span class="cm-step-num">03</span>
+            <h3>Validatie & documentatie</h3>
+            <p>Verificatie via Google Tag Assistant en Consent Mode debugger. Validatierapport opstellen en volledige documentatie voor jouw team en eventuele compliance-audits.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cm-faq" data-bg-color="#FEFEFE">
+      <div class="cm-container cm-faq-grid">
+        <div class="cm-faq-left">
+          <span class="cm-label">Veelgestelde vragen</span>
+          <h2>Alles over Consent Mode v2</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="cm-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="cm-faq-right">
+          {faq.map((item) => (
+            <details class="cm-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="cm-outcomes" data-bg-color="#0A0A0A">
+      <div class="cm-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="cm-outcome-tags">
+          <span>DMA & GDPR-compliant</span>
+          <span>Remarketing-audiences voor EER</span>
+          <span>Maximale GA4-dataverzameling</span>
+          <span>Advanced Mode modellering</span>
+          <span>Gevalideerde configuratie</span>
+          <span>Volledig gedocumenteerd</span>
+          <span>Geen compliance-risico's</span>
+          <span>Betrouwbare Google Ads sturing</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Is jouw Consent Mode v2<br/>correct geconfigureerd?</h2>
+        <p>Wij checken jouw huidige configuratie gratis en laten zien of je compliant bent — en wat er ontbreekt als dat niet het geval is.</p>
+        <a href="#" class="cta-button" data-overlay-open>Gratis compliance-check</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .cm-page { background: var(--white); }
+  .cm-container { max-width: 1240px; margin: 0 auto; }
+
+  .cm-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .cm-section-head { margin-bottom: 3rem; }
+  .cm-section-head h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.022em; }
+  .cm-section-head.centered { text-align: center; }
+  .cm-section-head.centered h2, .cm-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .cm-section-head.centered p { max-width: 560px; }
+  .cm-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  .cm-inline-cta {
+    display: inline-block; margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700;
+    text-decoration: none; color: var(--black);
+    border-bottom: 1.5px solid var(--black); padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .cm-inline-cta:hover { opacity: 0.6; }
+
+  .cm-hero { min-height: 88vh; position: relative; background: var(--black); color: var(--white); padding: 10rem 4rem 5.5rem; overflow: hidden; }
+  .cm-hero-overlay {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 16% 20%, rgba(253, 164, 175, 0.16), transparent 42%),
+      radial-gradient(circle at 80% 26%, rgba(196, 181, 253, 0.14), transparent 38%);
+  }
+  .cm-hero-inner { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 2rem; align-items: end; }
+
+  .cm-back-link { display: inline-flex; margin-bottom: 1.8rem; color: var(--white); text-decoration: none; opacity: 0.6; font-size: 0.9rem; transition: opacity 0.25s ease; }
+  .cm-back-link:hover { opacity: 1; }
+  .cm-kicker { display: block; font-family: 'Syne', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.48; margin-bottom: 1rem; }
+
+  .cm-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5.5vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.4rem; display: flex; align-items: baseline; gap: 0.55rem; }
+  .cm-icon { color: #FDA4AF; font-size: 0.68em; }
+  .cm-intro-p { max-width: 700px; font-size: clamp(1.04rem, 2.3vw, 1.3rem); opacity: 0.88; margin-bottom: 2rem; line-height: 1.7; }
+
+  .cm-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+  .cm-btn-primary, .cm-btn-secondary { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; text-decoration: none; font-weight: 500; padding: 0.9rem 1.45rem; transition: transform 0.25s ease; }
+  .cm-btn-primary { color: var(--black); background: var(--white); }
+  .cm-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .cm-btn-primary:hover, .cm-btn-secondary:hover { transform: translateY(-2px); }
+
+  .cm-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; max-width: 720px; }
+  .cm-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+  .cm-metric strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .cm-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
+
+  .cm-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .cm-hero-panel > span { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.58; margin-bottom: 0.75rem; }
+  .cm-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .cm-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
+  .cm-hero-panel li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #FDA4AF, #C4B5FD); position: absolute; left: 0; top: 0.62rem; }
+
+  /* Urgency section */
+  .cm-urgency { padding: 7rem 4rem; }
+  .cm-urgency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .cm-urgency-text h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1.25rem; }
+  .cm-urgency-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .cm-consequence-list {
+    background: var(--black); color: var(--white);
+    border-radius: 20px; padding: 2rem 2.5rem;
+  }
+  .cm-consequence-list h3 { font-family: 'Syne', sans-serif; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.25rem; }
+  .cm-consequence-list ul { list-style: none; display: grid; gap: 0.85rem; }
+  .cm-consequence-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; line-height: 1.6; opacity: 0.9; }
+  .cm-x { color: #FDA4AF; font-size: 0.75rem; flex-shrink: 0; margin-top: 0.22rem; }
+
+  /* Cards */
+  .cm-services { padding: 7rem 4rem; }
+  .cm-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .cm-card { background: #fff; border: 1px solid rgba(10,10,10,0.09); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+  .cm-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+  .cm-card-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(10,10,10,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem; transition: background 0.3s ease; }
+  .cm-card:hover .cm-card-icon { background: var(--black); color: var(--white); }
+  .cm-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .cm-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  /* Context */
+  .cm-context { padding: 6rem 4rem; }
+  .cm-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .cm-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
+  .cm-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .cm-block h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 18ch; }
+  .cm-list { list-style: none; display: grid; gap: 0.8rem; }
+  .cm-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
+  .cm-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
+  .cm-list--muted li { color: rgba(10,10,10,0.65); }
+  .cm-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  /* Approach */
+  .cm-approach { padding: 6rem 4rem; }
+  .cm-steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(10,10,10,0.14); border-bottom: 1px solid rgba(10,10,10,0.14); margin-top: 2rem; }
+  .cm-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .cm-step:last-child { border-right: none; }
+  .cm-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .cm-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .cm-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  /* FAQ */
+  .cm-faq { padding: 7rem 4rem; }
+  .cm-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .cm-faq-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .cm-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+  .cm-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .cm-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .cm-faq-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .cm-faq-item summary::-webkit-details-marker { display: none; }
+  .cm-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .cm-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .cm-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  /* Outcomes */
+  .cm-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
+  .cm-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+  .cm-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .cm-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
+
+  @media (max-width: 1100px) {
+    .cm-hero-inner, .cm-urgency-grid, .cm-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cm-cards-grid { grid-template-columns: 1fr 1fr; }
+    .cm-steps { grid-template-columns: 1fr 1fr; }
+    .cm-step:nth-child(2n) { border-right: none; }
+    .cm-context-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .cm-hero, .cm-urgency, .cm-services, .cm-context, .cm-approach, .cm-faq, .cm-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .cm-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .cm-cards-grid { grid-template-columns: 1fr; }
+    .cm-steps { grid-template-columns: 1fr; }
+    .cm-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .cm-step:first-child { border-top: none; }
+    .cm-metrics { grid-template-columns: 1fr 1fr; }
+    .cm-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+  }
+</style>

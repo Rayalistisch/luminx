@@ -1,0 +1,352 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import ContactOverlay from "../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const auditItems = [
+  {
+    icon: "◎",
+    title: "GTM-container controle",
+    description: "We beoordelen jouw GTM-container op dubbele tags, onjuiste triggers, niet-gepubliceerde versies en verouderde pixels die de betrouwbaarheid van je data ondermijnen.",
+  },
+  {
+    icon: "◈",
+    title: "GA4 event- & conversietracking",
+    description: "Zijn de juiste events ingesteld? Worden formuliersubmissies, klikken en conversies correct gemeten? Of meet je alleen pageviews en sessies zonder zinvolle inzichten?",
+  },
+  {
+    icon: "◉",
+    title: "Consent Mode v2 check",
+    description: "Controleren of jouw Consent Mode v2 correct is geconfigureerd: regiogebaseerde instellingen, alle vier parameters, Advanced Mode en technische koppeling met de cookiebanner.",
+  },
+  {
+    icon: "◌",
+    title: "Google Ads conversiekoppeling",
+    description: "Is jouw Google Ads-account correct gekoppeld aan GA4 of een directe conversietag? Optimaliseert jouw biedstrategie op echte conversies of op schijndata?",
+  },
+  {
+    icon: "✦",
+    title: "Dubbele tracking detectie",
+    description: "Detectie van dubbele GA4-tags die sessies en conversies kunstmatig opblazen — een van de meest voorkomende en meest schadelijke trackingproblemen.",
+  },
+  {
+    icon: "●",
+    title: "Remarketingdoelgroepen",
+    description: "Zijn er remarketingdoelgroepen aangemaakt op basis van gedrag? Worden ze gevuld met de juiste doelgroepen, inclusief EER-bezoekers via Consent Mode?",
+  },
+];
+
+const resultaten = [
+  "Volledig overzicht van wat je nu mist in je trackingdata",
+  "Concrete lijst van problemen gerangschikt op impact",
+  "Directe aanbevelingen: wat als eerste op te lossen",
+  "Inzicht of je Consent Mode v2 DMA-compliant is",
+  "Advies over prioriteiten voor een correcte GTM-setup",
+];
+---
+
+<BaseLayout
+  title="Gratis Tracking-audit | Ontdek wat jouw website nu mist | LuminX"
+  description="Laat jouw tracking gratis doorlichten. Wij checken GTM, GA4, Consent Mode v2 en Google Ads conversiekoppeling — en laten zien wat je nu mist."
+>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="audit-page">
+
+    <section class="audit-hero" data-bg-color="#0A0A0A">
+      <div class="audit-hero-overlay" aria-hidden="true"></div>
+      <div class="audit-hero-inner">
+        <div class="audit-hero-content">
+          <span class="audit-kicker">Gratis dienst</span>
+          <h1>Tracking-<br/>audit</h1>
+          <p class="audit-intro-p">Je website heeft tracking. Maar klopt het? Wij doorlichten jouw GTM-container, GA4-implementatie en Consent Mode v2 — gratis, zonder verplichtingen, met een concreet rapport.</p>
+          <div class="audit-actions">
+            <a href="#contact" class="audit-btn-primary" data-overlay-open>Start gratis audit</a>
+            <a href="#wat-checken" class="audit-btn-secondary">Wat checken we?</a>
+          </div>
+          <div class="audit-badges">
+            <span>✓ Gratis & vrijblijvend</span>
+            <span>✓ Rapport binnen 5 werkdagen</span>
+            <span>✓ Concreet & actionable</span>
+          </div>
+        </div>
+        <aside class="audit-hero-panel">
+          <span>Wat je ontvangt</span>
+          <ul>
+            {resultaten.map((r) => <li>{r}</li>)}
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="audit-why" data-bg-color="#FEFEFE">
+      <div class="audit-container audit-why-grid">
+        <div class="audit-why-text">
+          <span class="audit-label">Waarom een audit?</span>
+          <h2>De meeste websites meten — maar meten niet wat er toe doet</h2>
+          <p>GA4 geïnstalleerd, GTM aanwezig, een cookiebanner op de site. Alles lijkt in orde. Maar bij een audit zien we keer op keer hetzelfde: conversies worden niet gemeten, tags vuren dubbel, Consent Mode is incorrect geconfigureerd, of de container staat niet gepubliceerd.</p>
+          <p>Het gevolg: marketingbeslissingen gebaseerd op data die niet klopt. Budget dat naar de verkeerde kanalen gaat. Remarketing die niet werkt voor EER-bezoekers.</p>
+          <p>Een tracking-audit legt bloot wat er ontbreekt — zodat je kunt bijsturen voor het te laat is.</p>
+        </div>
+        <div class="audit-why-stats">
+          <div class="audit-stat">
+            <strong>67%</strong>
+            <span>van besluitvormers vertrouwt eigen data niet</span>
+          </div>
+          <div class="audit-stat">
+            <strong>+37%</strong>
+            <span>meer conversies na correcte GTM-implementatie</span>
+          </div>
+          <div class="audit-stat">
+            <strong>Verplicht</strong>
+            <span>Consent Mode v2 voor alle EER-websites met Google Ads</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="audit-checks" id="wat-checken" data-bg-color="#F7F9FC">
+      <div class="audit-container">
+        <div class="audit-section-head centered">
+          <span class="audit-label">Wat wij checken</span>
+          <h2>Een volledig beeld van jouw trackingsituatie</h2>
+          <p>We beoordelen alle lagen van je tracking — van GTM-container tot Google Ads koppeling — en geven je een duidelijk beeld van wat werkt, wat ontbreekt en wat prioriteit heeft.</p>
+        </div>
+        <div class="audit-cards-grid">
+          {auditItems.map((item) => (
+            <div class="audit-card">
+              <div class="audit-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="audit-process" data-bg-color="#FEFEFE">
+      <div class="audit-container">
+        <div class="audit-section-head">
+          <span class="audit-label">Hoe het werkt</span>
+          <h2>Van aanvraag naar rapport in drie stappen.</h2>
+        </div>
+        <div class="audit-steps">
+          <article class="audit-step">
+            <span class="audit-step-num">01</span>
+            <h3>Aanvraag</h3>
+            <p>Je stuurt ons de URL van je website en geeft ons leesrechten op je GTM-container en GA4-property. Dat is alles wat we nodig hebben.</p>
+          </article>
+          <article class="audit-step">
+            <span class="audit-step-num">02</span>
+            <h3>Analyse</h3>
+            <p>We doorlichten jouw volledige trackingopzet: GTM-container, GA4-events, conversies, Consent Mode v2 en Google Ads koppeling. Binnen vijf werkdagen.</p>
+          </article>
+          <article class="audit-step">
+            <span class="audit-step-num">03</span>
+            <h3>Rapport & bespreking</h3>
+            <p>Je ontvangt een helder rapport met bevindingen gerangschikt op impact, plus concrete aanbevelingen. Optioneel bespreken we het rapport in een kort videogesprek.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="audit-cta-band" data-bg-color="#0A0A0A">
+      <div class="audit-container audit-cta-band-inner">
+        <div>
+          <h2>Klaar om te ontdekken wat jouw tracking nu mist?</h2>
+          <p>Gratis, vrijblijvend, concreet. Je weet binnen vijf werkdagen waar je staat.</p>
+        </div>
+        <a href="#contact" class="audit-cta-btn" data-overlay-open>Start gratis tracking-audit</a>
+      </div>
+    </section>
+
+    <section class="audit-related" data-bg-color="#FEFEFE">
+      <div class="audit-container">
+        <div class="audit-section-head">
+          <span class="audit-label">Na de audit</span>
+          <h2>Alles gevonden? Wij lossen het op.</h2>
+          <p>Als de audit aantoonbare problemen blootlegt, helpen we je ze ook op te lossen. Dit zijn de diensten die het vaakst volgen op een tracking-audit.</p>
+        </div>
+        <div class="audit-related-grid">
+          <a href="/diensten/google-tag-manager" class="audit-related-card">
+            <span class="audit-related-icon" aria-hidden="true">◎</span>
+            <h3>Google Tag Manager</h3>
+            <p>Complete GTM-implementatie of opschoning van bestaande container. Gestructureerd, gedocumenteerd en betrouwbaar.</p>
+            <span class="audit-related-link">Meer over GTM →</span>
+          </a>
+          <a href="/diensten/ga4-implementatie" class="audit-related-card">
+            <span class="audit-related-icon" aria-hidden="true">◈</span>
+            <h3>GA4 Implementatie</h3>
+            <p>Correcte GA4-inrichting met events, conversies en remarketingdoelgroepen. Van lege property naar bruikbaar analytics-systeem.</p>
+            <span class="audit-related-link">Meer over GA4 →</span>
+          </a>
+          <a href="/diensten/consent-mode-v2" class="audit-related-card">
+            <span class="audit-related-icon" aria-hidden="true">◉</span>
+            <h3>Consent Mode v2</h3>
+            <p>DMA-compliant Consent Mode v2 implementatie die zowel juridisch waterdicht is als jouw datakwaliteit maximaliseert.</p>
+            <span class="audit-related-link">Meer over Consent Mode →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Start vandaag met<br/>jouw gratis audit</h2>
+        <p>Stuur ons je website-URL en we laten je weten hoe je tracking ervoor staat — inclusief wat je nu mist en hoe je het oplost.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan gratis tracking-audit</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .audit-page { background: var(--white); }
+  .audit-container { max-width: 1240px; margin: 0 auto; }
+
+  .audit-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .audit-section-head { margin-bottom: 3rem; }
+  .audit-section-head h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.022em; }
+  .audit-section-head.centered { text-align: center; }
+  .audit-section-head.centered h2, .audit-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .audit-section-head.centered p { max-width: 560px; }
+  .audit-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  /* Hero */
+  .audit-hero { min-height: 88vh; position: relative; background: var(--black); color: var(--white); padding: 10rem 4rem 5.5rem; overflow: hidden; }
+  .audit-hero-overlay {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 14% 18%, rgba(125, 211, 252, 0.15), transparent 44%),
+      radial-gradient(circle at 82% 24%, rgba(253, 164, 175, 0.12), transparent 40%),
+      radial-gradient(circle at 50% 80%, rgba(196, 181, 253, 0.08), transparent 50%);
+  }
+  .audit-hero-inner { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 2rem; align-items: center; }
+
+  .audit-kicker { display: block; font-family: 'Syne', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.48; margin-bottom: 1rem; }
+
+  .audit-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.2rem, 8vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.6rem;
+  }
+
+  .audit-intro-p { max-width: 640px; font-size: clamp(1.04rem, 2.2vw, 1.25rem); opacity: 0.88; margin-bottom: 2rem; line-height: 1.75; }
+
+  .audit-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .audit-btn-primary, .audit-btn-secondary { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; text-decoration: none; font-weight: 500; padding: 0.9rem 1.6rem; transition: transform 0.25s ease; }
+  .audit-btn-primary { color: var(--black); background: var(--white); font-family: 'Syne', sans-serif; font-weight: 700; }
+  .audit-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .audit-btn-primary:hover, .audit-btn-secondary:hover { transform: translateY(-2px); }
+
+  .audit-badges { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .audit-badges span { font-size: 0.8rem; opacity: 0.68; letter-spacing: 0.04em; }
+
+  .audit-hero-panel {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  .audit-hero-panel > span { display: block; font-family: 'Syne', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.25rem; }
+  .audit-hero-panel ul { list-style: none; display: grid; gap: 0.9rem; }
+  .audit-hero-panel li { font-size: 0.9rem; line-height: 1.6; padding-left: 1.2rem; position: relative; opacity: 0.88; }
+  .audit-hero-panel li::before { content: "✓"; position: absolute; left: 0; top: 0; color: #86EFAC; font-size: 0.75rem; }
+
+  /* Why section */
+  .audit-why { padding: 7rem 4rem; }
+  .audit-why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .audit-why-text h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1.25rem; }
+  .audit-why-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .audit-why-stats { display: grid; gap: 1.5rem; }
+  .audit-stat { border-left: 3px solid var(--black); padding-left: 1.25rem; }
+  .audit-stat strong { display: block; font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.3rem; }
+  .audit-stat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  /* Cards */
+  .audit-checks { padding: 7rem 4rem; }
+  .audit-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .audit-card { background: #fff; border: 1px solid rgba(10,10,10,0.09); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+  .audit-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+  .audit-card-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(10,10,10,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem; transition: background 0.3s ease; }
+  .audit-card:hover .audit-card-icon { background: var(--black); color: var(--white); }
+  .audit-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .audit-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  /* Process */
+  .audit-process { padding: 6rem 4rem; }
+  .audit-steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(10,10,10,0.14); border-bottom: 1px solid rgba(10,10,10,0.14); margin-top: 2rem; }
+  .audit-step { padding: 1.75rem 1.25rem; min-height: 200px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .audit-step:last-child { border-right: none; }
+  .audit-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .audit-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .audit-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  /* CTA band */
+  .audit-cta-band { padding: 5rem 4rem; background: var(--black); color: var(--white); }
+  .audit-cta-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
+  .audit-cta-band h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .audit-cta-band p { opacity: 0.7; font-size: 0.95rem; }
+  .audit-cta-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    white-space: nowrap;
+    background: var(--white); color: var(--black);
+    border-radius: 999px; padding: 1rem 2rem;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    text-decoration: none; font-size: 0.95rem;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .audit-cta-btn:hover { transform: translateY(-2px); }
+
+  /* Related */
+  .audit-related { padding: 6rem 4rem; }
+  .audit-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .audit-related-card { display: flex; flex-direction: column; background: #fff; border: 1px solid rgba(10,10,10,0.1); border-radius: 20px; padding: 2rem 1.75rem; text-decoration: none; color: var(--black); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .audit-related-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+  .audit-related-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+  .audit-related-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .audit-related-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; flex: 1; }
+  .audit-related-link { display: inline-block; margin-top: 1.25rem; font-family: 'Syne', sans-serif; font-size: 0.84rem; font-weight: 700; border-bottom: 1.5px solid rgba(10,10,10,0.3); padding-bottom: 2px; }
+
+  @media (max-width: 1100px) {
+    .audit-hero-inner, .audit-why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .audit-cards-grid { grid-template-columns: 1fr 1fr; }
+    .audit-steps { grid-template-columns: 1fr 1fr; }
+    .audit-step:nth-child(2n) { border-right: none; }
+    .audit-related-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .audit-hero, .audit-why, .audit-checks, .audit-process, .audit-cta-band, .audit-related { padding-left: 2rem; padding-right: 2rem; }
+    .audit-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .audit-cards-grid { grid-template-columns: 1fr; }
+    .audit-steps { grid-template-columns: 1fr; }
+    .audit-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .audit-step:first-child { border-top: none; }
+    .audit-cta-band-inner { flex-direction: column; align-items: flex-start; }
+    .audit-related-grid { grid-template-columns: 1fr; }
+  }
+</style>

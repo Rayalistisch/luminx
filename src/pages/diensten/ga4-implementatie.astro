@@ -1,0 +1,541 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Google Analytics 4 Implementatie",
+  description: "Volledige GA4-implementatie met event tracking, conversies en rapportage afgestemd op jouw KPI's. Betrouwbare analytics als basis voor betere beslissingen.",
+  serviceType: "Web Analytics",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const specialismen = [
+  {
+    icon: "◎",
+    title: "GA4-implementatie via GTM",
+    description: "Volledige inrichting van GA4 via Google Tag Manager: property aanmaken, configuratietag instellen, datastream koppelen en eerste events valideren.",
+  },
+  {
+    icon: "◈",
+    title: "Event tracking op maat",
+    description: "Alle relevante interacties bijhouden die standaard GA4 mist: formulierinzendingen, knoppen, downloads, scroll-diepte, videoweergaven en pagina-engagement.",
+  },
+  {
+    icon: "◉",
+    title: "Conversie-inrichting",
+    description: "Sleutelevenementen instellen als conversie in GA4, zodat je rapportage direct laat zien welke kanalen en pagina's bijdragen aan jouw bedrijfsdoelen.",
+  },
+  {
+    icon: "◌",
+    title: "Audience & remarketinglijsten",
+    description: "Op basis van gedrag in GA4 doelgroepen opbouwen voor Google Ads remarketing: paginabezoekers, formulierstarters, high-intent gebruikers en meer.",
+  },
+  {
+    icon: "✦",
+    title: "GA4 rapportage & dashboards",
+    description: "Configuratie van standaardrapportages en aangepaste verkenners zodat je direct antwoord krijgt op vragen over acquisitie, gedrag en conversie.",
+  },
+  {
+    icon: "●",
+    title: "Migratie van UA naar GA4",
+    description: "Als je nog werkt met Universal Analytics-data of een verouderde GA4-inrichting: we brengen de historische context in kaart en zetten een toekomstbestendige setup op.",
+  },
+];
+
+const benefits = [
+  {
+    title: "GA4 meet standaard heel weinig — zonder inrichting ben je blind",
+    body: "Standaard GA4 registreert paginaweergaven en sessies, maar geen formuliersubmissies, klikken op knoppen of andere conversie-events. Zonder correcte inrichting zie je drukte maar geen richting.",
+  },
+  {
+    title: "Inzicht in de volledige klantreis over kanalen heen",
+    body: "GA4 is gebouwd op events en gebruikt een session-onafhankelijk model. Daardoor kun je de volledige klantreis volgen van eerste touchpoint tot conversie — ook als iemand meerdere sessies en apparaten gebruikt.",
+  },
+  {
+    title: "Directe koppeling met Google Ads voor betere campagnesturing",
+    body: "Een GA4-property gekoppeld aan Google Ads deelt conversiedata en doelgroepen automatisch. Jouw biedstrategieën optimaliseren dan op echte conversies in plaats van op klikken of sessiemetrics.",
+  },
+  {
+    title: "Privacybestendig en klaar voor een cookieloze toekomst",
+    body: "GA4 is ontworpen met privacy-first principes: server-side meting, IP-anonimisering en modellering bij ontbrekende toestemmingsdata. Gecombineerd met Consent Mode v2 haal je maximale data binnen de privacyregels.",
+  },
+];
+
+const faq = [
+  {
+    q: "Is GA4 verplicht?",
+    a: "Universal Analytics is definitief stopgezet. Elke website die analytics gebruikt, werkt nu op GA4. De vraag is alleen of jouw GA4-implementatie correct is ingericht — standaard mist GA4 vrijwel alle zinvolle conversie-events.",
+  },
+  {
+    q: "Wat meet GA4 automatisch en wat moet ik zelf instellen?",
+    a: "GA4 meet automatisch paginaweergaven, scroll-diepte (90%), outbound clicks en file downloads. Formulierinzendingen, knoppen, telefoneren, offerte-aanvragen en andere conversie-events moet je zelf configureren via GTM of de GA4 tag.",
+  },
+  {
+    q: "Hoe lang duurt een volledige GA4-implementatie?",
+    a: "Een basisimplementatie met events en conversies is doorgaans binnen één tot twee werkweken gerealiseerd. Complexere setups met e-commerce tracking, datalagen of meerdere properties vragen meer tijd.",
+  },
+  {
+    q: "Kan ik GA4 koppelen aan mijn Google Ads-account?",
+    a: "Ja, en dit is sterk aanbevolen. Via de koppeling worden conversiedata en GA4-doelgroepen automatisch beschikbaar in Google Ads. Je biedstrategie optimaliseert dan op echte resultaten.",
+  },
+  {
+    q: "Wat is het verschil tussen een event en een conversie in GA4?",
+    a: "Elk gebruikersinteractie is een event in GA4. Een conversie is een event dat je als 'sleutelevenement' markeert omdat het een bedrijfsdoel vertegenwoordigt, zoals een formulierinzending of telefoneren. Conversies tellen zwaarder in rapportage en sturen biedstrategieën.",
+  },
+];
+---
+
+<BaseLayout
+  title="Google Analytics 4 Implementatie | LuminX Twente"
+  description="Volledige GA4-implementatie met event tracking, conversies en rapportage. Betrouwbare analytics als basis voor betere marketingbeslissingen."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="ga4-page">
+
+    <section class="ga4-hero" data-bg-color="#0A0A0A">
+      <div class="ga4-hero-overlay" aria-hidden="true"></div>
+      <div class="ga4-hero-inner">
+        <div class="ga4-hero-content">
+          <a href="/diensten/google-tag-manager" class="ga4-back-link">← Google Tag Manager</a>
+          <span class="ga4-kicker">Specialisme</span>
+          <h1><span class="ga4-icon" aria-hidden="true">◈</span> GA4 Implementatie</h1>
+          <p class="ga4-intro-p">Standaard GA4 meet bijna niets. Wij richten jouw Google Analytics 4 correct in — met event tracking, conversies en rapportage die echt inzicht geven in wat jouw marketing oplevert.</p>
+          <div class="ga4-actions">
+            <a href="#contact" class="ga4-btn-primary" data-overlay-open>Plan kennismaking</a>
+            <a href="#aanpak" class="ga4-btn-secondary">Bekijk aanpak</a>
+          </div>
+          <div class="ga4-metrics">
+            <article class="ga4-metric">
+              <strong>1–2 weken</strong>
+              <span>Volledige implementatie</span>
+            </article>
+            <article class="ga4-metric">
+              <strong>100%</strong>
+              <span>Correcte conversiedata</span>
+            </article>
+            <article class="ga4-metric">
+              <strong>Via GTM</strong>
+              <span>Geen codewijzigingen</span>
+            </article>
+          </div>
+        </div>
+        <aside class="ga4-hero-panel">
+          <span>Wat je direct merkt</span>
+          <ul>
+            <li>Inzicht in welke kanalen daadwerkelijk converteren</li>
+            <li>Doelgroepen voor remarketing op basis van gedrag</li>
+            <li>Betere Google Ads sturing via conversiekoppeling</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="ga4-what" data-bg-color="#FEFEFE">
+      <div class="ga4-container ga4-what-grid">
+        <div class="ga4-what-text">
+          <span class="ga4-label">Het probleem</span>
+          <h2>GA4 zonder inrichting is een lege meetlat</h2>
+          <p>Google Analytics 4 is het verplichte analytics-platform na de stopzetting van Universal Analytics. Maar standaard meet GA4 slechts paginaweergaven en sessies — geen formulierinzendingen, geen klikken op knoppen, geen conversie-events die je daadwerkelijk helpen sturen.</p>
+          <p>Zonder correcte inrichting heb je een dashboard vol getallen die niets zeggen over het daadwerkelijke rendement van je marketing. Met een professionele implementatie verandert GA4 in een betrouwbaar navigatie-instrument.</p>
+          <a href="/tracking-audit" class="ga4-inline-cta">Check jouw GA4-implementatie gratis →</a>
+        </div>
+        <div class="ga4-what-visual" aria-hidden="true">
+          <div class="ga4-stat-stack">
+            <div class="ga4-stat-item">
+              <span class="ga4-stat-value">91%</span>
+              <span class="ga4-stat-desc">van marketeers beschouwt data als cruciaal voor succes</span>
+            </div>
+            <div class="ga4-stat-item">
+              <span class="ga4-stat-value">+24%</span>
+              <span class="ga4-stat-desc">nauwkeuriger ROI-meting na correcte GA4 attributie</span>
+            </div>
+            <div class="ga4-stat-item">
+              <span class="ga4-stat-value">+35%</span>
+              <span class="ga4-stat-desc">hogere conversieratio na data-gedreven bijsturing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ga4-services" data-bg-color="#F7F9FC">
+      <div class="ga4-container">
+        <div class="ga4-section-head centered">
+          <span class="ga4-label">Wat wij implementeren</span>
+          <h2>Van lege property naar volledig analytics-systeem</h2>
+          <p>We richten GA4 in als een instrument dat jou en je marketingteam dagelijks helpt met betere beslissingen — niet als een dashboard dat je één keer per maand raadpleegt.</p>
+        </div>
+        <div class="ga4-cards-grid">
+          {specialismen.map((item) => (
+            <div class="ga4-card">
+              <div class="ga4-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="ga4-benefits" data-bg-color="#FEFEFE">
+      <div class="ga4-container ga4-benefits-grid">
+        <div class="ga4-benefits-left">
+          <span class="ga4-label">Waarom professionele inrichting?</span>
+          <h2>Het verschil tussen data verzamelen en data begrijpen</h2>
+          <p>Bijna elk bedrijf heeft GA4 geïnstalleerd. Slechts een fractie heeft het correct ingericht. Het gat daartussen is het verschil tussen navigeren op gevoel en navigeren op feiten.</p>
+          <div class="ga4-benefit-stats">
+            <div class="ga4-bstat">
+              <strong>23×</strong>
+              <span>meer kans op klantwerving voor data-gedreven organisaties</span>
+            </div>
+            <div class="ga4-bstat">
+              <strong>19×</strong>
+              <span>winstgevender dan bedrijven die data negeren</span>
+            </div>
+          </div>
+        </div>
+        <div class="ga4-benefits-right">
+          {benefits.map((b) => (
+            <details class="ga4-benefit-item">
+              <summary>{b.title}</summary>
+              <p>{b.body}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="ga4-approach" id="aanpak" data-bg-color="#F7F9FC">
+      <div class="ga4-container">
+        <div class="ga4-section-head">
+          <span class="ga4-label">Aanpak</span>
+          <h2>Van lege GA4-property naar betrouwbare analytics in vier stappen.</h2>
+        </div>
+        <div class="ga4-steps">
+          <article class="ga4-step">
+            <span class="ga4-step-num">01</span>
+            <h3>Intake & analyse</h3>
+            <p>Inventarisatie van bestaande analytics-setup, bedrijfsdoelen en KPI's. Welke conversies zijn kritiek? Welke doelgroepen wil je opbouwen? Wat ontbreekt in huidige rapportage?</p>
+          </article>
+          <article class="ga4-step">
+            <span class="ga4-step-num">02</span>
+            <h3>Implementatie via GTM</h3>
+            <p>GA4 configuratietag en event tags instellen via GTM. Alle relevante interacties als events inrichten op basis van de inventarisatie — zonder codewijzigingen in je website.</p>
+          </article>
+          <article class="ga4-step">
+            <span class="ga4-step-num">03</span>
+            <h3>Validatie & conversies</h3>
+            <p>Validatie via GA4 DebugView en GTM preview. Sleutelevenementen instellen als conversie, koppeling met Google Ads activeren en remarketingdoelgroepen aanmaken.</p>
+          </article>
+          <article class="ga4-step">
+            <span class="ga4-step-num">04</span>
+            <h3>Rapportage & overdracht</h3>
+            <p>Standaard- en aangepaste rapporten inrichten, documentatie opstellen en jouw team overdragen. Daarna continue beschikbaarheid voor uitbreidingen en optimalisaties.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ga4-context" data-bg-color="#FEFEFE">
+      <div class="ga4-container ga4-context-grid">
+        <article class="ga4-block">
+          <h2>Wat wij regelmatig aantreffen</h2>
+          <ul class="ga4-list ga4-list--muted">
+            <li>GA4 geïnstalleerd maar geen enkel conversie-event ingesteld</li>
+            <li>Dubbele tracking via zowel GTM als hardcoded tag</li>
+            <li>Formuliersubmissies worden niet gemeten</li>
+            <li>Geen koppeling met Google Ads account</li>
+            <li>Geen remarketingdoelgroepen aangemaakt</li>
+            <li>Rapporten tonen data maar geen bruikbaar inzicht</li>
+          </ul>
+        </article>
+        <article class="ga4-block ga4-block--soft">
+          <h2>Wat wij opleveren</h2>
+          <ul class="ga4-list">
+            <li>Correcte GA4-inrichting via GTM zonder codewijzigingen</li>
+            <li>Alle relevante events en conversies geconfigureerd</li>
+            <li>Koppeling met Google Ads voor gedeelde conversiedata</li>
+            <li>Remarketingdoelgroepen op basis van gedrag</li>
+            <li>Aangepaste rapporten op jouw KPI's</li>
+            <li>Volledige documentatie en overdracht aan jouw team</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="ga4-faq" data-bg-color="#F7F9FC">
+      <div class="ga4-container ga4-faq-grid">
+        <div class="ga4-faq-left">
+          <span class="ga4-label">Veelgestelde vragen</span>
+          <h2>Alles over GA4 implementatie</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="ga4-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="ga4-faq-right">
+          {faq.map((item) => (
+            <details class="ga4-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="ga4-outcomes" data-bg-color="#0A0A0A">
+      <div class="ga4-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="ga4-outcome-tags">
+          <span>Correcte conversiedata</span>
+          <span>Inzicht in kanaalrendement</span>
+          <span>Betere Google Ads sturing</span>
+          <span>Remarketingdoelgroepen op gedrag</span>
+          <span>Betrouwbare rapportage</span>
+          <span>Geen dubbele tracking</span>
+          <span>Snellere marketingbeslissingen</span>
+          <span>Fundament voor schaalbare groei</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Weet jij wat jouw<br/>GA4 nu mist?</h2>
+        <p>We analyseren jouw huidige GA4-implementatie en laten zien welke events, conversies en doelgroepen je nu misloopt — inclusief een concreet plan om het op te lossen.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .ga4-page { background: var(--white); }
+  .ga4-container { max-width: 1240px; margin: 0 auto; }
+
+  .ga4-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .ga4-section-head { margin-bottom: 3rem; }
+  .ga4-section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }
+  .ga4-section-head.centered { text-align: center; }
+  .ga4-section-head.centered h2,
+  .ga4-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .ga4-section-head.centered p { max-width: 560px; }
+  .ga4-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  .ga4-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .ga4-inline-cta:hover { opacity: 0.6; }
+
+  .ga4-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .ga4-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 22%, rgba(251, 191, 36, 0.14), transparent 42%),
+      radial-gradient(circle at 78% 28%, rgba(167, 243, 208, 0.12), transparent 38%);
+  }
+
+  .ga4-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .ga4-back-link { display: inline-flex; margin-bottom: 1.8rem; color: var(--white); text-decoration: none; opacity: 0.6; font-size: 0.9rem; transition: opacity 0.25s ease; }
+  .ga4-back-link:hover { opacity: 1; }
+
+  .ga4-kicker { display: block; font-family: 'Syne', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.48; margin-bottom: 1rem; }
+
+  .ga4-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .ga4-icon { color: #FCD34D; font-size: 0.68em; }
+
+  .ga4-intro-p { max-width: 700px; font-size: clamp(1.04rem, 2.3vw, 1.3rem); opacity: 0.88; margin-bottom: 2rem; line-height: 1.7; }
+
+  .ga4-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .ga4-btn-primary, .ga4-btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 999px; text-decoration: none; font-weight: 500;
+    padding: 0.9rem 1.45rem; transition: transform 0.25s ease;
+  }
+  .ga4-btn-primary { color: var(--black); background: var(--white); }
+  .ga4-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .ga4-btn-primary:hover, .ga4-btn-secondary:hover { transform: translateY(-2px); }
+
+  .ga4-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; max-width: 720px; }
+  .ga4-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+  .ga4-metric strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .ga4-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
+
+  .ga4-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .ga4-hero-panel > span { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.58; margin-bottom: 0.75rem; }
+  .ga4-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .ga4-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
+  .ga4-hero-panel li::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, #FCD34D, #86EFAC);
+    position: absolute; left: 0; top: 0.62rem;
+  }
+
+  .ga4-what { padding: 7rem 4rem; }
+  .ga4-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .ga4-what-text h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1.25rem; }
+  .ga4-what-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+  .ga4-what-visual { display: flex; justify-content: center; align-items: flex-start; }
+
+  .ga4-stat-stack { width: 100%; max-width: 340px; border: 1px solid rgba(10,10,10,0.1); border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 8px 40px rgba(10,10,10,0.07); }
+  .ga4-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .ga4-stat-item:last-child { border-bottom: none; }
+  .ga4-stat-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #FCD34D, #86EFAC); }
+  .ga4-stat-value { display: block; font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--black); line-height: 1; margin-bottom: 0.4rem; }
+  .ga4-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+
+  .ga4-services { padding: 7rem 4rem; }
+  .ga4-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .ga4-card { background: #fff; border: 1px solid rgba(10,10,10,0.09); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+  .ga4-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+  .ga4-card-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(10,10,10,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem; transition: background 0.3s ease; }
+  .ga4-card:hover .ga4-card-icon { background: var(--black); color: var(--white); }
+  .ga4-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .ga4-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  .ga4-benefits { padding: 7rem 4rem; }
+  .ga4-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .ga4-benefits-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1rem; }
+  .ga4-benefits-left p { color: rgba(10,10,10,0.68); line-height: 1.8; }
+  .ga4-benefit-stats { margin-top: 2rem; display: grid; gap: 1.25rem; }
+  .ga4-bstat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .ga4-bstat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .ga4-bstat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+  .ga4-benefit-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .ga4-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .ga4-benefit-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .ga4-benefit-item summary::-webkit-details-marker { display: none; }
+  .ga4-benefit-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .ga4-benefit-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .ga4-benefit-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .ga4-approach { padding: 6rem 4rem; }
+  .ga4-steps { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(10,10,10,0.14); border-bottom: 1px solid rgba(10,10,10,0.14); margin-top: 2rem; }
+  .ga4-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .ga4-step:last-child { border-right: none; }
+  .ga4-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .ga4-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .ga4-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  .ga4-context { padding: 6rem 4rem; }
+  .ga4-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .ga4-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
+  .ga4-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .ga4-block h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 16ch; }
+  .ga4-list { list-style: none; display: grid; gap: 0.8rem; }
+  .ga4-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
+  .ga4-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
+  .ga4-list--muted li { color: rgba(10,10,10,0.65); }
+  .ga4-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  .ga4-faq { padding: 7rem 4rem; }
+  .ga4-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .ga4-faq-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .ga4-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+  .ga4-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .ga4-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .ga4-faq-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .ga4-faq-item summary::-webkit-details-marker { display: none; }
+  .ga4-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .ga4-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .ga4-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  .ga4-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
+  .ga4-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+  .ga4-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .ga4-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
+
+  @media (max-width: 1100px) {
+    .ga4-hero-inner, .ga4-what-grid, .ga4-benefits-grid, .ga4-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .ga4-cards-grid { grid-template-columns: 1fr 1fr; }
+    .ga4-steps { grid-template-columns: 1fr 1fr; }
+    .ga4-step:nth-child(2n) { border-right: none; }
+    .ga4-context-grid { grid-template-columns: 1fr; }
+    .ga4-what-visual { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .ga4-hero, .ga4-what, .ga4-services, .ga4-benefits, .ga4-approach, .ga4-context, .ga4-faq, .ga4-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .ga4-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .ga4-cards-grid { grid-template-columns: 1fr; }
+    .ga4-steps { grid-template-columns: 1fr; }
+    .ga4-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .ga4-step:first-child { border-top: none; }
+    .ga4-metrics { grid-template-columns: 1fr 1fr; }
+    .ga4-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+  }
+</style>
