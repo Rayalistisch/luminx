@@ -81,13 +81,16 @@
       pointer-events: none;
     }
 
-    /* Chat panel */
+    /* Chat panel — absolute so it doesn't stretch the wrapper over hero buttons */
     .mbb-chat-panel {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(100% + 0.6rem);
       background: #fff;
       border-radius: 16px;
       border: 1px solid rgba(10,10,10,0.1);
       box-shadow: 0 16px 40px rgba(0,0,0,0.18);
-      margin-bottom: 0.6rem;
       overflow: hidden;
       opacity: 0;
       transform: translateY(10px);
@@ -98,7 +101,7 @@
     .mbb-chat-panel.is-open {
       opacity: 1;
       transform: translateY(0);
-      pointer-events: auto; /* re-enable when open */
+      pointer-events: auto;
     }
 
     .mbb-chat-header {
