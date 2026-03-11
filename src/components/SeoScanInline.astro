@@ -1,0 +1,574 @@
+---
+const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
+---
+
+<section class="si-section" data-bg-color="#FEFEFE">
+  <div class="si-container">
+
+    <div class="si-layout">
+
+      <!-- Left: intro -->
+      <div class="si-intro-col">
+        <span class="si-kicker">Gratis</span>
+        <h2>Hoe scoort jouw website op SEO?</h2>
+        <p>Vul je gegevens in en ontdek in 30 seconden waar jouw site staat — op mobiel en desktop. We analyseren titels, meta-tags, crawlbaarheid en meer.</p>
+        <ul class="si-trust">
+          <li>✓ Gebaseerd op Google PageSpeed Insights</li>
+          <li>✓ 14 SEO-checks in één scan</li>
+          <li>✓ Gratis, geen creditcard nodig</li>
+        </ul>
+      </div>
+
+      <!-- Right: interactive card -->
+      <div class="si-card" id="siCard" data-psi-key={psiKey}>
+
+        <!-- Step 1: Form -->
+        <div class="si-step" id="siStepForm">
+          <form id="siForm" novalidate>
+            <div class="si-field">
+              <label for="siUrl">Website URL</label>
+              <input type="url" id="siUrl" name="url" placeholder="https://jouwsite.nl" required autocomplete="url" />
+            </div>
+            <div class="si-field">
+              <label for="siName">Jouw naam</label>
+              <input type="text" id="siName" name="name" placeholder="Voornaam" required autocomplete="given-name" />
+            </div>
+            <div class="si-field">
+              <label for="siEmail">E-mailadres</label>
+              <input type="email" id="siEmail" name="email" placeholder="jij@bedrijf.nl" required autocomplete="email" />
+            </div>
+            <p class="si-error" id="siError" hidden></p>
+            <button type="submit" class="si-submit">Scan starten →</button>
+          </form>
+        </div>
+
+        <!-- Step 2: Loading -->
+        <div class="si-step" id="siStepLoading" hidden>
+          <div class="si-loader">
+            <div class="si-radar"><span></span><span></span><span></span></div>
+            <p id="siLoadingMsg">Website ophalen…</p>
+            <small id="siLoadingUrl"></small>
+          </div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div class="si-step" id="siStepResults" hidden>
+          <div class="si-results-header">
+            <h3>Resultaten <span id="siScoreSite"></span></h3>
+            <p id="siScoreLabel" class="si-score-sublabel"></p>
+          </div>
+          <div class="si-columns">
+            <div class="si-col si-col--good">
+              <h4>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Goed gedaan
+              </h4>
+              <ul id="siGoodList"></ul>
+            </div>
+            <div class="si-col si-col--bad">
+              <h4>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Verbeterpunten
+              </h4>
+              <ul id="siBadList"></ul>
+            </div>
+          </div>
+          <div class="si-upsell">
+            <p>Wil je <strong>alle</strong> verbeterpunten + GEO-optimalisatie voor AI-zoekmachines?</p>
+            <button type="button" class="si-upsell-btn" id="siUpsellBtn">Vraag uitgebreide scan aan →</button>
+          </div>
+          <button type="button" class="si-reset" id="siReset">← Nieuwe scan</button>
+        </div>
+
+        <!-- Step 4: Error -->
+        <div class="si-step" id="siStepError" hidden>
+          <div class="si-error-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <h4>Scan mislukt</h4>
+            <p id="siErrorMsg">De URL kon niet worden gescand. Controleer of de URL correct is en probeer opnieuw.</p>
+            <button type="button" class="si-retry" id="siRetry">Opnieuw proberen</button>
+          </div>
+        </div>
+
+      </div><!-- /si-card -->
+    </div><!-- /si-layout -->
+  </div><!-- /si-container -->
+</section>
+
+<script is:inline>
+(() => {
+  const AUDITS = {
+    'document-title':   { good: 'Paginatitel aanwezig en correct',            bad: 'Paginatitel ontbreekt of is niet optimaal' },
+    'meta-description': { good: 'Meta-omschrijving gevonden',                 bad: 'Meta-omschrijving ontbreekt of is te kort' },
+    'viewport':         { good: 'Mobiele viewport correct ingesteld',         bad: 'Mobiele viewport niet correct ingesteld' },
+    'robots-txt':       { good: 'Robots.txt correct geconfigureerd',          bad: 'Robots.txt ontbreekt of blokkeert crawlers' },
+    'canonical':        { good: 'Canonical tag aanwezig',                     bad: 'Geen canonical tag gevonden — duplicate content risico' },
+    'http-status-code': { good: 'Pagina geeft correcte HTTP-statuscode',      bad: 'Pagina geeft een foutieve HTTP-statuscode' },
+    'crawlable-anchors':{ good: 'Links zijn goed crawlbaar voor Google',      bad: 'Sommige links zijn niet crawlbaar voor Google' },
+    'link-text':        { good: 'Links hebben beschrijvende ankertekst',      bad: 'Links missen beschrijvende ankertekst' },
+    'image-alt':        { good: 'Afbeeldingen hebben alt-teksten',            bad: 'Afbeeldingen missen alt-teksten' },
+    'structured-data':  { good: 'Gestructureerde data (schema.org) aanwezig', bad: 'Geen gestructureerde data gevonden' },
+    'hreflang':         { good: 'Hreflang correct ingesteld',                 bad: 'Hreflang ontbreekt of is incorrect' },
+    'plugins':          { good: 'Geen verouderde browser-plugins gebruikt',   bad: 'Verouderde plugins gevonden die SEO schaden' },
+    'tap-targets':      { good: 'Knoppen groot genoeg voor mobiel gebruik',   bad: 'Knoppen te klein voor mobiel — slechte gebruikservaring' },
+    'font-size':        { good: 'Lettergrootte leesbaar op mobiel',           bad: 'Tekst te klein op mobiel' },
+  };
+
+  const card      = document.getElementById('siCard');
+  const form      = document.getElementById('siForm');
+  const stepForm  = document.getElementById('siStepForm');
+  const stepLoad  = document.getElementById('siStepLoading');
+  const stepRes   = document.getElementById('siStepResults');
+  const stepErr   = document.getElementById('siStepError');
+  const errorBox  = document.getElementById('siError');
+  const loadMsg   = document.getElementById('siLoadingMsg');
+  const loadUrl   = document.getElementById('siLoadingUrl');
+  const scoreSite = document.getElementById('siScoreSite');
+  const scoreLbl  = document.getElementById('siScoreLabel');
+  const goodList  = document.getElementById('siGoodList');
+  const badList   = document.getElementById('siBadList');
+  const upsellBtn = document.getElementById('siUpsellBtn');
+  const resetBtn  = document.getElementById('siReset');
+  const retryBtn  = document.getElementById('siRetry');
+  const errMsg    = document.getElementById('siErrorMsg');
+
+  if (!card) return;
+
+  function show(el) { if (el) el.hidden = false; }
+  function hide(el) { if (el) el.hidden = true; }
+
+  function showStep(step) {
+    [stepForm, stepLoad, stepRes, stepErr].forEach(s => hide(s));
+    show(step);
+  }
+
+  function scoreLabel(score) {
+    if (score >= 90) return 'Uitstekend — je website staat er goed voor op SEO-gebied.';
+    if (score >= 70) return 'Goed, maar er is nog ruimte voor verbetering.';
+    if (score >= 50) return 'Matig — er zijn meerdere aandachtspunten die verkeer kosten.';
+    return 'Kritisch — je website mist belangrijke SEO-fundamenten.';
+  }
+
+  function renderList(ul, items) {
+    ul.innerHTML = '';
+    items.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      ul.appendChild(li);
+    });
+  }
+
+  function normalizeUrl(raw) {
+    const t = raw.trim();
+    return (t.startsWith('http://') || t.startsWith('https://')) ? t : 'https://' + t;
+  }
+
+  async function runScan(url, name, email) {
+    showStep(stepLoad);
+    if (loadUrl) loadUrl.textContent = url;
+
+    const messages = ['Website ophalen…', 'Titels en meta-tags controleren…', 'Crawlbaarheid analyseren…', 'Mobiele prestaties meten…', 'Resultaten verwerken…'];
+    let mi = 0;
+    const ticker = setInterval(() => {
+      if (loadMsg) loadMsg.textContent = messages[Math.min(++mi, messages.length - 1)];
+    }, 4000);
+
+    try {
+      const apiKey = card.dataset.psiKey || '';
+      const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=seo${apiKey ? '&key=' + apiKey : ''}`;
+      const res  = await fetch(apiUrl);
+      clearInterval(ticker);
+      const data = await res.json();
+
+      if (!res.ok) {
+        const msg = data?.error?.message || '';
+        if (msg.includes('Quota') || res.status === 429) throw new Error('QUOTA');
+        throw new Error('API fout ' + res.status + (msg ? ': ' + msg : ''));
+      }
+
+      const lhr = data.lighthouseResult;
+      if (!lhr) throw new Error('Geen resultaten ontvangen');
+
+      const seoScore = Math.round((lhr.categories?.seo?.score ?? 0) * 100);
+      const audits   = lhr.audits || {};
+      const good = [], bad = [];
+
+      Object.keys(AUDITS).forEach(id => {
+        if (!audits[id]) return;
+        const score = audits[id].score;
+        if (score === null) return;
+        if (score >= 0.9) good.push(AUDITS[id].good);
+        else              bad.push(AUDITS[id].bad);
+      });
+
+      const goodFallbacks = ['HTTPS beveiligd — pagina laadt via een veilige verbinding', 'Pagina is bereikbaar voor zoekmachines', 'Basisstructuur van de pagina is correct', 'Geen blokkerende redirect-ketens gevonden'];
+      const badFallbacks  = ['Paginasnelheid kan worden verbeterd voor betere rankings', 'Interne linkstructuur kan worden geoptimaliseerd', 'Content kan specifieker worden afgestemd op zoekintentie', 'GEO-optimalisatie voor AI-zoekmachines ontbreekt'];
+      while (good.length < 4) good.push(goodFallbacks[good.length % goodFallbacks.length]);
+      while (bad.length < 4)  bad.push(badFallbacks[bad.length % badFallbacks.length]);
+
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'seo_scan_completed', scan_url: url, scan_name: name, scan_email: email, seo_score: seoScore });
+      } catch(_) {}
+
+      const host = new URL(url).hostname.replace('www.', '');
+      if (scoreSite) scoreSite.textContent = '— ' + host;
+      if (scoreLbl)  scoreLbl.textContent  = scoreLabel(seoScore);
+      renderList(goodList, good.slice(0, 4));
+      renderList(badList,  bad.slice(0, 4));
+      showStep(stepRes);
+
+    } catch (err) {
+      clearInterval(ticker);
+      if (errMsg) errMsg.textContent = err.message === 'QUOTA'
+        ? 'De scan service is tijdelijk niet beschikbaar (daglimiet bereikt). Probeer het later opnieuw of neem direct contact op.'
+        : err.message?.includes('API')
+          ? 'De scan kon niet worden uitgevoerd. Controleer of de URL bereikbaar is en probeer opnieuw.'
+          : 'Er is iets misgegaan. Controleer de URL en probeer opnieuw.';
+      showStep(stepErr);
+    }
+  }
+
+  form?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const urlRaw = document.getElementById('siUrl').value;
+    const name   = document.getElementById('siName').value.trim();
+    const email  = document.getElementById('siEmail').value.trim();
+
+    if (errorBox) errorBox.hidden = true;
+
+    if (!urlRaw || !name || !email) {
+      if (errorBox) { errorBox.textContent = 'Vul alle velden in.'; errorBox.hidden = false; }
+      return;
+    }
+
+    let url;
+    try { url = normalizeUrl(urlRaw); new URL(url); }
+    catch {
+      if (errorBox) { errorBox.textContent = 'Voer een geldige URL in, bijv. https://jouwsite.nl'; errorBox.hidden = false; }
+      return;
+    }
+
+    await runScan(url, name, email);
+  });
+
+  retryBtn?.addEventListener('click', () => showStep(stepForm));
+  resetBtn?.addEventListener('click', () => showStep(stepForm));
+
+  upsellBtn?.addEventListener('click', () => {
+    document.querySelector('[data-overlay-open]')?.click();
+  });
+})();
+</script>
+
+<style>
+  .si-section {
+    padding: 6rem 4rem;
+  }
+
+  .si-container {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .si-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* Left column */
+  .si-kicker {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #C4972A, #A07828);
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+
+  .si-intro-col h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    color: #0a0a0a;
+  }
+
+  .si-intro-col > p {
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: rgba(10,10,10,0.65);
+    margin-bottom: 1.75rem;
+  }
+
+  .si-trust {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .si-trust li {
+    font-size: 0.88rem;
+    color: rgba(10,10,10,0.7);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* Right column / card */
+  .si-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid rgba(10,10,10,0.08);
+    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
+    padding: 2.25rem;
+  }
+
+  /* Form */
+  .si-field {
+    margin-bottom: 1rem;
+  }
+
+  .si-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: rgba(10,10,10,0.75);
+  }
+
+  .si-field input {
+    width: 100%;
+    border: 1.5px solid rgba(10,10,10,0.15);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    font-size: 16px;
+    color: #0a0a0a;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+
+  .si-field input:focus {
+    outline: none;
+    border-color: #C4972A;
+  }
+
+  .si-error {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .si-submit {
+    width: 100%;
+    background: #0a0a0a;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 1rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .si-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* Loading */
+  .si-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+    gap: 1rem;
+    text-align: center;
+  }
+  .si-loader p     { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: #0a0a0a; }
+  .si-loader small { font-size: 0.8rem; color: rgba(10,10,10,0.45); word-break: break-all; }
+
+  .si-radar {
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .si-radar span {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid #C4972A;
+    opacity: 0;
+    animation: siRadarPulse 2s ease-out infinite;
+  }
+  .si-radar span:nth-child(2) { animation-delay: 0.6s; }
+  .si-radar span:nth-child(3) { animation-delay: 1.2s; }
+
+  @keyframes siRadarPulse {
+    0%   { transform: scale(0.3); opacity: 0.8; }
+    100% { transform: scale(1);   opacity: 0; }
+  }
+
+  /* Results */
+  .si-results-header {
+    margin-bottom: 1.25rem;
+  }
+  .si-results-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: #0a0a0a;
+  }
+  .si-score-sublabel {
+    font-size: 0.88rem;
+    color: rgba(10,10,10,0.6);
+    line-height: 1.5;
+  }
+
+  .si-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .si-col h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .si-col--good h4 { color: #16a34a; }
+  .si-col--bad  h4 { color: #dc2626; }
+
+  .si-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .si-col li {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: rgba(10,10,10,0.8);
+    padding-left: 1rem;
+    position: relative;
+  }
+  .si-col--good li::before { content: '✓'; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+  .si-col--bad  li::before { content: '!'; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
+
+  /* Upsell */
+  .si-upsell {
+    background: #0a0a0a;
+    color: #fff;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+  .si-upsell p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    opacity: 0.85;
+    flex: 1;
+    min-width: 160px;
+    margin: 0;
+  }
+  .si-upsell strong { color: #C4972A; }
+
+  .si-upsell-btn {
+    background: linear-gradient(135deg, #C4972A, #A07828);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.65rem 1.1rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .si-upsell-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .si-reset {
+    background: none;
+    border: none;
+    font-size: 0.82rem;
+    color: rgba(10,10,10,0.45);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .si-reset:hover { color: #0a0a0a; }
+
+  /* Error state */
+  .si-error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 0;
+    gap: 0.65rem;
+    color: rgba(10,10,10,0.5);
+  }
+  .si-error-state h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    color: #0a0a0a;
+    margin: 0;
+  }
+  .si-error-state p {
+    font-size: 0.88rem;
+    max-width: 32ch;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .si-retry {
+    background: #0a0a0a;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.7rem 1.4rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.88rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .si-section { padding: 5rem 2rem; }
+    .si-layout { gap: 3rem; }
+  }
+
+  @media (max-width: 768px) {
+    .si-section { padding: 4rem 1.5rem; }
+    .si-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .si-columns { grid-template-columns: 1fr; }
+    .si-upsell  { flex-direction: column; }
+    .si-upsell-btn { width: 100%; text-align: center; }
+  }
+</style>

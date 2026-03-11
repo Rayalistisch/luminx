@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import ContactOverlay from "../../components/ContactOverlay.astro";
+import SeoScanInline from "../../components/SeoScanInline.astro";
 
 const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
@@ -303,6 +304,8 @@ const faq = [
         </div>
       </div>
     </section>
+
+    <SeoScanInline />
 
     <section class="seo-outcomes" data-bg-color="#0A0A0A">
       <div class="seo-container">
