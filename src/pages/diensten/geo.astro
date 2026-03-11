@@ -1,0 +1,674 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "GEO – Generative Engine Optimization",
+  description: "Zichtbaar worden in AI-antwoorden van ChatGPT, Gemini en Perplexity. We zorgen dat jouw expertise, merk en kennis worden opgepikt door generatieve AI-systemen.",
+  serviceType: "Generative Engine Optimization",
+  url: canonicalUrl,
+  areaServed: "NL",
+  provider: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+
+const specialismen = [
+  {
+    icon: "◎",
+    title: "Promptonderzoek",
+    description: "We brengen in kaart welke vragen jouw doelgroep stelt aan AI-tools — en zorgen dat jouw antwoorden daar onderdeel van worden.",
+  },
+  {
+    icon: "◈",
+    title: "Contentoptimalisatie voor AI",
+    description: "Content herschrijven en structureren zodat AI-systemen hem begrijpen, vertrouwen en gebruiken als bron in hun antwoorden.",
+  },
+  {
+    icon: "◉",
+    title: "Structured data & schema",
+    description: "Technische basis op orde: schema markup, entiteitsherkenning en metadata die AI-modellen helpen jouw merk correct te begrijpen.",
+  },
+  {
+    icon: "◌",
+    title: "Citeerbare expertise",
+    description: "Unieke data, stellingen en standpunten creëren die AI-modellen graag citeren — zodat jij onderdeel wordt van het antwoord.",
+  },
+  {
+    icon: "✦",
+    title: "Autoriteitsopbouw",
+    description: "Digitale autoriteit opbouwen via publicaties, vermeldingen en backlinks die AI-systemen gebruiken om je betrouwbaarheid te beoordelen.",
+  },
+  {
+    icon: "●",
+    title: "AI-monitoring & rapportage",
+    description: "Maandelijkse rapportage op je zichtbaarheid in ChatGPT, Gemini en Perplexity — zodat we weten wat werkt en wat bijgestuurd moet worden.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Zichtbaar waar je concurrenten dat nog niet zijn",
+    body: "De meeste bureaus en bedrijven focussen nog uitsluitend op Google. Wie nu investeert in GEO, pakt een vroeg voordeel in een kanaal dat snel groeit. AI-zoekmachines verwijzen steeds vaker naar bronnen die ze al kennen en vertrouwen — en dat kunnen jouw pagina's zijn.",
+  },
+  {
+    title: "GEO en SEO versterken elkaar",
+    body: "Goede GEO-content — helder, citeerbaar en goed gestructureerd — is ook betere SEO-content. Je investeert niet in twee losse strategieën, maar in één aanpak die op meerdere kanalen rendeert: Google én AI-zoekmachines.",
+  },
+  {
+    title: "Toekomstbestendige contentstrategie",
+    body: "Zoekopdrachten verschuiven van Google naar AI-tools. Bedrijven die nu hun content en autoriteit opbouwen voor AI-consumptie, staan over twee jaar sterker dan wie wacht. GEO is geen hype, het is de volgende fase van online zichtbaarheid.",
+  },
+  {
+    title: "Branchegericht — geen generieke aanpak",
+    body: "We doen promptonderzoek specifiek voor jouw markt: welke vragen stelt jouw doelgroep aan ChatGPT of Gemini? Dat bepaalt welke content we optimaliseren en welke kennisleemtes we invullen.",
+  },
+  {
+    title: "Meetbaar via AI-monitoring",
+    body: "We volgen systematisch of jouw merk en content worden geciteerd door AI-systemen. Zo weet je of de inspanning werkt en sturen we bij op basis van echte data.",
+  },
+];
+
+const faq = [
+  {
+    q: "Wat is GEO precies?",
+    a: "GEO staat voor Generative Engine Optimization. Het is het optimaliseren van jouw content, website en autoriteit zodat AI-tools zoals ChatGPT, Gemini en Perplexity jouw merk en expertise opnemen in hun antwoorden. Waar SEO focust op Google-rankings, richt GEO zich op zichtbaarheid in AI-gegenereerde antwoorden.",
+  },
+  {
+    q: "Wat is het verschil tussen GEO en SEO?",
+    a: "SEO gaat over ranken in zoekmachines via techniek, content en linkbuilding. GEO gaat een stap verder: in plaats van pagina's optimaliseren voor zoekwoorden, zorg je dat jouw expertise, kennis en merk worden opgepikt door AI-systemen. In de praktijk overlappen ze sterk — goede SEO is een fundament voor GEO, en GEO-content presteert ook beter in Google.",
+  },
+  {
+    q: "Hoe lang duurt het voor GEO resultaat geeft?",
+    a: "GEO is een langetermijnstrategie, vergelijkbaar met SEO. De eerste resultaten — zoals vaker geciteerd worden in AI-antwoorden — zijn doorgaans zichtbaar na drie tot zes maanden. Autoriteit en consistente zichtbaarheid bouwen zich op over zes tot twaalf maanden.",
+  },
+  {
+    q: "Hoe meten jullie AI-zichtbaarheid?",
+    a: "We testen systematisch welke vragen AI-tools beantwoorden in jouw branche, en of jouw merk of content daarin verschijnt. Dit doen we handmatig en met gespecialiseerde tools. Maandelijks rapporteren we over je voortgang en passen we de aanpak aan.",
+  },
+  {
+    q: "Heb ik al een goede SEO nodig voor GEO?",
+    a: "Een technisch gezonde website en bestaande content helpen enorm, maar je hoeft geen perfecte SEO-score te hebben. We beginnen altijd met een audit en stellen een prioriteitenlijst op: welke basis-SEO-elementen zijn nodig, en waar starten we met GEO-optimalisatie.",
+  },
+];
+---
+
+<BaseLayout
+  title="GEO – AI Zichtbaarheid & Generative Engine Optimization | LuminX"
+  description="Zichtbaar worden in ChatGPT, Gemini en Perplexity. LuminX optimaliseert jouw content en autoriteit zodat AI-systemen jouw merk en expertise opnemen in hun antwoorden."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="geo-page">
+
+    <section class="geo-hero" data-bg-color="#0A0A0A">
+      <div class="geo-hero-overlay" aria-hidden="true"></div>
+      <div class="geo-hero-inner">
+        <div class="geo-hero-content">
+          <a href="/diensten/seo" class="geo-back-link">← SEO</a>
+          <span class="geo-kicker">Specialisme</span>
+          <h1><span class="geo-icon" aria-hidden="true">✦</span> GEO</h1>
+          <p class="geo-intro-p">GEO gaat een stap verder dan traditionele SEO. We zorgen dat jouw expertise, producten en kennis worden opgepikt door AI-systemen — zodat wanneer iemand een vraag stelt aan ChatGPT of Gemini over jouw branche, jouw merk onderdeel wordt van het antwoord.</p>
+          <div class="geo-actions">
+            <a href="#contact" class="geo-btn-primary" data-overlay-open>Plan kennismaking</a>
+            <a href="#aanpak" class="geo-btn-secondary">Bekijk aanpak</a>
+          </div>
+          <div class="geo-metrics">
+            <article class="geo-metric">
+              <strong>3+ kanalen</strong>
+              <span>ChatGPT, Gemini, Perplexity</span>
+            </article>
+            <article class="geo-metric">
+              <strong>Vroeg voordeel</strong>
+              <span>Weinig concurrentie nu</span>
+            </article>
+            <article class="geo-metric">
+              <strong>SEO + GEO</strong>
+              <span>Eén aanpak, twee kanalen</span>
+            </article>
+          </div>
+        </div>
+        <aside class="geo-hero-panel">
+          <span>Wat je direct merkt</span>
+          <ul>
+            <li>Jouw merk verschijnt in AI-antwoorden over jouw branche</li>
+            <li>Content wordt herkend als betrouwbare bron door AI-systemen</li>
+            <li>Zichtbaarheid in kanalen waar concurrenten nog nauwelijks actief zijn</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="geo-what" data-bg-color="#FEFEFE">
+      <div class="geo-container geo-what-grid">
+        <div class="geo-what-text">
+          <span class="geo-label">Wat is GEO?</span>
+          <h2>Zichtbaar in AI-antwoorden, niet alleen in Google</h2>
+          <p>GEO staat voor Generative Engine Optimization. Waar SEO zich richt op hoger ranken in Google, draait GEO om zichtbaar worden in de antwoorden van AI-tools zoals ChatGPT, Gemini en Perplexity.</p>
+          <p>In plaats van alleen pagina's optimaliseren voor zoekwoorden, zorgen we ervoor dat jouw expertise, producten en kennis ook door AI-systemen worden opgepikt en gebruikt in hun antwoorden. Het doel? Dat wanneer iemand een vraag stelt aan AI over jouw branche, jouw merk, kennis of website onderdeel wordt van het antwoord.</p>
+          <a href="#contact" class="geo-inline-cta" data-overlay-open>Gratis GEO-analyse →</a>
+        </div>
+        <div class="geo-what-visual" aria-hidden="true">
+          <div class="geo-stat-stack">
+            <div class="geo-stat-item">
+              <span class="geo-stat-value">AI-first</span>
+              <span class="geo-stat-desc">Zoekopdrachten verschuiven</span>
+            </div>
+            <div class="geo-stat-item">
+              <span class="geo-stat-value">3+ tools</span>
+              <span class="geo-stat-desc">ChatGPT, Gemini, Perplexity</span>
+            </div>
+            <div class="geo-stat-item">
+              <span class="geo-stat-value">Nu instappen</span>
+              <span class="geo-stat-desc">Vroeg voordeel ten opzichte van concurrenten</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-services" data-bg-color="#F7F9FC">
+      <div class="geo-container">
+        <div class="geo-section-head centered">
+          <span class="geo-label">Specialismen</span>
+          <h2>Zo maken we jou zichtbaar voor AI</h2>
+          <p>Van promptonderzoek tot structured data en citeerbare expertise — we beheersen het volledige GEO-spectrum en zetten elk onderdeel in op de juiste prioriteit.</p>
+        </div>
+        <div class="geo-cards-grid">
+          {specialismen.map((item) => (
+            <div class="geo-card">
+              <div class="geo-card-icon" aria-hidden="true">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-benefits" data-bg-color="#FEFEFE">
+      <div class="geo-container geo-benefits-grid">
+        <div class="geo-benefits-left">
+          <span class="geo-label">Waarom GEO?</span>
+          <h2>Zichtbaar zijn waar zoekopdrachten naartoe verschuiven</h2>
+          <p>Steeds meer mensen stellen vragen aan AI-tools in plaats van aan Google. Wie nu zijn content en autoriteit opbouwt voor AI-consumptie, staat straks sterker dan wie wacht.</p>
+          <div class="geo-benefit-stats">
+            <div class="geo-bstat">
+              <strong>Groeiend</strong>
+              <span>AI-zoekopdrachten nemen elk kwartaal toe</span>
+            </div>
+            <div class="geo-bstat">
+              <strong>Weinig concurrentie</strong>
+              <span>De meeste bureaus zijn hier nog niet mee bezig</span>
+            </div>
+          </div>
+        </div>
+        <div class="geo-benefits-right">
+          {benefits.map((b) => (
+            <details class="geo-benefit-item">
+              <summary>{b.title}</summary>
+              <p>{b.body}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-approach" id="aanpak" data-bg-color="#F7F9FC">
+      <div class="geo-container">
+        <div class="geo-section-head">
+          <span class="geo-label">Aanpak</span>
+          <h2>Van onzichtbaar naar geciteerd door AI in vier fases.</h2>
+        </div>
+        <div class="geo-steps">
+          <article class="geo-step">
+            <span class="geo-step-num">01</span>
+            <h3>AI-audit & promptonderzoek</h3>
+            <p>We analyseren hoe AI-tools jouw branche, concurrenten en jouw eigen merk behandelen. Welke vragen worden gesteld? Wie wordt geciteerd? Waar liggen de kansen?</p>
+          </article>
+          <article class="geo-step">
+            <span class="geo-step-num">02</span>
+            <h3>Strategie</h3>
+            <p>Op basis van de audit stellen we een contentplan op: welke pagina's optimaliseren we, welke nieuwe content schrijven we, en welke structurele aanpassingen zijn nodig?</p>
+          </article>
+          <article class="geo-step">
+            <span class="geo-step-num">03</span>
+            <h3>Implementatie</h3>
+            <p>Content optimaliseren en schrijven, structured data implementeren, en autoriteitsopbouw via publicaties en vermeldingen die AI-systemen als signaal gebruiken.</p>
+          </article>
+          <article class="geo-step">
+            <span class="geo-step-num">04</span>
+            <h3>Monitoren & bijsturen</h3>
+            <p>Maandelijkse rapportage op AI-zichtbaarheid. We testen systematisch of jouw merk en content verschijnen in relevante AI-antwoorden en passen de aanpak aan.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-context" data-bg-color="#FEFEFE">
+      <div class="geo-container geo-context-grid">
+        <article class="geo-block">
+          <h2>Waar bedrijven op vastlopen</h2>
+          <ul class="geo-list geo-list--muted">
+            <li>Niet zichtbaar in AI-antwoorden, terwijl concurrenten wel worden geciteerd</li>
+            <li>Content is niet geschreven voor AI-consumptie</li>
+            <li>Geen idee welke vragen AI beantwoordt in hun branche</li>
+            <li>Structured data ontbreekt of is incorrect geïmplementeerd</li>
+            <li>Geen manier om AI-zichtbaarheid te meten of bij te sturen</li>
+            <li>Wachten terwijl het kanaal groeit en concurrenten posities innemen</li>
+          </ul>
+        </article>
+        <article class="geo-block geo-block--soft">
+          <h2>Wat wij concreet opleveren</h2>
+          <ul class="geo-list">
+            <li>AI-audit: hoe jij, je concurrenten en je branche nu worden behandeld door AI</li>
+            <li>Promptkaart: de vragen die AI beantwoordt in jouw markt</li>
+            <li>Geoptimaliseerde content die AI-systemen begrijpen en citeren</li>
+            <li>Structured data implementatie voor betere AI-herkenning</li>
+            <li>Autoriteitsopbouw via relevante publicaties en vermeldingen</li>
+            <li>Maandelijkse rapportage op AI-zichtbaarheid en voortgang</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="geo-faq" data-bg-color="#F7F9FC">
+      <div class="geo-container geo-faq-grid">
+        <div class="geo-faq-left">
+          <span class="geo-label">Veelgestelde vragen</span>
+          <h2>Alles over GEO en AI-zichtbaarheid</h2>
+          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="geo-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="geo-faq-right">
+          {faq.map((item) => (
+            <details class="geo-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-outcomes" data-bg-color="#0A0A0A">
+      <div class="geo-container">
+        <h2>Resultaten die je mag verwachten</h2>
+        <div class="geo-outcome-tags">
+          <span>Zichtbaarheid in ChatGPT-antwoorden</span>
+          <span>Geciteerd door Gemini en Perplexity</span>
+          <span>Sterke digitale autoriteit</span>
+          <span>AI-geoptimaliseerde content</span>
+          <span>Vroeg marktvoordeel</span>
+          <span>Structured data correct geïmplementeerd</span>
+          <span>Toekomstbestendige strategie</span>
+          <span>Maandelijkse AI-zichtbaarheidsrapportage</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>Klaar om zichtbaar te worden<br/>in AI-antwoorden?</h2>
+        <p>We analyseren hoe AI-tools jouw branche behandelen en presenteren een concreet plan om jouw merk en expertise op de kaart te zetten.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .geo-page { background: var(--white); }
+
+  .geo-container { max-width: 1240px; margin: 0 auto; }
+
+  .geo-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .geo-section-head { margin-bottom: 3rem; }
+  .geo-section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }
+  .geo-section-head.centered { text-align: center; }
+  .geo-section-head.centered h2,
+  .geo-section-head.centered p { margin-left: auto; margin-right: auto; }
+  .geo-section-head.centered p { max-width: 560px; }
+  .geo-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
+
+  .geo-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .geo-inline-cta:hover { opacity: 0.6; }
+
+  /* Hero */
+  .geo-hero {
+    min-height: 88vh;
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 10rem 4rem 5.5rem;
+    overflow: hidden;
+  }
+
+  .geo-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(229, 212, 237, 0.18), transparent 42%),
+      radial-gradient(circle at 82% 24%, rgba(212, 244, 221, 0.12), transparent 38%);
+  }
+
+  .geo-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .geo-back-link {
+    display: inline-flex;
+    margin-bottom: 1.8rem;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.6;
+    font-size: 0.9rem;
+    transition: opacity 0.25s ease;
+  }
+  .geo-back-link:hover { opacity: 1; }
+
+  .geo-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .geo-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .geo-icon { color: var(--pastel-purple); font-size: 0.68em; }
+
+  .geo-intro-p {
+    max-width: 700px;
+    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
+    opacity: 0.88;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .geo-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .geo-btn-primary,
+  .geo-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.9rem 1.45rem;
+    transition: transform 0.25s ease;
+  }
+  .geo-btn-primary  { color: var(--black); background: var(--white); }
+  .geo-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
+  .geo-btn-primary:hover, .geo-btn-secondary:hover { transform: translateY(-2px); }
+
+  .geo-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    max-width: 720px;
+  }
+
+  .geo-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+  .geo-metric strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .geo-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
+
+  .geo-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .geo-hero-panel > span {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 0.75rem;
+  }
+  .geo-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
+  .geo-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
+  .geo-hero-panel li::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-mint));
+    position: absolute;
+    left: 0; top: 0.62rem;
+  }
+
+  /* What is GEO */
+  .geo-what { padding: 7rem 4rem; }
+  .geo-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .geo-what-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.25rem;
+  }
+  .geo-what-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .geo-what-visual { display: flex; justify-content: center; align-items: flex-start; }
+
+  .geo-stat-stack {
+    width: 100%;
+    max-width: 340px;
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
+  }
+
+  .geo-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .geo-stat-item:last-child { border-bottom: none; }
+  .geo-stat-item::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--pastel-purple), var(--pastel-mint));
+  }
+
+  .geo-stat-value {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .geo-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+
+  /* Specialismen */
+  .geo-services { padding: 7rem 4rem; }
+  .geo-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  .geo-card {
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .geo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
+
+  .geo-card-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(10,10,10,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin: 0 auto 1.25rem;
+    transition: background 0.3s ease;
+  }
+  .geo-card:hover .geo-card-icon { background: var(--black); color: var(--white); }
+  .geo-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .geo-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+
+  /* Benefits */
+  .geo-benefits { padding: 7rem 4rem; }
+  .geo-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .geo-benefits-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1rem;
+  }
+  .geo-benefits-left p { color: rgba(10,10,10,0.68); line-height: 1.8; }
+  .geo-benefit-stats { margin-top: 2rem; display: grid; gap: 1.25rem; }
+  .geo-bstat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .geo-bstat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .geo-bstat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  .geo-benefit-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .geo-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .geo-benefit-item summary {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .geo-benefit-item summary::-webkit-details-marker { display: none; }
+  .geo-benefit-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .geo-benefit-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .geo-benefit-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  /* Aanpak */
+  .geo-approach { padding: 6rem 4rem; }
+  .geo-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(10,10,10,0.14);
+    border-bottom: 1px solid rgba(10,10,10,0.14);
+    margin-top: 2rem;
+  }
+  .geo-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
+  .geo-step:last-child { border-right: none; }
+  .geo-step-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
+  .geo-step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .geo-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+
+  /* Context */
+  .geo-context { padding: 6rem 4rem; }
+  .geo-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .geo-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
+  .geo-block--soft { border-top-color: rgba(10,10,10,0.28); }
+  .geo-block h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 16ch; }
+  .geo-list { list-style: none; display: grid; gap: 0.8rem; }
+  .geo-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
+  .geo-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
+  .geo-list--muted li { color: rgba(10,10,10,0.65); }
+  .geo-list--muted li::before { background: rgba(10,10,10,0.35); }
+
+  /* FAQ */
+  .geo-faq { padding: 7rem 4rem; }
+  .geo-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .geo-faq-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .geo-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+  .geo-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .geo-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .geo-faq-item summary { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .geo-faq-item summary::-webkit-details-marker { display: none; }
+  .geo-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .geo-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .geo-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  /* Outcomes */
+  .geo-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
+  .geo-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
+  .geo-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .geo-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .geo-hero-inner, .geo-what-grid, .geo-benefits-grid, .geo-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .geo-cards-grid { grid-template-columns: 1fr 1fr; }
+    .geo-steps { grid-template-columns: 1fr 1fr; }
+    .geo-step:nth-child(2n) { border-right: none; }
+    .geo-context-grid { grid-template-columns: 1fr; }
+    .geo-what-visual { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .geo-hero, .geo-what, .geo-services, .geo-benefits, .geo-approach, .geo-context, .geo-faq, .geo-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .geo-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
+    .geo-cards-grid { grid-template-columns: 1fr; }
+    .geo-steps { grid-template-columns: 1fr; }
+    .geo-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
+    .geo-step:first-child { border-top: none; }
+    .geo-metrics { grid-template-columns: 1fr 1fr; }
+    .geo-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+  }
+</style>
