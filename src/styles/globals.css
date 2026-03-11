@@ -800,6 +800,20 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
     .om-card:nth-child(2) { transition-delay: 0.1s; }
     .om-card:nth-child(3) { transition-delay: 0.16s; }
     .om-card:nth-child(4) { transition-delay: 0.22s; }
+    .om-card:nth-child(5) { transition-delay: 0.28s; }
+
+    .om-card--featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .om-card--featured .om-card-footer {
+      margin-top: 0;
+    }
 
     .om-card-icon {
       width: 80px;

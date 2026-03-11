@@ -323,6 +323,18 @@ const faq = [
       </div>
     </section>
 
+    <section class="seo-geo-crosslink" data-bg-color="#0A0A0A">
+      <div class="seo-container">
+        <a href="/diensten/geo" class="seo-geo-banner">
+          <div class="seo-geo-banner-text">
+            <span class="seo-geo-badge">Nieuw</span>
+            <strong>GEO – AI-zichtbaarheid</strong>
+            <span>Zichtbaar in ChatGPT, Gemini en Perplexity? Ontdek Generative Engine Optimization →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Klaar voor structurele<br/>organische groei?</h2>
@@ -641,6 +653,14 @@ const faq = [
   .seo-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
   .seo-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
 
+  .seo-geo-crosslink { padding: 1.5rem 4rem; background: var(--black); }
+  .seo-geo-banner { display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 1.75rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; text-decoration: none; transition: background 0.25s ease, border-color 0.25s ease; max-width: 900px; }
+  .seo-geo-banner:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.22); }
+  .seo-geo-banner-text { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .seo-geo-badge { background: var(--pastel-purple); color: var(--black); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 999px; flex-shrink: 0; }
+  .seo-geo-banner-text strong { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); }
+  .seo-geo-banner-text span { font-size: 0.9rem; color: rgba(255,255,255,0.55); }
+
   .seo-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
   .seo-outcomes h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
   .seo-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
@@ -656,7 +676,7 @@ const faq = [
   }
 
   @media (max-width: 768px) {
-    .seo-hero, .seo-what, .seo-services, .seo-benefits, .seo-approach, .seo-context, .seo-faq, .seo-outcomes { padding-left: 2rem; padding-right: 2rem; }
+    .seo-hero, .seo-what, .seo-services, .seo-benefits, .seo-approach, .seo-context, .seo-faq, .seo-outcomes, .seo-geo-crosslink { padding-left: 2rem; padding-right: 2rem; }
     .seo-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
     .seo-cards-grid { grid-template-columns: 1fr; }
     .seo-steps { grid-template-columns: 1fr; }

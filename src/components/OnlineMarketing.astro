@@ -24,6 +24,13 @@ const items = [
     description: "Geautomatiseerde e-mailflows en nieuwsbrieven die leads nurturen en klanten activeren op het juiste moment. Op aanvraag",
     href: "/diensten/emailmarketing",
   },
+  {
+    icon: "✦",
+    title: "GEO – AI-zichtbaarheid",
+    description: "Zichtbaar in ChatGPT, Gemini en Perplexity. GEO optimaliseert je content zodat AI-zoekmachines jou als autoriteit citeren. Op aanvraag",
+    href: "/diensten/geo",
+    featured: true,
+  },
 ];
 ---
 
@@ -35,7 +42,7 @@ const items = [
 
   <div class="om-grid">
     {items.map((item) => (
-      <a class="om-card" href={item.href}>
+      <a class={`om-card${item.featured ? " om-card--featured" : ""}`} href={item.href}>
         <div class="om-card-icon" aria-hidden="true">{item.icon}</div>
         <h3>{item.title}</h3>
         <p>{item.description}</p>
