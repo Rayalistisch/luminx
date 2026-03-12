@@ -35,7 +35,56 @@
     </div>
   </div>
 
+  <div class="footer-wordmark" aria-hidden="true">
+    {"LUMINX".split("").map((letter, i) => (
+      <span class="footer-wordmark-letter" style={`transition-delay: ${i * 0.07}s`}>{letter}</span>
+    ))}
+  </div>
+
   <div class="footer-bottom">
     <p>&copy; 2026 LUMINX. Alle rechten voorbehouden.</p>
   </div>
 </footer>
+
+<script is:inline>
+  (function () {
+    var wordmark = document.querySelector(".footer-wordmark");
+    if (!wordmark) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          wordmark.classList.add("is-visible");
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(wordmark);
+  })();
+</script>
+
+<style>
+  .footer-wordmark {
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem;
+    overflow: hidden;
+    line-height: 0.85;
+    margin-bottom: -0.08em;
+  }
+
+  .footer-wordmark-letter {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 12vw, 12rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.06);
+    transform: translateY(110%);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .footer-wordmark.is-visible .footer-wordmark-letter {
+    transform: translateY(0);
+  }
+</style>
