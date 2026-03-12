@@ -566,6 +566,52 @@ nav.nav--scrolled .nav-cta:hover .nav-cta-icon{ opacity: .75; }
 
     .grid-item-content p { font-size: 0.85rem; opacity: 0.8; }
 
+    .grid-item-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .grid-item-tags span {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+    }
+
+    .section-kicker {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.42;
+      margin-bottom: 0.9rem;
+    }
+
+    .cases-footer {
+      padding: 2.5rem 4rem 0;
+      text-align: center;
+    }
+
+    .cases-all-link {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+    }
+
+    .cases-all-link:hover { opacity: 1; }
+
     .grid-item-hover-indicator {
       width: 44px;
       height: 44px;

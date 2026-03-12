@@ -1,0 +1,181 @@
+---
+const testimonials = [
+  {
+    quote: "Ray heeft onze webshop volledig gemigreerd naar Shopify zonder één dag downtime. De laadtijd ging met 40% omlaag en onze conversieratio steeg direct mee.",
+    name: "Barry",
+    role: "GSM Team",
+    initials: "GT",
+  },
+  {
+    quote: "Dankzij LuminX hebben we eindelijk inzicht in wat onze Google Ads echt opleveren. De aanpak is data-gedreven en Ray denkt altijd mee over het grotere plaatje.",
+    name: "Richard",
+    role: "E-commerce ondernemer",
+    initials: "EO",
+  },
+  {
+    quote: "Het custom afsprakensysteem dat Ray heeft gebouwd bespaart ons team minstens 5 uur per week. Precies wat we nodig hadden, zonder onnodige complexiteit.",
+    name: "Mark",
+    role: "Actifaid",
+    initials: "AA",
+  },
+];
+---
+
+<section class="testimonials-section" data-bg-color="#0A0A0A">
+  <div class="testimonials-inner">
+
+    <div class="testimonials-head">
+      <span class="testimonials-kicker">Ervaringen</span>
+      <h2>Wat klanten zeggen</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      {testimonials.map((t) => (
+        <div class="testimonial-card">
+          <svg class="testimonial-quote-icon" width="28" height="20" viewBox="0 0 28 20" fill="none" aria-hidden="true">
+            <path d="M0 20V12.667C0 5.556 4.222 1.333 12.667 0L14 2.222C10.37 3.111 8.185 5.185 7.444 8.444H12V20H0ZM16 20V12.667C16 5.556 20.222 1.333 28.667 0L30 2.222C26.37 3.111 24.185 5.185 23.444 8.444H28V20H16Z" fill="currentColor" opacity="0.15"/>
+          </svg>
+          <p class="testimonial-text">{t.quote}</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">{t.initials}</div>
+            <div class="testimonial-meta">
+              <span class="testimonial-name">{t.name}</span>
+              <span class="testimonial-role">{t.role}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    background: var(--black);
+    color: var(--white);
+    padding: 7rem 4rem;
+  }
+
+  .testimonials-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  .testimonials-head {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+  }
+
+  .testimonials-kicker {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.38;
+  }
+
+  .testimonials-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: border-color 0.25s ease;
+  }
+
+  .testimonial-card:hover {
+    border-color: rgba(255,255,255,0.16);
+  }
+
+  .testimonial-quote-icon {
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.78;
+    color: rgba(255,255,255,0.7);
+    flex: 1;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .testimonial-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .testimonial-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .testimonial-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+
+  .testimonial-role {
+    font-size: 0.78rem;
+    opacity: 0.42;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .testimonials-section {
+      padding: 5rem 2rem;
+    }
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+    .testimonials-head {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>

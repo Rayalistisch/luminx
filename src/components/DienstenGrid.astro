@@ -1,0 +1,245 @@
+---
+const diensten = [
+  {
+    category: "Online Marketing",
+    items: [
+      {
+        title: "SEO",
+        description: "Hogere organische posities via technische optimalisatie, content en linkbuilding die duurzaam verkeer opleveren.",
+        href: "/diensten/seo",
+      },
+      {
+        title: "SEA – Google Ads",
+        description: "Campagnes die op het juiste moment zichtbaar zijn, gericht op conversie en een sterke ROAS.",
+        href: "/diensten/sea",
+      },
+      {
+        title: "Social Advertising",
+        description: "Meta, LinkedIn en TikTok campagnes die je doelgroep bereiken en merkbekendheid omzetten in leads.",
+        href: "/diensten/social-advertising",
+      },
+      {
+        title: "E-mailmarketing",
+        description: "Geautomatiseerde flows en nieuwsbrieven die leads nurturen en klanten activeren op het juiste moment.",
+        href: "/diensten/emailmarketing",
+      },
+      {
+        title: "GEO – AI-zichtbaarheid",
+        description: "Zichtbaar in ChatGPT, Gemini en Perplexity. Optimaliseer je content zodat AI-zoekmachines jou als autoriteit citeren.",
+        href: "/diensten/geo",
+      },
+    ],
+  },
+  {
+    category: "Technologie & Strategie",
+    items: [
+      {
+        title: "Web Development",
+        description: "Websites met premium uitstraling, hoge performance en een duidelijke conversiefocus. Gebouwd om te scoren.",
+        href: "/diensten/web-development",
+      },
+      {
+        title: "Procesautomation",
+        description: "Automatiseer repetitieve processen en maak je operatie sneller, consistenter en schaalbaar zonder extra mensen.",
+        href: "/diensten/procesautomation",
+      },
+      {
+        title: "Strategie",
+        description: "Van positionering tot roadmap: concrete keuzes die je marketing en groei richting geven op basis van data.",
+        href: "/diensten/strategy",
+      },
+    ],
+  },
+];
+---
+
+<section class="diensten-section" id="diensten">
+  <div class="diensten-inner">
+
+    <div class="diensten-head">
+      <span class="diensten-kicker">Diensten</span>
+      <h2>Alles wat je nodig hebt<br/>om online te groeien</h2>
+      <p>Van zoekmachineoptimalisatie tot procesautomatisering: een volledig pakket dat je zichtbaarheid, bereik en omzet vergroot.</p>
+    </div>
+
+    {diensten.map((group) => (
+      <div class="diensten-group">
+        <span class="diensten-group-label">{group.category}</span>
+        <div class="diensten-grid">
+          {group.items.map((item) => (
+            <a class={`diensten-card${item.highlight ? " diensten-card--highlight" : ""}`} href={item.href}>
+              <div class="diensten-card-top">
+                <h3>{item.title}</h3>
+                <span class="diensten-card-tag">{item.tag}</span>
+              </div>
+              <p>{item.description}</p>
+              <span class="diensten-card-arrow" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+
+  </div>
+</section>
+
+<style>
+  .diensten-section {
+    padding: 7rem 4rem;
+    background: var(--white);
+  }
+
+  .diensten-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  /* ── Header ── */
+  .diensten-head {
+    max-width: 82ch;
+  }
+
+  .diensten-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.42;
+    margin-bottom: 1.2rem;
+  }
+
+  .diensten-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+
+  .diensten-head p {
+    font-size: 0.97rem;
+    line-height: 1.78;
+    color: rgba(10,10,10,0.52);
+  }
+
+  /* ── Group ── */
+  .diensten-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .diensten-group-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.35;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+  }
+
+  /* ── Grid ── */
+  .diensten-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(10,10,10,0.08);
+    border: 1px solid rgba(10,10,10,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* ── Card ── */
+  .diensten-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.75rem 1.75rem 1.5rem;
+    background: var(--white);
+    text-decoration: none;
+    color: var(--black);
+    transition: background 0.2s ease;
+  }
+
+  .diensten-card:hover {
+    background: rgba(10,10,10,0.025);
+  }
+
+  .diensten-card--highlight {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .diensten-card--highlight:hover {
+    background: #1a1a1a;
+  }
+
+  .diensten-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .diensten-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .diensten-card-tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    opacity: 0.45;
+    padding-top: 0.15rem;
+  }
+
+  .diensten-card p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    opacity: 0.6;
+    flex: 1;
+  }
+
+  .diensten-card--highlight p {
+    opacity: 0.55;
+  }
+
+  .diensten-card-arrow {
+    align-self: flex-end;
+    opacity: 0;
+    transform: translateX(-4px) translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .diensten-card:hover .diensten-card-arrow {
+    opacity: 0.6;
+    transform: translateX(0) translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .diensten-section {
+      padding: 5rem 2rem;
+    }
+    .diensten-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,141 @@
+---
+import { Image } from "astro:assets";
+import founderImage from "../assets/images/ray_avatar.png";
+---
+
+<section class="about-ray-section" id="over">
+  <div class="about-ray-inner">
+
+    <div class="about-ray-image-wrap">
+      <Image
+        class="about-ray-image"
+        src={founderImage}
+        alt="Ray – oprichter van LuminX"
+        widths={[420, 640, 920]}
+        sizes="(max-width: 1024px) 100vw, 48vw"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="about-ray-content">
+      <span class="about-ray-kicker">Over mij</span>
+      <h2>Geen bureau-constructie.<br/>Gewoon directe samenwerking.</h2>
+      <p>
+        Ik ben Ray, oprichter van LuminX. Met een achtergrond in design, development en strategie help ik
+        ondernemers om slimmer te werken en online te groeien. Je werkt rechtstreeks met mij, niet met
+        een accountmanager die het daarna doorgeeft.
+      </p>
+      <p>
+        Van procesautomatisering tot campagnes: ik kijk altijd naar het grotere plaatje en vertaal dat
+        naar oplossingen die vandaag werken én morgen meeschalen.
+      </p>
+      <div class="about-ray-actions">
+        <a href="#" class="about-ray-cta" data-overlay-open>Plan een kennismaking</a>
+        <a href="tel:+31613698596" class="about-ray-phone">+31 6 1369 8596</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .about-ray-section {
+    padding: 7rem 4rem;
+    background: var(--white);
+    border-top: 1px solid rgba(10,10,10,0.07);
+  }
+
+  .about-ray-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: center;
+  }
+
+  .about-ray-image-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .about-ray-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .about-ray-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.42;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-ray-content h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-ray-content p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(10,10,10,0.62);
+    margin-bottom: 1rem;
+  }
+
+  .about-ray-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
+  }
+
+  .about-ray-cta {
+    display: inline-flex;
+    align-items: center;
+    background: var(--black);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.9rem 1.75rem;
+    border-radius: 999px;
+    transition: opacity 0.25s ease;
+  }
+  .about-ray-cta:hover { opacity: 0.8; }
+
+  .about-ray-phone {
+    color: var(--black);
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.45;
+    transition: opacity 0.2s ease;
+  }
+  .about-ray-phone:hover { opacity: 1; }
+
+  @media (max-width: 1024px) {
+    .about-ray-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .about-ray-image-wrap {
+      max-width: 420px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-ray-section {
+      padding: 5rem 2rem;
+    }
+  }
+</style>
