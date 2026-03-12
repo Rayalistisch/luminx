@@ -163,17 +163,29 @@ const faq = [
         </div>
         <div class="geo-what-visual" aria-hidden="true">
           <div class="geo-stat-stack">
-            <div class="geo-stat-item">
-              <span class="geo-stat-value">AI-first</span>
-              <span class="geo-stat-desc">Zoekopdrachten verschuiven</span>
+            <div class="geo-stat-stack-header">
+              <span>GEO Optimalisaties</span>
             </div>
             <div class="geo-stat-item">
-              <span class="geo-stat-value">3+ tools</span>
-              <span class="geo-stat-desc">ChatGPT, Gemini, Perplexity</span>
+              <span class="geo-stat-num">01</span>
+              <div class="geo-stat-body">
+                <span class="geo-stat-value">AI-first</span>
+                <span class="geo-stat-desc">Zoekopdrachten verschuiven</span>
+              </div>
             </div>
             <div class="geo-stat-item">
-              <span class="geo-stat-value">Nu instappen</span>
-              <span class="geo-stat-desc">Vroeg voordeel ten opzichte van concurrenten</span>
+              <span class="geo-stat-num">02</span>
+              <div class="geo-stat-body">
+                <span class="geo-stat-value">3+ tools</span>
+                <span class="geo-stat-desc">ChatGPT, Gemini, Perplexity</span>
+              </div>
+            </div>
+            <div class="geo-stat-item">
+              <span class="geo-stat-num">03</span>
+              <div class="geo-stat-body">
+                <span class="geo-stat-value">Nu instappen</span>
+                <span class="geo-stat-desc">Vroeg voordeel t.o.v. concurrenten</span>
+              </div>
             </div>
           </div>
         </div>
@@ -183,7 +195,7 @@ const faq = [
     <section class="geo-services" data-bg-color="#F7F9FC">
       <div class="geo-container">
         <div class="geo-section-head centered">
-          <span class="geo-label">Specialismen</span>
+          <span class="geo-label">Specialisme</span>
           <h2>Zo maken we jou zichtbaar voor AI</h2>
           <p>Van promptonderzoek tot structured data en citeerbare expertise — we beheersen het volledige GEO-spectrum en zetten elk onderdeel in op de juiste prioriteit.</p>
         </div>
@@ -512,35 +524,78 @@ const faq = [
 
   .geo-stat-stack {
     width: 100%;
-    max-width: 340px;
-    border: 1px solid rgba(10,10,10,0.1);
-    border-radius: 20px;
+    max-width: 380px;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 24px;
     overflow: hidden;
     background: #fff;
-    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
+    box-shadow: 0 16px 56px rgba(10,10,10,0.08);
   }
 
-  .geo-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .geo-stat-stack-header {
+    padding: 0.9rem 1.75rem;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .geo-stat-stack-header span {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+  .geo-stat-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #A07828;
+    flex-shrink: 0;
+  }
+
+  .geo-stat-item {
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid rgba(10,10,10,0.07);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
   .geo-stat-item:last-child { border-bottom: none; }
-  .geo-stat-item::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, var(--pastel-purple), var(--pastel-mint));
+
+  .geo-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(10,10,10,0.28);
+    flex-shrink: 0;
+    width: 1.2rem;
+  }
+
+  .geo-stat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
   }
 
   .geo-stat-value {
     display: block;
     font-family: 'Syne', sans-serif;
-    font-size: 2.4rem;
+    font-size: 1.45rem;
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.025em;
     color: var(--black);
-    line-height: 1;
-    margin-bottom: 0.4rem;
+    line-height: 1.1;
   }
-  .geo-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+  .geo-stat-desc {
+    font-size: 0.78rem;
+    color: rgba(10,10,10,0.48);
+    line-height: 1.4;
+  }
 
   /* Specialismen */
   .geo-services { padding: 7rem 4rem; }

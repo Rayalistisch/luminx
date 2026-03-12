@@ -165,17 +165,30 @@ const faq = [
         </div>
         <div class="sea-what-visual" aria-hidden="true">
           <div class="sea-stat-stack">
-            <div class="sea-stat-item">
-              <span class="sea-stat-value">4–8×</span>
-              <span class="sea-stat-desc">Gemiddelde ROAS</span>
+            <div class="sea-stat-stack-header">
+              <span class="sea-stat-dot"></span>
+              <span>SEA Resultaten</span>
             </div>
             <div class="sea-stat-item">
-              <span class="sea-stat-value">−40%</span>
-              <span class="sea-stat-desc">Lagere kosten per lead</span>
+              <span class="sea-stat-num">01</span>
+              <div class="sea-stat-body">
+                <span class="sea-stat-value">4–8×</span>
+                <span class="sea-stat-desc">Gemiddelde ROAS</span>
+              </div>
             </div>
             <div class="sea-stat-item">
-              <span class="sea-stat-value">vanaf dag 1</span>
-              <span class="sea-stat-desc">Eerste klikken</span>
+              <span class="sea-stat-num">02</span>
+              <div class="sea-stat-body">
+                <span class="sea-stat-value">−40%</span>
+                <span class="sea-stat-desc">Lagere kosten per lead</span>
+              </div>
+            </div>
+            <div class="sea-stat-item">
+              <span class="sea-stat-num">03</span>
+              <div class="sea-stat-body">
+                <span class="sea-stat-value">vanaf dag 1</span>
+                <span class="sea-stat-desc">Eerste klikken</span>
+              </div>
             </div>
           </div>
         </div>
@@ -573,50 +586,77 @@ const faq = [
 
   .sea-stat-stack {
     width: 100%;
-    max-width: 340px;
-    border: 1px solid rgba(10,10,10,0.1);
-    border-radius: 20px;
+    max-width: 380px;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 24px;
     overflow: hidden;
     background: #fff;
-    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
+    box-shadow: 0 16px 56px rgba(10,10,10,0.08);
+  }
+
+  .sea-stat-stack-header {
+    padding: 0.9rem 1.75rem;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sea-stat-stack-header span {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+  .sea-stat-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #A07828;
+    flex-shrink: 0;
   }
 
   .sea-stat-item {
-    padding: 1.75rem 2rem 1.75rem 2.5rem;
-    border-bottom: 1px solid rgba(10,10,10,0.08);
-    position: relative;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid rgba(10,10,10,0.07);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .sea-stat-item:last-child { border-bottom: none; }
+
+  .sea-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(10,10,10,0.28);
+    flex-shrink: 0;
+    width: 1.2rem;
   }
 
-  .sea-stat-item:last-child {
-    border-bottom: none;
-  }
-
-  .sea-stat-item::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, var(--pastel-pink), var(--pastel-blue));
+  .sea-stat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
   }
 
   .sea-stat-value {
     display: block;
     font-family: 'Syne', sans-serif;
-    font-size: 2.4rem;
+    font-size: 1.45rem;
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.025em;
     color: var(--black);
-    line-height: 1;
-    margin-bottom: 0.4rem;
+    line-height: 1.1;
   }
 
   .sea-stat-desc {
-    font-size: 0.74rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(10,10,10,0.5);
+    font-size: 0.78rem;
+    color: rgba(10,10,10,0.48);
+    line-height: 1.4;
   }
 
   /* ── Service Cards ── */

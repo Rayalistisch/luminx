@@ -163,17 +163,30 @@ const faq = [
         </div>
         <div class="social-what-visual" aria-hidden="true">
           <div class="social-stat-stack">
-            <div class="social-stat-item">
-              <span class="social-stat-value">2–5×</span>
-              <span class="social-stat-desc">Hogere engagement rate</span>
+            <div class="social-stat-stack-header">
+              <span class="social-stat-dot"></span>
+              <span>Social Resultaten</span>
             </div>
             <div class="social-stat-item">
-              <span class="social-stat-value">−25–50%</span>
-              <span class="social-stat-desc">Lagere CPM vs. benchmark</span>
+              <span class="social-stat-num">01</span>
+              <div class="social-stat-body">
+                <span class="social-stat-value">2–5×</span>
+                <span class="social-stat-desc">Hogere engagement rate</span>
+              </div>
             </div>
             <div class="social-stat-item">
-              <span class="social-stat-value">Meta · LinkedIn · TikTok</span>
-              <span class="social-stat-desc">Kanaalcoverage</span>
+              <span class="social-stat-num">02</span>
+              <div class="social-stat-body">
+                <span class="social-stat-value">−25–50%</span>
+                <span class="social-stat-desc">Lagere CPM vs. benchmark</span>
+              </div>
+            </div>
+            <div class="social-stat-item">
+              <span class="social-stat-num">03</span>
+              <div class="social-stat-body">
+                <span class="social-stat-value">Meta · LinkedIn · TikTok</span>
+                <span class="social-stat-desc">Kanaalcoverage</span>
+              </div>
             </div>
           </div>
         </div>
@@ -443,12 +456,16 @@ const faq = [
 
   .social-what-visual { display: flex; justify-content: center; align-items: flex-start; }
 
-  .social-stat-stack { width: 100%; max-width: 340px; border: 1px solid rgba(10,10,10,0.1); border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 8px 40px rgba(10,10,10,0.07); }
-  .social-stat-item { padding: 1.75rem 2rem 1.75rem 2.5rem; border-bottom: 1px solid rgba(10,10,10,0.08); position: relative; }
+  .social-stat-stack { width: 100%; max-width: 380px; border: 1px solid rgba(10,10,10,0.09); border-radius: 24px; overflow: hidden; background: #fff; box-shadow: 0 16px 56px rgba(10,10,10,0.08); }
+  .social-stat-stack-header { padding: 0.9rem 1.75rem; background: var(--black); display: flex; align-items: center; gap: 0.5rem; }
+  .social-stat-stack-header span { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+  .social-stat-dot { width: 7px; height: 7px; border-radius: 50%; background: #A07828; flex-shrink: 0; }
+  .social-stat-item { padding: 1.5rem 1.75rem; border-bottom: 1px solid rgba(10,10,10,0.07); display: flex; align-items: center; gap: 1.25rem; }
   .social-stat-item:last-child { border-bottom: none; }
-  .social-stat-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--pastel-pink), var(--pastel-blue)); }
-  .social-stat-value { display: block; font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--black); line-height: 1; margin-bottom: 0.4rem; }
-  .social-stat-desc { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.5); }
+  .social-stat-num { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: rgba(10,10,10,0.28); flex-shrink: 0; width: 1.2rem; }
+  .social-stat-body { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+  .social-stat-value { display: block; font-family: 'Syne', sans-serif; font-size: 1.45rem; font-weight: 800; letter-spacing: -0.025em; color: var(--black); line-height: 1.1; }
+  .social-stat-desc { font-size: 0.78rem; color: rgba(10,10,10,0.48); line-height: 1.4; }
 
   .social-services { padding: 7rem 4rem; }
   .social-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
