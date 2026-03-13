@@ -1,0 +1,693 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const faq = [
+  {
+    q: "Wat is het verschil tussen SEO en SEA?",
+    a: "SEO genereert organisch verkeer door hoger te ranken in zoekmachines zonder per klik te betalen. SEA is betaald adverteren in zoekmachines, waarbij je per klik betaalt voor directe zichtbaarheid. SEO is een langetermijninvestering, SEA levert direct verkeer maar stopt zodra het budget op is.",
+  },
+  {
+    q: "Wat is goedkoper: SEO of SEA?",
+    a: "Op korte termijn is SEA vaak effectiever qua directe resultaten, maar elke klik kost geld. SEO vereist een hogere initiële investering maar levert op termijn verkeer zonder klikkosten. De meeste bedrijven halen het beste rendement uit een combinatie van beide.",
+  },
+  {
+    q: "Kan ik beginnen met SEA en later overstappen naar SEO?",
+    a: "Ja, dat is een veelgebruikte strategie. SEA levert direct verkeer en data over welke zoekwoorden converteren. Die data gebruik je vervolgens om een gerichte SEO-strategie op te bouwen. Zodra organische posities groeien, verschuif je budget van SEA naar andere kanalen.",
+  },
+  {
+    q: "Hoe snel levert SEO resultaat op vergeleken met SEA?",
+    a: "SEA levert binnen een dag verkeer op na het activeren van campagnes. SEO heeft doorgaans drie tot zes maanden nodig voor zichtbare resultaten, en zes tot twaalf maanden voor structurele posities. Het verschil: SEA-verkeer stopt bij budgetstop, SEO-verkeer loopt door.",
+  },
+  {
+    q: "Heeft SEA invloed op mijn SEO-posities?",
+    a: "Niet direct. Google heeft bevestigd dat betaalde advertenties geen invloed hebben op organische rankings. Indirect kan SEA wel bijdragen: meer verkeer naar je site kan leiden tot hogere merkbekendheid en meer branded searches, wat weer positief is voor SEO.",
+  },
+  {
+    q: "Wanneer is alleen SEO voldoende?",
+    a: "Als je een langetermijnhorizon hebt, beperkt budget voor advertenties, en opereert in een niche waar organische concurrentie beheersbaar is. Voor bedrijven die direct omzet moeten draaien of in zeer competitieve markten opereren, is een combinatie met SEA vrijwel altijd effectiever.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "SEO vs. SEA: wat is het verschil en wanneer kies je wat?",
+  description: "Een feitelijke vergelijking van Search Engine Optimization (SEO) en Search Engine Advertising (SEA). Kosten, doorlooptijd, rendement en wanneer je welke strategie inzet.",
+  url: canonicalUrl,
+  author: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+---
+
+<BaseLayout
+  title="SEO vs. SEA: wat is het verschil? | LuminX"
+  description="Feitelijke vergelijking van SEO en SEA. Kosten, doorlooptijd, rendement en wanneer je welke strategie inzet. Inclusief keuzehulp en veelgestelde vragen."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="vgl-page">
+
+    <section class="vgl-hero" data-bg-color="#0A0A0A">
+      <div class="vgl-hero-overlay" aria-hidden="true"></div>
+      <div class="vgl-hero-inner">
+        <span class="vgl-kicker">Vergelijking</span>
+        <h1>SEO vs. SEA</h1>
+        <p class="vgl-subtitle">Organisch of betaald? Langetermijn of direct resultaat? Dit is een feitelijke vergelijking van Search Engine Optimization en Search Engine Advertising: kosten, doorlooptijd, rendement en wanneer je welke strategie inzet.</p>
+      </div>
+    </section>
+
+    <section class="vgl-intro" data-bg-color="#FEFEFE">
+      <div class="vgl-container vgl-intro-grid">
+        <div class="vgl-intro-text">
+          <h2>Het meest gestelde marketingvraagstuk</h2>
+          <p>"Moeten we investeren in SEO of in SEA?" is een van de meest voorkomende vragen bij bedrijven die hun online zichtbaarheid willen vergroten. Het antwoord hangt af van budget, tijdshorizon, concurrentie en bedrijfsdoelen.</p>
+          <p>SEO en SEA zijn geen concurrenten maar complementaire kanalen. Toch zijn er situaties waarin het ene kanaal duidelijk meer rendement oplevert dan het andere. Deze pagina legt beide naast elkaar met feitelijke informatie over kosten, doorlooptijd en effectiviteit.</p>
+        </div>
+        <div class="vgl-intro-stats">
+          <div class="vgl-stat">
+            <strong>70%</strong>
+            <span>Van alle klikken gaat naar organische resultaten</span>
+          </div>
+          <div class="vgl-stat">
+            <strong>Direct</strong>
+            <span>SEA levert verkeer vanaf dag 1</span>
+          </div>
+          <div class="vgl-stat">
+            <strong>2x tot 5x</strong>
+            <span>ROI van SEO op lange termijn vs. SEA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vgl-definitions" data-bg-color="#F7F9FC">
+      <div class="vgl-container vgl-def-grid">
+        <article class="vgl-def-card">
+          <span class="vgl-def-label">SEO</span>
+          <h3>Search Engine Optimization</h3>
+          <p>SEO is het optimaliseren van websites om organisch hoger te ranken in zoekmachines. Het omvat technische optimalisatie, contentcreatie en linkbuilding. Verkeer via SEO is gratis per klik, maar vereist een structurele investering in content en autoriteit.</p>
+          <ul>
+            <li>Geen klikkosten na het behalen van posities</li>
+            <li>Resultaat groeit over tijd en is cumulatief</li>
+            <li>Vereist doorlopende investering in content en techniek</li>
+            <li>Doorlooptijd: 3 tot 12 maanden voor structurele posities</li>
+          </ul>
+        </article>
+        <article class="vgl-def-card vgl-def-card--accent">
+          <span class="vgl-def-label">SEA</span>
+          <h3>Search Engine Advertising</h3>
+          <p>SEA is betaald adverteren in zoekmachines, voornamelijk via Google Ads. Advertenties verschijnen bovenaan de zoekresultaten op basis van zoekwoorden, biedingen en kwaliteitsscore. Verkeer stopt zodra het budget op is of campagnes worden gepauzeerd.</p>
+          <ul>
+            <li>Direct verkeer vanaf de eerste dag</li>
+            <li>Volledige controle over targeting en budget</li>
+            <li>Betaling per klik, kosten stijgen met concurrentie</li>
+            <li>Meetbaar tot op conversieniveau</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="vgl-compare" data-bg-color="#FEFEFE">
+      <div class="vgl-container">
+        <div class="vgl-section-head">
+          <span class="vgl-label">Vergelijking</span>
+          <h2>SEO en SEA naast elkaar</h2>
+        </div>
+        <div class="vgl-table">
+          <div class="vgl-table-header">
+            <div class="vgl-table-aspect">Aspect</div>
+            <div>SEO</div>
+            <div>SEA</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Kosten</div>
+            <div>Investering in content en techniek, geen klikkosten</div>
+            <div>Betaling per klik, budget bepaalt bereik</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Snelheid</div>
+            <div>3 tot 12 maanden voor structurele posities</div>
+            <div>Direct verkeer na activatie campagne</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Duurzaamheid</div>
+            <div>Verkeer loopt door na het stoppen van investering</div>
+            <div>Verkeer stopt bij budgetstop</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Controle</div>
+            <div>Beperkt, Google bepaalt de ranking</div>
+            <div>Volledig: targeting, biedingen, planning</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Vertrouwen</div>
+            <div>Organische resultaten genieten meer vertrouwen</div>
+            <div>Gebruikers herkennen advertenties als betaald</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Data</div>
+            <div>Beperkte keyword-data via Search Console</div>
+            <div>Gedetailleerde data per zoekwoord en doelgroep</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Schaalbaarheid</div>
+            <div>Schaalt met contentproductie en autoriteit</div>
+            <div>Schaalt met budget, maar kosten stijgen mee</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Beste voor</div>
+            <div>Langetermijn merkopbouw en organisch bereik</div>
+            <div>Directe verkoop, lanceringen en seizoenspieken</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vgl-narrative" data-bg-color="#FEFEFE">
+      <div class="vgl-container vgl-narrative-inner">
+        <article class="vgl-narrative-block">
+          <h3>SEO en SEA vullen elkaar aan</h3>
+          <p>De meest effectieve zoekmachinestrategie combineert beide kanalen. SEA levert direct verkeer en waardevolle data over welke zoekwoorden converteren. Die data vormt de basis voor een gerichte SEO-strategie. Zodra organische posities groeien, verschuift het gewicht van betaald naar organisch verkeer.</p>
+          <p>Bedrijven die uitsluitend op SEA vertrouwen, zijn kwetsbaar: stijgende klikprijzen eten de marge op, en zodra het budget stopt, stopt het verkeer. Bedrijven die uitsluitend op SEO inzetten, missen direct rendement en de data die SEA oplevert. De optimale verhouding verschuift over tijd, maar vrijwel geen enkel bedrijf vaart het beste bij een exclusieve keuze voor een van beide.</p>
+        </article>
+        <article class="vgl-narrative-block">
+          <h3>Wanneer is SEA het startpunt?</h3>
+          <p>SEA is de logische keuze wanneer snelheid belangrijk is. Bij een productlancering, seizoenscampagne of wanneer een bedrijf direct omzet moet genereren, levert SEA resultaat vanaf dag een. Daarnaast is SEA waardevol voor het testen van marktvraag: welke zoekwoorden converteren? Welke productpagina's presteren? Die inzichten zijn goud waard voor de SEO-strategie die erachteraan komt.</p>
+          <p>Concrete situaties: een nieuwe webshop die direct verkopen nodig heeft, een B2B-bedrijf dat wil testen welke dienst het meeste interesse genereert, of een seizoensgebonden bedrijf dat alleen in piekperiodes adverteert.</p>
+        </article>
+        <article class="vgl-narrative-block">
+          <h3>Wanneer weegt SEO zwaarder?</h3>
+          <p>SEO weegt zwaarder wanneer een bedrijf langetermijnwaarde wil opbouwen. Organisch verkeer is cumulatief: een artikel dat vandaag goed rankt, levert morgen, volgende maand en volgend jaar verkeer op. Die eigenschap maakt SEO bijzonder rendabel voor bedrijven met een langetermijnhorizon.</p>
+          <p>Daarnaast geldt: hoe hoger de klikprijs in een branche, hoe waardevoller organisch verkeer wordt. In branches als verzekeringen, juridisch advies of financiele dienstverlening kan een enkele organische positie tienduizenden euros per maand aan advertentiekosten besparen.</p>
+        </article>
+        <article class="vgl-narrative-block">
+          <h3>De data-feedback loop</h3>
+          <p>Een van de sterkste argumenten voor het combineren van SEO en SEA is de data-feedback loop. SEA-campagnes genereren gedetailleerde data: welke zoekwoorden leiden tot conversies, welke advertentieteksten presteren en welke landingspagina's het beste werken. Die informatie is direct bruikbaar voor SEO-optimalisatie.</p>
+          <p>Andersom geldt hetzelfde. Pagina's die organisch goed presteren, zijn sterke kandidaten voor SEA-campagnes. De kwaliteitsscore in Google Ads stijgt wanneer de landingspagina relevant en goed geoptimaliseerd is, wat resulteert in lagere klikprijzen. SEO en SEA versterken elkaar op dataniveau.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="vgl-scenario" data-bg-color="#F7F9FC">
+      <div class="vgl-container">
+        <div class="vgl-section-head">
+          <span class="vgl-label">Keuzehulp</span>
+          <h2>Welk kanaal past bij jouw situatie?</h2>
+        </div>
+        <div class="vgl-scenario-grid">
+          <article class="vgl-scenario-card">
+            <h3>Startend bedrijf</h3>
+            <p>Begin met SEA voor directe zichtbaarheid en data. Investeer parallel in SEO-fundamenten: techniek, structuur en initiële content. Verschuif budget naar SEO zodra organische posities groeien.</p>
+            <div class="vgl-scenario-rec">
+              <span>SEA</span>
+              <span>+ SEO-basis</span>
+            </div>
+          </article>
+          <article class="vgl-scenario-card">
+            <h3>Gevestigd bedrijf</h3>
+            <p>Focus op SEO voor structureel organisch verkeer. Gebruik SEA selectief voor campagnes, productlanceringen of het verdedigen van merkzoekwoorden tegen concurrenten.</p>
+            <div class="vgl-scenario-rec">
+              <span>SEO</span>
+              <span>+ tactische SEA</span>
+            </div>
+          </article>
+          <article class="vgl-scenario-card">
+            <h3>E-commerce</h3>
+            <p>Combineer beide zwaar. SEA voor Shopping-campagnes en directe verkoop. SEO voor categoriepagina's, productbeschrijvingen en long-tail zoekwoorden die op termijn gratis verkeer leveren.</p>
+            <div class="vgl-scenario-rec">
+              <span>SEO + SEA</span>
+              <span>beide essentieel</span>
+            </div>
+          </article>
+          <article class="vgl-scenario-card">
+            <h3>B2B dienstverlener</h3>
+            <p>SEO is het primaire kanaal: thought leadership, pillar content en autoriteitsopbouw. SEA voor het testen van nieuwe diensten, evenementpromotie en retargeting van websitebezoekers.</p>
+            <div class="vgl-scenario-rec">
+              <span>SEO</span>
+              <span>+ gerichte SEA</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="vgl-faq" data-bg-color="#FEFEFE">
+      <div class="vgl-container vgl-faq-grid">
+        <div class="vgl-faq-left">
+          <span class="vgl-label">Veelgestelde vragen</span>
+          <h2>SEO vs. SEA: veelgestelde vragen</h2>
+          <p>Staat jouw vraag er niet bij? Neem contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="vgl-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="vgl-faq-right">
+          {faq.map((item) => (
+            <details class="vgl-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="vgl-cta" data-bg-color="#0A0A0A">
+      <div class="vgl-container">
+        <div class="vgl-cta-grid">
+          <a href="/diensten/seo" class="vgl-cta-card">
+            <span class="vgl-cta-label">SEO</span>
+            <h3>Meer over SEO</h3>
+            <p>Bekijk ons SEO specialisme</p>
+            <span class="vgl-cta-arrow">→</span>
+          </a>
+          <a href="/diensten/sea" class="vgl-cta-card vgl-cta-card--accent">
+            <span class="vgl-cta-label">SEA</span>
+            <h3>Meer over SEA</h3>
+            <p>Bekijk ons SEA specialisme</p>
+            <span class="vgl-cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>SEO, SEA of beide?<br/>We denken mee.</h2>
+        <p>Vertel ons je situatie en we adviseren welke strategie het meeste rendement oplevert voor jouw bedrijf.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .vgl-page { background: var(--white); }
+  .vgl-container { max-width: 1240px; margin: 0 auto; }
+
+  .vgl-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .vgl-section-head { margin-bottom: 3rem; }
+  .vgl-section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }
+
+  .vgl-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .vgl-inline-cta:hover { opacity: 0.6; }
+
+  /* Hero */
+  .vgl-hero {
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 12rem 4rem 6rem;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .vgl-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(200, 231, 245, 0.15), transparent 45%),
+      radial-gradient(circle at 70% 20%, rgba(255, 214, 232, 0.12), transparent 40%);
+  }
+
+  .vgl-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .vgl-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .vgl-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .vgl-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    opacity: 0.78;
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Intro */
+  .vgl-intro { padding: 6rem 4rem; }
+  .vgl-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .vgl-intro-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.25rem;
+  }
+  .vgl-intro-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .vgl-intro-stats { display: grid; gap: 1.25rem; }
+  .vgl-stat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .vgl-stat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.6rem; line-height: 1; margin-bottom: 0.25rem; }
+  .vgl-stat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  /* Definitions */
+  .vgl-definitions { padding: 6rem 4rem; }
+  .vgl-def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .vgl-def-card {
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+  }
+
+  .vgl-def-card--accent {
+    border-color: rgba(10,10,10,0.18);
+    background: linear-gradient(135deg, rgba(200, 231, 245, 0.08), rgba(255, 214, 232, 0.06));
+  }
+
+  .vgl-def-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.5rem;
+  }
+
+  .vgl-def-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .vgl-def-card p {
+    color: rgba(10,10,10,0.72);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .vgl-def-card ul {
+    list-style: none;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .vgl-def-card li {
+    position: relative;
+    padding-left: 1.1rem;
+    line-height: 1.6;
+    color: rgba(10,10,10,0.78);
+    font-size: 0.9rem;
+  }
+
+  .vgl-def-card li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--black);
+    position: absolute;
+    left: 0;
+    top: 0.58rem;
+  }
+
+  /* Comparison table */
+  .vgl-compare { padding: 6rem 4rem; }
+
+  .vgl-table {
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .vgl-table-header {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .vgl-table-header > div {
+    padding: 1rem 1.5rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .vgl-table-header > div:last-child { border-right: none; }
+
+  .vgl-table-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    border-top: 1px solid rgba(10,10,10,0.07);
+  }
+
+  .vgl-table-row > div {
+    padding: 1.1rem 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(10,10,10,0.78);
+    border-right: 1px solid rgba(10,10,10,0.05);
+  }
+
+  .vgl-table-row > div:last-child { border-right: none; }
+
+  .vgl-table-aspect {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem !important;
+    color: var(--black) !important;
+  }
+
+  /* Narrative */
+  .vgl-narrative { padding: 4rem 4rem 5rem; border-top: 1px solid rgba(10,10,10,0.06); }
+
+  .vgl-narrative-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .vgl-narrative-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    line-height: 1.15;
+    margin-bottom: 0.65rem;
+  }
+
+  .vgl-narrative-block p {
+    color: rgba(10,10,10,0.72);
+    line-height: 1.85;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .vgl-narrative-block p:last-child { margin-bottom: 0; }
+
+  /* Scenario cards */
+  .vgl-scenario { padding: 6rem 4rem; }
+  .vgl-scenario-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+
+  .vgl-scenario-card {
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vgl-scenario-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+  }
+
+  .vgl-scenario-card p {
+    font-size: 0.88rem;
+    color: rgba(10,10,10,0.68);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  .vgl-scenario-rec {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .vgl-scenario-rec span {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    background: rgba(10,10,10,0.06);
+    border-radius: 999px;
+  }
+
+  /* FAQ */
+  .vgl-faq { padding: 7rem 4rem; }
+  .vgl-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .vgl-faq-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .vgl-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+
+  .vgl-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .vgl-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .vgl-faq-item summary {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .vgl-faq-item summary::-webkit-details-marker { display: none; }
+  .vgl-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .vgl-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .vgl-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  /* CTA cards */
+  .vgl-cta { padding: 0 4rem; background: var(--black); }
+  .vgl-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; padding-bottom: 2rem; }
+
+  .vgl-cta-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    color: var(--white);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .vgl-cta-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.3); }
+
+  .vgl-cta-card--accent { border-color: rgba(255,255,255,0.22); }
+
+  .vgl-cta-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .vgl-cta-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .vgl-cta-card p { font-size: 0.88rem; opacity: 0.65; margin-bottom: auto; }
+  .vgl-cta-arrow { font-size: 1.4rem; opacity: 0.5; margin-top: 1.25rem; transition: opacity 0.2s ease; }
+  .vgl-cta-card:hover .vgl-cta-arrow { opacity: 1; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .vgl-intro-grid, .vgl-def-grid, .vgl-faq-grid, .vgl-cta-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .vgl-table-header, .vgl-table-row { grid-template-columns: 120px 1fr 1fr; }
+    .vgl-scenario-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .vgl-hero, .vgl-intro, .vgl-definitions, .vgl-compare, .vgl-narrative, .vgl-scenario, .vgl-faq, .vgl-cta {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .vgl-hero { padding-top: 9rem; padding-bottom: 4rem; }
+    .vgl-table-header, .vgl-table-row { grid-template-columns: 1fr; }
+    .vgl-table-header > div { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .vgl-table-header > div:last-child { border-bottom: none; }
+    .vgl-table-row > div { border-right: none; border-bottom: 1px solid rgba(10,10,10,0.04); }
+    .vgl-table-row > div:last-child { border-bottom: none; }
+    .vgl-table-aspect { background: rgba(10,10,10,0.03); }
+    .vgl-scenario-grid { grid-template-columns: 1fr; }
+  }
+</style>

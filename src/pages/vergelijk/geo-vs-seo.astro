@@ -1,0 +1,602 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ContactOverlay from "../../components/ContactOverlay.astro";
+
+const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const faq = [
+  {
+    q: "Wat is het verschil tussen GEO en SEO?",
+    a: "SEO optimaliseert voor posities in zoekmachines zoals Google. GEO optimaliseert voor zichtbaarheid in AI-gegenereerde antwoorden van tools als ChatGPT, Gemini en Perplexity. SEO draait om klikposities, GEO draait om geciteerd worden als bron.",
+  },
+  {
+    q: "Moet ik kiezen tussen GEO en SEO?",
+    a: "Nee. GEO en SEO versterken elkaar. Content die helder, gestructureerd en citeerbaar is, presteert beter in zowel Google als AI-antwoorden. De meeste bedrijven combineren beide disciplines binnen dezelfde contentstrategie.",
+  },
+  {
+    q: "Vervangt GEO uiteindelijk SEO?",
+    a: "Niet op korte termijn. Google verwerkt nog steeds het overgrote deel van alle zoekopdrachten. Maar het aandeel van AI-zoekopdrachten groeit elk kwartaal. Bedrijven die nu alleen op SEO inzetten, missen een groeiend kanaal. De optimale aanpak combineert beide.",
+  },
+  {
+    q: "Hoe meet je resultaten van GEO?",
+    a: "GEO-resultaten worden gemeten door systematisch te monitoren of een merk verschijnt in AI-antwoorden. Dit omvat het testen van relevante prompts in ChatGPT, Gemini en Perplexity, en het bijhouden van citatiefrequentie en context.",
+  },
+  {
+    q: "Welke bedrijven hebben het meeste baat bij GEO?",
+    a: "Bedrijven die afhankelijk zijn van kennisgedreven vindingheid profiteren het meest. Denk aan B2B-dienstverleners, adviesbureaus, SaaS-bedrijven en specialisten in nichemarkten. Hoe specifieker de expertise, hoe groter de kans op citatie door AI.",
+  },
+  {
+    q: "Hoe snel levert GEO resultaat op?",
+    a: "De eerste AI-citaties zijn doorgaans zichtbaar na drie tot zes maanden. Structurele zichtbaarheid als vaste bron binnen een branche kost zes tot twaalf maanden. GEO is vergelijkbaar met SEO qua doorlooptijd, maar de concurrentie is nu nog aanzienlijk lager.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "GEO vs. SEO: wat is het verschil en wat heb je nodig?",
+  description: "Een feitelijke vergelijking van Generative Engine Optimization (GEO) en Search Engine Optimization (SEO). Wanneer kies je welke strategie, en hoe versterken ze elkaar?",
+  url: canonicalUrl,
+  author: {
+    "@type": "Organization",
+    "@id": `${siteOrigin}/#organization`,
+    name: "LUMINX",
+    url: siteOrigin,
+  },
+};
+---
+
+<BaseLayout
+  title="GEO vs. SEO: wat is het verschil? | LuminX"
+  description="Feitelijke vergelijking van GEO en SEO. Wanneer kies je voor Generative Engine Optimization, wanneer voor Search Engine Optimization, en hoe combineer je beide?"
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <Nav basePath="/" />
+
+  <main class="vgl-page">
+
+    <section class="vgl-hero" data-bg-color="#0A0A0A">
+      <div class="vgl-hero-overlay" aria-hidden="true"></div>
+      <div class="vgl-hero-inner">
+        <span class="vgl-kicker">Vergelijking</span>
+        <h1>GEO vs. SEO</h1>
+        <p class="vgl-subtitle">Twee disciplines, twee kanalen, dezelfde fundering. Dit is een feitelijke vergelijking van Generative Engine Optimization en Search Engine Optimization: wat ze zijn, waar ze verschillen en hoe ze elkaar versterken.</p>
+      </div>
+    </section>
+
+    <section class="vgl-intro" data-bg-color="#FEFEFE">
+      <div class="vgl-container vgl-intro-grid">
+        <div class="vgl-intro-text">
+          <h2>Waarom deze vergelijking relevant is</h2>
+          <p>Het zoeklandschap verandert structureel. Google is nog steeds dominant, maar een groeiend deel van de zoekopdrachten wordt beantwoord door AI-tools als ChatGPT, Gemini en Perplexity. Dat heeft directe gevolgen voor online vindbaarheid.</p>
+          <p>SEO en GEO worden vaak als losse strategieen gepresenteerd. In de praktijk overlappen ze voor een groot deel. Toch zijn er fundamentele verschillen in doel, aanpak en meetbaarheid. Deze pagina legt beide naast elkaar.</p>
+        </div>
+        <div class="vgl-intro-stats">
+          <div class="vgl-stat">
+            <strong>85%+</strong>
+            <span>Van alle zoekopdrachten gaat nog via Google</span>
+          </div>
+          <div class="vgl-stat">
+            <strong>Elk kwartaal</strong>
+            <span>Groeit het aandeel AI-zoekopdrachten</span>
+          </div>
+          <div class="vgl-stat">
+            <strong>33%</strong>
+            <span>Van AI-citaties komt uit vergelijkingscontent</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vgl-definitions" data-bg-color="#F7F9FC">
+      <div class="vgl-container vgl-def-grid">
+        <article class="vgl-def-card">
+          <span class="vgl-def-label">SEO</span>
+          <h3>Search Engine Optimization</h3>
+          <p>SEO is het optimaliseren van websites en content om hoger te ranken in zoekmachines, met name Google. Het omvat technische optimalisatie, contentcreatie en linkbuilding. Het doel is organisch verkeer genereren door zichtbaar te zijn wanneer mensen zoeken.</p>
+          <ul>
+            <li>Optimaliseert voor Google, Bing en andere zoekmachines</li>
+            <li>Resultaat is een klikpositie in de zoekresultaten</li>
+            <li>Meetbaar via rankings, organisch verkeer en conversies</li>
+            <li>Bestaat al 25+ jaar als discipline</li>
+          </ul>
+        </article>
+        <article class="vgl-def-card vgl-def-card--accent">
+          <span class="vgl-def-label">GEO</span>
+          <h3>Generative Engine Optimization</h3>
+          <p>GEO is het optimaliseren van content, autoriteit en structuur zodat AI-tools een merk opnemen als bron in hun antwoorden. Waar SEO draait om klikposities, draait GEO om geciteerd worden. AI selecteert bronnen op basis van helderheid, feitelijkheid en autoriteit.</p>
+          <ul>
+            <li>Optimaliseert voor ChatGPT, Gemini, Perplexity en andere AI-tools</li>
+            <li>Resultaat is een citatie of vermelding in een AI-antwoord</li>
+            <li>Meetbaar via AI-monitoring en citatiefrequentie</li>
+            <li>Nieuwe discipline, weinig concurrentie</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="vgl-compare" data-bg-color="#FEFEFE">
+      <div class="vgl-container">
+        <div class="vgl-section-head">
+          <span class="vgl-label">Vergelijking</span>
+          <h2>SEO en GEO naast elkaar</h2>
+        </div>
+        <div class="vgl-table">
+          <div class="vgl-table-header">
+            <div class="vgl-table-aspect">Aspect</div>
+            <div>SEO</div>
+            <div>GEO</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Doel</div>
+            <div>Hoger ranken in zoekresultaten</div>
+            <div>Geciteerd worden in AI-antwoorden</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Platform</div>
+            <div>Google, Bing, Yahoo</div>
+            <div>ChatGPT, Gemini, Perplexity</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Contentfocus</div>
+            <div>Keyword-geoptimaliseerde pagina's</div>
+            <div>Citeerbare, feitelijke expertise</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Technisch</div>
+            <div>Core Web Vitals, crawlbaarheid, indexatie</div>
+            <div>Structured data, entiteitsherkenning, schema</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Linkbuilding</div>
+            <div>Backlinks als rankingsignaal</div>
+            <div>Vermeldingen als autoriteitssignaal</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Meting</div>
+            <div>Rankings, CTR, organisch verkeer</div>
+            <div>Citatiefrequentie, AI-zichtbaarheid</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Concurrentie</div>
+            <div>Hoog in de meeste branches</div>
+            <div>Laag, de meeste bedrijven zijn nog niet bezig</div>
+          </div>
+          <div class="vgl-table-row">
+            <div class="vgl-table-aspect">Doorlooptijd</div>
+            <div>3 tot 12 maanden voor structurele posities</div>
+            <div>3 tot 6 maanden voor eerste citaties</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vgl-narrative" data-bg-color="#FEFEFE">
+      <div class="vgl-container vgl-narrative-inner">
+        <article class="vgl-narrative-block">
+          <h3>SEO en GEO zijn geen concurrenten</h3>
+          <p>De meest voorkomende misvatting is dat GEO een vervanging is voor SEO. Dat is niet het geval. SEO en GEO delen dezelfde fundering: kwalitatieve content, technische structuur en autoriteit. Het verschil zit in het eindpunt. SEO leidt naar een klikpositie in Google. GEO leidt naar een citatie in een AI-antwoord. Beide kanalen vragen om content die helder, feitelijk en goed gestructureerd is.</p>
+          <p>In de praktijk betekent dit dat een investering in het ene kanaal ook het andere versterkt. Content die geoptimaliseerd is voor AI-citatie presteert doorgaans beter in Google, en andersom. Bedrijven die beide disciplines combineren, bouwen een bredere en veerkrachtigere online zichtbaarheid op dan bedrijven die uitsluitend op Google focussen.</p>
+        </article>
+        <article class="vgl-narrative-block">
+          <h3>Wanneer is GEO belangrijker dan SEO?</h3>
+          <p>Voor bedrijven in kennisintensieve branches is GEO bijzonder relevant. AI-tools worden het vaakst geraadpleegd voor adviesvragen, vergelijkingen en specialistische informatie. Een advocatenkantoor, technologiebedrijf of gespecialiseerd bureau heeft meer baat bij AI-citaties dan een lokale bakker.</p>
+          <p>De vuistregel: hoe complexer de vraag die een potentiele klant stelt, hoe groter de kans dat die vraag aan AI wordt gesteld in plaats van aan Google. Bedrijven die antwoord geven op complexe vragen, zijn de bedrijven die het meest profiteren van GEO.</p>
+        </article>
+        <article class="vgl-narrative-block">
+          <h3>Wanneer is SEO onmisbaar?</h3>
+          <p>SEO blijft essentieel voor transactionele zoekopdrachten. Wanneer iemand zoekt naar "schoenen kopen" of "loodgieter Amsterdam", is Google nog steeds het primaire kanaal. E-commerce, lokale dienstverlening en direct-response marketing zijn branches waar SEO het zwaarst weegt.</p>
+          <p>Daarnaast is een sterke SEO-basis een voorwaarde voor effectieve GEO. AI-systemen gebruiken dezelfde signalen als Google om betrouwbaarheid te beoordelen: domeinautoriteit, backlinks, technische gezondheid en contentstructuur. Zonder solide SEO-fundament is de kans op AI-citatie kleiner.</p>
+        </article>
+        <article class="vgl-narrative-block">
+          <h3>De optimale strategie combineert beide</h3>
+          <p>Bedrijven die het meeste rendement halen uit hun online zichtbaarheid, zetten in op zowel SEO als GEO. De contentstrategie is gericht op feitelijkheid en citeerbare helderheid. De technische basis voldoet aan de eisen van zoekmachines en AI-systemen. Autoriteit wordt opgebouwd via publicaties die zowel als backlink als als vermeldingssignaal functioneren.</p>
+          <p>Het resultaat is zichtbaarheid op twee fronten: in Google voor directe zoekopdrachten, en in AI-antwoorden voor advies- en kennisgerichte vragen. Dat is geen dubbelwerk. Het is dezelfde investering met twee rendementkanalen.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="vgl-faq" data-bg-color="#F7F9FC">
+      <div class="vgl-container vgl-faq-grid">
+        <div class="vgl-faq-left">
+          <span class="vgl-label">Veelgestelde vragen</span>
+          <h2>GEO vs. SEO: veelgestelde vragen</h2>
+          <p>Staat jouw vraag er niet bij? Neem contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="vgl-inline-cta" data-overlay-open>Stel je vraag →</a>
+        </div>
+        <div class="vgl-faq-right">
+          {faq.map((item) => (
+            <details class="vgl-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="vgl-cta" data-bg-color="#0A0A0A">
+      <div class="vgl-container">
+        <div class="vgl-cta-grid">
+          <a href="/diensten/seo" class="vgl-cta-card">
+            <span class="vgl-cta-label">SEO</span>
+            <h3>Meer over SEO</h3>
+            <p>Bekijk ons SEO specialisme</p>
+            <span class="vgl-cta-arrow">→</span>
+          </a>
+          <a href="/diensten/geo" class="vgl-cta-card vgl-cta-card--accent">
+            <span class="vgl-cta-label">GEO</span>
+            <h3>Meer over GEO</h3>
+            <p>Bekijk ons GEO specialisme</p>
+            <span class="vgl-cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
+      <div class="cta-content">
+        <h2>SEO, GEO of beide?<br/>We denken mee.</h2>
+        <p>Vertel ons je situatie en we adviseren welke strategie het meeste rendement oplevert voor jouw bedrijf.</p>
+        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      </div>
+    </section>
+
+    <Footer />
+    <ContactOverlay />
+  </main>
+</BaseLayout>
+
+<style>
+  .vgl-page { background: var(--white); }
+  .vgl-container { max-width: 1240px; margin: 0 auto; }
+
+  .vgl-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+
+  .vgl-section-head { margin-bottom: 3rem; }
+  .vgl-section-head h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+  }
+
+  .vgl-inline-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: opacity 0.2s ease;
+  }
+  .vgl-inline-cta:hover { opacity: 0.6; }
+
+  /* Hero */
+  .vgl-hero {
+    position: relative;
+    background: var(--black);
+    color: var(--white);
+    padding: 12rem 4rem 6rem;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .vgl-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 25% 20%, rgba(229, 212, 237, 0.15), transparent 45%),
+      radial-gradient(circle at 75% 30%, rgba(200, 231, 245, 0.12), transparent 40%);
+  }
+
+  .vgl-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .vgl-kicker {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.48;
+    margin-bottom: 1rem;
+  }
+
+  .vgl-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .vgl-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    opacity: 0.78;
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Intro */
+  .vgl-intro { padding: 6rem 4rem; }
+  .vgl-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .vgl-intro-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    margin-bottom: 1.25rem;
+  }
+  .vgl-intro-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
+
+  .vgl-intro-stats { display: grid; gap: 1.25rem; }
+  .vgl-stat { border-left: 3px solid var(--black); padding-left: 1rem; }
+  .vgl-stat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.6rem; line-height: 1; margin-bottom: 0.25rem; }
+  .vgl-stat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
+
+  /* Definitions */
+  .vgl-definitions { padding: 6rem 4rem; }
+  .vgl-def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .vgl-def-card {
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.09);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+  }
+
+  .vgl-def-card--accent {
+    border-color: rgba(10,10,10,0.18);
+    background: linear-gradient(135deg, rgba(229, 212, 237, 0.08), rgba(200, 231, 245, 0.06));
+  }
+
+  .vgl-def-label {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.5rem;
+  }
+
+  .vgl-def-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .vgl-def-card p {
+    color: rgba(10,10,10,0.72);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .vgl-def-card ul {
+    list-style: none;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .vgl-def-card li {
+    position: relative;
+    padding-left: 1.1rem;
+    line-height: 1.6;
+    color: rgba(10,10,10,0.78);
+    font-size: 0.9rem;
+  }
+
+  .vgl-def-card li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--black);
+    position: absolute;
+    left: 0;
+    top: 0.58rem;
+  }
+
+  /* Comparison table */
+  .vgl-compare { padding: 6rem 4rem; }
+
+  .vgl-table {
+    border: 1px solid rgba(10,10,10,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .vgl-table-header {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .vgl-table-header > div {
+    padding: 1rem 1.5rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .vgl-table-header > div:last-child { border-right: none; }
+
+  .vgl-table-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    border-top: 1px solid rgba(10,10,10,0.07);
+  }
+
+  .vgl-table-row > div {
+    padding: 1.1rem 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(10,10,10,0.78);
+    border-right: 1px solid rgba(10,10,10,0.05);
+  }
+
+  .vgl-table-row > div:last-child { border-right: none; }
+
+  .vgl-table-aspect {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem !important;
+    color: var(--black) !important;
+  }
+
+  /* Narrative */
+  .vgl-narrative { padding: 4rem 4rem 5rem; border-top: 1px solid rgba(10,10,10,0.06); }
+
+  .vgl-narrative-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .vgl-narrative-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    line-height: 1.15;
+    margin-bottom: 0.65rem;
+  }
+
+  .vgl-narrative-block p {
+    color: rgba(10,10,10,0.72);
+    line-height: 1.85;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .vgl-narrative-block p:last-child { margin-bottom: 0; }
+
+  /* FAQ */
+  .vgl-faq { padding: 7rem 4rem; }
+  .vgl-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .vgl-faq-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .vgl-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
+
+  .vgl-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
+  .vgl-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
+  .vgl-faq-item summary {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .vgl-faq-item summary::-webkit-details-marker { display: none; }
+  .vgl-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .vgl-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
+  .vgl-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+
+  /* CTA cards */
+  .vgl-cta { padding: 0 4rem; background: var(--black); }
+  .vgl-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; padding-bottom: 2rem; }
+
+  .vgl-cta-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    color: var(--white);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .vgl-cta-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.3); }
+
+  .vgl-cta-card--accent { border-color: rgba(255,255,255,0.22); }
+
+  .vgl-cta-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .vgl-cta-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .vgl-cta-card p { font-size: 0.88rem; opacity: 0.65; margin-bottom: auto; }
+  .vgl-cta-arrow { font-size: 1.4rem; opacity: 0.5; margin-top: 1.25rem; transition: opacity 0.2s ease; }
+  .vgl-cta-card:hover .vgl-cta-arrow { opacity: 1; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .vgl-intro-grid, .vgl-def-grid, .vgl-faq-grid, .vgl-cta-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .vgl-table-header, .vgl-table-row { grid-template-columns: 120px 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .vgl-hero, .vgl-intro, .vgl-definitions, .vgl-compare, .vgl-narrative, .vgl-faq, .vgl-cta {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .vgl-hero { padding-top: 9rem; padding-bottom: 4rem; }
+    .vgl-table-header, .vgl-table-row { grid-template-columns: 1fr; }
+    .vgl-table-header > div { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .vgl-table-header > div:last-child { border-bottom: none; }
+    .vgl-table-row > div { border-right: none; border-bottom: 1px solid rgba(10,10,10,0.04); }
+    .vgl-table-row > div:last-child { border-bottom: none; }
+    .vgl-table-aspect { background: rgba(10,10,10,0.03); }
+  }
+</style>
