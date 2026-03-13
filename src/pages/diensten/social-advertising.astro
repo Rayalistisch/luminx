@@ -27,55 +27,55 @@ const kanalen = [
   {
     icon: "◉",
     title: "Meta Ads",
-    description: "Facebook en Instagram campagnes met precieze doelgroepsturing op demografie, interesse en gedrag — van awareness tot directe conversie.",
+    description: "Facebook en Instagram bieden doelgroepsturing op demografie, interesse en gedrag. Het platform dekt de volledige funnel: van awareness tot directe conversie.",
   },
   {
     icon: "◈",
     title: "LinkedIn Ads",
-    description: "B2B-campagnes gericht op functietitel, sector en bedrijfsgrootte. Ideaal voor het bereiken van beslissers met een gerichte boodschap.",
+    description: "LinkedIn segmenteert op functietitel, sector en bedrijfsgrootte. Dit maakt het platform het meest geschikte kanaal om B2B-beslissers met een gerichte boodschap te bereiken.",
   },
   {
     icon: "◌",
     title: "TikTok Ads",
-    description: "Native video-advertenties die opgaan in de feed. Sterk in merkbekendheid en het bereiken van jongere, actief betrokken doelgroepen.",
+    description: "TikTok levert native video-advertenties die opgaan in de feed. Het platform scoort sterk op merkbekendheid en bereikt jongere, actief betrokken doelgroepen.",
   },
   {
     icon: "◎",
     title: "Pinterest Ads",
-    description: "Visuele productadvertenties voor lifestyle, wonen, mode en food. Bereik mensen actief op zoek naar inspiratie en aankoopideeën.",
+    description: "Pinterest richt zich op visuele productadvertenties in sectoren als lifestyle, wonen, mode en food. Gebruikers bevinden zich actief in de inspiratie- en aankoopfase.",
   },
   {
     icon: "✦",
     title: "Retargeting",
-    description: "Warme doelgroepen opnieuw bereiken: websitebezoekers, videokijkers en abandon-cart segmenten met gepersonaliseerde boodschappen.",
+    description: "Retargeting bereikt warme doelgroepen opnieuw: websitebezoekers, videokijkers en abandon-cart segmenten ontvangen gepersonaliseerde boodschappen op basis van eerder gedrag.",
   },
   {
     icon: "●",
     title: "UGC & Creator content",
-    description: "Authentieke advertenties op basis van user-generated content en creator-samenwerkingen die de verborgen kosten per resultaat verlagen.",
+    description: "Advertenties op basis van user-generated content en creator-samenwerkingen presteren doorgaans authentieker en verlagen de kosten per resultaat ten opzichte van studio-content.",
   },
 ];
 
 const benefits = [
   {
     title: "Precisiemeting op doelgroep en kanaal",
-    body: "We testen systematisch welke doelgroepen, kanalen en formats het beste presteren. Elk euro advertentiebudget wordt ingezet op basis van bewezen data, niet op aannames.",
+    body: "Systematisch testen op doelgroep, kanaal en format bepaalt waar het advertentiebudget het hoogste rendement oplevert. Datagedreven allocatie vervangt aannames.",
   },
   {
     title: "Creative testing op schaal",
-    body: "Creatives zijn de grootste hefboom in paid social. We draaien gestructureerde A/B-tests op tekst, beeld, format en call-to-action om de winnaars te identificeren en op te schalen.",
+    body: "Creatives vormen de grootste hefboom in paid social. Gestructureerde A/B-tests op tekst, beeld, format en call-to-action identificeren winnaars die vervolgens worden opgeschaald.",
   },
   {
     title: "Full-funnel aanpak van awareness tot conversie",
-    body: "We bouwen campagnes voor elke fase van de klantreis: awareness voor nieuwe doelgroepen, consideration voor geïnteresseerden, en conversie voor warme leads die klaar zijn om te handelen.",
+    body: "Een full-funnel aanpak dekt elke fase van de klantreis: awareness voor nieuwe doelgroepen, consideration voor geinteresseerden, en conversie voor warme leads die klaar zijn om te handelen.",
   },
   {
     title: "Snelle iteratie op basis van realtime data",
-    body: "Social advertising heeft korte feedbackcycli. We optimaliseren wekelijks op basis van actuele data — dat betekent dat slechte advertenties snel stoppen en winnaars meer budget krijgen.",
+    body: "Social advertising kent korte feedbackcycli. Wekelijkse optimalisatie op basis van actuele data zorgt ervoor dat ondermaats presterende advertenties snel worden gestopt en winnaars meer budget ontvangen.",
   },
   {
     title: "Volledig accounteigenaarschap bij de klant",
-    body: "We werken altijd in jouw eigen advertentieaccounts, nooit in gedeelde agentschapsaccounts. Volledige transparantie op budget, resultaten en kosten is voor ons een basisvereiste.",
+    body: "Best practice in social advertising is dat de adverteerder eigenaar blijft van alle advertentieaccounts. Dit garandeert volledige transparantie op budget, resultaten en kosten, ongeacht de samenwerking met een bureau.",
   },
 ];
 
@@ -101,6 +101,16 @@ const faq = [
     a: "Organisch social is je aanwezigheid via berichten, stories en reels die je gratis plaatst. Bereik is beperkt tot je bestaande volgers. Betaald social (advertising) geeft je de mogelijkheid om gericht nieuwe doelgroepen te bereiken, te segmenteren en te schalen op basis van resultaat.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -108,6 +118,7 @@ const faq = [
   description="Social advertising campagnes op Meta, LinkedIn en TikTok die je doelgroep bereiken en merkbekendheid omzetten in leads en conversies."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />
@@ -121,7 +132,7 @@ const faq = [
           <a href="/diensten/online-marketing" class="social-back-link">← Online Marketing</a>
           <span class="social-kicker">Specialisme</span>
           <h1><span class="social-icon" aria-hidden="true">◉</span> Social Advertising</h1>
-          <p class="social-intro-p">We bouwen paid social campagnes die meer doen dan bereik genereren — ze trekken de juiste mensen aan, op het kanaal waar ze al zijn, met creatives die converteren.</p>
+          <p class="social-intro-p">Effectieve social advertising combineert doelgroepdata, platformkennis en creatieve iteratie om de juiste mensen te bereiken, op het kanaal waar ze actief zijn, met advertenties die aanzetten tot actie.</p>
           <div class="social-actions">
             <a href="#contact" class="social-btn-primary">Plan kennismaking</a>
             <a href="#aanpak" class="social-btn-secondary">Bekijk aanpak</a>
@@ -142,11 +153,11 @@ const faq = [
           </div>
         </div>
         <aside class="social-hero-panel">
-          <span>Wat je direct merkt</span>
+          <span>Meetbare uitkomsten</span>
           <ul>
-            <li>Meer merkbekendheid bij de juiste doelgroep</li>
-            <li>Hogere kwaliteit leads via gerichte funnelcampagnes</li>
-            <li>Lagere kosten per conversie door voortdurende creatieve tests</li>
+            <li>Merkbekendheid stijgt binnen de gedefinieerde doelgroep</li>
+            <li>Leadkwaliteit verbetert door gerichte funnelsegmentatie</li>
+            <li>Kosten per conversie dalen door structurele creatieve tests</li>
           </ul>
         </aside>
       </div>
@@ -156,9 +167,9 @@ const faq = [
       <div class="social-container social-what-grid">
         <div class="social-what-text">
           <span class="social-label">Wat is social advertising?</span>
-          <h2>Betaalde social campagnes die verder gaan dan bereik</h2>
-          <p>Social advertising is het inzetten van betaalde advertenties op social platforms als Meta, LinkedIn en TikTok. Je bereikt specifieke doelgroepen op basis van hun gedrag, interesses en demografische kenmerken — niet alleen je eigen volgers.</p>
-          <p>Waar organisch social afhankelijk is van algoritmes en bestaande volgers, geeft betaald social je de controle. Je bepaalt wie je bereikt, met welke boodschap en op welk moment. Goed ingezet is social advertising een schaalbare machine die merkbekendheid en leads genereert.</p>
+          <h2>Betaalde social campagnes die doelgroepen bereiken buiten het eigen netwerk</h2>
+          <p>Social advertising is het inkopen van advertentieruimte op platforms als Meta, LinkedIn en TikTok. Adverteerders bereiken hiermee specifieke doelgroepen op basis van gedrag, interesses en demografische kenmerken, onafhankelijk van het eigen volgersbestand.</p>
+          <p>In tegenstelling tot organisch social, dat afhankelijk is van platformalgoritmes, biedt betaald social volledige controle over bereik, boodschap en timing. Bij juiste inzet functioneert social advertising als een schaalbaar acquisitiekanaal voor merkbekendheid en leadgeneratie.</p>
           <a href="#contact" class="social-inline-cta" data-overlay-open>Gratis campagneadvies →</a>
         </div>
         <div class="social-what-visual" aria-hidden="true">
@@ -197,8 +208,8 @@ const faq = [
       <div class="social-container">
         <div class="social-section-head centered">
           <span class="social-label">Kanalen & formats</span>
-          <h2>Wat wij voor je beheren</h2>
-          <p>Van Facebook tot LinkedIn en TikTok — we beheersen elk platform en zetten het juiste kanaal in op het juiste moment in de funnel.</p>
+          <h2>De belangrijkste social advertising kanalen in Nederland</h2>
+          <p>Elk platform bedient een ander segment van de funnel. Effectieve social advertising combineert kanalen op basis van doelgroep, fase en advertentieformat.</p>
         </div>
         <div class="social-cards-grid">
           {kanalen.map((item) => (
@@ -215,9 +226,9 @@ const faq = [
     <section class="social-benefits" data-bg-color="#FEFEFE">
       <div class="social-container social-benefits-grid">
         <div class="social-benefits-left">
-          <span class="social-label">Waarom uitbesteden?</span>
-          <h2>Voordelen van professioneel social advertising-beheer</h2>
-          <p>Social platforms veranderen continu: algoritmes, advertentieformats, doelgroepsturing en biedstrategieën evolueren snel. Een specialist houdt bij wat werkt en past dit direct toe op jouw campagnes.</p>
+          <span class="social-label">Voordelen</span>
+          <h2>Kenmerken van effectief social advertising-beheer</h2>
+          <p>Social platforms veranderen continu: algoritmes, advertentieformats, doelgroepsturing en biedstrategieen evolueren snel. Professioneel beheer vereist dat deze ontwikkelingen structureel worden gevolgd en toegepast.</p>
           <div class="social-benefit-stats">
             <div class="social-bstat">
               <strong>3×</strong>
@@ -244,28 +255,28 @@ const faq = [
       <div class="social-container">
         <div class="social-section-head">
           <span class="social-label">Aanpak</span>
-          <h2>Van doelgroeponderzoek naar schaalbare campagnes in vier fases.</h2>
+          <h2>Vier fases van doelgroeponderzoek naar schaalbare campagnes</h2>
         </div>
         <div class="social-steps">
           <article class="social-step">
             <span class="social-step-num">01</span>
             <h3>Doelgroep & strategie</h3>
-            <p>Doelgroeponderzoek, kanaaladvies en campagnestrategie op basis van jouw doelstellingen, budget en de fase in de klantreis.</p>
+            <p>Doelgroeponderzoek, kanaalselectie en campagnestrategie worden bepaald op basis van bedrijfsdoelstellingen, beschikbaar budget en de fase in de klantreis.</p>
           </article>
           <article class="social-step">
             <span class="social-step-num">02</span>
             <h3>Creatie & opzet</h3>
-            <p>Creatieve concepten en copy per doelgroep en kanaal, campagne-opzet, pixel- en eventinstallatie voor correcte conversietracking.</p>
+            <p>Creatieve concepten en copy worden ontwikkeld per doelgroep en kanaal. Daarnaast vindt campagne-opzet, pixel- en eventinstallatie plaats voor correcte conversietracking.</p>
           </article>
           <article class="social-step">
             <span class="social-step-num">03</span>
             <h3>Livegang & optimalisatie</h3>
-            <p>Livegang en wekelijkse optimalisatie in de eerste maand op doelgroepen, plaatsingen, creatives en biedstrategieën.</p>
+            <p>Na livegang volgt wekelijkse optimalisatie in de eerste maand op doelgroepen, plaatsingen, creatives en biedstrategieen.</p>
           </article>
           <article class="social-step">
             <span class="social-step-num">04</span>
             <h3>Schalen & uitbreiden</h3>
-            <p>Schaalstrategie op basis van bewezen winnaars en datapunten. Uitbreiding naar nieuwe doelgroepen, kanalen en advertentieformats.</p>
+            <p>De schaalfase bouwt voort op bewezen winnaars en datapunten. Uitbreiding richt zich op nieuwe doelgroepen, kanalen en advertentieformats.</p>
           </article>
         </div>
       </div>
@@ -274,25 +285,25 @@ const faq = [
     <section class="social-context" data-bg-color="#FEFEFE">
       <div class="social-container social-context-grid">
         <article class="social-block">
-          <h2>Waar organisaties op vastlopen</h2>
+          <h2>Veelvoorkomende knelpunten bij social advertising</h2>
           <ul class="social-list social-list--muted">
-            <li>Social ads bereiken veel mensen maar leveren nauwelijks leads</li>
-            <li>Creatives worden eenmalig gemaakt zonder structurele tests</li>
-            <li>Doelgroepinstellingen zijn te breed of niet afgestemd op de funnel</li>
-            <li>Geen retargeting-strategie voor bezoekers die al interesse toonden</li>
-            <li>Budget verdwijnt zonder inzicht in welke campagnes converteren</li>
-            <li>Pixel en conversietracking zijn niet correct ingesteld</li>
+            <li>Hoog bereik zonder proportionele leadgeneratie</li>
+            <li>Creatives worden eenmalig geproduceerd zonder structurele testcycli</li>
+            <li>Doelgroepinstellingen zijn te breed of niet afgestemd op de funnelfase</li>
+            <li>Retargeting ontbreekt voor bezoekers die al interesse toonden</li>
+            <li>Budgetallocatie vindt plaats zonder inzicht in campagneprestaties</li>
+            <li>Pixel- en conversietracking zijn niet correct geconfigureerd</li>
           </ul>
         </article>
         <article class="social-block social-block--soft">
-          <h2>Wat wij concreet opleveren</h2>
+          <h2>Wat professioneel social advertising oplevert</h2>
           <ul class="social-list">
-            <li>Kanaalstrategie per fase: awareness, overweging en conversie</li>
-            <li>Creatieve concepten en copy per doelgroep en kanaal</li>
-            <li>Uitgebreide A/B-tests op doelgroepen, creatives en formats</li>
-            <li>Retargeting-funnels voor warme doelgroepen en lookalikes</li>
+            <li>Kanaalstrategie per funnelfase: awareness, overweging en conversie</li>
+            <li>Creatieve concepten en copy afgestemd op doelgroep en kanaal</li>
+            <li>Structurele A/B-tests op doelgroepen, creatives en formats</li>
+            <li>Retargeting-funnels voor warme doelgroepen en lookalike-audiences</li>
             <li>Volledige conversietracking via Pixel, CAPI en GA4</li>
-            <li>Maandelijkse rapportage met conclusies en aanbevelingen</li>
+            <li>Periodieke rapportage met conclusies en aanbevelingen</li>
           </ul>
         </article>
       </div>

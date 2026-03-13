@@ -28,55 +28,55 @@ const specialismen = [
   {
     icon: "◎",
     title: "Technische SEO",
-    description: "Crawling, indexering, Core Web Vitals en sitespeed: we lossen de technische blokkades op die Google ervan weerhouden jouw site te ranken.",
+    description: "Crawling, indexering, Core Web Vitals en sitespeed vormen de technische basis van SEO. Zonder correcte technische configuratie kan Google een website niet volledig ranken.",
   },
   {
     icon: "◈",
     title: "Zoekwoordstrategie",
-    description: "Intent-based zoekwoordonderzoek dat focust op de zoekopdrachten die daadwerkelijk leads en omzet opleveren, niet alleen op volume.",
+    description: "Effectief zoekwoordonderzoek richt zich op zoekintentie en commercieel potentieel. Zoekvolume alleen is geen betrouwbare indicator voor waarde.",
   },
   {
     icon: "◉",
     title: "Content SEO",
-    description: "Contentstrategie en -productie die aansluit op elke fase van de klantreis, van oriëntatie tot aankoop.",
+    description: "Content die aansluit op elke fase van de klantreis (oriëntatie, vergelijking, aankoop) vergroot zowel organische zichtbaarheid als conversiekans.",
   },
   {
     icon: "◌",
     title: "Linkbuilding",
-    description: "Autoriteitsopbouw via kwalitatieve publicaties, gastartikelen en digitale PR die duurzame rankings ondersteunen.",
+    description: "Domeinautoriteit is een van de sterkste rankingfactoren. Kwalitatieve backlinks via relevante publicaties, gastartikelen en digitale PR versterken die autoriteit structureel.",
   },
   {
     icon: "✦",
     title: "Lokale SEO",
-    description: "Zichtbaarheid in de regio via Google Business Profile, lokale citaties en geo-gerichte contentoptimalisatie.",
+    description: "Voor regio-gebonden bedrijven is lokale SEO essentieel. Google Business Profile, lokale citaties en geo-gerichte content bepalen de zichtbaarheid in lokale zoekresultaten.",
   },
   {
     icon: "●",
     title: "E-commerce SEO",
-    description: "Categoriestructuur, productpagina-optimalisatie en schema markup die organisch verkeer direct omzetten in conversies.",
+    description: "In e-commerce bepalen categoriestructuur, productpagina-optimalisatie en schema markup hoe effectief organisch verkeer converteert naar omzet.",
   },
 ];
 
 const benefits = [
   {
-    title: "Duurzame traffic zonder doorlopend advertentiebudget",
-    body: "Organisch verkeer blijft komen ook als je stopt met investeren, in tegenstelling tot SEA waarbij de stroom direct ophoudt. Eenmaal goed gerankt, lever je elke dag gratis bezoekers.",
+    title: "Organisch verkeer is cumulatief, advertentieverkeer niet",
+    body: "Bij SEA stopt het verkeer zodra het budget stopt. Organische posities blijven verkeer genereren zonder kosten per klik. Dat maakt SEO op termijn de meest kostenefficiënte bron van websiteverkeer.",
   },
   {
-    title: "Technische expertise die intern zelden aanwezig is",
-    body: "SEO raakt aan crawling, sitespeed, serverconfiguratie, JavaScript rendering en Core Web Vitals. Een specialist brengt de technische diepgang die de meeste marketing- of webteams intern missen.",
+    title: "Technische SEO vereist specialistische kennis",
+    body: "Crawling, sitespeed, serverconfiguratie, JavaScript rendering en Core Web Vitals vallen buiten de expertise van de meeste marketing- en webteams. Technische SEO-fouten zijn een van de meest voorkomende oorzaken van slechte organische prestaties.",
   },
   {
-    title: "Data-gedreven beslissingen op rankings en conversies",
-    body: "We rapporteren niet alleen op posities, maar op verkeer, conversies en omzet. Zo weet je precies welke SEO-inspanningen daadwerkelijk bijdragen aan jouw bedrijfsdoelen.",
+    title: "SEO-resultaten zijn meetbaar tot op conversieniveau",
+    body: "Professionele SEO-rapportage gaat verder dan rankingposities. Door verkeer, conversies en omzet te koppelen aan specifieke optimalisaties wordt zichtbaar welke inspanningen daadwerkelijk bijdragen aan bedrijfsdoelen.",
   },
   {
-    title: "Geïntegreerde aanpak: techniek, content én autoriteit",
-    body: "De drie pijlers van SEO werken als een systeem. Techniek zorgt voor indexeerbaarheid, content voor relevantie, en linkbuilding voor autoriteit. We optimaliseren alle drie in samenhang.",
+    title: "De drie SEO-pijlers werken alleen in samenhang",
+    body: "Techniek zorgt voor indexeerbaarheid, content voor relevantie, en linkbuilding voor autoriteit. Organisaties die slechts één of twee pijlers optimaliseren, behalen structureel lagere resultaten dan bij een geïntegreerde aanpak.",
   },
   {
-    title: "Schaalbaar zonder extra headcount",
-    body: "Je hebt een volledig SEO-team ter beschikking, technisch specialist, contentstrateeg en linkbuilder, zonder zelf te werven, in te werken of capaciteit te managen.",
+    title: "Extern SEO-team schaalt zonder wervingskosten",
+    body: "Een volledig SEO-team (technisch specialist, contentstrateeg, linkbuilder) intern opbouwen kost tijd en budget. Uitbesteding geeft directe toegang tot alle disciplines zonder werving, inwerkperiode of capaciteitsmanagement.",
   },
 ];
 
@@ -102,6 +102,16 @@ const faq = [
     a: "We werken met Screaming Frog, Ahrefs, Google Search Console, SEMrush en Google Analytics 4. Deze combinatie geeft inzicht in technische issues, backlinks, zoekwoorden, concurrentie en conversies.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -109,6 +119,7 @@ const faq = [
   description="Hogere organische posities via technische SEO, contentstrategie en linkbuilding die duurzaam verkeer en leads opleveren. Professionele SEO door LuminX."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />
@@ -122,7 +133,7 @@ const faq = [
           <a href="/diensten/online-marketing" class="seo-back-link">← Online Marketing</a>
           <span class="seo-kicker">Specialisme</span>
           <h1><span class="seo-icon" aria-hidden="true">◎</span> SEO</h1>
-          <p class="seo-intro-p">We bouwen een SEO-fundament dat jouw site vindbaar maakt voor de zoekopdrachten die er écht toe doen — met techniek, content en autoriteit als drie pijlers.</p>
+          <p class="seo-intro-p">Effectieve SEO rust op drie pijlers: technische gezondheid, relevante content en domeinautoriteit. Samen bepalen ze of een website vindbaar is op de zoekopdrachten die commercieel ertoe doen.</p>
           <div class="seo-actions">
             <a href="#contact" class="seo-btn-primary">Plan kennismaking</a>
             <a href="#aanpak" class="seo-btn-secondary">Bekijk aanpak</a>
@@ -143,11 +154,11 @@ const faq = [
           </div>
         </div>
         <aside class="seo-hero-panel">
-          <span>Wat je direct merkt</span>
+          <span>Meetbare effecten van SEO</span>
           <ul>
-            <li>Hogere organische posities op commerciële zoekwoorden</li>
-            <li>Meer kwalitatief verkeer zonder doorlopende advertentiekosten</li>
-            <li>Betere gebruikerservaring door technisch gezonde website</li>
+            <li>Organische posities stijgen op commercieel relevante zoekwoorden</li>
+            <li>Kwalitatief verkeer groeit zonder doorlopende advertentiekosten</li>
+            <li>Technische websitekwaliteit verbetert de gebruikerservaring en crawlbaarheid</li>
           </ul>
         </aside>
       </div>
@@ -157,9 +168,9 @@ const faq = [
       <div class="seo-container seo-what-grid">
         <div class="seo-what-text">
           <span class="seo-label">Wat is SEO?</span>
-          <h2>Organische zichtbaarheid als langetermijn groeistrategie</h2>
-          <p>Search Engine Optimisation (SEO) is het structureel verbeteren van de vindbaarheid van jouw website in zoekmachines als Google. Dat doe je via drie pijlers: techniek, content en autoriteit — elk onmisbaar voor duurzame rankings.</p>
-          <p>SEO vraagt meer geduld dan betaald adverteren, maar bouwt iets blijvends op. Eenmaal goed gepositioneerd genereer je dag na dag gratis, kwalitatief verkeer zonder dat je elke klik betaalt. Dat maakt SEO op termijn het meest rendabele marketingkanaal.</p>
+          <h2>Zoekmachineoptimalisatie: definitie en werking</h2>
+          <p>Search Engine Optimization (SEO) is het systematisch verbeteren van de vindbaarheid van een website in organische zoekresultaten. De drie pijlers van SEO zijn technische optimalisatie, contentrelevantie en domeinautoriteit. Elk onderdeel is noodzakelijk voor duurzame rankings.</p>
+          <p>In tegenstelling tot betaald adverteren (SEA) levert SEO geen direct verkeer op, maar bouwt het een cumulatief effect op. Goed gepositioneerde pagina's genereren continu organisch verkeer zonder kosten per klik. Daarmee is SEO voor de meeste organisaties op termijn het meest rendabele digitale marketingkanaal.</p>
           <a href="#contact" class="seo-inline-cta" data-overlay-open>Gratis SEO-analyse →</a>
         </div>
         <div class="seo-what-visual" aria-hidden="true">
@@ -198,8 +209,8 @@ const faq = [
       <div class="seo-container">
         <div class="seo-section-head centered">
           <span class="seo-label">Specialismen</span>
-          <h2>Wat wij voor je optimaliseren</h2>
-          <p>Van technische audits tot contentstrategie en linkbuilding — we beheersen het volledige SEO-spectrum en zetten elk onderdeel in op de juiste prioriteit.</p>
+          <h2>De zes disciplines van professionele SEO</h2>
+          <p>Een effectieve SEO-strategie omvat technische optimalisatie, contentstrategie en linkbuilding. Elk specialisme adresseert een specifiek onderdeel van het rankingalgoritme.</p>
         </div>
         <div class="seo-cards-grid">
           {specialismen.map((item) => (
@@ -217,8 +228,8 @@ const faq = [
       <div class="seo-container seo-benefits-grid">
         <div class="seo-benefits-left">
           <span class="seo-label">Waarom uitbesteden?</span>
-          <h2>Voordelen van professionele SEO-begeleiding</h2>
-          <p>SEO is een vakgebied dat voortdurend evolueert. Google rolt meerdere algoritme-updates per jaar uit en de lat voor technische kwaliteit en content stijgt continu. Dit zijn de voordelen van samenwerken met een specialist.</p>
+          <h2>Wat professionele SEO oplevert ten opzichte van intern beheer</h2>
+          <p>Google voert meerdere algoritme-updates per jaar door. De technische en inhoudelijke eisen voor organische zichtbaarheid stijgen continu. Dat maakt SEO een specialistisch vakgebied met meetbare voordelen bij professionele uitvoering.</p>
           <div class="seo-benefit-stats">
             <div class="seo-bstat">
               <strong>90%</strong>
@@ -245,28 +256,28 @@ const faq = [
       <div class="seo-container">
         <div class="seo-section-head">
           <span class="seo-label">Aanpak</span>
-          <h2>Van audit naar duurzame organische groei in vier fases.</h2>
+          <h2>Vier fases van audit naar duurzame organische groei</h2>
         </div>
         <div class="seo-steps">
           <article class="seo-step">
             <span class="seo-step-num">01</span>
             <h3>Audit & analyse</h3>
-            <p>Technische SEO-audit, zoekwoordonderzoek op basis van intent en volume, en concurrentieanalyse op jouw meest waardevolle zoekterms.</p>
+            <p>Een technische SEO-audit brengt indexeringsproblemen in kaart. Zoekwoordonderzoek op basis van intent en volume identificeert de meest waardevolle zoektermen. Concurrentieanalyse toont de haalbaarheid per zoekterm.</p>
           </article>
           <article class="seo-step">
             <span class="seo-step-num">02</span>
             <h3>Strategie</h3>
-            <p>Prioriteitenlijst per pijler: welke technische issues eerst, welke contentkansen het meest renderen, en waar linkbuilding het hardst nodig is.</p>
+            <p>Op basis van de audit ontstaat een prioriteitenlijst per pijler: welke technische issues het meeste effect hebben, welke contentkansen het hoogste rendement bieden, en waar linkbuilding het verschil maakt.</p>
           </article>
           <article class="seo-step">
             <span class="seo-step-num">03</span>
             <h3>Implementatie</h3>
-            <p>Technische fixes, contentcreatie en -optimalisatie, en structurele linkbuilding via relevante publicaties en digitale PR.</p>
+            <p>De implementatiefase omvat technische fixes, contentcreatie en -optimalisatie, en structurele linkbuilding via relevante publicaties en digitale PR.</p>
           </article>
           <article class="seo-step">
             <span class="seo-step-num">04</span>
             <h3>Meten & optimaliseren</h3>
-            <p>Maandelijkse rapportage op rankings, organisch verkeer en conversies. We passen de strategie aan op basis van data en algoritme-updates.</p>
+            <p>Maandelijkse rapportage op rankings, organisch verkeer en conversies maakt het mogelijk de strategie bij te sturen op basis van actuele data en algoritme-updates.</p>
           </article>
         </div>
       </div>
@@ -275,25 +286,25 @@ const faq = [
     <section class="seo-context" data-bg-color="#FEFEFE">
       <div class="seo-container seo-context-grid">
         <article class="seo-block">
-          <h2>Waar organisaties op vastlopen</h2>
+          <h2>Veelvoorkomende SEO-knelpunten bij organisaties</h2>
           <ul class="seo-list seo-list--muted">
-            <li>De website staat niet op relevante zoekwoorden in Google</li>
-            <li>Technische fouten blokkeren crawling en indexering</li>
-            <li>Content sluit niet aan op de zoekintenties van de doelgroep</li>
-            <li>Concurrenten domineren de zoekresultaten in de regio of niche</li>
-            <li>Geen inzicht in welke SEO-activiteiten daadwerkelijk omzet genereren</li>
-            <li>Rankings fluctueren zonder duidelijke oorzaak of strategie</li>
+            <li>De website rankt niet op commercieel relevante zoekwoorden</li>
+            <li>Technische fouten verhinderen correcte crawling en indexering door Google</li>
+            <li>Bestaande content sluit niet aan op de zoekintenties van de doelgroep</li>
+            <li>Concurrenten met sterkere domeinautoriteit domineren de zoekresultaten</li>
+            <li>Er ontbreekt inzicht in welke SEO-activiteiten daadwerkelijk omzet genereren</li>
+            <li>Rankingfluctuaties treden op zonder duidelijke diagnose of bijsturingsstrategie</li>
           </ul>
         </article>
         <article class="seo-block seo-block--soft">
-          <h2>Wat wij concreet opleveren</h2>
+          <h2>Wat een SEO-traject oplevert</h2>
           <ul class="seo-list">
-            <li>Technische SEO-audit met prioriteitenlijst en directe fixes</li>
-            <li>Zoekwoordstrategie op basis van volume, intent en haalbaarheid</li>
-            <li>Contentplan en -productie afgestemd op de klantreis</li>
-            <li>Linkbuilding en autoriteitsopbouw via relevante publicaties</li>
-            <li>Maandelijkse rapportage op rankings, verkeer en conversies</li>
-            <li>Proactief advies bij algoritme-updates van Google</li>
+            <li>Technische SEO-audit met geprioriteerde actielijst en directe fixes</li>
+            <li>Zoekwoordstrategie gebaseerd op volume, zoekintentie en concurrentiehaalbaarheid</li>
+            <li>Contentplan en -productie afgestemd op elke fase van de klantreis</li>
+            <li>Structurele linkbuilding en autoriteitsopbouw via relevante publicaties</li>
+            <li>Maandelijkse rapportage op rankings, organisch verkeer en conversies</li>
+            <li>Proactieve bijsturing bij algoritme-updates van Google</li>
           </ul>
         </article>
       </div>

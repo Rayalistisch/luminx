@@ -8,42 +8,61 @@ import CasePage from "../../components/CasePage.astro";
   description="Een maatwerk applicatie voor afspraakbeheer die planning en operationele workflow sterk verbeterde."
 >
   <CasePage
-    title="Custom applicatie voor afspraakbeheer"
-    client="Serviceorganisatie"
-    sector="Operations"
-    intro="We ontwikkelden een maatwerk webapp die het volledige afspraakbeheer centraliseert. Hierdoor kreeg het team realtime overzicht, minder handmatig werk en minder fouten in de planning."
+    title="Custom reserveringsapp voor Actifaid"
+    client="Actifaid"
+    sector="Facilitair beheer"
+    duration="1 maand"
+    intro="Actifaid beheerde auto's, vergaderruimtes en bedrijfsmiddelen via losse spreadsheets en e-mails. Dat leidde tot dubbele boekingen, miscommunicatie en frustratie. We hebben in één maand een complete reserveringsapp gebouwd met Next.js, React en Supabase waar dagelijks 30 medewerkers mee werken."
     imageSrc="/images/reservaxactifaid.png"
-    imageAlt="Screenshot van de custom applicatie"
+    imageAlt="Screenshot van de Actifaid reserveringsapp gebouwd met Next.js en Supabase"
     services={[
-      "(Web)app Development",
+      "Web App Development",
       "Procesautomation",
-      "Integraties"
+      "UX Design"
     ]}
     challenge={[
-      "Planning werd verspreid over losse tools en handmatige lijsten",
-      "Veel tijdverlies door dubbel invoerwerk en afstemming",
-      "Gebrek aan realtime status van afspraken en capaciteit",
-      "Hoge foutgevoeligheid bij wijzigingen en no-shows"
+      "Reserveringen van auto's en ruimtes gingen via losse spreadsheets en e-mailketens",
+      "Dubbele boekingen kwamen regelmatig voor door gebrek aan realtime overzicht",
+      "Medewerkers wisten niet welke middelen beschikbaar waren zonder collega's te bellen",
+      "Wijzigingen en annuleringen werden niet centraal bijgehouden"
     ]}
     approach={[
-      "Procesmapping van intake tot uitvoering en terugkoppeling",
-      "Ontwerp van een taakgerichte interface voor planners en uitvoerders",
-      "Bouw van modules voor planning, notificaties en statusupdates",
-      "Koppeling met bestaande databronnen en uitrol per team"
+      "Procesmapping van alle reserveringsflows: auto's, vergaderruimtes en gedeelde middelen",
+      "UX-ontwerp gericht op snelheid: een reservering moet in drie tikken gedaan zijn",
+      "Gebouwd met Next.js en React als front-end, Supabase als database en authenticatie",
+      "Uitrol per team met een feedbackronde na de eerste week"
     ]}
     results={[
-      "Eenduidige planning en inzicht voor alle betrokken teams",
-      "Minder handmatige handelingen in de dagelijkse operatie",
-      "Snellere afhandeling van wijzigingen en uitzonderingen",
-      "Betere voorspelbaarheid van bezetting en doorlooptijd"
+      "30 medewerkers gebruiken de app dagelijks voor alle reserveringen",
+      "46% minder handmatig werk door het wegvallen van e-mails en spreadsheets",
+      "Nul dubbele boekingen sinds livegang",
+      "Wijzigingen worden realtime verwerkt en zijn direct zichtbaar voor het hele team"
     ]}
     metrics={[
       { value: "-46%", label: "Minder handmatig werk" },
-      { value: "+31%", label: "Snellere afhandeling" },
-      { value: "Realtime", label: "Operationeel inzicht" }
+      { value: "30", label: "Dagelijkse gebruikers" },
+      { value: "1 maand", label: "Van idee tot live" }
+    ]}
+    narrative={[
+      {
+        heading: "Spreadsheets als reserveringssysteem",
+        text: "Actifaid beheert facilitaire diensten voor meerdere organisaties. Het team deelt auto's, vergaderruimtes en andere bedrijfsmiddelen. Voorheen ging dat via een combinatie van Excel-bestanden, e-mails en mondeling overleg. In de praktijk betekende dat: een medewerker stuurt een mail om een auto te reserveren, een collega ziet die mail te laat en boekt dezelfde auto. Het resultaat is frustratie, tijdverlies en een team dat het overzicht kwijt is."
+      },
+      {
+        heading: "Eén maand van idee tot werkende app",
+        text: "We hebben de app in vier weken gebouwd. Week één: procesmapping en UX-ontwerp. We hebben elke reserveringsflow in kaart gebracht en een interface ontworpen waarin een reservering in drie tikken gedaan is. Week twee en drie: ontwikkeling met Next.js en React als front-end en Supabase als database. Supabase biedt realtime synchronisatie, wat betekent dat een reservering direct zichtbaar is voor alle gebruikers. Week vier: uitrol per team, met een feedbackronde na de eerste dagen om kleine aanpassingen te doen."
+      },
+      {
+        heading: "Waarom Next.js en Supabase",
+        text: "De keuze voor Next.js en Supabase was bewust. Next.js geeft ons server-side rendering voor snelle laadtijden en een React-basis waar we snel mee kunnen itereren. Supabase vervangt een traditionele backend: authenticatie, database en realtime updates zitten er standaard in. Dat scheelt weken ontwikkeltijd. Voor een app die in één maand live moest staan, is die combinatie ideaal. Geen onnodige complexiteit, wel alle functionaliteit die nodig is."
+      },
+      {
+        heading: "30 gebruikers, nul dubbele boekingen",
+        text: "Sinds de livegang werken 30 medewerkers dagelijks met de app. Auto's worden gereserveerd in seconden, vergaderruimtes zijn in één overzicht te zien en het hele team weet precies wat beschikbaar is. Dubbele boekingen zijn volledig verdwenen. Het handmatige werk is met 46% gedaald omdat e-mails en spreadsheets niet meer nodig zijn. Het team van Actifaid focust nu op hun werk in plaats van op logistiek."
+      }
     ]}
     gallery={[
-      { src: "/images/Reservax1.png", alt: "Reservax dashboard overzicht", title: "Reserveer auto's", desc: "Medewerkers reserveren een beschikbare auto in een paar tikken — geen dubbele boekingen, geen e-mails." },
+      { src: "/images/Reservax1.png", alt: "Reservax dashboard overzicht", title: "Reserveer auto's", desc: "Medewerkers reserveren een beschikbare auto in een paar tikken. Geen dubbele boekingen, geen e-mails." },
       { src: "/images/Reservax2.png", alt: "Reservax planning module", title: "Vergaderruimte reservering", desc: "Vergaderruimtes in één overzicht. Beschikbaarheid direct zichtbaar, reservering bevestigd in seconden." },
       { src: "/images/Reservax3.png", alt: "Reservax statusupdates", title: "Alles in 1 app", desc: "Auto's, ruimtes en middelen centraal beheerd. Eén app voor het hele team, zonder losse systemen." },
       { src: "/images/Reservax4.png", alt: "Reservax notificaties", title: "Duidelijk voor het team", desc: "Iedereen ziet wat beschikbaar is en wie wat gebruikt. Geen verwarring, geen dubbel werk." },

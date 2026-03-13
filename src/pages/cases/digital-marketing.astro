@@ -10,37 +10,56 @@ import CasePage from "../../components/CasePage.astro";
   <CasePage
     title="SEO automation met AI-gegenereerde content clusters"
     client="Ascendio"
-    sector="SaaS / SEO"
-    intro="Voor Ascendio hebben we een AI-gedreven automation pipeline gebouwd die bestaande content automatisch herschrijft, nieuwe SEO-clusters genereert en handmatig schrijfwerk structureel elimineert — zonder in te leveren op kwaliteit of E-E-A-T."
+    sector="SEO Marketing"
+    duration="3 maanden"
+    intro="Ascendio is een bureau voor SEO marketeers dat continu nieuwe content nodig heeft. Het handmatig schrijven van artikelen kostte gemiddeld 3 uur per stuk en schaalde niet mee met de groei. We hebben een AI-pipeline gebouwd met de ChatGPT API en Claude die 15 artikelen per uur genereert met ingebouwde kwaliteitscontrole."
     imageSrc="/images/ascendio seo automation.jpg"
-    imageAlt="Dashboard van de Ascendio SEO automation software"
+    imageAlt="Dashboard van de Ascendio SEO automation pipeline"
     services={[
       "AI Development",
       "SEO Strategie",
       "Procesautomation"
     ]}
     challenge={[
-      "Content productie was volledig handmatig en te arbeidsintensief voor schaal",
+      "Elk artikel kostte gemiddeld 3 uur om handmatig te schrijven en te optimaliseren",
       "SEO-clusters werden ad hoc aangemaakt zonder structurele keyword-dekking",
-      "Herschrijven van bestaande content kostte meerdere FTE's per maand",
-      "Geen consistente contentkwaliteit over honderden pagina's"
+      "Het herschrijven van bestaande content naar actuele richtlijnen kostte meerdere FTE's",
+      "Geen consistente kwaliteit over honderden pagina's"
     ]}
     approach={[
       "Analyse van bestaande contentstructuur en keyword-gaps per cluster",
-      "Ontwikkeling van een AI-pipeline voor automatisch herschrijven en genereren",
-      "Opzet van een cluster-architectuur op basis van zoekintentie en topic authority",
-      "Kwaliteitscontrole via geautomatiseerde E-E-A-T- en leesbaarheidsscores"
+      "AI-pipeline gebouwd met de ChatGPT API en Claude voor automatisch schrijven en herschrijven",
+      "Cluster-architectuur opgezet op basis van zoekintentie en topic authority",
+      "Geautomatiseerde kwaliteitscontrole via een GPT-prompt die elke output scoort op E-E-A-T en leesbaarheid"
     ]}
     results={[
-      "Volledige SEO-clusters worden automatisch gegenereerd op basis van één seed keyword",
-      "Bestaande content wordt geautomatiseerd herschreven naar actuele richtlijnen",
+      "Van 3 uur per artikel naar 15 artikelen per uur",
+      "Volledige SEO-clusters worden automatisch gegenereerd vanuit één seed keyword",
       "Structurele FTE-besparing op contentproductie en redactie",
       "Consistente contentkwaliteit en interne linkstructuur over alle pagina's"
     ]}
     metrics={[
-      { value: "10x", label: "Meer content output" },
+      { value: "15/uur", label: "Artikelen per uur" },
       { value: "-3 FTE", label: "Besparing op redactie" },
-      { value: "100%", label: "Automatische cluster-opbouw" }
+      { value: "100%", label: "Automatische clusters" }
+    ]}
+    narrative={[
+      {
+        heading: "Het probleem met handmatige contentproductie",
+        text: "Ascendio is een SEO bureau dat voor klanten structureel nieuwe content moet publiceren. Elk artikel ging door een proces van zoekwoordonderzoek, schrijven, optimaliseren en publiceren. Gemiddeld kostte dat 3 uur per stuk. Bij tientallen artikelen per week was dat niet vol te houden. Het team groeide, maar de output schaalde niet mee. Er moest een fundamenteel andere aanpak komen."
+      },
+      {
+        heading: "AI-pipeline met ChatGPT en Claude",
+        text: "We hebben een volledige automation pipeline ontwikkeld die de ChatGPT API en Claude combineert. Het systeem werkt als volgt: op basis van één seed keyword genereert de pipeline een compleet SEO-cluster met pillar page, supporting articles en interne links. De content wordt automatisch geschreven op basis van zoekintentie, concurrentieanalyse en de tone of voice van de klant. Het hele proces van keyword tot gepubliceerd artikel is geautomatiseerd."
+      },
+      {
+        heading: "Kwaliteitscontrole via AI",
+        text: "Snelheid zonder kwaliteit heeft geen waarde in SEO. Daarom hebben we een aparte kwaliteitslaag ingebouwd. Een GPT-prompt beoordeelt elke gegenereerde tekst op E-E-A-T-richtlijnen, leesbaarheid, keyword-dichtheid en structuur. Artikelen die onder de drempel scoren worden automatisch herschreven. Pas wanneer de kwaliteitsscore voldoende is, gaat het artikel naar publicatie. Dit voorkomt dat er zwakke content live gaat die de domeinautoriteit kan schaden."
+      },
+      {
+        heading: "Van 3 uur per artikel naar 15 per uur",
+        text: "Het resultaat na drie maanden ontwikkeling: wat voorheen 3 uur per artikel kostte, levert nu 15 artikelen op binnen een uur. De content is consistent in kwaliteit, de interne linkstructuur wordt automatisch opgebouwd en het team van Ascendio besteedt hun tijd aan strategie in plaats van schrijfwerk. De besparing bedraagt minimaal 3 FTE op redactie. Niet door mensen te vervangen, maar door ze vrij te maken voor werk dat meer impact heeft."
+      }
     ]}
   />
 </BaseLayout>

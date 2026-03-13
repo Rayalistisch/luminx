@@ -97,6 +97,16 @@ const faq = [
     a: "Elk gebruikersinteractie is een event in GA4. Een conversie is een event dat je als 'sleutelevenement' markeert omdat het een bedrijfsdoel vertegenwoordigt, zoals een formulierinzending of telefoneren. Conversies tellen zwaarder in rapportage en sturen biedstrategieën.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -104,6 +114,7 @@ const faq = [
   description="Volledige GA4-implementatie met event tracking, conversies en rapportage. Betrouwbare analytics als basis voor betere marketingbeslissingen."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />

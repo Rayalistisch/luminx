@@ -27,55 +27,55 @@ const campaignTypes = [
   {
     icon: "◈",
     title: "Google Search Ads",
-    description: "Tekstadvertenties die verschijnen bij relevante zoekopdrachten. Hoge koopintentie, directe conversies.",
+    description: "Tekstadvertenties bovenaan de zoekresultaten bij relevante zoekopdrachten. Bereikt gebruikers met hoge koopintentie en genereert directe conversies.",
   },
   {
     icon: "◉",
     title: "Google Shopping",
-    description: "Productadvertenties met afbeelding, prijs en naam, ideaal voor e-commerce en productgerichte bedrijven.",
+    description: "Productadvertenties met afbeelding, prijs en titel direct in de zoekresultaten. Het meest effectieve campagnetype voor e-commerce en productgerichte bedrijven.",
   },
   {
     icon: "◎",
     title: "Display & Remarketing",
-    description: "Visuele advertenties op het Google Display Netwerk om eerdere bezoekers terug te halen en merkbekendheid op te bouwen.",
+    description: "Visuele advertenties op het Google Display Netwerk. Display vergroot merkbekendheid; remarketing heractivert eerdere bezoekers met gepersonaliseerde boodschappen.",
   },
   {
     icon: "◌",
     title: "Performance Max",
-    description: "AI-gestuurde campagnes die automatisch het beste kanaal en format kiezen voor maximale conversie-output.",
+    description: "AI-gestuurd campagnetype dat automatisch het optimale kanaal, format en biedstrategie selecteert. Levert doorgaans de hoogste conversie-output binnen het Google Ads ecosysteem.",
   },
   {
     icon: "✦",
     title: "YouTube Ads",
-    description: "Videoadvertenties die doelgroepen bereiken vóór en tijdens relevante YouTube-content met meetbare resultaten.",
+    description: "Videoadvertenties vóór en tijdens YouTube-content. Effectief voor merkbekendheid en overweging, met volledig meetbare resultaten op weergave- en conversieniveau.",
   },
   {
     icon: "●",
     title: "Microsoft Advertising",
-    description: "Bing-campagnes voor een aanvullend zoeknetwerk met lagere CPC en minder concurrentie dan Google.",
+    description: "Aanvullend zoeknetwerk via Bing, Yahoo en DuckDuckGo. Kenmerkt zich door lagere CPC's en minder concurrentie, met een doorgaans hoger converterend zakelijk publiek.",
   },
 ];
 
 const benefits = [
   {
     title: "Direct resultaat zonder leercurve",
-    body: "Een specialist heeft al honderden campagnes opgezet en geoptimaliseerd. Jij profiteert direct van die ervaring — zonder zelf fouten te hoeven maken met jouw budget.",
+    body: "Een ervaren SEA-specialist beschikt over kennis uit honderden campagnes. Die ervaring vertaalt zich naar snellere resultaten en minder budgetverlies in de opstartfase.",
   },
   {
     title: "Toegang tot professionele tooling",
-    body: "We werken met SEMrush, Google Keyword Planner, Search Ads 360 en geavanceerde biedalgoritmen die voor de meeste bedrijven niet rendabel zijn om zelf aan te schaffen.",
+    body: "Professioneel SEA-beheer omvat tooling als SEMrush, Google Keyword Planner, Search Ads 360 en geavanceerde biedalgoritmen. Voor individuele bedrijven zijn deze tools zelden rendabel om zelfstandig aan te schaffen.",
   },
   {
     title: "Continu bijgesteld op data",
-    body: "SEA is geen campagne instellen en vergeten. Dagelijkse monitoring, wekelijkse optimalisatie en maandelijkse strategische evaluatie zorgen dat het rendement structureel verbetert.",
+    body: "SEA vereist doorlopende aandacht. Dagelijkse monitoring, wekelijkse optimalisatie en maandelijkse strategische evaluatie zijn noodzakelijk om het rendement structureel te verbeteren.",
   },
   {
     title: "Volledige transparantie en eigenaarschap",
-    body: "Je hebt altijd toegang tot jouw eigen Google Ads-account. We rapporteren helder over kosten, conversies en ROAS — zonder verborgen marges op het advertentiebudget.",
+    body: "Bij professioneel beheer behoudt de opdrachtgever volledige toegang tot het eigen Google Ads-account. Rapportage over kosten, conversies en ROAS is helder, zonder verborgen marges op het advertentiebudget.",
   },
   {
     title: "Schaalbaar zonder extra overhead",
-    body: "Wil je meer budget inzetten of uitbreiden naar een nieuw product of regio? Dat schalen we snel op zonder dat jij extra personeel hoeft aan te nemen.",
+    body: "SEA schaalt mee met de organisatie. Uitbreiding naar nieuwe producten, regio's of hogere budgetten vereist geen extra personeel, enkel strategische aanpassingen in de campagnestructuur.",
   },
 ];
 
@@ -101,6 +101,16 @@ const faq = [
     a: "Altijd. We werken in jouw eigen Google Ads account, nooit in een gedeeld agentschapsaccount. Volledige transparantie en eigenaarschap staan bij ons centraal. Als de samenwerking ooit eindigt, neem jij het account gewoon mee.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -108,6 +118,7 @@ const faq = [
   description="Google Ads campagnes die op het juiste moment zichtbaar zijn, gericht op conversie en een sterke ROAS. Professioneel SEA beheer door LuminX."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />
@@ -122,7 +133,7 @@ const faq = [
           <a href="/diensten/online-marketing" class="sea-back-link">← Online Marketing</a>
           <span class="sea-kicker">Specialisme</span>
           <h1><span class="sea-icon" aria-hidden="true">◈</span> SEA</h1>
-          <p class="sea-intro-p">We zetten betaald zoeken in als een precisiemiddel: de juiste boodschap, op het juiste moment, voor de juiste doelgroep, met elke euro verantwoord.</p>
+          <p class="sea-intro-p">Betaald zoeken is een precisiemiddel: de juiste boodschap, op het juiste moment, voor de juiste doelgroep, met elke euro verantwoord.</p>
           <div class="sea-actions">
             <a href="#contact" class="sea-btn-primary">Plan kennismaking</a>
             <a href="#aanpak" class="sea-btn-secondary">Bekijk aanpak</a>
@@ -143,11 +154,11 @@ const faq = [
           </div>
         </div>
         <aside class="sea-hero-panel">
-          <span>Wat je direct merkt</span>
+          <span>Meetbare uitkomsten</span>
           <ul>
-            <li>Lagere kosten per acquisitie met hogere leadkwaliteit</li>
-            <li>Volledige transparantie via realtime dashboard</li>
-            <li>Minder budgetverspilling door strakke doelgroepsturing</li>
+            <li>Lagere kosten per acquisitie bij hogere leadkwaliteit</li>
+            <li>Volledige transparantie via realtime dashboarding</li>
+            <li>Minder budgetverspilling door nauwkeurige doelgroepsegmentatie</li>
           </ul>
         </aside>
       </div>
@@ -158,9 +169,9 @@ const faq = [
       <div class="sea-container sea-what-grid">
         <div class="sea-what-text">
           <span class="sea-label">Wat is SEA?</span>
-          <h2>Betaald adverteren in Google als strategisch groeimiddel</h2>
-          <p>Search Engine Advertising (SEA) is het plaatsen van betaalde advertenties in zoekmachines zoals Google en Bing. Je betaalt per klik en verschijnt direct bovenaan de zoekresultaten, vóór organische resultate, op exact de zoektermen die relevant zijn voor jouw bedrijf.</p>
-          <p>Waar SEO maanden vraagt om resultaat te boeken, geeft SEA je directe zichtbaarheid. Dat maakt het bij uitstek geschikt voor het genereren van snelle leads, het testen van nieuwe markten of het ondersteunen van seizoensacties. Goed ingezet is SEA geen kostenpost maar een voorspelbare groeimotor.</p>
+          <h2>Search Engine Advertising: betaalde zichtbaarheid in zoekmachines</h2>
+          <p>Search Engine Advertising (SEA) is het plaatsen van betaalde advertenties in zoekmachines zoals Google en Bing. Adverteerders betalen per klik (CPC) en verschijnen direct bovenaan de zoekresultaten, vóór organische posities, op exact de zoektermen die relevant zijn voor hun doelgroep.</p>
+          <p>Waar SEO maanden nodig heeft om posities op te bouwen, levert SEA directe zichtbaarheid. Dat maakt het bij uitstek geschikt voor leadgeneratie, het valideren van nieuwe markten en het ondersteunen van seizoensgebonden campagnes. Structureel geoptimaliseerd SEA-beheer vormt een voorspelbare groeimotor met meetbaar rendement.</p>
           <a href="#contact" class="sea-inline-cta" data-overlay-open>Gratis adviesgesprek →</a>
         </div>
         <div class="sea-what-visual" aria-hidden="true">
@@ -200,8 +211,8 @@ const faq = [
       <div class="sea-container">
         <div class="sea-section-head centered">
           <span class="sea-label">Campagnetypes</span>
-          <h2>Wat wij voor je beheren</h2>
-          <p>Van zoekadvertenties tot video, we beheersen het volledige Google Ads ecosysteem en zetten elk format in op het juiste moment in de klantreis.</p>
+          <h2>Het Google Ads ecosysteem in zes campagneformats</h2>
+          <p>Elk campagnetype bedient een ander moment in de klantreis. Effectief SEA-beheer combineert deze formats tot een samenhangende strategie met maximale dekking.</p>
         </div>
         <div class="sea-cards-grid">
           {campaignTypes.map((type) => (
@@ -220,8 +231,8 @@ const faq = [
       <div class="sea-container sea-benefits-grid">
         <div class="sea-benefits-left">
           <span class="sea-label">Waarom uitbesteden?</span>
-          <h2>Voordelen van professioneel SEA-beheer</h2>
-          <p>Google Ads is een vakgebied op zich. De interface verandert continu, biedstrategieën worden complexer en de concurrentie neemt toe. Dit zijn de voordelen van samenwerken met een specialist.</p>
+          <h2>De impact van professioneel SEA-beheer</h2>
+          <p>Google Ads is een vakgebied op zich. De interface verandert continu, biedstrategieën worden complexer en de concurrentie neemt toe. Professioneel beheer levert structureel betere resultaten dan intern management zonder dedicated expertise.</p>
           <div class="sea-benefit-stats">
             <div class="sea-bstat">
               <strong>95%</strong>
@@ -249,28 +260,28 @@ const faq = [
       <div class="sea-container">
         <div class="sea-section-head">
           <span class="sea-label">Aanpak</span>
-          <h2>Van analyse naar winstgevende campagnes in vier fases.</h2>
+          <h2>Vier fases van analyse naar winstgevende campagnes.</h2>
         </div>
         <div class="sea-steps">
           <article class="sea-step">
             <span class="sea-step-num">01</span>
             <h3>Audit & strategie</h3>
-            <p>We analyseren je bestaande account (of starten vanaf nul), voeren zoekwoordonderzoek uit, brengen de concurrentie in kaart en definiëren doelstellingen, KPI's en budgetallocatie.</p>
+            <p>Het bestaande account wordt geanalyseerd (of vanaf nul opgebouwd). Zoekwoordonderzoek, concurrentieanalyse en het vaststellen van doelstellingen, KPI's en budgetallocatie vormen de basis.</p>
           </article>
           <article class="sea-step">
             <span class="sea-step-num">02</span>
             <h3>Opzet & creatie</h3>
-            <p>We bouwen de campagnestructuur, schrijven advertentieteksten, installeren conversietracking via GTM en GA4, en richten remarketingdoelgroepen in.</p>
+            <p>De campagnestructuur wordt opgebouwd, advertentieteksten geschreven, conversietracking via GTM en GA4 geinstalleerd, en remarketingdoelgroepen ingericht.</p>
           </article>
           <article class="sea-step">
             <span class="sea-step-num">03</span>
             <h3>Livegang & monitoring</h3>
-            <p>De campagnes gaan live. In de eerste weken monitoren we dagelijks op kwaliteitsscore, impressieshare, CTR en conversies. Snel bijsturen is hier cruciaal.</p>
+            <p>Na livegang volgt dagelijkse monitoring op kwaliteitsscore, impressieshare, CTR en conversies. Snel bijsturen in de eerste weken is cruciaal voor campagnesucces.</p>
           </article>
           <article class="sea-step">
             <span class="sea-step-num">04</span>
             <h3>Optimalisatie & schaling</h3>
-            <p>Op basis van data optimaliseren we biedstrategieën, sluiten we verliesgevende zoekwoorden uit, testen we nieuwe advertentieformats en schalen we bewezen campagnes op.</p>
+            <p>Op basis van data worden biedstrategieën geoptimaliseerd, verliesgevende zoekwoorden uitgesloten, nieuwe advertentieformats getest en bewezen campagnes opgeschaald.</p>
           </article>
         </div>
       </div>
@@ -280,25 +291,25 @@ const faq = [
     <section class="sea-context" data-bg-color="#FEFEFE">
       <div class="sea-container sea-context-grid">
         <article class="sea-block">
-          <h2>Waar organisaties op vastlopen</h2>
+          <h2>Veelvoorkomende knelpunten bij SEA</h2>
           <ul class="sea-list sea-list--muted">
-            <li>Google Ads-budget verdwijnt zonder aantoonbaar resultaat</li>
-            <li>Campagnes draaien breed zonder focus op de juiste doelgroep</li>
-            <li>Slechte match tussen advertentie, zoekwoord en landingspagina</li>
-            <li>Geen structurele optimalisatie op basis van data en conversies</li>
-            <li>Onduidelijk welke campagnes daadwerkelijk omzet genereren</li>
-            <li>Accountstructuur is onoverzichtelijk en moeilijk bij te sturen</li>
+            <li>Advertentiebudget verdwijnt zonder aantoonbaar rendement</li>
+            <li>Campagnes draaien te breed, zonder focus op de juiste doelgroepsegmenten</li>
+            <li>Zwakke aansluiting tussen advertentie, zoekwoord en landingspagina</li>
+            <li>Ontbrekende structurele optimalisatie op basis van data en conversies</li>
+            <li>Geen inzicht in welke campagnes daadwerkelijk omzet genereren</li>
+            <li>Onoverzichtelijke accountstructuur die bijsturing bemoeilijkt</li>
           </ul>
         </article>
         <article class="sea-block sea-block--soft">
-          <h2>Wat wij concreet opleveren</h2>
+          <h2>Wat professioneel SEA-beheer oplevert</h2>
           <ul class="sea-list">
-            <li>Campagnestructuur op basis van zoekintent en klantreis</li>
-            <li>Strakke advertentieteksten en A/B-tests voor betere CTR</li>
-            <li>Conversiegerichte landingspagina-analyse en advies</li>
+            <li>Campagnestructuur gebaseerd op zoekintentie en fase in de klantreis</li>
+            <li>Geoptimaliseerde advertentieteksten met doorlopende A/B-tests voor hogere CTR</li>
+            <li>Conversiegerichte landingspagina-analyse en concrete verbeterpunten</li>
             <li>Wekelijkse optimalisatie op ROAS, CPL en kwaliteitsscore</li>
             <li>Volledige conversietracking via GA4 en Google Tag Manager</li>
-            <li>Maandelijkse rapportage met conclusies en aanbevelingen</li>
+            <li>Maandelijkse rapportage met conclusies en strategische aanbevelingen</li>
           </ul>
         </article>
       </div>

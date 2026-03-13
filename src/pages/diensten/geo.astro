@@ -27,55 +27,55 @@ const specialismen = [
   {
     icon: "◎",
     title: "Promptonderzoek",
-    description: "We brengen in kaart welke vragen jouw doelgroep stelt aan AI-tools — en zorgen dat jouw antwoorden daar onderdeel van worden.",
+    description: "Elke branche heeft een eigen set vragen die gebruikers aan AI stellen. Promptonderzoek brengt in kaart welke dat zijn, wie er nu wordt geciteerd en waar de kennisleemtes liggen.",
   },
   {
     icon: "◈",
     title: "Contentoptimalisatie voor AI",
-    description: "Content herschrijven en structureren zodat AI-systemen hem begrijpen, vertrouwen en gebruiken als bron in hun antwoorden.",
+    description: "AI-systemen selecteren bronnen op basis van helderheid, structuur en feitelijkheid. Content die daaraan voldoet wordt opgepikt. Content die alleen verkoopt, wordt overgeslagen.",
   },
   {
     icon: "◉",
     title: "Structured data & schema",
-    description: "Technische basis op orde: schema markup, entiteitsherkenning en metadata die AI-modellen helpen jouw merk correct te begrijpen.",
+    description: "Schema markup en entiteitsherkenning maken het voor AI-modellen mogelijk om een merk, product of expertise correct te classificeren en als bron te gebruiken.",
   },
   {
     icon: "◌",
     title: "Citeerbare expertise",
-    description: "Unieke data, stellingen en standpunten creëren die AI-modellen graag citeren — zodat jij onderdeel wordt van het antwoord.",
+    description: "AI-modellen citeren stellingen, definities en unieke data. Merken die originele inzichten publiceren worden vaker als bron geselecteerd dan merken die bestaande kennis herhalen.",
   },
   {
     icon: "✦",
     title: "Autoriteitsopbouw",
-    description: "Digitale autoriteit opbouwen via publicaties, vermeldingen en backlinks die AI-systemen gebruiken om je betrouwbaarheid te beoordelen.",
+    description: "AI-systemen beoordelen betrouwbaarheid op basis van vermeldingen, backlinks en publicaties. Hoe vaker een merk als bron wordt gerefereerd, hoe zwaarder het weegt in AI-antwoorden.",
   },
   {
     icon: "●",
     title: "AI-monitoring & rapportage",
-    description: "Maandelijkse rapportage op je zichtbaarheid in ChatGPT, Gemini en Perplexity — zodat we weten wat werkt en wat bijgestuurd moet worden.",
+    description: "AI-zichtbaarheid is meetbaar. Systematische monitoring toont aan of een merk wordt geciteerd in ChatGPT, Gemini en Perplexity, en waar bijsturing nodig is.",
   },
 ];
 
 const benefits = [
   {
-    title: "Zichtbaar waar je concurrenten dat nog niet zijn",
-    body: "De meeste bureaus en bedrijven focussen nog uitsluitend op Google. Wie nu investeert in GEO, pakt een vroeg voordeel in een kanaal dat snel groeit. AI-zoekmachines verwijzen steeds vaker naar bronnen die ze al kennen en vertrouwen — en dat kunnen jouw pagina's zijn.",
+    title: "Vroeg voordeel in een groeiend kanaal",
+    body: "De meeste bedrijven richten zich uitsluitend op Google. AI-zoekmachines groeien elk kwartaal, maar de concurrentie is nog minimaal. Merken die nu autoriteit opbouwen bij AI-systemen, worden als eerste geciteerd zodra het kanaal mainstream wordt.",
   },
   {
-    title: "GEO en SEO versterken elkaar",
-    body: "Goede GEO-content — helder, citeerbaar en goed gestructureerd — is ook betere SEO-content. Je investeert niet in twee losse strategieën, maar in één aanpak die op meerdere kanalen rendeert: Google én AI-zoekmachines.",
+    title: "GEO en SEO zijn geen losse strategieën",
+    body: "Content die helder, citeerbaar en goed gestructureerd is, presteert beter in zowel Google als AI-antwoorden. Eén investering, twee kanalen. Bedrijven die GEO combineren met SEO zien een versterkend effect op beide.",
   },
   {
-    title: "Toekomstbestendige contentstrategie",
-    body: "Zoekopdrachten verschuiven van Google naar AI-tools. Bedrijven die nu hun content en autoriteit opbouwen voor AI-consumptie, staan over twee jaar sterker dan wie wacht. GEO is geen hype, het is de volgende fase van online zichtbaarheid.",
+    title: "De verschuiving is al bezig",
+    body: "Zoekopdrachten bewegen van Google naar AI-tools. Niet over vijf jaar, nu. Bedrijven die hun content en autoriteit nu opbouwen voor AI-consumptie, staan over twee jaar in een positie die concurrenten niet meer kunnen inhalen. Wachten is achteruitgang.",
   },
   {
-    title: "Branchegericht — geen generieke aanpak",
-    body: "We doen promptonderzoek specifiek voor jouw markt: welke vragen stelt jouw doelgroep aan ChatGPT of Gemini? Dat bepaalt welke content we optimaliseren en welke kennisleemtes we invullen.",
+    title: "Elke branche heeft andere AI-vragen",
+    body: "Wat gebruikers aan ChatGPT vragen over juridisch advies verschilt fundamenteel van vragen over e-commerce of SaaS. Effectieve GEO begint met promptonderzoek per branche: welke vragen worden gesteld, wie wordt geciteerd, en waar liggen de kennisleemtes.",
   },
   {
-    title: "Meetbaar via AI-monitoring",
-    body: "We volgen systematisch of jouw merk en content worden geciteerd door AI-systemen. Zo weet je of de inspanning werkt en sturen we bij op basis van echte data.",
+    title: "AI-zichtbaarheid is meetbaar",
+    body: "Het is een misverstand dat AI-zichtbaarheid niet te meten is. Via systematische monitoring is vast te stellen of een merk wordt geciteerd, hoe vaak, en in welke context. Zonder meting geen sturing.",
   },
 ];
 
@@ -101,6 +101,16 @@ const faq = [
     a: "Een technisch gezonde website en bestaande content helpen enorm, maar je hoeft geen perfecte SEO-score te hebben. We beginnen altijd met een audit en stellen een prioriteitenlijst op: welke basis-SEO-elementen zijn nodig, en waar starten we met GEO-optimalisatie.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -108,6 +118,7 @@ const faq = [
   description="Zichtbaar worden in ChatGPT, Gemini en Perplexity. LuminX optimaliseert jouw content en autoriteit zodat AI-systemen jouw merk en expertise opnemen in hun antwoorden."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />
@@ -121,7 +132,7 @@ const faq = [
           <a href="/diensten/seo" class="geo-back-link">← SEO</a>
           <span class="geo-kicker">Specialisme</span>
           <h1><span class="geo-icon" aria-hidden="true">✦</span> GEO</h1>
-          <p class="geo-intro-p">GEO gaat een stap verder dan traditionele SEO. We zorgen dat jouw expertise, producten en kennis worden opgepikt door AI-systemen — zodat wanneer iemand een vraag stelt aan ChatGPT of Gemini over jouw branche, jouw merk onderdeel wordt van het antwoord.</p>
+          <p class="geo-intro-p">Steeds meer zoekopdrachten worden beantwoord door AI in plaats van door Google. Merken die nu investeren in AI-zichtbaarheid bouwen een voorsprong op die later niet meer in te halen is. GEO is de discipline die dat mogelijk maakt.</p>
           <div class="geo-actions">
             <a href="#contact" class="geo-btn-primary" data-overlay-open>Plan kennismaking</a>
             <a href="#aanpak" class="geo-btn-secondary">Bekijk aanpak</a>
@@ -142,11 +153,11 @@ const faq = [
           </div>
         </div>
         <aside class="geo-hero-panel">
-          <span>Wat je direct merkt</span>
+          <span>Wat GEO oplevert</span>
           <ul>
-            <li>Jouw merk verschijnt in AI-antwoorden over jouw branche</li>
-            <li>Content wordt herkend als betrouwbare bron door AI-systemen</li>
-            <li>Zichtbaarheid in kanalen waar concurrenten nog nauwelijks actief zijn</li>
+            <li>Het merk verschijnt als bron in AI-antwoorden over de branche</li>
+            <li>Content wordt geselecteerd op basis van autoriteit en structuur</li>
+            <li>Zichtbaarheid in een kanaal waar de meeste concurrenten nog afwezig zijn</li>
           </ul>
         </aside>
       </div>
@@ -156,9 +167,9 @@ const faq = [
       <div class="geo-container geo-what-grid">
         <div class="geo-what-text">
           <span class="geo-label">Wat is GEO?</span>
-          <h2>Zichtbaar in AI-antwoorden, niet alleen in Google</h2>
-          <p>GEO staat voor Generative Engine Optimization. Waar SEO zich richt op hoger ranken in Google, draait GEO om zichtbaar worden in de antwoorden van AI-tools zoals ChatGPT, Gemini en Perplexity.</p>
-          <p>In plaats van alleen pagina's optimaliseren voor zoekwoorden, zorgen we ervoor dat jouw expertise, producten en kennis ook door AI-systemen worden opgepikt en gebruikt in hun antwoorden. Het doel? Dat wanneer iemand een vraag stelt aan AI over jouw branche, jouw merk, kennis of website onderdeel wordt van het antwoord.</p>
+          <h2>Zoekopdrachten verschuiven van Google naar AI</h2>
+          <p>GEO staat voor Generative Engine Optimization. Waar SEO draait om posities in Google, richt GEO zich op zichtbaarheid in de antwoorden van ChatGPT, Gemini en Perplexity. Het verschil is fundamenteel: in Google concurreer je om een klikpositie, in AI concurreer je om geciteerd te worden als bron.</p>
+          <p>AI-systemen selecteren bronnen op basis van autoriteit, structuur en citeerbare expertise. Content die helder, feitelijk en goed gestructureerd is, wordt vaker opgepikt. Content die alleen verkoopt, wordt genegeerd. GEO en SEO zijn geen losse strategieën. Goede GEO-content presteert per definitie ook beter in Google.</p>
           <a href="#contact" class="geo-inline-cta" data-overlay-open>Gratis GEO-analyse →</a>
         </div>
         <div class="geo-what-visual" aria-hidden="true">
@@ -196,8 +207,8 @@ const faq = [
       <div class="geo-container">
         <div class="geo-section-head centered">
           <span class="geo-label">Specialisme</span>
-          <h2>Zo maken we jou zichtbaar voor AI</h2>
-          <p>Van promptonderzoek tot structured data en citeerbare expertise — we beheersen het volledige GEO-spectrum en zetten elk onderdeel in op de juiste prioriteit.</p>
+          <h2>De zes pijlers van GEO</h2>
+          <p>GEO bestaat uit zes disciplines die samen bepalen of een merk wel of niet wordt geciteerd door AI-systemen. Elk onderdeel heeft een eigen functie in het proces van onzichtbaar naar bron.</p>
         </div>
         <div class="geo-cards-grid">
           {specialismen.map((item) => (
@@ -215,8 +226,8 @@ const faq = [
       <div class="geo-container geo-benefits-grid">
         <div class="geo-benefits-left">
           <span class="geo-label">Waarom GEO?</span>
-          <h2>Zichtbaar zijn waar zoekopdrachten naartoe verschuiven</h2>
-          <p>Steeds meer mensen stellen vragen aan AI-tools in plaats van aan Google. Wie nu zijn content en autoriteit opbouwt voor AI-consumptie, staat straks sterker dan wie wacht.</p>
+          <h2>Waarom GEO nu relevant is voor elk bedrijf</h2>
+          <p>Het zoekgedrag van consumenten verandert structureel. AI-tools beantwoorden steeds meer vragen die voorheen via Google gingen. Bedrijven die niet zichtbaar zijn in AI-antwoorden, verliezen een groeiend deel van hun potentiële bereik.</p>
           <div class="geo-benefit-stats">
             <div class="geo-bstat">
               <strong>Groeiend</strong>
@@ -243,28 +254,28 @@ const faq = [
       <div class="geo-container">
         <div class="geo-section-head">
           <span class="geo-label">Aanpak</span>
-          <h2>Van onzichtbaar naar geciteerd door AI in vier fases.</h2>
+          <h2>Van onzichtbaar naar geciteerd in vier fases</h2>
         </div>
         <div class="geo-steps">
           <article class="geo-step">
             <span class="geo-step-num">01</span>
             <h3>AI-audit & promptonderzoek</h3>
-            <p>We analyseren hoe AI-tools jouw branche, concurrenten en jouw eigen merk behandelen. Welke vragen worden gesteld? Wie wordt geciteerd? Waar liggen de kansen?</p>
+            <p>Eerste stap is inzicht: hoe behandelen AI-tools jouw branche? Welke vragen worden gesteld, wie wordt geciteerd en waar zijn de kennisleemtes? Zonder deze data is elke GEO-strategie giswerk.</p>
           </article>
           <article class="geo-step">
             <span class="geo-step-num">02</span>
             <h3>Strategie</h3>
-            <p>Op basis van de audit stellen we een contentplan op: welke pagina's optimaliseren we, welke nieuwe content schrijven we, en welke structurele aanpassingen zijn nodig?</p>
+            <p>De audit bepaalt de prioriteiten: welke bestaande pagina's worden geoptimaliseerd, welke nieuwe content is nodig en welke structurele aanpassingen maken het verschil. Elke actie is gekoppeld aan een meetbaar doel.</p>
           </article>
           <article class="geo-step">
             <span class="geo-step-num">03</span>
             <h3>Implementatie</h3>
-            <p>Content optimaliseren en schrijven, structured data implementeren, en autoriteitsopbouw via publicaties en vermeldingen die AI-systemen als signaal gebruiken.</p>
+            <p>Content wordt geoptimaliseerd op citeerbare helderheid, structured data wordt geïmplementeerd en autoriteit wordt opgebouwd via publicaties die AI-systemen als betrouwbaarheidssignaal gebruiken.</p>
           </article>
           <article class="geo-step">
             <span class="geo-step-num">04</span>
             <h3>Monitoren & bijsturen</h3>
-            <p>Maandelijkse rapportage op AI-zichtbaarheid. We testen systematisch of jouw merk en content verschijnen in relevante AI-antwoorden en passen de aanpak aan.</p>
+            <p>AI-zichtbaarheid wordt maandelijks gemeten: verschijnt het merk in relevante AI-antwoorden? In welke context? Met welke frequentie? Op basis van die data wordt de strategie aangescherpt.</p>
           </article>
         </div>
       </div>
@@ -273,25 +284,25 @@ const faq = [
     <section class="geo-context" data-bg-color="#FEFEFE">
       <div class="geo-container geo-context-grid">
         <article class="geo-block">
-          <h2>Waar bedrijven op vastlopen</h2>
+          <h2>Veelvoorkomende fouten bij GEO</h2>
           <ul class="geo-list geo-list--muted">
-            <li>Niet zichtbaar in AI-antwoorden, terwijl concurrenten wel worden geciteerd</li>
-            <li>Content is niet geschreven voor AI-consumptie</li>
-            <li>Geen idee welke vragen AI beantwoordt in hun branche</li>
+            <li>Concurrenten worden geciteerd door AI, het eigen merk niet</li>
+            <li>Content is geschreven voor Google, niet voor AI-consumptie</li>
+            <li>Geen inzicht in welke vragen AI beantwoordt per branche</li>
             <li>Structured data ontbreekt of is incorrect geïmplementeerd</li>
-            <li>Geen manier om AI-zichtbaarheid te meten of bij te sturen</li>
-            <li>Wachten terwijl het kanaal groeit en concurrenten posities innemen</li>
+            <li>AI-zichtbaarheid wordt niet gemeten, dus bijsturen is onmogelijk</li>
+            <li>Afwachten terwijl early movers posities innemen die later niet meer beschikbaar zijn</li>
           </ul>
         </article>
         <article class="geo-block geo-block--soft">
-          <h2>Wat wij concreet opleveren</h2>
+          <h2>Wat een GEO-traject oplevert</h2>
           <ul class="geo-list">
-            <li>AI-audit: hoe jij, je concurrenten en je branche nu worden behandeld door AI</li>
-            <li>Promptkaart: de vragen die AI beantwoordt in jouw markt</li>
-            <li>Geoptimaliseerde content die AI-systemen begrijpen en citeren</li>
-            <li>Structured data implementatie voor betere AI-herkenning</li>
-            <li>Autoriteitsopbouw via relevante publicaties en vermeldingen</li>
-            <li>Maandelijkse rapportage op AI-zichtbaarheid en voortgang</li>
+            <li>AI-audit met inzicht in hoe het merk, de concurrentie en de branche door AI worden behandeld</li>
+            <li>Promptkaart met de exacte vragen die AI beantwoordt in de betreffende markt</li>
+            <li>Content die voldoet aan de criteria die AI-systemen hanteren voor bronselectie</li>
+            <li>Structured data die AI-modellen in staat stelt het merk correct te classificeren</li>
+            <li>Autoriteitsopbouw via publicaties die als betrouwbaarheidssignaal functioneren</li>
+            <li>Maandelijkse rapportage met meetbare voortgang op AI-zichtbaarheid</li>
           </ul>
         </article>
       </div>

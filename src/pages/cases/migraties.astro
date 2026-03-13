@@ -11,36 +11,55 @@ import CasePage from "../../components/CasePage.astro";
     title="Migratie van Wordpress naar Shopify"
     client="GSM Team"
     sector="Retail & E-commerce"
-    intro="Voor GSM Team hebben we de bestaande Wordpress/WooCommerce omgeving vervangen door een schaalbare Shopify-setup met betere beheerbaarheid, hogere snelheid en een strakkere koopflow."
+    duration="4 maanden"
+    intro="GSM Team verkocht telefoons en accessoires via een WooCommerce webshop die traag was, lastig te beheren en bezoekers verloor in de checkout. We hebben de volledige shop gemigreerd naar Shopify met een custom thema, 100+ producten overgezet en een eigen redirect-app gebouwd om alle SEO-waarde te behouden."
     imageSrc="/images/website-gsmteam.png"
-    imageAlt="Screenshot van de gemigreerde Shopify webshop"
+    imageAlt="Screenshot van de gemigreerde GSM Team Shopify webshop met custom thema"
     services={[
       "Web Development",
       "Conversie-optimalisatie",
       "Tracking"
     ]}
     challenge={[
-      "Technische performanceproblemen op mobiele apparaten",
-      "Beperkte schaalbaarheid voor productbeheer en campagnes",
-      "Inconsistent design over categorie-, product- en checkoutpagina's",
-      "Onvoldoende betrouwbare meetbaarheid van funnelstappen"
+      "De WooCommerce backend was traag en onoverzichtelijk voor het team",
+      "De front-end voelde rommelig en onprofessioneel op mobiel",
+      "100+ producten en categorieën moesten zonder dataverlies worden overgezet",
+      "Bestaande URL-structuur en organische posities mochten niet verloren gaan"
     ]}
     approach={[
-      "Technische en functionele audit van huidige shopomgeving",
-      "Nieuwe Shopify-informatiearchitectuur en templatestructuur",
-      "Migratie van content, productdata en redirects zonder SEO-verlies",
-      "Implementatie van tracking op product-, cart- en checkout-events"
+      "Volledige audit van de WooCommerce shop: performance, content en URL-structuur",
+      "Compleet custom Shopify thema gebouwd vanuit het bestaande merkbeeld",
+      "Alle productdata, categorieën en afbeeldingen gestructureerd gemigreerd",
+      "Custom Shopify app ontwikkeld die alle oude URL's 301-redirect naar de nieuwe structuur"
     ]}
     results={[
-      "Duidelijk snellere gebruikerservaring op mobiel en desktop",
-      "Eenvoudiger beheer van assortiment en acties door het team",
-      "Consistente merkbeleving over alle kernpagina's",
-      "Betere funnelinzichten voor continue optimalisatie"
+      "Conversieratio steeg met 26% in de eerste drie maanden na livegang",
+      "Laadtijd daalde met 38% op zowel mobiel als desktop",
+      "100% van de oude URL's correct geredirect, geen organisch verkeer verloren",
+      "Het team beheert het assortiment nu zelfstandig zonder technische kennis"
     ]}
     metrics={[
+      { value: "+26%", label: "Hogere conversie" },
       { value: "-38%", label: "Snellere laadtijd" },
-      { value: "+24%", label: "Hogere conversie" },
-      { value: "100%", label: "SEO redirects gemigreerd" }
+      { value: "100%", label: "Redirects gemigreerd" }
+    ]}
+    narrative={[
+      {
+        heading: "Waarom de overstap naar Shopify",
+        text: "GSM Team had jarenlang hun webshop draaien op Wordpress met WooCommerce. Dat werkte in het begin, maar naarmate het assortiment groeide naar meer dan 100 producten werd de backend steeds trager. Pagina's laden langzaam, het toevoegen van producten kostte onnodig veel tijd en de front-end zag er op mobiel niet meer professioneel uit. Het team verloor vertrouwen in het platform en klanten haakten af in de checkout."
+      },
+      {
+        heading: "Custom thema en migratiestrategie",
+        text: "We hebben een compleet custom Shopify thema ontwikkeld dat aansluit op het merkbeeld van GSM Team. Geen standaard template, maar een op maat gebouwde shop met een strakke productpresentatie, snelle filters en een geoptimaliseerde checkout. Parallel daaraan hebben we alle productdata, categorieën, afbeeldingen en metadata gestructureerd overgezet. De grootste uitdaging zat in de URL-structuur: WooCommerce en Shopify hanteren totaal verschillende URL-patronen."
+      },
+      {
+        heading: "Custom redirect-app voor SEO-behoud",
+        text: "Om te voorkomen dat GSM Team organisch verkeer zou verliezen, hebben we een custom Shopify app gebouwd die alle oude WooCommerce URL's automatisch doorstuurt naar de juiste Shopify-pagina's via 301-redirects. Dit ging om honderden URL's: productpagina's, categorieën, blogposts en afbeeldingen. Door deze aanpak is er na de migratie geen daling in organisch verkeer geweest. Google heeft de nieuwe structuur volledig geïndexeerd."
+      },
+      {
+        heading: "Resultaat na drie maanden",
+        text: "Binnen drie maanden na livegang was het verschil duidelijk meetbaar. De laadtijd daalde met 38%, de conversieratio steeg met 26% en het GSM Team-team beheerde het assortiment voortaan zelfstandig. Geen developer nodig voor een nieuw product, geen frustratie over trage pagina's. De webshop doet nu wat die moet doen: verkopen."
+      }
     ]}
   />
 </BaseLayout>

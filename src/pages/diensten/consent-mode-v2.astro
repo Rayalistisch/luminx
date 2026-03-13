@@ -96,6 +96,16 @@ const faq = [
     a: "Met Advanced Mode verlies je minder data dan je denkt. Google kan via AI-gebaseerde conversiemodellering tot 65-70% van verloren data reconstrueren als er voldoende toestemmingsdata beschikbaar is als referentie. Dit werkt alleen als Consent Mode correct in Advanced Mode is geconfigureerd.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -103,6 +113,7 @@ const faq = [
   description="DMA-conforme Consent Mode v2 implementatie voor Nederlandse websites. Juridisch waterdicht en maximale datakwaliteit via correcte GTM-configuratie."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />

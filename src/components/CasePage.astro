@@ -21,6 +21,11 @@ interface GalleryImage {
   desc?: string;
 }
 
+interface NarrativeBlock {
+  heading: string;
+  text: string;
+}
+
 interface Props {
   title: string;
   client: string;
@@ -34,6 +39,8 @@ interface Props {
   results: string[];
   metrics: Metric[];
   gallery?: GalleryImage[];
+  narrative?: NarrativeBlock[];
+  duration?: string;
 }
 
 const {
@@ -49,6 +56,8 @@ const {
   results,
   metrics,
   gallery,
+  narrative,
+  duration,
 } = Astro.props;
 
 const localCaseImages: Record<string, ImageMetadata> = {
@@ -109,6 +118,12 @@ const caseSchema = {
             <span>Services</span>
             <strong>{services.join(" · ")}</strong>
           </div>
+          {duration && (
+            <div>
+              <span>Doorlooptijd</span>
+              <strong>{duration}</strong>
+            </div>
+          )}
         </div>
       </div>
 
@@ -155,6 +170,19 @@ const caseSchema = {
       </article>
     </div>
   </section>
+
+  {narrative && narrative.length > 0 && (
+    <section class="case-narrative" data-bg-color="#FEFEFE">
+      <div class="case-narrative-inner">
+        {narrative.map((block) => (
+          <div class="case-narrative-block">
+            <h3>{block.heading}</h3>
+            <p>{block.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 
   {gallery && gallery.length > 0 && (
     <section class="case-gallery" data-bg-color="#F6F8FB">
@@ -352,6 +380,31 @@ const caseSchema = {
     padding-left: 1.1rem;
   }
 
+  .case-narrative {
+    padding: 4rem 4rem 5rem;
+    border-top: 1px solid rgba(10, 10, 10, 0.06);
+  }
+
+  .case-narrative-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .case-narrative-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    line-height: 1.15;
+    margin-bottom: 0.65rem;
+  }
+
+  .case-narrative-block p {
+    color: rgba(10, 10, 10, 0.72);
+    line-height: 1.85;
+    font-size: 0.95rem;
+  }
+
   .case-results-inner {
     max-width: 1240px;
     margin: 0 auto;
@@ -395,7 +448,8 @@ const caseSchema = {
   @media (max-width: 768px) {
     .case-hero,
     .case-content,
-    .case-results {
+    .case-results,
+    .case-narrative {
       padding-left: 2rem;
       padding-right: 2rem;
     }

@@ -101,6 +101,16 @@ const faq = [
     a: "Zeker. B2B heeft langere salescycli, wat emailmarketing juist krachtig maakt: je kunt leads nurturen over weken of maanden, kennis delen, vertrouwen opbouwen en op het juiste moment conversiegerichte mails sturen. We bouwen flows specifiek op de B2B-klantreis.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -108,6 +118,7 @@ const faq = [
   description="Geautomatiseerde e-mailflows en nieuwsbrieven die leads nurturen, klanten activeren en omzet genereren op het juiste moment."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
   <Nav basePath="/" />
