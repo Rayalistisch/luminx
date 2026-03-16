@@ -1,4 +1,6 @@
 ---
+import GlowMenu from "./ui/glow-menu";
+
 interface Props {
   basePath?: string;
 }
@@ -6,67 +8,55 @@ interface Props {
 const { basePath = "" } = Astro.props;
 
 const toSection = (id: string) => `${basePath}#${id}`;
+
+const navItems = [
+  {
+    icon: "Layers",
+    label: "Diensten",
+    href: toSection("diensten"),
+    gradient: "radial-gradient(circle, rgba(200,231,245,0.15) 0%, rgba(200,231,245,0.06) 50%, rgba(200,231,245,0) 100%)",
+    iconColor: "text-[#C8E7F5]",
+  },
+  {
+    icon: "LayoutGrid",
+    label: "Werk",
+    href: toSection("werk"),
+    gradient: "radial-gradient(circle, rgba(255,214,232,0.15) 0%, rgba(255,214,232,0.06) 50%, rgba(255,214,232,0) 100%)",
+    iconColor: "text-[#FFD6E8]",
+  },
+  {
+    icon: "User",
+    label: "Over",
+    href: toSection("over"),
+    gradient: "radial-gradient(circle, rgba(232,213,245,0.15) 0%, rgba(232,213,245,0.06) 50%, rgba(232,213,245,0) 100%)",
+    iconColor: "text-[#E8D5F5]",
+  },
+];
 ---
 
-<nav>
-  <a href={basePath || "/"} class="logo">LUMINX</a>
+<nav class="site-nav">
+  <a href={basePath || "/"} class="logo">
+    {"LUMINX".split("").map((letter, i) => (
+      <span class="logo-letter" style={`transition-delay: ${i * 0.04}s`}>{letter}</span>
+    ))}
+  </a>
 
-  <div class="nav-pill">
-    <ul class="nav-links">
-      <li>
-        <a href={toSection("werk")} aria-label="Werk">
-          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-          </svg>
-          <span class="nav-label">Werk</span>
-        </a>
-      </li>
-      <li>
-        <a href={toSection("diensten")} aria-label="Diensten">
-          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
-          </svg>
-          <span class="nav-label">Diensten</span>
-        </a>
-      </li>
-      <li>
-        <a href={toSection("over")} aria-label="Over">
-          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span class="nav-label">Over</span>
-        </a>
-      </li>
-      <li>
-        <a href={toSection("contact")} aria-label="Contact">
-          <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M22 6l-10 7L2 6"/>
-          </svg>
-          <span class="nav-label">Contact</span>
-        </a>
-      </li>
-      <li class="nav-active-indicator" aria-hidden="true"></li>
-    </ul>
-    <div class="nav-mobile-pill-actions">
-      <a href="#" class="nav-mobile-cta" data-overlay-open aria-label="Contact">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="7" y1="17" x2="17" y2="7"/>
-          <polyline points="7 7 17 7 17 17"/>
-        </svg>
-      </a>
+  <div class="nav-glow-wrapper">
+    <GlowMenu client:load items={navItems} />
+  </div>
 
-      <button class="nav-burger" aria-label="Menu">
-        <span></span>
-        <span></span>
-      </button>
-    </div>
+  <div class="nav-mobile-pill-actions">
+    <a href="#" class="nav-mobile-cta" data-overlay-open aria-label="Contact">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="7" y1="17" x2="17" y2="7"/>
+        <polyline points="7 7 17 7 17 17"/>
+      </svg>
+    </a>
+
+    <button class="nav-burger" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
   </div>
 
   <a href="#" class="nav-cta" data-overlay-open>

@@ -67,7 +67,7 @@
   // This removes inline overrides that break the menu styling
   // -------------------------
   function resetNavInlineStyles() {
-    document.querySelectorAll(".logo, .nav-links a, .nav-cta").forEach((el) => {
+    document.querySelectorAll(".logo, .nav-cta").forEach((el) => {
       el.style.color = "";
       el.style.borderColor = "";
       el.style.backgroundColor = "";
@@ -83,7 +83,7 @@
 
     // Trigger line at 25% from the top of the viewport.
     // The active section is the last section whose top has scrolled past this line.
-    const triggerY = window.innerHeight * 0.25;
+    const triggerY = window.innerHeight * 0.08;
     let best = null;
 
     nodes.forEach((node) => {
@@ -172,116 +172,8 @@
   // -------------------------
   // Nav scroll state
   // -------------------------
-  const nav = document.querySelector("nav");
-  const navLinkEls = document.querySelectorAll(".nav-links a");
-  const navLinks = document.querySelector(".nav-links");
-  const navActiveIndicator = document.querySelector(".nav-active-indicator");
+  let nav = null;
   let navWasScrolled = false;
-  let navIndicatorReady = false;
-  let indicatorX = 0;
-  let indicatorW = 0;
-  const sectionLinkMap = [];
-
-  function getIndicatorMetrics() {
-    if (!navLinks || !navActiveIndicator) return null;
-    const linksRect = navLinks.getBoundingClientRect();
-    const indicatorRect = navActiveIndicator.getBoundingClientRect();
-    return {
-      x: indicatorRect.left - linksRect.left,
-      w: indicatorRect.width,
-    };
-  }
-
-  function setIndicatorPosition(x, w) {
-    if (!navActiveIndicator) return;
-    navActiveIndicator.style.left = `${x}px`;
-    navActiveIndicator.style.width = `${w}px`;
-    indicatorX = x;
-    indicatorW = w;
-  }
-
-  function animateElasticIndicator(fromX, fromW, toX, toW) {
-    if (!navActiveIndicator) return;
-
-    const distance = Math.abs(toX - fromX);
-    const overshoot = Math.min(26, 8 + distance * 0.14);
-    const movingRight = toX >= fromX;
-
-    const fromRight = fromX + fromW;
-    const toRight = toX + toW;
-
-    const stretchLeft = movingRight ? fromX : Math.min(toX - overshoot, fromX);
-    const stretchRight = movingRight ? Math.max(toRight + overshoot, fromRight) : fromRight;
-    const stretchWidth = Math.max(0, stretchRight - stretchLeft);
-
-    navActiveIndicator.animate(
-      [
-        { left: `${fromX}px`, width: `${fromW}px`, offset: 0, easing: "cubic-bezier(0.22, 0.61, 0.36, 1)" },
-        { left: `${stretchLeft}px`, width: `${stretchWidth}px`, offset: 0.52, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
-        { left: `${toX}px`, width: `${toW}px`, offset: 1 },
-      ],
-      {
-        duration: 460,
-        fill: "forwards",
-        easing: "linear",
-      }
-    );
-  }
-
-  function moveNavIndicator(link, immediate = false) {
-    if (!navLinks || !navActiveIndicator || !link) return;
-
-    const linksRect = navLinks.getBoundingClientRect();
-    const linkRect = link.getBoundingClientRect();
-    const targetW = linkRect.width * 0.6;
-    const targetX = linkRect.left - linksRect.left + (linkRect.width - targetW) / 2;
-
-    if (!navIndicatorReady || immediate) {
-      navActiveIndicator.getAnimations().forEach((anim) => anim.cancel());
-      setIndicatorPosition(targetX, targetW);
-      navIndicatorReady = true;
-      return;
-    }
-
-    const liveMetrics = getIndicatorMetrics();
-    const fromX = liveMetrics ? liveMetrics.x : indicatorX;
-    const fromW = liveMetrics ? liveMetrics.w : indicatorW;
-
-    navActiveIndicator.getAnimations().forEach((anim) => anim.cancel());
-    setIndicatorPosition(fromX, fromW);
-    animateElasticIndicator(fromX, fromW, targetX, targetW);
-
-    indicatorX = targetX;
-    indicatorW = targetW;
-  }
-
-  function setActiveLink(link, options = {}) {
-    const { immediate = false } = options;
-    if (link) moveNavIndicator(link, immediate);
-    navLinkEls.forEach((l) => l.classList.remove("active"));
-    if (link) {
-      link.classList.add("active");
-    }
-  }
-
-  function initNavIndicator() {
-    if (!navLinkEls.length) return;
-    setActiveLink(navLinkEls[0], { immediate: true });
-
-    navLinkEls.forEach((link) => {
-      const href = link.getAttribute("href") || "";
-      if (href.startsWith("#")) {
-        const target = document.querySelector(href);
-        if (target) {
-          sectionLinkMap.push({ link, target });
-        }
-      }
-    });
-
-    navLinkEls.forEach((link) => {
-      link.addEventListener("click", () => setActiveLink(link));
-    });
-  }
 
 
   // Mobile menu toggle
@@ -309,10 +201,6 @@
 
     if (scrolled) {
       nav.classList.add("nav--scrolled");
-      const activeLink = document.querySelector(".nav-links a.active");
-      if (activeLink) {
-        requestAnimationFrame(() => moveNavIndicator(activeLink, true));
-      }
     } else {
       nav.classList.remove("nav--scrolled");
     }
@@ -324,31 +212,22 @@
   const heroBackground = document.querySelector(".hero-background");
 
   function update() {
-    // ---- READ PHASE (all layout reads first, no DOM writes) ----
     const active = getActiveSection();
     const bg = getVisibleBackground(active);
     const scrolled = window.scrollY > 80;
     const scrollY = window.scrollY;
 
-    // Read active link bounding rects before any writes
-    let scrollSyncLink = null;
-    if (sectionLinkMap.length) {
-      const triggerY = window.innerHeight * 0.28;
-      let current = sectionLinkMap[0];
-      sectionLinkMap.forEach((item) => {
-        const rect = item.target.getBoundingClientRect();
-        if (rect.top <= triggerY) current = item;
-      });
-      const currentActive = document.querySelector(".nav-links a.active");
-      if (current?.link && currentActive !== current.link) {
-        scrollSyncLink = current.link;
-      }
-    }
-
-    // ---- WRITE PHASE (all DOM mutations after reads) ----
     applyTheme(bg);
     updateNavFromState(scrolled);
-    if (scrollSyncLink) setActiveLink(scrollSyncLink);
+
+    // Altijd logo-kleur updaten op basis van huidige achtergrond
+    if (nav && bg) {
+      if (isLightColor(bg)) {
+        nav.classList.add("nav--light-bg");
+      } else {
+        nav.classList.remove("nav--light-bg");
+      }
+    }
 
     if (heroBackground) {
       heroBackground.style.transform = `translateY(${scrollY * 0.5}px)`;
@@ -357,12 +236,13 @@
 
   function init() {
     try {
+      nav = document.querySelector(".site-nav");
+
       // Make sure nav isn't nuked by previous inline styles
       resetNavInlineStyles();
 
       initReveal();
       initGridImageVars();
-      initNavIndicator();
       initMobileMenu();
       update();
 
@@ -379,14 +259,7 @@
 
       window.addEventListener("resize", () => {
         initGridImageVars();
-        const activeLink = document.querySelector(".nav-links a.active");
-        if (activeLink) moveNavIndicator(activeLink, true);
         update();
-      });
-
-      window.addEventListener("load", () => {
-        const activeLink = document.querySelector(".nav-links a.active");
-        if (activeLink) moveNavIndicator(activeLink, true);
       });
     } catch (e) {
       // fallback: show all
