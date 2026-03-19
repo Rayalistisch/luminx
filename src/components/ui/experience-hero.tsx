@@ -143,7 +143,7 @@ export default function ExperienceHero() {
 
       <div
         ref={containerRef}
-        className="relative z-10 min-h-screen w-full p-8 md:p-14 lg:p-20"
+        className="relative z-10 min-h-screen w-full p-[clamp(2rem,4vw,5rem)]"
       >
         <div className="flex min-h-[calc(100vh-4rem)] flex-col justify-between pb-12 md:min-h-[calc(100vh-7rem)] md:pb-8">
           <div className="flex items-center gap-3">
@@ -155,19 +155,19 @@ export default function ExperienceHero() {
 
         <div
           ref={revealRef}
-          className="absolute left-1/2 top-1/2 z-10 flex w-[min(92vw,64rem)] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-y-10 text-center md:gap-y-12 md:w-[min(78vw,64rem)] lg:w-[min(72vw,62rem)] lg:pr-72 xl:w-[min(70vw,64rem)] xl:pr-80 2xl:w-[min(68vw,64rem)] 2xl:pr-0"
+          className="absolute left-1/2 top-1/2 z-10 flex w-[min(92vw,64rem)] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-y-[clamp(2rem,3vw,3rem)] text-center lg:w-[min(72vw,62rem)] lg:pr-[clamp(14rem,20vw,20rem)] xl:w-[min(70vw,64rem)] 2xl:w-[min(68vw,64rem)] 2xl:pr-0"
         >
           <h1 className="text-[clamp(3.5rem,9.5vw,11.5rem)] font-black leading-[0.87] tracking-tighter text-white uppercase">
             CREATIVE <br /> <span className="text-outline">AGENCY</span>
           </h1>
-          <p className="mt-8 mb-12 max-w-md font-mono text-[11px] uppercase leading-relaxed tracking-[0.35em] text-white/40 md:mb-14">
+          <p className="mt-[clamp(1.5rem,2vw,2rem)] mb-[clamp(2rem,3vw,3.5rem)] max-w-md font-mono text-[clamp(9px,0.75vw,11px)] uppercase leading-relaxed tracking-[0.35em] text-white/40">
             WE ENGINEER AUTOMATIONS AND CAMPAIGNS THAT DELIVER ON BUSINESS NEEDS
           </p>
           <div className="pointer-events-auto flex flex-col items-center gap-3 md:flex-row md:justify-center">
             <button
               type="button"
               data-seoscan-open
-              className="group relative inline-flex h-[52px] min-w-[240px] shrink-0 select-none items-center justify-start overflow-hidden rounded-xl bg-white pl-10 pr-24 text-sm font-medium text-black transition-all duration-500 hover:pl-14 hover:pr-12"
+              className="group relative inline-flex h-[clamp(44px,3.5vw,52px)] min-w-[clamp(200px,16vw,240px)] shrink-0 select-none items-center justify-start overflow-hidden rounded-xl bg-white pl-10 pr-24 text-sm font-medium text-black transition-all duration-500 hover:pl-14 hover:pr-12"
             >
               <span className="relative z-10 inline-block whitespace-nowrap translate-x-4 font-sans text-[12px] font-semibold uppercase tracking-[0.12em] transition-all duration-500 group-hover:translate-x-4">
                 Gratis SEO Check
@@ -179,14 +179,14 @@ export default function ExperienceHero() {
             <button
               type="button"
               onClick={() => setShowContactChoice(true)}
-              className="inline-flex h-[52px] min-w-[220px] shrink-0 select-none items-center justify-center rounded-xl border border-white bg-transparent px-6 font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-white hover:bg-white/10"
+              className="inline-flex h-[clamp(44px,3.5vw,52px)] min-w-[clamp(180px,15vw,220px)] shrink-0 select-none items-center justify-center rounded-xl border border-white bg-transparent px-6 font-sans text-[clamp(10px,0.8vw,12px)] font-semibold uppercase tracking-[0.12em] text-white hover:bg-white/10"
             >
               Maak een afspraak
             </button>
           </div>
         </div>
 
-        <div className="z-20 mt-10 hidden w-full flex-col justify-center gap-4 md:ml-auto md:mt-8 md:flex md:w-80 lg:absolute lg:right-10 lg:top-1/2 lg:mt-0 lg:w-72 lg:-translate-y-1/2 xl:right-14 xl:w-80 2xl:right-20 2xl:w-96">
+        <div className="z-20 mt-10 hidden w-full flex-col justify-center gap-[clamp(0.75rem,1vw,1rem)] md:ml-auto md:mt-8 md:flex md:w-80 lg:absolute lg:right-[clamp(1.5rem,3vw,5rem)] lg:top-1/2 lg:mt-0 lg:w-[clamp(16rem,18vw,24rem)] lg:-translate-y-1/2">
           {[
             { id: "001", title: "AVAILABILITY", val: "Open", type: "progress" },
             { id: "002", title: "STUDIO STATS", val: "20+ Wins", type: "data" },

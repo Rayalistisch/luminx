@@ -96,8 +96,8 @@
   right: auto;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 60%;
-  padding: 2rem 4rem;
+  max-width: clamp(700px, 70%, 1100px);
+  padding: clamp(1.2rem, 2vw, 2rem) clamp(1.5rem, 3vw, 4rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -114,7 +114,7 @@
 }
 
 .site-nav.nav--scrolled {
-  padding: 2rem 4rem;
+  padding: clamp(1.2rem, 2vw, 2rem) clamp(1.5rem, 3vw, 4rem);
   top: 0;
   background: transparent;
 }
@@ -176,13 +176,13 @@
 .nav-cta{
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: clamp(0.4rem, 0.5vw, 0.6rem);
   text-decoration: none;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: clamp(0.72rem, 0.8vw, 0.85rem);
   letter-spacing: 0.01em;
-  padding: 0.5rem 0.55rem 0.5rem 1.2rem;
+  padding: 0.5rem 0.55rem 0.5rem clamp(0.8rem, 1vw, 1.2rem);
   border-radius: 0.5rem;
   border: 1px solid rgba(255,255,255,.15);
   background: rgba(20,20,20,.85);
