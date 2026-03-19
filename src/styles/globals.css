@@ -1,5 +1,4 @@
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html { scroll-behavior: smooth; }
 
@@ -93,8 +92,11 @@
 .site-nav{
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 60%;
   padding: 2rem 4rem;
   display: flex;
   justify-content: space-between;
@@ -195,7 +197,7 @@
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: 0.55rem;
   background: #fff;
   color: #000;
   flex-shrink: 0;
@@ -1331,6 +1333,11 @@
 
     @media (max-width: 768px) {
       .site-nav {
+        left: 0;
+        right: 0;
+        transform: none;
+        width: auto;
+        max-width: none;
         padding: 1rem 1.2rem;
         transition: padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                     background 0.4s ease,
@@ -1645,4 +1652,3 @@
       body { cursor: auto; }
       .cursor, .cursor-follower { display: none; }
     }
-

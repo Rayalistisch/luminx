@@ -3,10 +3,9 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MessageCircle, SquarePen, X } from "lucide-react";
 import * as THREE from "three";
 import gsap from "gsap";
-import MotionButton from "./motion-button";
 
 const LiquidBackground = () => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -79,6 +78,7 @@ const Monolith = () => {
 export default function ExperienceHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
+  const [showContactChoice, setShowContactChoice] = React.useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -101,6 +101,31 @@ export default function ExperienceHero() {
 
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    if (!showContactChoice) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowContactChoice(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [showContactChoice]);
+
+  const openContactOverlay = () => {
+    setShowContactChoice(false);
+    const overlay = document.getElementById("contact-overlay");
+    if (!overlay) return;
+    overlay.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  };
+
+  const openWhatsApp = () => {
+    setShowContactChoice(false);
+    const text = encodeURIComponent("Hi Luminx, ik wil graag een afspraak inplannen.");
+    window.open(`https://wa.me/31613698596?text=${text}`, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <section
@@ -142,21 +167,22 @@ export default function ExperienceHero() {
             <button
               type="button"
               data-seoscan-open
-              className="group relative inline-flex h-[52px] min-w-[240px] shrink-0 select-none items-center justify-start overflow-hidden rounded-full bg-white pl-10 pr-24 text-sm font-medium text-black transition-all duration-500 hover:pl-14 hover:pr-12"
+              className="group relative inline-flex h-[52px] min-w-[240px] shrink-0 select-none items-center justify-start overflow-hidden rounded-xl bg-white pl-10 pr-24 text-sm font-medium text-black transition-all duration-500 hover:pl-14 hover:pr-12"
             >
-              <span className="relative z-10 inline-block whitespace-nowrap translate-x-4 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] transition-all duration-500 group-hover:translate-x-14">
+              <span className="relative z-10 inline-block whitespace-nowrap translate-x-4 font-sans text-[12px] font-semibold uppercase tracking-[0.12em] transition-all duration-500 group-hover:translate-x-4">
                 Gratis SEO Check
               </span>
-              <div className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white transition-all duration-500 group-hover:right-[calc(100%-48px)] group-hover:rotate-45">
+              <div className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-xl bg-black text-white transition-all duration-500 group-hover:right-[calc(100%-48px)] group-hover:rotate-0">
                 <ArrowUpRight size={16} />
               </div>
             </button>
-            <MotionButton
-              label="Maak een afspraak"
-              data-overlay-open
-              variant="secondary"
-              className="min-w-[220px]"
-            />
+            <button
+              type="button"
+              onClick={() => setShowContactChoice(true)}
+              className="inline-flex h-[52px] min-w-[220px] shrink-0 select-none items-center justify-center rounded-xl border border-white bg-transparent px-6 font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-white hover:bg-white/10"
+            >
+              Maak een afspraak
+            </button>
           </div>
         </div>
 
@@ -205,6 +231,55 @@ export default function ExperienceHero() {
           ))}
         </div>
       </div>
+
+      {showContactChoice && (
+        <div
+          className="fixed inset-0 z-[1000001] flex items-center justify-center bg-black/75 p-8 backdrop-blur-sm md:p-10"
+          onClick={() => setShowContactChoice(false)}
+          role="presentation"
+        >
+          <div
+            className="relative w-full max-w-lg rounded-2xl border border-white/20 bg-[#0b0b0b]/95 p-9 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)] md:p-10"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Kies contactmethode"
+          >
+            <button
+              type="button"
+              aria-label="Popup sluiten"
+              onClick={() => setShowContactChoice(false)}
+              className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/75 transition hover:border-white/35 hover:text-white"
+            >
+              <X size={16} />
+            </button>
+
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/45">Afspraak</p>
+            <h3 className="pr-14 text-3xl font-black tracking-tight text-white">Kies je kanaal</h3>
+            <p className="mt-4 text-base leading-relaxed text-white/60">Snel via WhatsApp of liever via het contactformulier.</p>
+
+            <div className="mt-9 grid gap-5">
+              <button
+                type="button"
+                onClick={openWhatsApp}
+                className="group inline-flex h-16 items-center justify-between rounded-xl border border-white/20 bg-white px-6 font-sans text-[12px] font-semibold uppercase tracking-[0.1em] text-black transition hover:bg-white/90"
+              >
+                <span>WhatsApp</span>
+                <MessageCircle size={16} />
+              </button>
+
+              <button
+                type="button"
+                onClick={openContactOverlay}
+                className="group inline-flex h-16 items-center justify-between rounded-xl border border-white/20 bg-transparent px-6 font-sans text-[12px] font-semibold uppercase tracking-[0.1em] text-white transition hover:border-white/35 hover:bg-white/5"
+              >
+                <span>Contactformulier</span>
+                <SquarePen size={16} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
