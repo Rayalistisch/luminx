@@ -43,6 +43,10 @@
 
   <div class="footer-bottom">
     <p>&copy; 2026 LUMINX. Alle rechten voorbehouden.</p>
+    <div class="footer-legal">
+      <a href="/privacy">Privacyverklaring</a>
+      <a href="/algemene-voorwaarden">Algemene voorwaarden</a>
+    </div>
   </div>
 </footer>
 
@@ -86,5 +90,23 @@
 
   .footer-wordmark.is-visible .footer-wordmark-letter {
     transform: translateY(0);
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    justify-content: center;
+  }
+
+  .footer-legal a {
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-legal a:hover {
+    color: rgba(255,255,255,0.6);
   }
 </style>
