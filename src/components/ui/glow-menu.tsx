@@ -66,14 +66,14 @@ export default function GlowMenu({
   return (
     <motion.nav
       className={cn(
-        "px-18 py-6 rounded-lg bg-[rgba(20,20,20,0.85)] backdrop-blur-xl border border-[rgba(255,255,255,0.06)] shadow-[0_4px_24px_rgba(0,0,0,0.25)] relative overflow-visible",
+        "px-2 py-1 rounded-lg bg-[rgba(20,20,20,0.85)] backdrop-blur-xl border border-[rgba(255,255,255,0.06)] shadow-[0_4px_24px_rgba(0,0,0,0.25)] relative overflow-visible",
         className
       )}
       initial="initial"
       whileHover="hover"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      <ul className="flex items-center gap-2 relative z-10 list-none m-0" style={{ padding: "12px" }}>
+      <ul className="flex items-center gap-2 relative z-10 list-none m-0 p-0">
         {items.map((item) => {
           const Icon = iconMap[item.icon];
           const isActive = item.label === activeItem;

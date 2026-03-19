@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+}
+
 @keyframes loading-slide {
   0% {
     transform: translateX(-100%);
