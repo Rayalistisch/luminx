@@ -155,7 +155,7 @@ export default function ExperienceHero() {
 
         <div
           ref={revealRef}
-          className="absolute left-1/2 top-1/2 z-10 flex w-[min(92vw,64rem)] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-y-[clamp(2rem,3vw,3rem)] text-center lg:w-[min(72vw,62rem)] lg:pr-[clamp(14rem,20vw,20rem)] xl:w-[min(70vw,64rem)] 2xl:w-[min(68vw,64rem)] 2xl:pr-0"
+          className="absolute left-1/2 top-1/2 z-10 flex w-[min(92vw,64rem)] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-y-[clamp(2rem,3vw,3rem)] text-center"
         >
           <h1 className="text-[clamp(3.5rem,9.5vw,11.5rem)] font-black leading-[0.87] tracking-tighter text-white uppercase">
             CREATIVE <br /> <span className="text-outline">AGENCY</span>
@@ -186,50 +186,6 @@ export default function ExperienceHero() {
           </div>
         </div>
 
-        <div className="z-20 mt-10 hidden w-full flex-col justify-center gap-[clamp(0.75rem,1vw,1rem)] md:ml-auto md:mt-8 md:flex md:w-80 lg:absolute lg:right-[clamp(1.5rem,3vw,5rem)] lg:top-1/2 lg:mt-0 lg:w-[clamp(16rem,18vw,24rem)] lg:-translate-y-1/2">
-          {[
-            { id: "001", title: "AVAILABILITY", val: "Open", type: "progress" },
-            { id: "002", title: "STUDIO STATS", val: "20+ Wins", type: "data" },
-            { id: "003", title: "EXPERTISE", val: "Creative Dev", type: "text" },
-          ].map((item) => (
-            <div
-              key={item.id}
-              className="command-cell glass-panel block p-6 sm:p-7"
-              style={{ backgroundColor: "rgba(20, 20, 20, 0.18)" }}
-            >
-              <span className="mb-3 block font-mono text-[9px] uppercase tracking-widest text-white/25">
-                {item.id} // {item.title}
-              </span>
-
-              {item.type === "progress" ? (
-                <div className="mt-2 flex items-end justify-between">
-                  <h4 className="text-2xl font-bold tracking-tighter text-white sm:text-3xl">
-                    {item.val}
-                  </h4>
-                  <div className="h-[2px] w-20 overflow-hidden rounded-full bg-white/5">
-                    <div className="animate-loading h-full w-[60%] bg-white" />
-                  </div>
-                </div>
-              ) : item.type === "data" ? (
-                <div className="mt-4 flex flex-col gap-3">
-                  <div className="flex justify-between font-mono text-[10px] text-white/50">
-                    <span>Drum Awards</span>
-                    <span>2024-25</span>
-                  </div>
-                  <div className="h-[1px] w-full bg-white/5" />
-                  <div className="flex justify-between font-mono text-[10px] text-white/50">
-                    <span>Retention Rate</span>
-                    <span>98.2%</span>
-                  </div>
-                </div>
-              ) : (
-                <h3 className="mt-3 text-sm leading-snug text-white/70">
-                  Transforming campaigns into <span className="italic text-white">Business campaigns</span>.
-                </h3>
-              )}
-            </div>
-          ))}
-        </div>
       </div>
 
       {showContactChoice && (
