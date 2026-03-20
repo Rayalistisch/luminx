@@ -359,6 +359,22 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="seo-related-reads" data-bg-color="#F7F9FC">
+      <div class="seo-container">
+        <span class="seo-related-kicker">Gerelateerd</span>
+        <div class="seo-related-grid">
+          <a href="/vergelijk/seo-vs-sea" class="seo-related-card">
+            <strong>SEO vs. SEA</strong>
+            <span>Wanneer kies je organisch, wanneer betaald?</span>
+          </a>
+          <a href="/vergelijk/geo-vs-seo" class="seo-related-card">
+            <strong>GEO vs. SEO</strong>
+            <span>Zoekmachines vs. AI-antwoorden — wat past bij jou?</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Klaar voor structurele<br/>organische groei?</h2>
@@ -745,5 +761,15 @@ const faqSchema = {
     .seo-step:first-child { border-top: none; }
     .seo-metrics { grid-template-columns: 1fr 1fr; }
     .seo-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+    .seo-related-grid { grid-template-columns: 1fr; }
   }
+
+  .seo-related-reads { padding: 4rem 4rem; }
+  .seo-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .seo-related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .seo-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .seo-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .seo-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.1rem; margin-bottom: 0.35rem; }
+  .seo-related-card span { font-size: 0.9rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .seo-related-reads { padding: 3rem 2rem; } }
 </style>

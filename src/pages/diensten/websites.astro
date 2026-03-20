@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+---
+
+<BaseLayout
+  title="Website Laten Maken | LuminX — Custom, Framer & WordPress"
+  description="Een website die premium oogt, razendsnel laadt en converteert. LuminX bouwt op maat in custom code, Framer of WordPress — altijd met focus op resultaat."
+>
+  <ServicePage
+    title="Websites"
+    icon="✦"
+    intro="We ontwerpen en bouwen websites die merkbeleving combineren met performance. Custom code, Framer of WordPress — we kiezen de stack die past bij jouw doelen, budget en schaalbaarheid."
+    metrics={[
+      { value: "90+", label: "Core Web Vitals" },
+      { value: "3-6 weken", label: "Naar live" },
+      { value: "Conversion-led", label: "Design + data" },
+    ]}
+    painPoints={[
+      "Een site die visueel oké is maar technisch traag presteert",
+      "Onvoldoende structuur voor SEO en schaalbare content",
+      "Design en development sluiten niet aan op conversiedoelen",
+      "Geen betrouwbare tracking van gedrag en leadkwaliteit"
+    ]}
+    highlights={[
+      "Custom design en frontend met sterke merkidentiteit",
+      "Technische optimalisatie voor performance, SEO en toegankelijkheid",
+      "Modulaire opbouw zodat je website makkelijk doorontwikkelt",
+      "Robuuste analytics en eventtracking voor betere sturing"
+    ]}
+    process={[
+      "Strategische intake op doelen, doelgroep en propositie",
+      "UX-architectuur, wireframes en visuele richting",
+      "Development, QA en validatie op device- en browsertype",
+      "Lancering met meetplan en roadmap voor iteratieve groei"
+    ]}
+    outcomes={[
+      "Snellere website-ervaring en hogere gebruikskwaliteit",
+      "Meer kwalitatieve aanvragen via duidelijke funnels",
+      "Sterkere online merkbeleving over alle pagina's",
+      "Betere beslissingen op basis van betrouwbare data"
+    ]}
+    faq={[
+      {
+        q: "Welke technologie gebruiken jullie voor websites?",
+        a: "Dat hangt af van je situatie. Voor maximale performance en maatwerk bouwen we in Astro of Next.js. Wil je zelf eenvoudig pagina's bewerken? Dan is Framer of WordPress een betere keuze. We adviseren altijd de stack die past bij je doelen, budget en technische kennis."
+      },
+      {
+        q: "Wat kost een website laten maken?",
+        a: "Een professionele website begint vanaf €2.500 voor een compacte Framer- of WordPress-site. Custom ontwikkeling in Astro of Next.js start rond €5.000. De exacte prijs hangt af van het aantal pagina's, functionaliteit en integraties. We maken altijd een offerte op maat."
+      },
+      {
+        q: "Hoe lang duurt het om een website te bouwen?",
+        a: "Een standaard website is binnen 3 tot 6 weken live. Complexere projecten met maatwerk functionaliteit of uitgebreide content nemen 6 tot 10 weken in beslag. Na de intake krijg je een concrete planning met milestones."
+      },
+      {
+        q: "Kan ik mijn website zelf beheren na oplevering?",
+        a: "Ja. Bij Framer en WordPress heb je een visuele editor waarmee je zelf content kunt aanpassen. Bij custom builds richten we een headless CMS in (zoals TinaCMS) zodat je teksten en afbeeldingen kunt wijzigen zonder developer. We verzorgen altijd een training bij oplevering."
+      },
+      {
+        q: "Bouwen jullie ook webshops?",
+        a: "Ja, voor e-commerce hebben we een apart aanbod. We bouwen webshops op Shopify en WooCommerce. Bekijk onze webshops-pagina voor meer informatie over e-commerce oplossingen."
+      },
+    ]}
+  >
+    <div slot="body">
+      <h2>Welke stack past bij jou?</h2>
+      <p>
+        Niet elke website heeft dezelfde technologie nodig. De keuze hangt af van je doelen, budget en hoe actief je zelf content wilt beheren. Dit zijn de opties waarmee we werken:
+      </p>
+      <ul>
+        <li><strong>Custom (Astro / Next.js)</strong> — maximale performance, volledige controle en schaalbaarheid. Ideaal voor bedrijven die SEO-performance en snelheid als concurrentievoordeel willen inzetten.</li>
+        <li><strong>Framer</strong> — visueel design-tool met snelle oplevering en eenvoudig zelfbeheer. Geschikt voor startups, personal brands en bedrijven die snel live willen zonder afhankelijkheid van een developer.</li>
+        <li><strong>WordPress</strong> — het meest gebruikte CMS ter wereld. Flexibel, uitbreidbaar en geschikt voor content-intensieve sites die regelmatig worden bijgewerkt.</li>
+      </ul>
+
+      <h2>Waarom LuminX voor je website?</h2>
+      <p>
+        Bij LuminX werk je rechtstreeks met de persoon die je site bouwt. Geen accountmanagers, geen tussenlagen. We denken mee over strategie, bouwen met oog voor conversie en leveren een site op die niet alleen mooi is, maar ook meetbaar presteert.
+      </p>
+      <p>
+        Elke website wordt opgeleverd met volledige tracking (GA4, GTM, Consent Mode v2), SEO-basis en een roadmap voor doorontwikkeling. Zo heb je niet alleen een site, maar een platform dat meegroeit met je bedrijf.
+      </p>
+    </div>
+  </ServicePage>
+</BaseLayout>

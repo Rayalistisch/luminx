@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+---
+
+<BaseLayout
+  title="Webshop Laten Maken | Shopify & WooCommerce | LuminX"
+  description="Een webshop die verkoopt. LuminX bouwt en optimaliseert Shopify en WooCommerce shops met focus op conversie, snelheid en schaalbaarheid."
+>
+  <ServicePage
+    title="Webshops"
+    icon="◈"
+    intro="We bouwen webshops die verkopen. Van productpagina's tot checkout: elke stap is geoptimaliseerd voor conversie. Op Shopify of WooCommerce — afhankelijk van je productrange, integraties en groeiambitie."
+    metrics={[
+      { value: "+25-50%", label: "Hogere conversieratio" },
+      { value: "4-8 weken", label: "Naar live" },
+      { value: "Shopify & Woo", label: "E-commerce platforms" },
+    ]}
+    painPoints={[
+      "Een webshop die er goed uitziet maar slecht converteert",
+      "Productbeheer dat onnodig veel tijd kost door slechte tooling",
+      "Checkout-flow met te veel stappen en hoog uitvalpercentage",
+      "Geen inzicht in welke producten, kanalen en campagnes omzet opleveren"
+    ]}
+    highlights={[
+      "Conversie-geoptimaliseerde productpagina's en checkout",
+      "Feedmanagement en koppeling met Google Merchant Center en Channable",
+      "Geautomatiseerde voorraadbeheer en ordersynchronisatie",
+      "Volledige e-commerce tracking met GA4 en server-side tagging"
+    ]}
+    process={[
+      "Analyse van productrange, doelgroep en e-commerce doelen",
+      "Platformkeuze, UX-ontwerp en technische architectuur",
+      "Development, productmigratie en integraties met bestaande systemen",
+      "Lancering met tracking, feedkoppelingen en optimalisatieroadmap"
+    ]}
+    outcomes={[
+      "Hogere conversieratio door geoptimaliseerde customer journey",
+      "Minder handwerk door geautomatiseerde productfeeds en voorraadbeheer",
+      "Betere advertentierendementen door correcte e-commerce tracking",
+      "Een schaalbaar platform dat meegroeit met je assortiment"
+    ]}
+    faq={[
+      {
+        q: "Shopify of WooCommerce — wat past beter bij mij?",
+        a: "Shopify is ideaal als je snel wilt starten, weinig technisch beheer wilt en een betrouwbaar hosted platform zoekt. WooCommerce past beter als je al op WordPress zit, meer maatwerk nodig hebt of volledige controle over je data wilt. We adviseren op basis van je productrange, budget en technische wensen."
+      },
+      {
+        q: "Wat kost een webshop laten maken?",
+        a: "Een professionele Shopify-shop begint vanaf €3.500. WooCommerce-projecten starten rond €4.000 vanwege de extra technische configuratie. Complexere shops met maatwerk integraties, productmigraties of uitgebreide feedmanagement kosten meer. Je ontvangt altijd een gedetailleerde offerte vooraf."
+      },
+      {
+        q: "Kunnen jullie mijn bestaande webshop migreren?",
+        a: "Ja. We migreren webshops van elk platform naar Shopify of WooCommerce. Inclusief producten, klantdata, SEO-waarde (URL-redirects) en bestelhistorie. We hebben ervaring met migraties van onder andere WordPress, Magento, Lightspeed en custom platforms."
+      },
+      {
+        q: "Hoe zit het met productfeeds en Google Shopping?",
+        a: "We koppelen je webshop aan Google Merchant Center en eventueel Channable voor geautomatiseerd feedmanagement. Zo zijn je producten altijd up-to-date in Google Shopping, Meta Catalog en andere verkoopkanalen — zonder handmatig werk."
+      },
+      {
+        q: "Bouwen jullie ook gewone websites zonder shop?",
+        a: "Ja, voor bedrijfswebsites zonder e-commerce hebben we een apart aanbod. We bouwen op maat in custom code, Framer of WordPress. Bekijk onze websites-pagina voor meer informatie."
+      },
+    ]}
+  >
+    <div slot="body">
+      <h2>Welk platform past bij jouw webshop?</h2>
+      <p>
+        De keuze tussen Shopify en WooCommerce hangt af van je situatie. Beide platformen zijn bewezen, maar ze passen bij verschillende behoeften:
+      </p>
+      <ul>
+        <li><strong>Shopify</strong> — hosted platform met ingebouwde betalingen, voorraadbeheer en app-ecosysteem. Ideaal voor ondernemers die snel willen starten en minimaal technisch beheer willen. Sterk in dropshipping, D2C en internationale verkoop.</li>
+        <li><strong>WooCommerce</strong> — open-source plugin voor WordPress. Maximale flexibiliteit en maatwerk. Geschikt voor bedrijven die al op WordPress zitten, complexe productstructuren hebben of volledige controle over hosting en data willen.</li>
+      </ul>
+
+      <h2>E-commerce tracking en feedmanagement</h2>
+      <p>
+        Een webshop zonder goede tracking is blind varen. We implementeren volledige e-commerce tracking in GA4 met enhanced e-commerce events: product views, add-to-cart, checkout stappen en transacties. Gekoppeld aan Google Ads en Meta Ads zodat je exact weet welke campagnes omzet opleveren.
+      </p>
+      <p>
+        Voor productfeeds werken we met Channable of native Shopify-koppelingen richting Google Merchant Center, Meta Catalog en andere marktplaatsen. Zo zijn je producten altijd actueel zonder handmatig werk.
+      </p>
+    </div>
+  </ServicePage>
+</BaseLayout>

@@ -61,12 +61,12 @@ export const cities: City[] = [
 ];
 
 export const services: Record<string, ServiceDef> = {
-  "web-development": {
-    label: "Web Development",
+  websites: {
+    label: "Websites",
     icon: "✦",
-    metaTitle: (city) => `Web Development ${city} | LuminX — Marketing Partner in Twente`,
+    metaTitle: (city) => `Website Laten Maken ${city} | LuminX — Partner in Twente`,
     metaDesc: (city) =>
-      `Op zoek naar een professionele partner in ${city}? LuminX bouwt snelle, converterende websites voor bedrijven in ${city} en heel Twente.`,
+      `Op zoek naar een professionele website in ${city}? LuminX bouwt snelle, converterende websites in custom code, Framer of WordPress voor bedrijven in ${city}.`,
     intro: (city, context) =>
       `${context} LuminX helpt bedrijven in ${city} met een website die niet alleen premium oogt, maar ook technisch sterk presteert en meetbaar meer oplevert.`,
     metrics: [
@@ -97,6 +97,44 @@ export const services: Record<string, ServiceDef> = {
       "Meer kwalitatieve aanvragen via duidelijke funnels",
       "Sterkere online merkbeleving over alle pagina's",
       "Betere beslissingen op basis van betrouwbare data",
+    ],
+  },
+  webshops: {
+    label: "Webshops",
+    icon: "◈",
+    metaTitle: (city) => `Webshop Laten Maken ${city} | LuminX — Shopify & WooCommerce`,
+    metaDesc: (city) =>
+      `Webshop laten maken in ${city}? LuminX bouwt Shopify en WooCommerce shops die verkopen voor bedrijven in ${city} en heel Twente.`,
+    intro: (city, context) =>
+      `${context} LuminX bouwt voor bedrijven in ${city} webshops die verkopen — met geoptimaliseerde checkout, productfeeds en volledige e-commerce tracking.`,
+    metrics: [
+      { value: "+25-50%", label: "Hogere conversieratio" },
+      { value: "4-8 weken", label: "Naar live" },
+      { value: "Shopify & Woo", label: "E-commerce platforms" },
+    ],
+    painPoints: [
+      "Een webshop die er goed uitziet maar slecht converteert",
+      "Productbeheer dat onnodig veel tijd kost door slechte tooling",
+      "Checkout-flow met te veel stappen en hoog uitvalpercentage",
+      "Geen inzicht in welke producten en kanalen omzet opleveren",
+    ],
+    highlights: [
+      "Conversie-geoptimaliseerde productpagina's en checkout",
+      "Feedmanagement en koppeling met Google Merchant Center",
+      "Geautomatiseerde voorraadbeheer en ordersynchronisatie",
+      "Volledige e-commerce tracking met GA4 en server-side tagging",
+    ],
+    process: [
+      "Analyse van productrange, doelgroep en e-commerce doelen",
+      "Platformkeuze, UX-ontwerp en technische architectuur",
+      "Development, productmigratie en integraties",
+      "Lancering met tracking, feedkoppelingen en optimalisatieroadmap",
+    ],
+    outcomes: [
+      "Hogere conversieratio door geoptimaliseerde customer journey",
+      "Minder handwerk door geautomatiseerde productfeeds",
+      "Betere advertentierendementen door correcte e-commerce tracking",
+      "Een schaalbaar platform dat meegroeit met je assortiment",
     ],
   },
   "online-marketing": {

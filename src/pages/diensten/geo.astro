@@ -343,6 +343,22 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="geo-related-reads" data-bg-color="#F7F9FC">
+      <div class="geo-container">
+        <span class="geo-related-kicker">Gerelateerd</span>
+        <div class="geo-related-grid">
+          <a href="/vergelijk/geo-vs-seo" class="geo-related-card">
+            <strong>GEO vs. SEO</strong>
+            <span>Wanneer kies je AI-zichtbaarheid, wanneer zoekmachines?</span>
+          </a>
+          <a href="/videocall" class="geo-related-card">
+            <strong>Plan een videocall</strong>
+            <span>Bespreek vrijblijvend de mogelijkheden voor jouw merk.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Klaar om zichtbaar te worden<br/>in AI-antwoorden?</h2>
@@ -735,5 +751,15 @@ const faqSchema = {
     .geo-step:first-child { border-top: none; }
     .geo-metrics { grid-template-columns: 1fr 1fr; }
     .geo-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+    .geo-related-grid { grid-template-columns: 1fr; }
   }
+
+  .geo-related-reads { padding: 4rem 4rem; }
+  .geo-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .geo-related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .geo-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .geo-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .geo-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.1rem; margin-bottom: 0.35rem; }
+  .geo-related-card span { font-size: 0.9rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .geo-related-reads { padding: 3rem 2rem; } }
 </style>

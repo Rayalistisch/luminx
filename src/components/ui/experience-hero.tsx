@@ -172,8 +172,8 @@ export default function ExperienceHero() {
               <span className="relative z-10 inline-block whitespace-nowrap translate-x-4 font-sans text-[12px] font-semibold uppercase tracking-[0.12em] transition-all duration-500 group-hover:translate-x-4">
                 Gratis SEO Check
               </span>
-              <div className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-xl bg-black text-white transition-all duration-500 group-hover:right-[calc(100%-48px)] group-hover:rotate-0">
-                <ArrowUpRight size={16} />
+              <div className="absolute right-1 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-black text-white transition-all duration-500 group-hover:right-[calc(100%-40px)] group-hover:rotate-0 md:h-11 md:w-11 md:rounded-xl md:group-hover:right-[calc(100%-48px)]">
+                <ArrowUpRight size={14} className="md:!h-4 md:!w-4" />
               </div>
             </button>
             <button
@@ -211,8 +211,7 @@ export default function ExperienceHero() {
             </button>
 
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/45">Afspraak</p>
-            <h3 className="pr-14 text-3xl font-black tracking-tight text-white">Kies je kanaal</h3>
-            <p className="mt-4 text-base leading-relaxed text-white/60">Snel via WhatsApp of liever via het contactformulier.</p>
+            <p className="mt-4 text-base leading-relaxed text-white/60">Kies het contactmoment wat bij je past.</p>
 
             <div className="mt-9 grid gap-5">
               <button

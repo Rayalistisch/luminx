@@ -16,6 +16,35 @@ const navItems = [
     href: toSection("diensten"),
     gradient: "radial-gradient(circle, rgba(200,231,245,0.15) 0%, rgba(200,231,245,0.06) 50%, rgba(200,231,245,0) 100%)",
     iconColor: "text-[#C8E7F5]",
+    dropdown: [
+      {
+        category: "Online Marketing",
+        items: [
+          { label: "SEO", href: "/diensten/seo" },
+          { label: "SEA", href: "/diensten/sea" },
+          { label: "Social Advertising", href: "/diensten/social-advertising" },
+          { label: "E-mailmarketing", href: "/diensten/emailmarketing" },
+          { label: "GEO – AI-zichtbaarheid", href: "/diensten/geo" },
+        ],
+      },
+      {
+        category: "Technologie",
+        items: [
+          { label: "Websites", href: "/diensten/websites" },
+          { label: "Webshops", href: "/diensten/webshops" },
+          { label: "Procesautomation", href: "/diensten/procesautomation" },
+        ],
+      },
+      {
+        category: "Strategie & Data",
+        items: [
+          { label: "Strategie", href: "/diensten/strategy" },
+          { label: "Google Tag Manager", href: "/diensten/google-tag-manager" },
+          { label: "GA4 Implementatie", href: "/diensten/ga4-implementatie" },
+          { label: "Consent Mode v2", href: "/diensten/consent-mode-v2" },
+        ],
+      },
+    ],
   },
   {
     icon: "LayoutGrid",
@@ -72,7 +101,25 @@ const navItems = [
   <div class="mobile-menu">
     <ul class="mobile-menu-links">
       <li><a href={toSection("werk")}>Werk</a></li>
-      <li><a href={toSection("diensten")}>Diensten</a></li>
+      <li>
+        <button class="mobile-diensten-toggle" type="button">Diensten <span class="mobile-chevron">+</span></button>
+        <ul class="mobile-diensten-sub">
+          <li class="mobile-sub-category">Online Marketing</li>
+          <li><a href="/diensten/seo">SEO</a></li>
+          <li><a href="/diensten/sea">SEA – Google Ads</a></li>
+          <li><a href="/diensten/social-advertising">Social Advertising</a></li>
+          <li><a href="/diensten/emailmarketing">E-mailmarketing</a></li>
+          <li><a href="/diensten/geo">GEO – AI-zichtbaarheid</a></li>
+          <li class="mobile-sub-category">Technologie</li>
+          <li><a href="/diensten/websites">Websites</a></li>
+          <li><a href="/diensten/webshops">Webshops</a></li>
+          <li><a href="/diensten/procesautomation">Procesautomation</a></li>
+          <li class="mobile-sub-category">Strategie & Data</li>
+          <li><a href="/diensten/strategy">Strategie</a></li>
+          <li><a href="/diensten/google-tag-manager">Google Tag Manager</a></li>
+          <li><a href="/diensten/ga4-implementatie">GA4 Implementatie</a></li>
+        </ul>
+      </li>
       <li><a href={toSection("over")}>Over</a></li>
       <li><a href={toSection("contact")}>Contact</a></li>
     </ul>

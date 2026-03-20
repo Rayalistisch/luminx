@@ -352,6 +352,22 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="sea-related-reads" data-bg-color="#F7F9FC">
+      <div class="sea-container">
+        <span class="sea-related-kicker">Gerelateerd</span>
+        <div class="sea-related-grid">
+          <a href="/vergelijk/seo-vs-sea" class="sea-related-card">
+            <strong>SEO vs. SEA</strong>
+            <span>Wanneer kies je organisch, wanneer betaald?</span>
+          </a>
+          <a href="/tracking-audit" class="sea-related-card">
+            <strong>Gratis Tracking-audit</strong>
+            <span>Ontdek of je Google Ads conversies correct meet.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
@@ -1001,5 +1017,15 @@ const faqSchema = {
       border-top: 1px solid rgba(255,255,255,0.2);
       padding-left: 0; padding-top: 1rem;
     }
+    .sea-related-grid { grid-template-columns: 1fr; }
   }
+
+  .sea-related-reads { padding: 4rem 4rem; }
+  .sea-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .sea-related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .sea-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .sea-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .sea-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.1rem; margin-bottom: 0.35rem; }
+  .sea-related-card span { font-size: 0.9rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .sea-related-reads { padding: 3rem 2rem; } }
 </style>

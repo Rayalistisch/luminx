@@ -193,6 +193,15 @@
         document.body.style.overflow = "";
       });
     });
+
+    var dienstenToggle = document.querySelector(".mobile-diensten-toggle");
+    var dienstenSub = document.querySelector(".mobile-diensten-sub");
+    if (dienstenToggle && dienstenSub) {
+      dienstenToggle.addEventListener("click", function () {
+        dienstenToggle.classList.toggle("is-open");
+        dienstenSub.classList.toggle("is-open");
+      });
+    }
   }
 
   function updateNavFromState(scrolled) {
