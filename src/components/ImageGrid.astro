@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import websiteGsmteamImage from "../assets/images/website-gsmteam.png";
+import { ProjectShowcase } from "./ui/project-showcase";
 ---
 
 <section class="image-grid-section" id="werk">
@@ -10,86 +9,19 @@ import websiteGsmteamImage from "../assets/images/website-gsmteam.png";
     <p>Projecten waar strategie en uitvoering samenkomen, <br>altijd met meetbare resultaten.</p>
   </div>
 
-  <div class="image-grid">
-    <a class="grid-item" href="/cases/migraties" aria-label="Bekijk project GSM Team">
-      <Image
-        class="grid-item-image"
-        src={websiteGsmteamImage}
-        alt="GSM Team – migratie naar Shopify"
-        widths={[420, 640, 900]}
-        sizes="(max-width: 1024px) 100vw, 33vw"
-        quality={72}
-        loading="lazy"
-      />
-      <div class="grid-item-overlay">
-        <div class="grid-item-tags">
-          <span>Migratie</span>
-        </div>
-        <div class="grid-item-content">
-          <h3>GSM Team</h3>
-          <p>WordPress → Shopify migratie met behoud van SEO-waarde en 40% snellere laadtijd</p>
-        </div>
-        <span class="grid-item-hover-indicator" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
-          </svg>
-        </span>
-      </div>
-    </a>
-
-    <a class="grid-item" href="/cases/custom-applicaties" aria-label="Bekijk project ReservaX / ActifAid">
-      <img
-        class="grid-item-image"
-        src="/images/reservaxactifaid.png"
-        alt="ReservaX – custom afspraakbeheer applicatie"
-        loading="lazy"
-      />
-      <div class="grid-item-overlay">
-        <div class="grid-item-tags">
-          <span>Websites</span>
-          <span>Procesautomation</span>
-        </div>
-        <div class="grid-item-content">
-          <h3>ReservaX / ActifAid</h3>
-          <p>Custom afsprakensysteem dat handmatige planning volledig vervangt</p>
-        </div>
-        <span class="grid-item-hover-indicator" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
-          </svg>
-        </span>
-      </div>
-    </a>
-
-    <a class="grid-item" href="/cases/digital-marketing" aria-label="Bekijk project Ascendio">
-      <img
-        class="grid-item-image"
-        src="/images/ascendio seo automation.jpg"
-        alt="Ascendio – SEO automation"
-        loading="lazy"
-      />
-      <div class="grid-item-overlay">
-        <div class="grid-item-tags">
-          <span>SEO</span>
-          <span>AI Automation</span>
-        </div>
-        <div class="grid-item-content">
-          <h3>Ascendio</h3>
-          <p>AI-gedreven content clusters die organisch verkeer met 3× verhoogden</p>
-        </div>
-        <span class="grid-item-hover-indicator" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
-          </svg>
-        </span>
-      </div>
-    </a>
+  <div class="showcase-wrapper">
+    <ProjectShowcase client:load />
   </div>
 
   <div class="cases-footer">
     <a href="/#werk" class="cases-all-link">Bekijk alle cases →</a>
   </div>
 </section>
+
+<style>
+  .showcase-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+</style>
