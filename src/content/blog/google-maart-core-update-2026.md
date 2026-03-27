@@ -13,11 +13,11 @@ Google heeft een nieuwe core update aangekondigd: de Maart Core Update van 2026.
 
 ## Wat is een core update precies?
 
-Google past zijn zoekalgorithme continu aan. Een paar keer per jaar doet Google dit op grotere schaal — dat noemen ze een core update. Het doel is altijd hetzelfde: **de zoeker zo goed mogelijk helpen met relevante, betrouwbare informatie**.
+Google past zijn zoekalgorithme continu aan. Een paar keer per jaar doet Google dit op grotere schaal, een core update. Het doel is altijd hetzelfde: **de zoeker zo goed mogelijk helpen met relevante, betrouwbare informatie**.
 
 Een core update is geen straf voor jouw website. Het is Google dat zijn lijst met "beste resultaten" opnieuw sorteert, op basis van wat anno nu het nuttigst is voor de zoeker.
 
-Een simpele vergelijking: stel je maakt een lijst van je 20 favoriete restaurants. Die lijst heb je in 2022 opgesteld. Anno 2026 zijn er nieuwe restaurants bijgekomen, zijn andere restaurants minder geworden, en heb je inmiddels een voorkeur voor hondenvriendelljke terrassen. De lijst verandert — niet omdat de restaurants die zakken "slecht" zijn, maar omdat anderen er op dit moment beter aan voldoen.
+Een simpele vergelijking: stel je maakt een lijst van je 20 favoriete restaurants. Die lijst heb je in 2022 opgesteld. Anno 2026 zijn er nieuwe restaurants bijgekomen, zijn andere restaurants minder geworden, en heb je inmiddels een voorkeur voor hondenvriendelljke terrassen. De lijst verandert, niet omdat de restaurants die zakken "slecht" zijn, maar omdat anderen er op dit moment beter aan voldoen.
 
 Zo werkt een core update ook.
 
@@ -46,7 +46,7 @@ Analyseer ook per zoektype: is de daling in de gewone zoekresultaten, Google Afb
 
 ## Wat doe je bij een grote daling?
 
-Als je een flinke, aanhoudende daling ziet, is het tijd om kritisch naar je eigen website te kijken. Niet naar losse pagina's, maar naar je website als geheel. De kernvraag die Google zichzelf stelt — en die jij jezelf ook moet stellen — is:
+Als je een flinke, aanhoudende daling ziet, is het tijd om kritisch naar je eigen website te kijken. Niet naar losse pagina's, maar naar je website als geheel. De kernvraag die Google zichzelf stelt, en die jij jezelf waarschijnlijk ook moet stellen, is:
 
 > *Biedt mijn website échte, betrouwbare informatie die de bezoeker daadwerkelijk helpt?*
 
@@ -58,7 +58,7 @@ Probeer zo objectief mogelijk te kijken. Vraag eventueel iemand die niets met jo
 
 **Niet doen: quick fixes**
 
-Loop geen lijstjes af met "SEO-tips" van YouTube en gooi er van alles uit omdat iemand zei dat het slecht is voor je rankings. Willekeurige wijzigingen zonder richting helpen niet — en kunnen zelfs schaden.
+Loop geen lijstjes af met "SEO-tips" van YouTube en gooi er van alles uit omdat iemand zei dat het slecht is voor je rankings. Willekeurige wijzigingen zonder richting helpen niet, en kunnen zelfs je ranking nog verder doen dalen.
 
 **Wel doen: investeer in betere content**
 
@@ -66,13 +66,13 @@ Kijk of je bestaande pagina's makkelijker leesbaar en beter gestructureerd kunt 
 
 **Content verwijderen: laatste optie**
 
-Verwijder content alleen als je er zeker van bent dat er niets mee te redden valt. Als je erover nadenkt om hele secties van je website te deleten, is dat waarschijnlijk een teken dat die content is geschreven voor zoekmachines — niet voor mensen. In dat geval kan verwijderen inderdaad helpen om de rest van je website beter te laten presteren.
+Verwijder content alleen als je er zeker van bent dat er niets mee te redden valt. Als je erover nadenkt om hele secties van je website te deleten, is dat waarschijnlijk een teken dat die content is geschreven voor zoekmachines, niet voor mensen. In dat geval kan verwijderen inderdaad helpen om de rest van je website beter te laten presteren.
 
 ---
 
 ## Hoe lang duurt het voordat je effect ziet?
 
-Dat hangt af van de grootte van de wijzigingen die je doorvoert. Kleine verbeteringen kunnen al binnen een paar dagen effect hebben. Grotere verbeteringen — waarbij Google echt moet "leren" dat jouw website structureel beter is geworden — kunnen **meerdere maanden** duren.
+Dat hangt af van de grootte van de wijzigingen die je doorvoert. Kleine verbeteringen kunnen al binnen een paar dagen effect hebben. Grotere verbeteringen — waarbij Google echt moet "leren" dat jouw website structureel beter is geworden, kunnen **meerdere maanden** duren.
 
 Hoef je niet per se op een volgende grote core update te wachten. Google brengt doorlopend kleinere updates uit die niet worden aangekondigd, maar die wél invloed hebben op je posities als je verbeteringen hebt doorgevoerd.
 
