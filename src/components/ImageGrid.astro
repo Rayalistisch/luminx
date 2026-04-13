@@ -1,5 +1,5 @@
 ---
-import { ProjectShowcase } from "./ui/project-showcase";
+import { CaseFeatures } from "./ui/case-features";
 ---
 
 <section class="image-grid-section" id="werk">
@@ -9,8 +9,8 @@ import { ProjectShowcase } from "./ui/project-showcase";
     <p>Projecten waar strategie en uitvoering samenkomen, <br>altijd met meetbare resultaten.</p>
   </div>
 
-  <div class="showcase-wrapper">
-    <ProjectShowcase client:load />
+  <div class="cases-wrapper">
+    <CaseFeatures client:load />
   </div>
 
   <div class="cases-footer">
@@ -19,8 +19,8 @@ import { ProjectShowcase } from "./ui/project-showcase";
 </section>
 
 <style>
-  .showcase-wrapper {
-    max-width: 720px;
+  .cases-wrapper {
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }

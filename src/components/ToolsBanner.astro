@@ -14,7 +14,18 @@ const tools = [
 ];
 ---
 
-<section class="tools-banner" data-bg-color="#0A0A0A">
+<section class="tools-banner" data-bg-color="#020202">
+  <!-- Background layers (mirrors hero HeroBackground) -->
+  <div class="tools-bg" aria-hidden="true">
+    <div class="tools-bg-grain"></div>
+    <div class="tools-bg-dots"></div>
+    <div class="tools-bg-breathe"></div>
+    <div class="tools-bg-glow-tr"></div>
+    <div class="tools-bg-glow-bl"></div>
+    <div class="tools-bg-sweep"></div>
+    <div class="tools-bg-edges"></div>
+  </div>
+
   <div class="tools-inner">
     <div class="tools-track">
       <div class="tools-scroll">
@@ -30,16 +41,146 @@ const tools = [
 </section>
 
 <style>
+  /* ── Section base ── */
   .tools-banner {
+    position: relative;
     padding: 3.5rem 4rem;
-    background: unset;
+    background: #020202;
     color: #fff;
     overflow: hidden;
+  }
+
+  /* ── Background layers ── */
+  .tools-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Film grain */
+  .tools-bg-grain {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: overlay;
+    opacity: 0.25;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 150px 150px;
+  }
+
+  /* Dot grid */
+  .tools-bg-dots {
+    position: absolute;
+    inset: 0;
+    opacity: 0.25;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px),
+      radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+    background-size: 30px 30px, 30px 30px;
+    background-position: 0 0, 15px 15px;
+  }
+
+  /* Breathing light overlay */
+  .tools-bg-breathe {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.05), transparent);
+    animation: tools-breathe 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes tools-breathe {
+    from { opacity: 0.6; }
+    to   { opacity: 1; }
+  }
+
+  /* Ambient glow — top right */
+  .tools-bg-glow-tr {
+    position: absolute;
+    top: -3rem;
+    right: -3rem;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    filter: blur(4rem);
+    animation: tools-glow-tr 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes tools-glow-tr {
+    from { opacity: 0.1; }
+    to   { opacity: 0.25; }
+  }
+
+  /* Ambient glow — bottom left */
+  .tools-bg-glow-bl {
+    position: absolute;
+    bottom: -4rem;
+    left: -4rem;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+    filter: blur(5rem);
+    animation: tools-glow-bl 8s ease-in-out 1.5s infinite alternate;
+  }
+
+  @keyframes tools-glow-bl {
+    from { opacity: 0.05; }
+    to   { opacity: 0.18; }
+  }
+
+  /* Diagonal light sweep */
+  .tools-bg-sweep {
+    position: absolute;
+    inset: -100%;
+    height: 300%;
+    width: 200%;
+    transform: rotate(-15deg);
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255,255,255,0.5) 40%,
+      rgba(255,255,255,0.25) 50%,
+      transparent 60%
+    );
+    animation: tools-sweep 16s ease-in-out infinite;
+  }
+
+  /* 6s sweep out of 16s total (6s active + 10s pause) */
+  @keyframes tools-sweep {
+    0%     { left: -100%; opacity: 0.07; }
+    37%    { left:  100%; opacity: 0.07; }
+    37.1%  { left: -100%; opacity: 0;   }
+    100%   { left: -100%; opacity: 0;   }
+  }
+
+  /* 1px edge borders */
+  .tools-bg-edges {
+    position: absolute;
+    inset: 0;
+  }
+  .tools-bg-edges::before,
+  .tools-bg-edges::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: 1px;
+  }
+  .tools-bg-edges::before {
+    top: 0;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.25), transparent);
+  }
+  .tools-bg-edges::after {
+    bottom: 0;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.10), transparent);
   }
 
   .tools-inner {
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
 
   .tools-kicker {
