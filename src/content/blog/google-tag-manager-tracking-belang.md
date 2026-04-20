@@ -5,6 +5,19 @@ pubDate: 2026-03-10T08:00:00.000Z
 author: Ray Huffenreuter
 category: Analytics & Tracking
 image: /images/google-tag-manager-tracking.png
+relatedLinks:
+  - href: /diensten/google-tag-manager
+    label: Google Tag Manager
+    description: Alle tracking correct ingericht vanuit één container.
+  - href: /diensten/ga4-implementatie
+    label: GA4 Implementatie
+    description: Betrouwbare analytics als basis voor betere beslissingen.
+  - href: /diensten/consent-mode-v2
+    label: Consent Mode v2
+    description: GDPR-compliant meten zonder dataverlies.
+  - href: /tracking-audit
+    label: Gratis Tracking-audit
+    description: Ontdek of jouw tracking betrouwbaar is.
 ---
 
 Je marketingbureau rapporteert fantastische cijfers. Klikken, sessies, conversies, alles ziet er prima uit. Maar de omzet blijft achter. Leads zijn van slechte kwaliteit. Het budget voor Google Ads lijkt zich maar niet terug te betalen.
@@ -32,10 +45,10 @@ Maar ook als je geen multinational bent, geldt hetzelfde principe: als je niet w
 
 ## Wat is Google Tag Manager en waarom is het zo belangrijk?
 
-Google Tag Manager (GTM) is een gratis tool van Google waarmee je alle trackingcodes op je website beheert via één centrale plek: de container. Hier in zorg je dat alle tracking goed staat, om zo de maandelijke rapportage goed te kunnen onderbouwen.
+[Google Tag Manager (GTM)](/diensten/google-tag-manager) is een gratis tool van Google waarmee je alle trackingcodes op je website beheert via één centrale plek: de container. Hier in zorg je dat alle tracking goed staat, om zo de maandelijke rapportage goed te kunnen onderbouwen.
 
 Denk aan:
-- Google Analytics 4 (GA4)
+- [Google Analytics 4 (GA4)](/diensten/ga4-implementatie)
 - Google Ads conversietracking
 - Facebook/Meta Pixel
 - LinkedIn Insight Tag
@@ -71,7 +84,7 @@ Dé fout van 2025 en 2026. Meer hierover in het volgende hoofdstuk.
 
 ## Consent Mode v2: verplicht, en wat er mis kan gaan
 
-Sinds **maart 2024** is Google Consent Mode v2 verplicht voor alle websites die Google Ads of GA4 gebruiken en gebruikers targeten in de Europese Economische Ruimte (EER), waaronder Nederland.
+Sinds **maart 2024** is [Google Consent Mode v2](/diensten/consent-mode-v2) verplicht voor alle websites die Google Ads of GA4 gebruiken en gebruikers targeten in de Europese Economische Ruimte (EER), waaronder Nederland.
 
 Dit komt door de **Digital Markets Act (DMA)** van de EU, die Google dwingt transparanter om te gaan met toestemmingsbeheer.
 
@@ -154,6 +167,6 @@ Zonder die fundering bouw je op drijfzand.
 ---
 
 **Wil je weten of de tracking van jouw website betrouwbaar is?**
-Bij LuminX voeren we een volledige tracking-audit uit: van GTM-configuratie tot Consent Mode v2, van GA4-implementatie tot Google Ads conversietracking. We zorgen dat je data klopt — zodat elke marketingbeslissing op een solide basis staat.
+Bij LuminX voeren we een [volledige tracking-audit](/tracking-audit) uit: van [GTM-configuratie](/diensten/google-tag-manager) tot [Consent Mode v2](/diensten/consent-mode-v2), van [GA4-implementatie](/diensten/ga4-implementatie) tot Google Ads conversietracking. We zorgen dat je data klopt — zodat elke marketingbeslissing op een solide basis staat.
 
 [Plan een gratis kennismaking](#contact) en ontdek wat jouw tracking nu mist.

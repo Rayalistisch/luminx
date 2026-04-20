@@ -5,6 +5,19 @@ pubDate: 2026-03-10T09:00:00.000Z
 author: Ray Huffenreuter
 category: Analytics & Tracking
 image: /images/server-side-tracking-2026.png
+relatedLinks:
+  - href: /diensten/ga4-implementatie
+    label: GA4 Implementatie
+    description: Betrouwbare analytics als basis voor betere beslissingen.
+  - href: /diensten/google-tag-manager
+    label: Google Tag Manager
+    description: Server-side tagging via sGTM voor maximale datakwaliteit.
+  - href: /diensten/consent-mode-v2
+    label: Consent Mode v2
+    description: GDPR-compliant meten zonder dataverlies.
+  - href: /tracking-audit
+    label: Gratis Tracking-audit
+    description: Ontdek hoeveel conversiedata jouw website nu verliest.
 ---
 
 Stel: je geeft €8.000 per maand uit aan Google Ads en Meta. Je dashboard toont 120 conversies. Maar wat als het er in werkelijkheid 180 zijn, en je biedstrategie wordt gestuurd op onvolledige data?
@@ -111,7 +124,7 @@ Een eenvoudige rekensom: server-side tracking verbetert advertentie-efficiëntie
 
 ## Hoe werkt de implementatie in de praktijk?
 
-Server-side tracking wordt gerealiseerd via **Google Tag Manager Server-Side** (sGTM): een aparte GTM-container die draait op een eigen server in plaats van in de browser.
+Server-side tracking wordt gerealiseerd via **[Google Tag Manager Server-Side (sGTM)](/diensten/google-tag-manager)**: een aparte GTM-container die draait op een eigen server in plaats van in de browser.
 
 Je hebt daarvoor:
 1. **Een sGTM-container** in je Google Tag Manager-account
@@ -155,6 +168,6 @@ Het resultaat: meer data, betere campagnesturing, lagere kosten per conversie, e
 ---
 
 **Wil je weten hoeveel data jouw website nu verliest?**
-Bij LuminX doen we een gratis tracking-audit: we analyseren jouw GTM-container, GA4-implementatie en Consent Mode v2 — en laten zien wat je nu mist. Inclusief advies over of server-side tracking voor jouw situatie zinvol is.
+Bij LuminX doen we een [gratis tracking-audit](/tracking-audit): we analyseren jouw [GTM-container](/diensten/google-tag-manager), [GA4-implementatie](/diensten/ga4-implementatie) en [Consent Mode v2](/diensten/consent-mode-v2) — en laten zien wat je nu mist. Inclusief advies over of server-side tracking voor jouw situatie zinvol is.
 
 Neem contact op en ontdek wat je conversiedata je nu niet vertelt.

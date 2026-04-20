@@ -13,6 +13,12 @@ interface RelatedRegion {
   href: string;
 }
 
+interface RelatedService {
+  label: string;
+  href: string;
+  description?: string;
+}
+
 interface FAQ {
   q: string;
   a: string;
@@ -28,6 +34,7 @@ interface Props {
   outcomes: string[];
   metrics: Metric[];
   relatedRegions?: RelatedRegion[];
+  relatedServices?: RelatedService[];
   faq?: FAQ[];
   parentService?: { label: string; href: string };
 }
@@ -42,6 +49,7 @@ const {
   outcomes,
   metrics,
   relatedRegions,
+  relatedServices,
   faq,
   parentService,
 } = Astro.props;
@@ -201,6 +209,22 @@ const faqSchema = faq?.length ? {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  )}
+
+  {relatedServices && relatedServices.length > 0 && (
+    <section class="service-related" data-bg-color="#FEFEFE">
+      <div class="service-related-inner">
+        <span class="service-related-kicker">Gerelateerde diensten</span>
+        <div class="service-related-grid">
+          {relatedServices.map((s) => (
+            <a href={s.href} class="service-related-card">
+              <strong>{s.label}</strong>
+              {s.description && <span>{s.description}</span>}
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   )}
@@ -707,6 +731,65 @@ const faqSchema = faq?.length ? {
     border-color: var(--black);
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
+  }
+
+  /* Related services section */
+  .service-related {
+    padding: 4rem 4rem;
+  }
+
+  .service-related-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .service-related-kicker {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .service-related-card {
+    display: block;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid rgba(10, 10, 10, 0.12);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--black);
+    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .service-related-card:hover {
+    border-color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
+  }
+
+  .service-related-card strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .service-related-card span {
+    font-size: 0.88rem;
+    color: rgba(10, 10, 10, 0.6);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .service-related { padding: 3rem 2rem; }
   }
 
   /* FAQ section */

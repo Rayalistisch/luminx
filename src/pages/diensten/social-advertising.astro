@@ -344,6 +344,26 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="social-related-reads" data-bg-color="#F7F9FC">
+      <div class="social-container">
+        <span class="social-related-kicker">Gerelateerde diensten</span>
+        <div class="social-related-grid">
+          <a href="/diensten/online-marketing" class="social-related-card">
+            <strong>Online Marketing</strong>
+            <span>Social advertising als onderdeel van een brede aanpak.</span>
+          </a>
+          <a href="/diensten/sea" class="social-related-card">
+            <strong>SEA & Google Ads</strong>
+            <span>Betaalde campagnes in Google naast Meta en LinkedIn.</span>
+          </a>
+          <a href="/diensten/emailmarketing" class="social-related-card">
+            <strong>E-mailmarketing</strong>
+            <span>Leads nurturen na de eerste klik via social.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Klaar voor social campagnes<br/>die écht converteren?</h2>
@@ -361,6 +381,15 @@ const faqSchema = {
   .social-page { background: var(--white); }
 
   .social-container { max-width: 1240px; margin: 0 auto; }
+
+  .social-related-reads { padding: 4rem 4rem; }
+  .social-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .social-related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .social-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .social-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .social-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .social-related-card span { font-size: 0.88rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .social-related-reads { padding: 3rem 2rem; } }
 
   .social-label {
     display: inline-block;

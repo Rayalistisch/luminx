@@ -5,13 +5,20 @@ pubDate: 2026-02-27T01:00:00.000Z
 author: Ray
 category: Procesautomatisering
 image: /images/marketing-automatisering.png
+relatedLinks:
+  - href: /diensten/procesautomation
+    label: Procesautomatisering
+    description: Herhaalbare taken automatisch — minder handwerk, meer focus.
+  - href: /diensten/strategy
+    label: Digitale Strategie
+    description: Automatisering als onderdeel van een brede groeistrategie.
 ---
 
 Als ondernemer of manager weet je precies welke taken je team keer op keer uitvoert. Offertes die handmatig worden opgesteld, klantgegevens die worden overgetypt van het ene systeem naar het andere, facturen die worden verstuurd op vaste momenten. Routinewerk.
 
 Het probleem? Routinewerk kost tijd die je liever investeert in klanten, groei of strategie. En het introduceert menselijke fouten die je achteraf moet herstellen.
 
-Procesautomatisering lost dat op, niet door mensen te vervangen, maar door repetitieve taken over te dragen aan systemen die het sneller, foutlozer en 24/7 uitvoeren.
+[Procesautomatisering](/diensten/procesautomation) lost dat op, niet door mensen te vervangen, maar door repetitieve taken over te dragen aan systemen die het sneller, foutlozer en 24/7 uitvoeren.
 
 Dit zijn de vijf processen die wij het meest tegenkomen bij bedrijven die stappen willen zetten.
 
@@ -87,6 +94,6 @@ Procesautomatisering hoeft niet groot en complex te zijn. De meest effectieve aa
 
 Breng het in kaart: welke stappen zijn er, wie voert ze uit, hoe lang duurt het? Vervolgens bekijk je welk deel je kunt overdragen aan een systeem.
 
-Bij LuminX begeleiden we bedrijven bij het identificeren van de juiste processen en het bouwen van de automatiseringen die er daadwerkelijk toe doen. Geen generieke software-implementaties, maar maatwerk dat past bij hoe jouw bedrijf werkt.
+Bij LuminX [begeleiden we bedrijven](/diensten/procesautomation) bij het identificeren van de juiste processen en het bouwen van de automatiseringen die er daadwerkelijk toe doen. Geen generieke software-implementaties, maar maatwerk dat past bij hoe jouw bedrijf werkt.
 
 Wil je weten welke processen in jouw organisatie het meest opleveren als je ze automatiseert? [Plan een vrijblijvend gesprek](https://luminx.nl#contact). We kijken het samen door.

@@ -360,6 +360,26 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="gtm-related-reads" data-bg-color="#F7F9FC">
+      <div class="gtm-container">
+        <span class="gtm-related-kicker">Gerelateerde diensten</span>
+        <div class="gtm-related-grid">
+          <a href="/diensten/ga4-implementatie" class="gtm-related-card">
+            <strong>GA4 Implementatie</strong>
+            <span>Betrouwbare analytics als basis voor betere beslissingen.</span>
+          </a>
+          <a href="/diensten/consent-mode-v2" class="gtm-related-card">
+            <strong>Consent Mode v2</strong>
+            <span>GDPR-compliant meten zonder dataverlies.</span>
+          </a>
+          <a href="/tracking-audit" class="gtm-related-card">
+            <strong>Gratis Tracking-audit</strong>
+            <span>Ontdek of jouw GTM-container correct is ingericht.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Weet jij zeker dat jouw<br/>tracking klopt?</h2>
@@ -376,6 +396,15 @@ const faqSchema = {
 <style>
   .gtm-page { background: var(--white); }
   .gtm-container { max-width: 1240px; margin: 0 auto; }
+
+  .gtm-related-reads { padding: 4rem 4rem; }
+  .gtm-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .gtm-related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .gtm-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .gtm-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .gtm-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .gtm-related-card span { font-size: 0.88rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .gtm-related-reads { padding: 3rem 2rem; } }
 
   .gtm-label {
     display: inline-block;

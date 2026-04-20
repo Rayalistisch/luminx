@@ -93,6 +93,22 @@ const breadcrumbSchema = {
       </div>
     </article>
 
+    {post.data.relatedLinks && post.data.relatedLinks.length > 0 && (
+      <section class="post-related" data-bg-color="#F7F9FC">
+        <div class="post-related-inner">
+          <span class="post-related-kicker">Gerelateerde diensten</span>
+          <div class="post-related-grid">
+            {post.data.relatedLinks.map((link) => (
+              <a href={link.href} class="post-related-card">
+                <strong>{link.label}</strong>
+                {link.description && <span>{link.description}</span>}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
     <section class="post-cta" data-bg-color="#0A0A0A">
       <div class="post-cta-inner">
         <h2>Hulp nodig met online marketing?</h2>
@@ -309,6 +325,66 @@ const breadcrumbSchema = {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
+  }
+
+  /* Related services */
+  .post-related {
+    padding: 4rem 4rem;
+  }
+
+  .post-related-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .post-related-kicker {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 1.2rem;
+  }
+
+  .post-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.85rem;
+  }
+
+  .post-related-card {
+    display: block;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid rgba(10, 10, 10, 0.12);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--black);
+    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .post-related-card:hover {
+    border-color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
+  }
+
+  .post-related-card strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .post-related-card span {
+    font-size: 0.85rem;
+    color: rgba(10, 10, 10, 0.6);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .post-related { padding: 3rem 2rem; }
+    .post-related-grid { grid-template-columns: 1fr; }
   }
 
   /* Bottom CTA */

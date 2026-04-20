@@ -327,6 +327,26 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="ga4-related-reads" data-bg-color="#F7F9FC">
+      <div class="ga4-container">
+        <span class="ga4-related-kicker">Gerelateerde diensten</span>
+        <div class="ga4-related-grid">
+          <a href="/diensten/google-tag-manager" class="ga4-related-card">
+            <strong>Google Tag Manager</strong>
+            <span>De container waaruit GA4 zijn data haalt.</span>
+          </a>
+          <a href="/diensten/consent-mode-v2" class="ga4-related-card">
+            <strong>Consent Mode v2</strong>
+            <span>GDPR-compliant meten zonder dataverlies.</span>
+          </a>
+          <a href="/tracking-audit" class="ga4-related-card">
+            <strong>Gratis Tracking-audit</strong>
+            <span>Ontdek wat jouw GA4-implementatie nu mist.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Weet jij wat jouw<br/>GA4 nu mist?</h2>
@@ -343,6 +363,15 @@ const faqSchema = {
 <style>
   .ga4-page { background: var(--white); }
   .ga4-container { max-width: 1240px; margin: 0 auto; }
+
+  .ga4-related-reads { padding: 4rem 4rem; }
+  .ga4-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .ga4-related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .ga4-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .ga4-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .ga4-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .ga4-related-card span { font-size: 0.88rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .ga4-related-reads { padding: 3rem 2rem; } }
 
   .ga4-label {
     display: inline-block;

@@ -5,6 +5,13 @@ pubDate: 2026-03-27T00:00:00.000Z
 author: Ray Huffenreuter
 category: SEO
 image: /images/google-core-update-2026.png
+relatedLinks:
+  - href: /diensten/seo
+    label: SEO
+    description: Technische SEO en contentstrategie voor duurzame rankings.
+  - href: /diensten/geo
+    label: GEO – AI-zichtbaarheid
+    description: Zichtbaar in ChatGPT, Gemini en Perplexity naast Google.
 ---
 
 Google heeft een nieuwe core update aangekondigd: de Maart Core Update van 2026. Voor de meeste websites verandert er weinig merkbaars. Maar als je een plotselinge daling in je websiteverkeer ziet, is het goed om te begrijpen wat er speelt.
@@ -58,7 +65,7 @@ Probeer zo objectief mogelijk te kijken. Vraag eventueel iemand die niets met jo
 
 **Niet doen: quick fixes**
 
-Loop geen lijstjes af met "SEO-tips" van YouTube en gooi er van alles uit omdat iemand zei dat het slecht is voor je rankings. Willekeurige wijzigingen zonder richting helpen niet, en kunnen zelfs je ranking nog verder doen dalen.
+Loop geen lijstjes af met "[SEO](/diensten/seo)-tips" van YouTube en gooi er van alles uit omdat iemand zei dat het slecht is voor je rankings. Willekeurige wijzigingen zonder richting helpen niet, en kunnen zelfs je ranking nog verder doen dalen.
 
 **Wel doen: investeer in betere content**
 
@@ -91,4 +98,4 @@ Een core update is geen aanval op jouw website. Het is Google dat zijn resultate
 ---
 
 **Zie je een daling in je verkeer na deze update en wil je weten wat er aan de hand is?**
-Bij LuminX kijken we samen naar jouw Search Console data en beoordelen we waar de kansen liggen. [Plan een vrijblijvend gesprek](https://luminx.nl#contact) en krijg een helder beeld van wat er speelt voor jouw website.
+Bij LuminX kijken we samen naar jouw Search Console data en beoordelen we waar de [SEO-kansen](/diensten/seo) liggen. [Plan een vrijblijvend gesprek](https://luminx.nl#contact) en krijg een helder beeld van wat er speelt voor jouw website.

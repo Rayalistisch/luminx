@@ -5,6 +5,19 @@ pubDate: 2026-02-27T00:00:00.000Z
 author: Ray
 category: Online Marketing
 image: /images/IMG_5521.PNG
+relatedLinks:
+  - href: /diensten/online-marketing
+    label: Online Marketing
+    description: Kanalen, campagnes en conversie in één aanpak.
+  - href: /diensten/seo
+    label: SEO
+    description: Structurele zichtbaarheid zonder doorlopende advertentiekosten.
+  - href: /diensten/sea
+    label: SEA & Google Ads
+    description: Direct bovenaan bij actieve zoekopdrachten.
+  - href: /diensten/social-advertising
+    label: Social Advertising
+    description: Bereik op Meta en LinkedIn gericht op jouw doelgroep.
 ---
 
 Online marketing voor bedrijven in Twente werkt anders dan een generieke campagne uit een leerboek. De regio heeft eigen kenmerken, industriële wortels, een sterke MKB-basis, en steden als Enschede, Hengelo en Almelo die elk hun eigen dynamiek kennen.
@@ -23,7 +36,7 @@ Door hierop in te spelen, zowel met je website als met je campagnes, vang je een
 
 Op basis van onze ervaring met lokale bedrijven zijn dit de kanalen met het beste rendement:
 
-### 1. Google Ads (SEA) met lokale targeting
+### 1. [Google Ads (SEA)](/diensten/sea) met lokale targeting
 
 Google Ads is het snelst inzetbare kanaal. Maar zonder goede geo-targeting en zoekwoordselectie verbrandt het budget snel. Wat werkt:
 
@@ -31,7 +44,7 @@ Google Ads is het snelst inzetbare kanaal. Maar zonder goede geo-targeting en zo
 * Zet radius targeting in op basis van je servicegebied
 * Schrijf advertentieteksten die expliciet de lokale verbinding benoemen
 
-### 2. Organisch zoeken (SEO)
+### 2. [Organisch zoeken (SEO)](/diensten/seo)
 
 SEO is trager, maar heeft een duurzame impact. Bedrijven die nu investeren in lokale SEO, plukken over 6 tot 12 maanden de vruchten. Essentieel voor Twentse bedrijven:
 
@@ -39,7 +52,7 @@ SEO is trager, maar heeft een duurzame impact. Bedrijven die nu investeren in lo
 * Pagina's op je website die gericht zijn op regiospecifieke zoektermen
 * Kwalitatieve backlinks vanuit lokale media, brancheorganisaties en zakenpartners
 
-### 3. Linkedin, Meta en andere kanalen voor B2B
+### 3. [LinkedIn, Meta en andere kanalen voor B2B](/diensten/social-advertising)
 
 Twente heeft een sterk B2B-ecosysteem met grote namen als Thales in Hengelo, de Universiteit Twente in Enschede, en talloze MKB-toeleveranciers. LinkedIn is voor B2B-bedrijven in de regio een onderschat kanaal, maar ook direct één van de duurste kanalen. Het is dus belangrijk om hier een goede overweging in te maken wat een lead jouw als bedrijf mag kosten.
 
@@ -59,7 +72,7 @@ We zien een aantal terugkerende verbeterpunten:
 
 ## Hoe begin je?
 
-Een goede online marketingstrategie begint niet met een kanaal kiezen, maar met drie vragen beantwoorden:
+Een goede [online marketingstrategie](/diensten/online-marketing) begint niet met een kanaal kiezen, maar met drie vragen beantwoorden:
 
 1. Wie is je ideale klant, en waar zoekt die naar?
 2. Wat is je huidige startpositie, organisch, betaald, en in vergelijking met de concurrentie?

@@ -17,6 +17,7 @@ export default defineConfig({
   redirects: {
     "/site": "/",
     "/diensten/webapp-development": "/diensten/online-marketing",
+    "/diensten/web-development": "/diensten/websites",
   },
   image: {
     domains: ['images.pexels.com'],

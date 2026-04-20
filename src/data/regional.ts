@@ -369,45 +369,6 @@ export const services: Record<string, ServiceDef> = {
       "Beter inzicht in operationele prestaties en capaciteit",
     ],
   },
-  "marketing-automation": {
-    label: "Marketing Automation",
-    icon: "◈",
-    metaTitle: (city) =>
-      `Marketing Automation ${city} | LuminX — Bureau Twente`,
-    metaDesc: (city) =>
-      `Marketing automation in ${city}? LuminX bouwt geautomatiseerde marketingflows voor bedrijven in ${city} die leads nurturen en conversies verhogen zonder extra handwerk.`,
-    intro: (city, context) =>
-      `${context} LuminX bouwt voor bedrijven in ${city} geautomatiseerde marketingflows die leads op het juiste moment opvolgen, nurturen en converteren — zonder handmatig ingrijpen.`,
-    metrics: [
-      { value: "+40-80%", label: "Hogere leadopvolging" },
-      { value: "-50%", label: "Minder handmatig werk" },
-      { value: "Altijd-aan", label: "Nurturing flows" },
-    ],
-    painPoints: [
-      "Leads vallen weg omdat opvolging te traag of inconsistent is",
-      "Marketingcampagnes zijn losstaand zonder geautomatiseerde opvolging",
-      "Geen gepersonaliseerde communicatie op basis van gedrag",
-      "Te veel tijd kwijt aan handmatige e-mails en segmentatie",
-    ],
-    highlights: [
-      "Leadnurturing flows op basis van gedrag en funnel-fase",
-      "Geautomatiseerde opvolging via e-mail, SMS en retargeting",
-      "CRM-integratie voor naadloze overdracht van marketing naar sales",
-      "A/B-testing en optimalisatie van flows op conversie",
-    ],
-    process: [
-      "Klantreis in kaart brengen van eerste contact tot aankoop",
-      "Opzet van segmentatie, triggers en communicatieflows",
-      "Technische implementatie en koppeling met CRM en analytics",
-      "Doorlopende optimalisatie op openrates, clicks en conversies",
-    ],
-    outcomes: [
-      "Consistente en tijdige opvolging van elke lead",
-      "Meer conversies zonder extra marketinginspanning",
-      "Beter inzicht in welke content en flows het beste presteren",
-      "Schaalbare marketingmachine die groeit met je bedrijf",
-    ],
-  },
   "emailmarketing": {
     label: "E-mailmarketing",
     icon: "◉",

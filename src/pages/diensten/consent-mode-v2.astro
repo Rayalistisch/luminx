@@ -284,6 +284,22 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="cm-related-reads" data-bg-color="#F7F9FC">
+      <div class="cm-container">
+        <span class="cm-related-kicker">Gerelateerde diensten</span>
+        <div class="cm-related-grid">
+          <a href="/diensten/ga4-implementatie" class="cm-related-card">
+            <strong>GA4 Implementatie</strong>
+            <span>Betrouwbare analytics naast correcte Consent Mode-configuratie.</span>
+          </a>
+          <a href="/diensten/google-tag-manager" class="cm-related-card">
+            <strong>Google Tag Manager</strong>
+            <span>De container die Consent Mode v2 correct moet afvuren.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Is jouw Consent Mode v2<br/>correct geconfigureerd?</h2>
@@ -300,6 +316,15 @@ const faqSchema = {
 <style>
   .cm-page { background: var(--white); }
   .cm-container { max-width: 1240px; margin: 0 auto; }
+
+  .cm-related-reads { padding: 4rem 4rem; }
+  .cm-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .cm-related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .cm-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .cm-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .cm-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .cm-related-card span { font-size: 0.88rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .cm-related-reads { padding: 3rem 2rem; } }
 
   .cm-label {
     display: inline-block;

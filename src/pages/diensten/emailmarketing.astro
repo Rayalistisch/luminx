@@ -331,6 +331,26 @@ const faqSchema = {
       </div>
     </section>
 
+    <section class="email-related-reads" data-bg-color="#F7F9FC">
+      <div class="email-container">
+        <span class="email-related-kicker">Gerelateerde diensten</span>
+        <div class="email-related-grid">
+          <a href="/diensten/online-marketing" class="email-related-card">
+            <strong>Online Marketing</strong>
+            <span>E-mailmarketing als onderdeel van een brede marketingaanpak.</span>
+          </a>
+          <a href="/diensten/social-advertising" class="email-related-card">
+            <strong>Social Advertising</strong>
+            <span>Bereik nieuwe leads die je via e-mail kunt nurturen.</span>
+          </a>
+          <a href="/diensten/ga4-implementatie" class="email-related-card">
+            <strong>GA4 Implementatie</strong>
+            <span>Meet de omzetbijdrage van elke e-mailflow.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
       <div class="cta-content">
         <h2>Klaar voor e-mailflows die<br/>24/7 voor je werken?</h2>
@@ -348,6 +368,15 @@ const faqSchema = {
   .email-page { background: var(--white); }
 
   .email-container { max-width: 1240px; margin: 0 auto; }
+
+  .email-related-reads { padding: 4rem 4rem; }
+  .email-related-kicker { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
+  .email-related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .email-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
+  .email-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
+  .email-related-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .email-related-card span { font-size: 0.88rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
+  @media (max-width: 768px) { .email-related-reads { padding: 3rem 2rem; } }
 
   .email-label {
     display: inline-block;

@@ -5,6 +5,13 @@ pubDate: 2026-03-07T00:00:00.000Z
 author: Ray
 category: SEO/GEO
 image: /images/nieuw-google-patent1.png
+relatedLinks:
+  - href: /diensten/seo
+    label: SEO
+    description: Technische SEO en contentstrategie als verweer tegen AI-vervanging.
+  - href: /diensten/geo
+    label: GEO – AI-zichtbaarheid
+    description: Zichtbaar in ChatGPT, Gemini en Perplexity.
 ---
 
 Google heeft een patent ingediend dat de online marketingwereld flink opschudt. Het gaat om een systeem dat automatisch landingspagina's kan aanmaken voor bedrijven, en deze vervolgens in de zoekresultaten kan tonen, als vervanging van je bestaande website.
@@ -46,11 +53,11 @@ De richting is duidelijk: Google wil steeds meer van de gebruikersreis zelf behe
 
 De beste verdediging is een website die Google geen reden geeft om iets te vervangen. Dat betekent in de praktijk:
 
-**Zorg dat je pagina's inhoudelijk sterk zijn.** Dunne pagina's met weinig tekst, geen structuur en geen duidelijke intentieaansluiting zijn het meest kwetsbaar. Schrijf voor de gebruiker, niet alleen voor de zoekterm.
+**Zorg dat je pagina's inhoudelijk sterk zijn.** Dunne pagina's met weinig tekst, geen structuur en geen duidelijke intentieaansluiting zijn het meest kwetsbaar. Schrijf voor de gebruiker, niet alleen voor de zoekterm. Een goede [SEO-strategie](/diensten/seo) helpt je de juiste content te maken die Google wél wil tonen.
 
 **Gebruik gestructureerde data (schema.org).** Als Google je bedrijfsinformatie, diensten en content goed kan begrijpen via structured data, is er minder aanleiding om iets te "verbeteren". Wij zetten dit standaard in voor onze klanten.
 
-**Bouw aan een sterk merk buiten Google om.** Organisch zoekverkeer is waardevol, maar mag nooit je enige kanaal zijn. E-mailmarketing, directe naamsbekendheid en terugkerende bezoekers zijn buiten het bereik van dit soort ingrepen.
+**Bouw aan een sterk merk buiten Google om.** Organisch zoekverkeer is waardevol, maar mag nooit je enige kanaal zijn. [E-mailmarketing](/diensten/emailmarketing), directe naamsbekendheid en terugkerende bezoekers zijn buiten het bereik van dit soort ingrepen. Ook [GEO (Generative Engine Optimization)](/diensten/geo) — zichtbaarheid in AI-tools als ChatGPT en Gemini — vermindert de afhankelijkheid van traditionele zoekresultaten.
 
 **Houd je Google Business Profile actueel.** Als Google AI-pagina's gaat genereren op basis van beschikbare bedrijfsdata, is dit één van de belangrijkste bronnen. Een volledig en up-to-date profiel geeft jou meer invloed op het eindresultaat.
 
