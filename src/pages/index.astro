@@ -2,16 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
-import DienstenGrid from "../components/DienstenGrid.astro";
-import ImageGrid from "../components/ImageGrid.astro";
-import AboutRay from "../components/AboutRay.astro";
-import Testimonials from "../components/Testimonials.astro";
-import BlogPreview from "../components/BlogPreview.astro";
+import Transformation from "../components/Transformation.astro";
+import Manifesto from "../components/Manifesto.astro";
+import GrowthSystem from "../components/GrowthSystem.astro";
+import FeaturedProjects from "../components/FeaturedProjects.astro";
+import Proof from "../components/Proof.astro";
 import CTA from "../components/CTA.astro";
 import Footer from "../components/Footer.astro";
 import ContactOverlay from "../components/ContactOverlay.astro";
 import SeoScanModal from "../components/SeoScanModal.astro";
-import ToolsBanner from "../components/ToolsBanner.astro";
 ---
 
 <BaseLayout
@@ -20,14 +19,13 @@ import ToolsBanner from "../components/ToolsBanner.astro";
 >
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
-  <Nav />
+  <Nav basePath="/" />
   <Hero />
-  <ToolsBanner />
-  <DienstenGrid />
-  <ImageGrid />
-  <AboutRay />
-  <Testimonials />
-  <BlogPreview />
+  <Transformation />
+  <Manifesto />
+  <GrowthSystem />
+  <FeaturedProjects />
+  <Proof />
   <CTA />
   <Footer />
   <ContactOverlay />

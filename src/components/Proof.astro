@@ -1,0 +1,236 @@
+---
+import { Image } from "astro:assets";
+import founderImage from "../assets/images/ray_avatar.png";
+
+const stats = [
+  { value: 150, suffix: "%", label: "Effectiever werken" },
+  { value: 10, suffix: "+", label: "Klanten" },
+  { value: 5, suffix: "+", label: "Jaren ervaring" },
+  { value: 2, suffix: "", label: "Awards" },
+];
+---
+
+<section class="proof-section" id="over" data-bg-color="#0A0A0A">
+  <div class="scene-grain" aria-hidden="true"></div>
+
+  <div class="proof-inner">
+    <div class="proof-quote-block section-header">
+      <span class="section-kicker kicker">Bewezen resultaat</span>
+      <blockquote class="proof-quote">
+        “Ray heeft onze webshop volledig gemigreerd naar Shopify zonder één dag downtime.
+        De laadtijd ging met 40% omlaag en onze conversie steeg direct mee.”
+      </blockquote>
+      <div class="proof-quote-author">
+        <span class="proof-quote-name">Barry</span>
+        <span class="proof-quote-role">GSM Team</span>
+      </div>
+    </div>
+
+    <div class="proof-stats">
+      {stats.map((s) => (
+        <div class="proof-stat" data-value={s.value} data-suffix={s.suffix}>
+          <span class="proof-stat-value">0{s.suffix}</span>
+          <span class="proof-stat-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="proof-founder">
+      <Image
+        class="proof-founder-image"
+        src={founderImage}
+        alt="Ray – oprichter van LuminX"
+        widths={[96, 160]}
+        sizes="96px"
+        loading="lazy"
+      />
+      <p class="proof-founder-text">
+        Rechtstreekse samenwerking met Ray, oprichter van LuminX — geen accountmanager
+        ertussen, geen bureau-constructie.
+      </p>
+      <a href="#" class="proof-founder-cta" data-overlay-open>Plan een kennismaking →</a>
+    </div>
+
+    <p class="proof-clients">Vertrouwd door GSM Team, ActifAid en Ascendio.</p>
+  </div>
+</section>
+
+<script>
+  function animateCount(el: HTMLElement) {
+    const valueEl = el.querySelector<HTMLElement>(".proof-stat-value");
+    if (!valueEl) return;
+    const target = Number(el.dataset.value || "0");
+    const suffix = el.dataset.suffix || "";
+    const duration = 1200;
+    const start = performance.now();
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      valueEl.textContent = `${target}${suffix}`;
+      return;
+    }
+
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      valueEl.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function init() {
+    const stats = document.querySelectorAll<HTMLElement>(".proof-stat");
+    if (!stats.length) return;
+
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target as HTMLElement);
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    stats.forEach((s) => io.observe(s));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  .proof-section {
+    position: relative;
+    isolation: isolate;
+    background: var(--panel);
+    padding: 7rem clamp(20px, 5vw, 56px);
+    overflow: hidden;
+  }
+
+  .proof-inner {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4rem;
+  }
+
+  .proof-quote-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .proof-quote {
+    margin: 0;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--ink);
+    max-width: 20ch;
+  }
+
+  .proof-quote-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .proof-quote-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .proof-quote-role {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .proof-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem 0;
+  }
+
+  .proof-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .proof-stat-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    color: var(--signal-bright);
+  }
+
+  .proof-stat-label {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .proof-founder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .proof-founder-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .proof-founder-text {
+    margin: 0;
+    max-width: 44ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .proof-founder-cta {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.25s ease;
+  }
+
+  .proof-founder-cta:hover {
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .proof-clients {
+    margin: 0;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  @media (max-width: 640px) {
+    .proof-section { padding: 5rem 1.25rem; }
+    .proof-stats { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+  }
+</style>

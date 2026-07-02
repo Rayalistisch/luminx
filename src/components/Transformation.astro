@@ -1,0 +1,188 @@
+---
+const friction = [
+  "Losse spreadsheets",
+  "Handmatige rapportages",
+  "Verspreide tools",
+  "Giswerk over wat werkt",
+  "Vertraagde beslissingen",
+  "Losstaande campagnes",
+];
+---
+
+<section class="transform-section" id="transformatie" data-bg-color="#000000">
+  <div class="scene-grain" aria-hidden="true"></div>
+  <div class="scene-vignette" aria-hidden="true"></div>
+
+  <div class="transform-pin">
+    <div class="transform-layer transform-layer--old">
+      <span class="kicker">De oude manier</span>
+      <div class="transform-chips">
+        {friction.map((label) => (
+          <span class="transform-chip">{label}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="transform-layer transform-layer--new">
+      <span class="kicker">De LuminX manier</span>
+      <p class="transform-statement">Eén systeem.<br />Continue groei.</p>
+      <span class="transform-line" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  function init() {
+    const section = document.querySelector<HTMLElement>(".transform-section");
+    const pin = section?.querySelector<HTMLElement>(".transform-pin");
+    const oldLayer = section?.querySelector<HTMLElement>(".transform-layer--old");
+    const newLayer = section?.querySelector<HTMLElement>(".transform-layer--new");
+    if (!section || !pin || !oldLayer || !newLayer) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      oldLayer.style.opacity = "0.35";
+      newLayer.style.opacity = "1";
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const chips = gsap.utils.toArray<HTMLElement>(".transform-chip");
+    gsap.set(chips, {
+      x: () => gsap.utils.random(-60, 60),
+      y: () => gsap.utils.random(-30, 30),
+      rotate: () => gsap.utils.random(-8, 8),
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=140%",
+        scrub: 0.6,
+        pin,
+      },
+    });
+
+    // Absolute positions (not chained "<" offsets) so the old → new
+    // crossfade always overlaps — no window where both layers sit at
+    // opacity 0 and the section briefly shows nothing.
+    tl.to(chips, {
+      opacity: 0,
+      scale: 0.9,
+      filter: "blur(6px)",
+      stagger: 0.03,
+      duration: 0.5,
+    }, 0)
+      .to(oldLayer, { opacity: 0, duration: 0.35 }, 0.15)
+      .fromTo(
+        newLayer,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.45 },
+        0.25
+      )
+      .fromTo(
+        ".transform-line",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.4 },
+        0.55
+      );
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  .transform-section {
+    position: relative;
+    /* Isolated so this section's own stacking (grain, vignette, pinned
+       content) is guaranteed to paint as a self-contained unit on top of
+       the hero's fixed portrait image, same as the hero does for itself. */
+    isolation: isolate;
+    /* Same tone as the hero (var(--void)), translucent rather than opaque —
+       lets the hero's fixed portrait image keep showing through, but darker
+       than the hero's own wash since there's no extra gradient/vignette
+       fade behind it here — only the plain scene-vignette below. */
+    background: rgba(0, 0, 0, 0.82);
+    overflow: hidden;
+  }
+
+  .transform-pin {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 4rem clamp(20px, 5vw, 56px);
+  }
+
+  .transform-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .transform-layer--old { z-index: 1; }
+  .transform-layer--new {
+    z-index: 2;
+    opacity: 0;
+  }
+
+  .transform-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+    max-width: 640px;
+  }
+
+  .transform-chip {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 0.6rem 1.2rem;
+    filter: grayscale(1);
+  }
+
+  .transform-statement {
+    margin: 0;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    font-size: clamp(2.2rem, 6vw, 4.6rem);
+    color: var(--ink);
+  }
+
+  .transform-line {
+    display: block;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--signal-bright), transparent);
+    transform: scaleX(0);
+  }
+
+  @media (max-width: 640px) {
+    .transform-pin { padding: 2.5rem 1.25rem; min-height: 80vh; }
+    .transform-chips { gap: 0.6rem; }
+    .transform-chip { font-size: 0.75rem; padding: 0.5rem 0.9rem; }
+  }
+</style>

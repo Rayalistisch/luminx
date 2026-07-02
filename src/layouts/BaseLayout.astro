@@ -179,6 +179,9 @@ const graphSchema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.pexels.com" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;600;700&display=swap" /></noscript>
     <link rel="stylesheet" href="https://calendar.google.com/calendar/scheduling-button-script.css" />
     <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
     <link
@@ -213,6 +216,7 @@ const graphSchema = {
           duration: 1.1,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
+        (window as any).__lenis = lenis;
         function raf(time: number) {
           lenis.raf(time);
           requestAnimationFrame(raf);

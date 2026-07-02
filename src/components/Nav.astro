@@ -11,11 +11,8 @@ const toSection = (id: string) => `${basePath}#${id}`;
 
 const navItems = [
   {
-    icon: "Layers",
     label: "Diensten",
     href: toSection("diensten"),
-    gradient: "radial-gradient(circle, rgba(200,231,245,0.15) 0%, rgba(200,231,245,0.06) 50%, rgba(200,231,245,0) 100%)",
-    iconColor: "text-[#C8E7F5]",
     dropdown: [
       {
         category: "Online Marketing",
@@ -47,18 +44,12 @@ const navItems = [
     ],
   },
   {
-    icon: "LayoutGrid",
     label: "Werk",
     href: toSection("werk"),
-    gradient: "radial-gradient(circle, rgba(255,214,232,0.15) 0%, rgba(255,214,232,0.06) 50%, rgba(255,214,232,0) 100%)",
-    iconColor: "text-[#FFD6E8]",
   },
   {
-    icon: "User",
     label: "Over",
     href: toSection("over"),
-    gradient: "radial-gradient(circle, rgba(232,213,245,0.15) 0%, rgba(232,213,245,0.06) 50%, rgba(232,213,245,0) 100%)",
-    iconColor: "text-[#E8D5F5]",
   },
 ];
 ---
@@ -90,12 +81,10 @@ const navItems = [
 
   <a href="#" class="nav-cta" data-overlay-open>
     <span class="nav-cta-label">Maak kennis</span>
-    <span class="nav-cta-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="7" y1="17" x2="17" y2="7"/>
-        <polyline points="7 7 17 7 17 17"/>
-      </svg>
-    </span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="7" y1="17" x2="17" y2="7"/>
+      <polyline points="7 7 17 7 17 17"/>
+    </svg>
   </a>
 
   <div class="mobile-menu">

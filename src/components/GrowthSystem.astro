@@ -1,0 +1,200 @@
+---
+const nodes = ["Website", "SEO", "Ads", "CRM", "Automatisering", "AI", "Omzet"];
+const dx = 1320 / (nodes.length - 1);
+const dy = 920 / (nodes.length - 1);
+---
+
+<section class="growth-section" id="systeem" data-bg-color="#020202">
+  <div class="scene-grain" aria-hidden="true"></div>
+
+  <div class="growth-pin">
+    <div class="growth-head section-header">
+      <span class="kicker">Hoe het samenkomt</span>
+      <h2>Eén doorlopend signaal, van eerste klik tot omzet.</h2>
+    </div>
+
+    <div class="growth-diagram">
+      <!-- Desktop: horizontal signal line -->
+      <svg class="growth-svg growth-svg--desktop" viewBox="0 0 1400 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <path class="growth-path" d="M40,110 H1360" fill="none" />
+        {nodes.map((label, i) => (
+          <g class="growth-node-group" data-i={i}>
+            <circle class="growth-node" cx={40 + i * dx} cy="110" r="9" />
+            <text class="growth-label" x={40 + i * dx} y="150" text-anchor="middle">{label}</text>
+          </g>
+        ))}
+        <circle class="growth-dot" r="6" cx="40" cy="110" />
+      </svg>
+
+      <!-- Mobile: vertical signal line -->
+      <svg class="growth-svg growth-svg--mobile" viewBox="0 0 220 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <path class="growth-path" d="M110,40 V960" fill="none" />
+        {nodes.map((label, i) => (
+          <g class="growth-node-group" data-i={i}>
+            <circle class="growth-node" cx="110" cy={40 + i * dy} r="8" />
+            <text class="growth-label" x="134" y={40 + i * dy + 5} text-anchor="start">{label}</text>
+          </g>
+        ))}
+        <circle class="growth-dot" r="5.5" cx="110" cy="40" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  function init() {
+    const section = document.querySelector<HTMLElement>(".growth-section");
+    const pin = section?.querySelector<HTMLElement>(".growth-pin");
+    const svgs = gsap.utils.toArray<SVGSVGElement>(".growth-svg");
+    if (!section || !pin || !svgs.length) return;
+
+    const paths = svgs.map((svg) => svg.querySelector<SVGPathElement>(".growth-path")!);
+    const dots = svgs.map((svg) => svg.querySelector<SVGCircleElement>(".growth-dot")!);
+    const nodeGroupSets = svgs.map((svg) => gsap.utils.toArray<SVGGElement>(svg.querySelectorAll(".growth-node-group")));
+
+    const lengths = paths.map((p) => p.getTotalLength());
+    paths.forEach((p, i) => {
+      p.style.strokeDasharray = `${lengths[i]}`;
+      p.style.strokeDashoffset = `${lengths[i]}`;
+    });
+
+    const total = nodeGroupSets[0]?.length || 0;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const setProgress = (progress: number) => {
+      paths.forEach((p, i) => {
+        p.style.strokeDashoffset = `${lengths[i] * (1 - progress)}`;
+      });
+
+      dots.forEach((dot, si) => {
+        const pt = paths[si].getPointAtLength(lengths[si] * progress);
+        dot.setAttribute("cx", `${pt.x}`);
+        dot.setAttribute("cy", `${pt.y}`);
+      });
+
+      for (let i = 0; i < total; i += 1) {
+        const threshold = i / (total - 1);
+        const lit = gsap.utils.clamp(0, 1, (progress - threshold) / 0.06 + 1);
+        nodeGroupSets.forEach((groups) => {
+          const group = groups[i] as SVGGElement | undefined;
+          if (!group) return;
+          group.style.opacity = `${0.3 + lit * 0.7}`;
+          group.style.filter = lit > 0.6 ? "drop-shadow(0 0 6px rgba(196,151,42,0.8))" : "none";
+        });
+      }
+    };
+
+    if (reduced) {
+      setProgress(1);
+      return;
+    }
+
+    setProgress(0);
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(
+      {},
+      {
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=220%",
+          scrub: 0.6,
+          pin,
+          onUpdate: (self) => setProgress(self.progress),
+        },
+      }
+    );
+
+    window.addEventListener("resize", () => ScrollTrigger.refresh());
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  .growth-section {
+    position: relative;
+    isolation: isolate;
+    background: var(--deep);
+    overflow: hidden;
+  }
+
+  .growth-pin {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding: 4rem clamp(20px, 5vw, 56px);
+  }
+
+  .growth-head {
+    text-align: center;
+    max-width: 640px;
+  }
+
+  .growth-head h2 {
+    margin: 0;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    color: var(--ink);
+  }
+
+  .growth-diagram {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .growth-svg { display: block; overflow: visible; }
+  .growth-svg--desktop { width: 100%; height: auto; }
+  .growth-svg--mobile { display: none; }
+
+  .growth-path {
+    stroke: rgba(255, 255, 255, 0.14);
+  }
+
+  .growth-node-group {
+    opacity: 0.3;
+    transition: filter 0.3s ease;
+  }
+
+  .growth-node {
+    fill: var(--deep);
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 2;
+  }
+
+  .growth-label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.01em;
+    fill: var(--ink);
+  }
+
+  .growth-dot {
+    fill: var(--signal-bright);
+    filter: drop-shadow(0 0 10px rgba(196, 151, 42, 0.9));
+  }
+
+  @media (max-width: 768px) {
+    .growth-svg--desktop { display: none; }
+    .growth-svg--mobile { display: block; width: auto; height: 62vh; max-height: 560px; }
+    .growth-svg--mobile .growth-label { font-size: 24px; }
+  }
+</style>
