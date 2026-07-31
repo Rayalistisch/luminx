@@ -48,6 +48,30 @@
     return brightness > 155;
   }
 
+  function clamp(v, min, max) {
+    return v < min ? min : v > max ? max : v;
+  }
+
+  function lerpRGB(a, b, t) {
+    return {
+      r: Math.round(a.r + (b.r - a.r) * t),
+      g: Math.round(a.g + (b.g - a.g) * t),
+      b: Math.round(a.b + (b.b - a.b) * t),
+    };
+  }
+
+  // Resolve the BODY colour a section wants to project, or null to mean
+  // "keep whatever colour is currently active" (transparent / opted-out).
+  function colorForSection(node) {
+    if (!node) return null;
+    if (node.hasAttribute("data-bg-ignore")) return null;
+    const attr = node.getAttribute?.("data-bg-color");
+    if (attr) return attr;
+    const computed = getComputedStyle(node).backgroundColor;
+    if (!isTransparent(computed)) return computed;
+    return null;
+  }
+
   // -------------------------
   // Vars for your CSS tints
   // -------------------------
@@ -220,23 +244,78 @@
   // Cache hero-background reference
   const heroBackground = document.querySelector(".hero-background");
 
+  let lastActiveIndex = -1;
+
   function update() {
-    const active = getActiveSection();
-    const bg = getVisibleBackground(active);
-    const scrolled = window.scrollY > 80;
+    const triggerY = window.innerHeight * 0.08;
+    const nodes = Array.from(document.querySelectorAll("section, footer"));
     const scrollY = window.scrollY;
 
-    applyTheme(bg);
-    updateNavFromState(scrolled);
-
-    // Altijd logo-kleur updaten op basis van huidige achtergrond
-    if (nav && bg) {
-      if (isLightColor(bg)) {
-        nav.classList.add("nav--light-bg");
-      } else {
-        nav.classList.remove("nav--light-bg");
+    // Active = the section that spans the trigger line (top above it, bottom
+    // below it). This ignores zero-height / fixed overlay panels (e.g. the
+    // WhatsApp or contact overlays) that sit at top:0 and would otherwise win a
+    // naive "last top past the line" test and paint the body their own colour.
+    let activeIndex = -1;
+    for (let i = 0; i < nodes.length; i++) {
+      const r = nodes[i].getBoundingClientRect();
+      if (r.height > 1 && r.top <= triggerY && r.bottom > triggerY) {
+        activeIndex = i;
+        break;
       }
     }
+    // Fallback (gaps / very top / very bottom): last real section past the line.
+    if (activeIndex === -1) {
+      for (let i = 0; i < nodes.length; i++) {
+        const r = nodes[i].getBoundingClientRect();
+        if (r.height > 1 && r.top <= triggerY) activeIndex = i;
+      }
+    }
+
+    // Active colour — walk back over transparent / opted-out sections.
+    let activeColor = null;
+    for (let i = activeIndex; i >= 0; i--) {
+      const c = colorForSection(nodes[i]);
+      if (c) { activeColor = c; break; }
+    }
+    if (!activeColor) activeColor = currentBg || getComputedStyle(document.body).backgroundColor;
+
+    // Next colour ahead + its top, for the cross-fade.
+    let nextColor = null;
+    let nextTop = null;
+    for (let i = activeIndex + 1; i < nodes.length; i++) {
+      const c = colorForSection(nodes[i]);
+      if (c) { nextColor = c; nextTop = nodes[i].getBoundingClientRect().top; break; }
+    }
+
+    // Blend toward the next section over the last ~65% of a viewport before its
+    // top reaches the trigger line — a slow, scroll-linked overvloei.
+    let bg = activeColor;
+    const A = parseToRGB(activeColor);
+    const B = nextColor ? parseToRGB(nextColor) : null;
+    if (A && B && nextTop != null) {
+      const start = window.innerHeight * 0.65;
+      const t = clamp((start - nextTop) / (start - triggerY), 0, 1);
+      const c = lerpRGB(A, B, t);
+      bg = `rgb(${c.r}, ${c.g}, ${c.b})`;
+    }
+
+    document.body.style.backgroundColor = bg;
+    currentBg = bg;
+    setComplementVars(bg);
+
+    // Heavier per-section reset only when the active section actually changes.
+    if (activeIndex !== lastActiveIndex) {
+      lastActiveIndex = activeIndex;
+      resetNavInlineStyles();
+    }
+
+    // Nav contrast follows the *blended* colour, so it flips mid-transition.
+    if (nav) {
+      if (isLightColor(bg)) nav.classList.add("nav--light-bg");
+      else nav.classList.remove("nav--light-bg");
+    }
+
+    updateNavFromState(scrollY > 80);
 
     if (heroBackground) {
       heroBackground.style.transform = `translateY(${scrollY * 0.5}px)`;

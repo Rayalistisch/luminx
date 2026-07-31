@@ -91,7 +91,7 @@ export default function ExperienceHero() {
   };
 
   return (
-    <section ref={rootRef} data-bg-color="#000000" className="hero-wm">
+    <section ref={rootRef} data-bg-color="#050506" className="hero-wm">
       <div className="hero-wm__portrait" aria-hidden="true" />
       <div className="hero-wm__portrait-fade" aria-hidden="true" />
       <div className="scene-grain" aria-hidden="true" />
@@ -99,16 +99,11 @@ export default function ExperienceHero() {
       <div className="scene-vignette" aria-hidden="true" />
 
       <div className="hero-wm__content">
-        <span className="hero-wm__kicker">LuminX — Digital Collective, Enschede</span>
 
         <h1 ref={headlineRef} className="hero-wm__headline" style={{ opacity: 0 }}>
-          Wij maken groei onvermijdelijk.
+          Wij helpen groeien.
         </h1>
 
-        <p className="hero-wm__sub">
-          Een klein team dat zichtbaarheid, techniek en automatisering samensmeedt
-          tot één systeem — zodat groei geen toeval meer is, maar een gevolg.
-        </p>
 
         <div className="hero-wm__actions">
           <button type="button" className="hero-wm__cta-primary" onClick={openContact}>

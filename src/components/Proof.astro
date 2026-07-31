@@ -10,7 +10,7 @@ const stats = [
 ];
 ---
 
-<section class="proof-section" id="over" data-bg-color="#0A0A0A">
+<section class="proof-section proof-section--light" id="over" data-bg-color="#F2ECE3">
   <div class="scene-grain" aria-hidden="true"></div>
 
   <div class="proof-inner">
@@ -108,10 +108,22 @@ const stats = [
   .proof-section {
     position: relative;
     isolation: isolate;
-    background: var(--panel);
+    background: transparent;
     padding: 7rem clamp(20px, 5vw, 56px);
     overflow: hidden;
   }
+
+  /* Light-section treatment: dark ink text on the warm off-white body colour. */
+  .proof-section--light .proof-quote { color: #0F1115; }
+  .proof-section--light .proof-quote-name { color: #0F1115; }
+  .proof-section--light .proof-quote-role { color: rgba(15, 17, 21, 0.5); }
+  .proof-section--light .proof-stats { border-top-color: rgba(15, 17, 21, 0.14); border-bottom-color: rgba(15, 17, 21, 0.14); }
+  .proof-section--light .proof-stat-label { color: rgba(15, 17, 21, 0.55); }
+  .proof-section--light .proof-founder-text { color: rgba(15, 17, 21, 0.62); }
+  .proof-section--light .proof-founder-cta { color: #0F1115; border-bottom-color: rgba(15, 17, 21, 0.35); }
+  .proof-section--light .proof-founder-cta:hover { border-bottom-color: rgba(15, 17, 21, 0.7); }
+  .proof-section--light .proof-clients { color: rgba(15, 17, 21, 0.45); }
+  .proof-section--light :global(.kicker) { color: rgba(15, 17, 21, 0.55); }
 
   .proof-inner {
     position: relative;
@@ -133,7 +145,7 @@ const stats = [
 
   .proof-quote {
     margin: 0;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Matter Sans', sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.3;
@@ -176,7 +188,7 @@ const stats = [
   }
 
   .proof-stat-value {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Matter Sans', sans-serif;
     font-weight: 800;
     font-size: clamp(1.8rem, 3.6vw, 2.6rem);
     color: var(--signal-bright);

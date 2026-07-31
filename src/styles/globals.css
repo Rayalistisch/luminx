@@ -1,5 +1,32 @@
 
 
+    /* ─── Matter Sans (self-hosted TRIAL build) — hero typeface ───────────── */
+    @font-face {
+      font-family: 'Matter Sans';
+      src: url('/fonts/Matter-Regular.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Matter Sans';
+      src: url('/fonts/Matter-Medium.otf') format('opentype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Matter Sans';
+      src: url('/fonts/Matter-SemiBold.otf') format('opentype');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Matter Sans';
+      src: url('/fonts/Matter-Bold.otf') format('opentype');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Matter Sans';
+      src: url('/fonts/Matter-Heavy.otf') format('opentype');
+      font-weight: 800; font-style: normal; font-display: swap;
+    }
+
     html { scroll-behavior: smooth; }
 
     :root {
@@ -26,13 +53,13 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       color: var(--black);
       background: var(--white);
       overflow-x: hidden;
       line-height: 1.6;
       position: relative;
-      transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: background-color 0.1s linear;
       isolation: isolate; /* needed for blend-mode nav */
       cursor: none;
     }
@@ -130,7 +157,7 @@
 
 .kicker {
   display: block;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Matter Sans', sans-serif;
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -151,13 +178,15 @@
   justify-content: center;
   background: var(--void);
   color: var(--ink);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   isolation: isolate;
 }
 
 .hero-wm__portrait {
-  position: fixed;
+  /* Absolute (not fixed) so it stays inside the hero — otherwise it would bleed
+     through the now-transparent sections below (colour arc / scroll overvloei). */
+  position: absolute;
   inset: 0 0 0 auto;
   width: min(50%, 720px);
   background-image: url('/images/hero-signal.webp');
@@ -173,7 +202,7 @@
 }
 
 .hero-wm__portrait-fade {
-  position: fixed;
+  position: absolute;
   inset: 0 0 0 auto;
   width: min(50%, 720px);
   z-index: 0;
@@ -220,7 +249,7 @@
      instead of wrapping. */
   max-width: 100%;
   min-width: 0;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Matter Sans', sans-serif;
   font-size: clamp(11px, 1vw, 13px);
   font-weight: 700;
   letter-spacing: 0.3em;
@@ -233,9 +262,8 @@
   max-width: 100%;
   min-width: 0;
   overflow-wrap: break-word;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: 'Matter Sans', sans-serif;
+  font-weight: 600;
   line-height: 1.02;
   /* Max lowered from 6.4rem: at that size "onvermijdelijk." alone measures
      ~1111px, wider than the 988px usable width inside the 1100px content
@@ -255,7 +283,7 @@
   margin: 0;
   max-width: 46ch;
   min-width: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.6);
@@ -277,7 +305,7 @@
   background: var(--ink);
   color: var(--void);
   text-decoration: none;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.92rem;
   font-weight: 600;
   padding: 0.95rem 1.9rem;
@@ -300,7 +328,7 @@
   background: transparent;
   color: var(--ink);
   text-decoration: none;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.92rem;
   font-weight: 500;
   padding: 0.95rem 1.6rem;
@@ -341,7 +369,7 @@
 }
 
 .hero-wm__scroll-label {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Matter Sans', sans-serif;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.24em;
@@ -359,7 +387,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.5);
@@ -527,7 +555,7 @@
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Matter Sans', sans-serif;
   font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.1em;
@@ -545,6 +573,19 @@
   box-shadow: 0 0 24px 3px rgba(160, 120, 40, 0.35);
   transform: translateY(-1px);
 }
+
+/* Slot wrapping the FlowButton CTA — keeps the desktop/mobile visibility
+   behaviour the old .nav-cta pill had, without fighting the button's own
+   Tailwind display utilities. */
+.nav-cta-slot { display: inline-flex; align-items: center; }
+
+/* Readability safeguard: on light-background nav pages the white outline/text
+   would vanish, so flip the FlowButton to a dark treatment there. */
+.site-nav.nav--light-bg .nav-cta-slot .flow-button { color: #0a0a0a; border-color: rgba(0, 0, 0, 0.35); }
+.site-nav.nav--light-bg .nav-cta-slot .flow-button:hover { color: #fff; }
+.site-nav.nav--light-bg .nav-cta-slot .flow-arrow { stroke: #0a0a0a; }
+.site-nav.nav--light-bg .nav-cta-slot .flow-button:hover .flow-arrow { stroke: #fff; }
+.site-nav.nav--light-bg .nav-cta-slot .flow-circle { background: #0a0a0a; }
 
     /* Hero Section */
     .hero {
@@ -588,7 +629,7 @@
     }
 
     .hero h1 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(3.5rem, 10vw, 8rem);
       font-weight: 800;
       line-height: 0.95;
@@ -619,7 +660,7 @@
       border-radius: 50px;
       border: 1.5px solid transparent;
       color: #fff;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.95rem;
       font-weight: 500;
       text-decoration: none;
@@ -700,7 +741,7 @@
     }
 
     .section-header h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(2.5rem, 6vw, 5rem);
       font-weight: 700;
       line-height: 1.1;
@@ -774,7 +815,7 @@
     .grid-item-content { color: var(--white); }
 
     .grid-item-content h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 1.35rem;
       font-weight: 700;
       margin-bottom: 0.3rem;
@@ -803,7 +844,7 @@
 
     .section-kicker {
       display: block;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.74rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -817,7 +858,7 @@
     }
 
     .cases-all-link {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.88rem;
       font-weight: 600;
       color: var(--black);
@@ -923,7 +964,7 @@
     .feature-card:hover .feature-icon { transform: translateY(-10px) rotate(5deg); }
 
     .feature-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 1rem;
@@ -935,7 +976,7 @@
     .feature-link-label {
       display: inline-flex;
       align-items: center;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
       letter-spacing: 0.02em;
@@ -1009,7 +1050,7 @@
 
     .om-kicker {
       display: inline-block;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.14em;
@@ -1019,7 +1060,7 @@
     }
 
     .om-header h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(2.4rem, 4vw, 3.5rem);
       font-weight: 800;
       color: var(--white);
@@ -1093,7 +1134,7 @@
     .om-card:hover .om-card-icon { transform: translateY(-10px) rotate(5deg); }
 
     .om-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 1rem;
@@ -1105,7 +1146,7 @@
     .om-link-label {
       display: inline-flex;
       align-items: center;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
       letter-spacing: 0.02em;
@@ -1177,7 +1218,7 @@
 
     .about-kicker {
       display: inline-block;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.16em;
@@ -1187,7 +1228,7 @@
     }
 
     .about-content h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(2rem, 4.8vw, 4rem);
       line-height: 1.05;
       letter-spacing: -0.025em;
@@ -1349,7 +1390,7 @@
     }
 
     .full-image-text h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(3rem, 8vw, 6rem);
       font-weight: 800;
       letter-spacing: -0.02em;
@@ -1400,7 +1441,7 @@
 
     .stats-kicker {
       display: inline-block;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.16em;
@@ -1410,7 +1451,7 @@
     }
 
     .stats-head h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(2.1rem, 5vw, 4rem);
       line-height: 1.04;
       letter-spacing: -0.025em;
@@ -1450,7 +1491,7 @@
     .stat-item:nth-child(4) { transition-delay: 0.22s; }
 
     .stat-number {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(2.4rem, 4.4vw, 4.4rem);
       font-weight: 800;
       background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
@@ -1486,7 +1527,7 @@
 
     .cta-kicker {
       display: inline-block;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.14em;
@@ -1496,7 +1537,7 @@
     }
 
     .cta-content h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: clamp(2.2rem, 4vw, 3.5rem);
       font-weight: 800;
       line-height: 1.1;
@@ -1518,7 +1559,7 @@
       padding: 1rem 2.5rem;
       border-radius: 50px;
       text-decoration: none;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
       transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1564,7 +1605,7 @@
     }
 
     .footer-links h4 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Matter Sans', sans-serif;
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -1689,6 +1730,7 @@
       }
       .nav-mobile-pill-actions { display: inline-flex; }
       .nav-cta { display: none; }
+      .nav-cta-slot { display: none; }
 
       .site-nav.nav--scrolled {
         padding: 1rem 1.2rem;
@@ -1792,7 +1834,7 @@
       .mobile-menu-links a {
         color: var(--white);
         text-decoration: none;
-        font-family: 'Syne', sans-serif;
+        font-family: 'Matter Sans', sans-serif;
         font-size: clamp(2rem, 8vw, 3rem);
         font-weight: 800;
         letter-spacing: -0.03em;
@@ -1808,7 +1850,7 @@
         background: none;
         border: none;
         color: var(--white);
-        font-family: 'Syne', sans-serif;
+        font-family: 'Matter Sans', sans-serif;
         font-size: clamp(2rem, 8vw, 3rem);
         font-weight: 800;
         letter-spacing: -0.03em;
@@ -1859,7 +1901,7 @@
       }
 
       .mobile-sub-category {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 0.65rem !important;
         font-weight: 600 !important;
         text-transform: uppercase;
@@ -1874,7 +1916,7 @@
         align-items: center;
         color: var(--white);
         text-decoration: none;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 1rem;
         font-weight: 500;
         border: 1px solid rgba(255, 255, 255, 0.25);

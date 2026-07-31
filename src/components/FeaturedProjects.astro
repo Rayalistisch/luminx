@@ -27,7 +27,7 @@ const projects = [
 ];
 ---
 
-<section class="projects-section" id="werk" data-bg-color="#000000">
+<section class="projects-section projects-section--light" id="werk" data-bg-color="#FEFEFE">
   <div class="section-header projects-head">
     <span class="section-kicker kicker">Geselecteerd werk</span>
     <h2>Bewijs, geen beloftes.</h2>
@@ -127,9 +127,18 @@ const projects = [
        let the image bleed through here before). */
     position: relative;
     isolation: isolate;
-    background: var(--void);
+    background: transparent;
     padding: 7rem 0;
   }
+
+  /* Light-section treatment: dark ink text on the pale body colour. */
+  .projects-section--light .projects-head h2 { color: #0F1115; }
+  .projects-section--light .project-card { color: #0F1115; }
+  .projects-section--light .project-title { color: #0F1115; }
+  .projects-section--light .project-desc { color: rgba(15, 17, 21, 0.62); }
+  .projects-section--light .project-result { color: rgba(15, 17, 21, 0.85); }
+  .projects-section--light .project-media { border: 1px solid rgba(15, 17, 21, 0.1); }
+  .projects-section--light :global(.kicker) { color: rgba(15, 17, 21, 0.55); }
 
   .projects-head {
     max-width: 1200px;
@@ -139,7 +148,7 @@ const projects = [
 
   .projects-head h2 {
     margin: 0;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Matter Sans', sans-serif;
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.05;
@@ -204,7 +213,7 @@ const projects = [
   }
 
   .project-tag {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Matter Sans', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.16em;
@@ -214,7 +223,7 @@ const projects = [
 
   .project-title {
     margin: 0;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Matter Sans', sans-serif;
     font-weight: 800;
     letter-spacing: -0.02em;
     font-size: clamp(1.6rem, 3vw, 2.4rem);
@@ -228,7 +237,7 @@ const projects = [
   }
 
   .project-result {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.85);

@@ -1,0 +1,356 @@
+---
+// Solutions — LuminX "oplossingen" section under the hero. Two columns, but our
+// own take: editorial numbered list (left) that expands on active/hover, glass
+// pill tabs, and a tall image card (right) with a floating glass stat chip.
+const tabs = [
+  {
+    id: "marketing",
+    label: "Online marketing",
+    image: "/images/marketing-automatisering.png",
+    chip: "Gem. 3× meer organisch verkeer",
+    items: [
+      { title: "SEO", desc: "Structureel gevonden worden op wat je klanten zoeken.", href: "/diensten/seo" },
+      { title: "SEA – Google Ads", desc: "Direct bovenaan met winstgevende campagnes.", href: "/diensten/sea" },
+      { title: "Social advertising", desc: "Bereik en conversie op Meta, TikTok & LinkedIn.", href: "/diensten/social-advertising" },
+      { title: "E-mailmarketing", desc: "Automatische flows die klanten laten terugkomen.", href: "/diensten/emailmarketing" },
+      { title: "GEO – AI-zichtbaarheid", desc: "Genoemd worden in AI-antwoorden en chatbots.", href: "/diensten/geo" },
+    ],
+  },
+  {
+    id: "techniek",
+    label: "Techniek & automatisering",
+    image: "/images/website-gsmteam.png",
+    chip: "0 dagen downtime bij migraties",
+    items: [
+      { title: "Websites", desc: "Razendsnelle sites die laden én converteren.", href: "/diensten/websites" },
+      { title: "Webshops", desc: "Schaalbare shops op Shopify of maatwerk.", href: "/diensten/webshops" },
+      { title: "Procesautomatisering", desc: "Handmatig werk eruit, data erin.", href: "/diensten/procesautomation" },
+      { title: "Google Tag Manager", desc: "Betrouwbare tracking als fundament.", href: "/diensten/google-tag-manager" },
+      { title: "GA4 & Consent Mode", desc: "Meten wat mag, en wat werkt.", href: "/diensten/ga4-implementatie" },
+    ],
+  },
+];
+---
+
+<section class="solutions" id="oplossingen" data-bg-color="#0B1020">
+  <div class="solutions__inner">
+    <!-- Left: heading, pill tabs, editorial list -->
+    <div class="solutions__panel">
+      <span class="solutions__eyebrow">// Oplossingen</span>
+      <h2 class="solutions__heading">Alles wat groei nodig heeft, onder één dak.</h2>
+
+      <div class="solutions__tabs" role="tablist">
+        {tabs.map((t, i) => (
+          <button
+            class:list={["solutions__tab", { "is-active": i === 0 }]}
+            data-tab={t.id}
+            data-chip={t.chip}
+            data-image={t.image}
+            type="button"
+            role="tab"
+            aria-selected={i === 0 ? "true" : "false"}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="solutions__lists">
+        {tabs.map((t, ti) => (
+          <ul class:list={["solutions__list", { "is-active": ti === 0 }]} data-tab={t.id}>
+            {t.items.map((it, ii) => (
+              <li class:list={["solutions__row", { "is-active": ii === 0 }]}>
+                <a href={it.href} class="solutions__link">
+                  <span class="solutions__index">{String(ii + 1).padStart(2, "0")}</span>
+                  <span class="solutions__body">
+                    <span class="solutions__title">{it.title}</span>
+                    <span class="solutions__reveal">
+                      <span class="solutions__desc">{it.desc}</span>
+                      <span class="solutions__more">Bekijk
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+                        </svg>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right: tall image card + floating glass chip -->
+    <div class="solutions__visual">
+      {tabs.map((t, i) => (
+        <img
+          class:list={["solutions__img", { "is-active": i === 0 }]}
+          data-tab={t.id}
+          src={t.image}
+          alt={t.label}
+          loading="lazy"
+          decoding="async"
+        />
+      ))}
+      <div class="solutions__visual-glow" aria-hidden="true"></div>
+      <div class="solutions__chip" data-chip>{tabs[0].chip}</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initSolutions() {
+    const section = document.querySelector<HTMLElement>(".solutions");
+    if (!section) return;
+
+    const tabs = Array.from(section.querySelectorAll<HTMLElement>(".solutions__tab"));
+    const lists = Array.from(section.querySelectorAll<HTMLElement>(".solutions__list"));
+    const imgs = Array.from(section.querySelectorAll<HTMLElement>(".solutions__img"));
+    const chip = section.querySelector<HTMLElement>(".solutions__chip");
+
+    const setActiveRow = (list: HTMLElement, row: HTMLElement | null) => {
+      const rows = list.querySelectorAll<HTMLElement>(".solutions__row");
+      rows.forEach((r, i) => r.classList.toggle("is-active", row ? r === row : i === 0));
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const id = tab.getAttribute("data-tab");
+        tabs.forEach((t) => {
+          const on = t === tab;
+          t.classList.toggle("is-active", on);
+          t.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        lists.forEach((l) => l.classList.toggle("is-active", l.getAttribute("data-tab") === id));
+        imgs.forEach((im) => im.classList.toggle("is-active", im.getAttribute("data-tab") === id));
+        if (chip) chip.textContent = tab.getAttribute("data-chip") || "";
+      });
+    });
+
+    // Hover moves the "open" row; the first row is the resting state.
+    lists.forEach((list) => {
+      const rows = Array.from(list.querySelectorAll<HTMLElement>(".solutions__row"));
+      rows.forEach((row) => row.addEventListener("mouseenter", () => setActiveRow(list, row)));
+      list.addEventListener("mouseleave", () => setActiveRow(list, null));
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSolutions);
+  } else {
+    initSolutions();
+  }
+</script>
+
+<style>
+  .solutions {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+    padding: clamp(4.5rem, 11vh, 8rem) clamp(20px, 5vw, 56px);
+    overflow: hidden;
+  }
+
+  .solutions__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.85fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* ── Left panel ── */
+  .solutions__eyebrow {
+    display: block;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--signal-bright, #c4972a);
+    margin-bottom: 0.9rem;
+  }
+
+  .solutions__heading {
+    margin: 0 0 2rem;
+    max-width: 18ch;
+    font-family: 'Matter Sans', 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    font-size: clamp(1.9rem, 3.4vw, 3rem);
+    color: #fff;
+  }
+
+  .solutions__tabs { display: flex; flex-wrap: wrap; gap: 1.9rem; margin-bottom: 1.4rem; }
+
+  .solutions__tab {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding: 0 0 9px;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.45);
+    transition: color 0.25s ease;
+  }
+  .solutions__tab::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: var(--signal-bright, #c4972a);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .solutions__tab:hover { color: rgba(255, 255, 255, 0.78); }
+  .solutions__tab.is-active { color: #fff; }
+  .solutions__tab.is-active::after { transform: scaleX(1); }
+
+  .solutions__list { display: none; list-style: none; margin: 0; padding: 0; }
+  .solutions__list.is-active { display: block; }
+
+  .solutions__row {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .solutions__row:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+
+  .solutions__link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 1.1rem;
+    padding: clamp(0.95rem, 2vh, 1.35rem) 0;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .solutions__index {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 2.1;
+    color: rgba(255, 255, 255, 0.35);
+    transition: color 0.25s ease;
+  }
+  .solutions__row.is-active .solutions__index { color: var(--signal-bright, #c4972a); }
+
+  .solutions__title {
+    display: block;
+    font-family: 'Matter Sans', 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-size: clamp(1.3rem, 2.1vw, 1.85rem);
+    line-height: 1.15;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.25s ease;
+  }
+  .solutions__row.is-active .solutions__title { color: #fff; }
+
+  /* Expanding description + link */
+  .solutions__reveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease;
+  }
+  .solutions__row.is-active .solutions__reveal {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 0.5rem;
+  }
+  .solutions__reveal > * { min-height: 0; }
+
+  .solutions__desc {
+    display: block;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.62);
+    overflow: hidden;
+  }
+
+  .solutions__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--signal-bright, #c4972a);
+  }
+  .solutions__more svg { transition: transform 0.3s ease; }
+  .solutions__row:hover .solutions__more svg { transform: translateX(3px); }
+
+  /* ── Right visual ── */
+  .solutions__visual {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #060912;
+    border: 1px solid rgba(196, 151, 42, 0.28);
+    box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.85);
+  }
+
+  .solutions__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.6s ease, transform 1s ease;
+  }
+  .solutions__img.is-active { opacity: 1; transform: scale(1); }
+
+  .solutions__visual-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(110% 70% at 85% 0%, rgba(196, 151, 42, 0.18) 0%, transparent 55%),
+      linear-gradient(180deg, transparent 55%, rgba(6, 9, 18, 0.85) 100%);
+  }
+
+  .solutions__chip {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 2;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  @media (max-width: 860px) {
+    .solutions__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .solutions__visual { aspect-ratio: 16 / 11; order: 2; }
+    .solutions__panel { order: 1; }
+
+    /* No hover on touch: show every row's description + link, and give each
+       row the "active" ink so the list is fully readable. */
+    .solutions__reveal { grid-template-rows: 1fr; opacity: 1; margin-top: 0.5rem; }
+    .solutions__title { color: #fff; }
+    .solutions__index { color: var(--signal-bright, #c4972a); }
+  }
+</style>

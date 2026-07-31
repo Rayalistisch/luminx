@@ -51,7 +51,7 @@ export default function GlowMenu({
         "px-1.5 py-1.5 rounded-full bg-[rgba(20,20,20,0.85)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] shadow-[0_4px_24px_rgba(0,0,0,0.25)] relative overflow-visible",
         className
       )}
-      style={{ fontFamily: "'Syne', sans-serif" }}
+      style={{ fontFamily: "'Matter Sans', sans-serif" }}
     >
       <ul className="flex items-center gap-1 relative z-10 list-none m-0 p-0">
         {items.map((item) => {
@@ -117,7 +117,7 @@ export default function GlowMenu({
                                   <a
                                     href={link.href}
                                     className="block px-3 py-2 rounded-lg text-sm text-white/60 no-underline hover:text-white hover:bg-white/5 transition-colors duration-150"
-                                    style={{ fontFamily: "'Inter', sans-serif" }}
+                                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                                   >
                                     {link.label}
                                   </a>

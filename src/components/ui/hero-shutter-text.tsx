@@ -61,7 +61,7 @@ export default function HeroShutterText({
                         )}
                         style={{
                           fontSize: "clamp(2.7rem, 8vw, 8rem)",
-                          fontFamily: "'Syne', sans-serif",
+                          fontFamily: "'Matter Sans', sans-serif",
                         }}
                       >
                         {char === " " ? "\u00A0" : char}
@@ -79,7 +79,7 @@ export default function HeroShutterText({
                         className="absolute inset-0 leading-none font-black text-[#FFD6E8] z-10 pointer-events-none"
                         style={{
                           fontSize: "clamp(2.7rem, 8vw, 8rem)",
-                          fontFamily: "'Syne', sans-serif",
+                          fontFamily: "'Matter Sans', sans-serif",
                           clipPath: "polygon(0 0, 100% 0, 100% 35%, 0 35%)",
                         }}
                       >
@@ -98,7 +98,7 @@ export default function HeroShutterText({
                         className="absolute inset-0 leading-none font-black text-zinc-200 z-10 pointer-events-none"
                         style={{
                           fontSize: "clamp(2.7rem, 8vw, 8rem)",
-                          fontFamily: "'Syne', sans-serif",
+                          fontFamily: "'Matter Sans', sans-serif",
                           clipPath:
                             "polygon(0 35%, 100% 35%, 100% 65%, 0 65%)",
                         }}
@@ -118,7 +118,7 @@ export default function HeroShutterText({
                         className="absolute inset-0 leading-none font-black text-[#C8E7F5] z-10 pointer-events-none"
                         style={{
                           fontSize: "clamp(2.7rem, 8vw, 8rem)",
-                          fontFamily: "'Syne', sans-serif",
+                          fontFamily: "'Matter Sans', sans-serif",
                           clipPath:
                             "polygon(0 65%, 100% 65%, 100% 100%, 0 100%)",
                         }}

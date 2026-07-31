@@ -4,7 +4,7 @@ const dx = 1320 / (nodes.length - 1);
 const dy = 920 / (nodes.length - 1);
 ---
 
-<section class="growth-section" id="systeem" data-bg-color="#020202">
+<section class="growth-section growth-section--light" id="systeem" data-bg-color="#F6F8FB">
   <div class="scene-grain" aria-hidden="true"></div>
 
   <div class="growth-pin">
@@ -123,9 +123,16 @@ const dy = 920 / (nodes.length - 1);
   .growth-section {
     position: relative;
     isolation: isolate;
-    background: var(--deep);
+    background: transparent;
     overflow: hidden;
   }
+
+  /* Light-section treatment: ink-dark diagram + text on the pale body colour. */
+  .growth-section--light .growth-head h2 { color: #0F1115; }
+  .growth-section--light :global(.kicker) { color: rgba(15, 17, 21, 0.55); }
+  .growth-section--light .growth-path { stroke: rgba(15, 17, 21, 0.16); }
+  .growth-section--light .growth-node { fill: #F6F8FB; stroke: rgba(15, 17, 21, 0.3); }
+  .growth-section--light .growth-label { fill: #0F1115; }
 
   .growth-pin {
     min-height: 100vh;
@@ -144,7 +151,7 @@ const dy = 920 / (nodes.length - 1);
 
   .growth-head h2 {
     margin: 0;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Matter Sans', sans-serif;
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -180,7 +187,7 @@ const dy = 920 / (nodes.length - 1);
   }
 
   .growth-label {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Matter Sans', sans-serif;
     font-weight: 700;
     font-size: 22px;
     letter-spacing: 0.01em;
