@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+
+const siteOrigin = (Astro.site?.toString() ?? "https://luminx.nl").replace(/\/$/, "");
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+// Offer-schema met vaste prijs — vult de Service/Breadcrumb/FAQ-schema's
+// aan die ServicePage zelf al genereert.
+const offerSchema = {
+  "@type": "Offer",
+  "@id": `${canonicalUrl}#offer`,
+  name: "Next.js-website ombouwen naar WordPress",
+  description:
+    "Volledige ombouw van een Next.js-/Vercel-website naar een volwaardige WordPress-site met Gutenberg: alles visueel en compleet aanpasbaar, met hoge PageSpeed-scores en zonder Elementor of andere pagebuilders.",
+  url: canonicalUrl,
+  category: "Webdevelopment",
+  availability: "https://schema.org/InStock",
+  price: "1500",
+  priceCurrency: "EUR",
+  priceSpecification: {
+    "@type": "PriceSpecification",
+    price: "1500",
+    priceCurrency: "EUR",
+    valueAddedTaxIncluded: false,
+  },
+  seller: { "@id": `${siteOrigin}/#organization` },
+};
+---
+
+<BaseLayout
+  title="Next.js naar WordPress ombouwen | Van Vercel naar volledig CMS voor €1500 — LuminX"
+  description="Een Next.js-website door AI of Claude laten bouwen en op Vercel gezet zonder goede backend? Wij bouwen hem volledig om naar WordPress met Gutenberg — alles visueel aanpasbaar, hoge PageSpeed zonder Elementor. Vaste prijs €1500."
+  structuredData={offerSchema}
+>
+  <ServicePage
+    title="Next.js naar WordPress"
+    icon="✦"
+    intro="Heb je een mooie Next.js-website laten bouwen door AI of Claude en staat die op Vercel — maar kun je zelf niets aanpassen omdat er geen fatsoenlijke backend achter zit? Wij bouwen jouw site volledig om naar een volwaardig WordPress met Gutenberg-velden: alles visueel en compleet aanpasbaar, met hoge PageSpeed-scores en zonder Elementor of andere pagebuilders. Eén vaste prijs: €1500."
+    metrics={[
+      { value: "€1500", label: "Vaste prijs" },
+      { value: "90+ PageSpeed", label: "Zonder pagebuilder" },
+      { value: "100% CMS", label: "Zelf aanpasbaar" },
+    ]}
+    painPoints={[
+      "Een door AI gebouwde Next.js-site op Vercel waar je zelf geen tekst of afbeelding in kunt wijzigen",
+      "Voor elke kleine aanpassing terug moeten naar een developer of opnieuw laten genereren",
+      "Geen echt CMS of backend — content zit vast in de code",
+      "Pagebuilders zoals Elementor maken WordPress traag en rommelig onder de motorkap",
+    ]}
+    highlights={[
+      "Je bestaande ontwerp 1-op-1 overgezet naar een volwaardig WordPress-thema",
+      "Elke sectie, tekst en afbeelding bewerkbaar via Gutenberg-velden — volledig visueel",
+      "Hoge PageSpeed-scores (90+) dankzij schone, handgebouwde code zonder pagebuilder",
+      "Eén vaste prijs van €1500 — geen abonnement op Elementor of verrassingen achteraf",
+    ]}
+    process={[
+      "Analyse van je huidige Next.js-site op Vercel: ontwerp, pagina's en structuur",
+      "Opbouw van een maatwerk WordPress-thema dat je ontwerp exact overneemt",
+      "Alle content omzetten naar bewerkbare Gutenberg-blokken en custom velden",
+      "Migratie, snelheidsoptimalisatie en oplevering met korte uitleg — jij beheert daarna zelf",
+    ]}
+    outcomes={[
+      "Volledige controle: pas zelf elke tekst, afbeelding en sectie aan zonder developer",
+      "Een snelle website met hoge PageSpeed-scores, zonder zware pagebuilder",
+      "Een vertrouwd CMS (WordPress) waar je altijd iemand voor kunt vinden",
+      "Geen vendor lock-in op Vercel of op code die niemand meer kan aanpassen",
+    ]}
+    faq={[
+      {
+        q: "Waarom zou ik een Next.js-website ombouwen naar WordPress?",
+        a: "Veel websites die met AI of Claude zijn gebouwd en op Vercel staan, zien er prachtig uit maar hebben geen fatsoenlijke backend: de content zit vast in de code. Je kunt zelf geen tekst of afbeelding wijzigen zonder een developer of zonder alles opnieuw te laten genereren. Door om te bouwen naar WordPress met Gutenberg krijg je een volwaardig CMS waarin je álles zelf visueel aanpast, terwijl het ontwerp exact hetzelfde blijft.",
+      },
+      {
+        q: "Wat kost het ombouwen van mijn website naar WordPress?",
+        a: "De ombouw van een Next.js-/Vercel-website naar een volledig aanpasbaar WordPress met Gutenberg kost een vaste prijs van €1500. Geen uurtje-factuurtje en geen verrassingen achteraf. Je weet precies waar je aan toe bent en je hoeft daarna geen abonnement op Elementor of een andere pagebuilder te betalen.",
+      },
+      {
+        q: "Blijft mijn website dan niet traag, zoals bij Elementor?",
+        a: "Nee. Juist daarom gebruiken we géén Elementor of andere pagebuilder. Die tools voegen veel overbodige code toe en maken WordPress traag. Wij bouwen een schoon, handgemaakt thema met native Gutenberg-blokken en custom velden. Daardoor houd je hoge PageSpeed-scores (90+) én volledige visuele bewerkbaarheid — het beste van beide werelden.",
+      },
+      {
+        q: "Kan ik daarna echt alles zelf aanpassen?",
+        a: "Ja. Elke sectie wordt opgebouwd met Gutenberg-velden, zodat je teksten, afbeeldingen, knoppen en hele secties zelf visueel wijzigt vanuit het vertrouwde WordPress-dashboard. Geen code, geen developer nodig. Bij oplevering leggen we kort uit hoe het werkt.",
+      },
+      {
+        q: "Blijft mijn ontwerp hetzelfde na de ombouw?",
+        a: "Ja. We nemen je bestaande ontwerp 1-op-1 over in een maatwerk WordPress-thema. Bezoekers zien hetzelfde, maar onder de motorkap heb je nu een volwaardig CMS en een backend die je volledig in beheer hebt.",
+      },
+      {
+        q: "Hoe zit het met mijn huidige site op Vercel?",
+        a: "Je huidige Next.js-site op Vercel gebruiken we als uitgangspunt voor het ontwerp en de content. Na de ombouw draait je site op WordPress, zodat je niet langer afhankelijk bent van code die niemand meer kan aanpassen. We regelen de migratie en zorgen dat alles blijft werken.",
+      },
+    ]}
+    relatedServices={[
+      { label: "Websites", href: "/diensten/websites", description: "Custom, Framer & WordPress voor grotere projecten." },
+      { label: "AI Websites", href: "/diensten/ai-websites", description: "Betaalbare website grotendeels gebouwd met AI." },
+      { label: "SEO", href: "/diensten/seo", description: "Gevonden worden in Google zonder doorlopende advertentiekosten." },
+    ]}
+  >
+    <div slot="body">
+      <h2>Van een AI-site op Vercel naar een site die je zelf beheert</h2>
+      <p>
+        Het is een herkenbaar verhaal: je laat een website bouwen met AI of Claude, het resultaat is een strakke Next.js-site, en die wordt op Vercel gedeployed. Ziet er professioneel uit — totdat je iets wilt wijzigen. Een telefoonnummer, een prijs, een nieuwe pagina. Dan blijkt er geen echt CMS of backend achter te zitten: de content staat in de code. Voor elke kleine aanpassing moet je terug naar een developer of laat je de hele boel opnieuw genereren. Dat is geen fundament om een onderneming op te bouwen.
+      </p>
+
+      <h2>Wat wij doen: volledige ombouw naar WordPress met Gutenberg</h2>
+      <p>
+        Wij bouwen je site volledig om naar WordPress — het meest gebruikte CMS ter wereld — met álle content bewerkbaar via Gutenberg-velden. Je ontwerp blijft exact hetzelfde, maar onder de motorkap krijg je een volwaardige backend die je zelf in beheer hebt. Elke tekst, afbeelding, knop en sectie pas je visueel aan vanuit het vertrouwde WordPress-dashboard, zonder code en zonder developer.
+      </p>
+      <ul>
+        <li><strong>Ontwerp 1-op-1 behouden</strong> — bezoekers merken niets, jij krijgt volledige controle.</li>
+        <li><strong>Volledig visueel bewerkbaar</strong> — elke sectie opgebouwd met Gutenberg-blokken en custom velden.</li>
+        <li><strong>Geen vendor lock-in</strong> — weg van code die niemand kan aanpassen, naar een CMS dat iedereen kent.</li>
+      </ul>
+
+      <h2>Hoge PageSpeed-scores — zonder Elementor of pagebuilder</h2>
+      <p>
+        Veel WordPress-sites zijn traag omdat ze op pagebuilders als Elementor draaien, die bergen overbodige code toevoegen. Wij doen het anders. We bouwen een schoon, handgemaakt thema met native Gutenberg-blokken, zodat je hoge PageSpeed-scores houdt (90+) én volledige visuele bewerkbaarheid krijgt. Geen zware plugins, geen maandelijks abonnement op een pagebuilder — gewoon een snelle, moderne en volledig aanpasbare website.
+      </p>
+
+      <h2>Eén vaste prijs: €1500</h2>
+      <p>
+        Je weet vooraf precies waar je aan toe bent. De complete ombouw van je Next.js-/Vercel-site naar een volledig aanpasbaar WordPress met Gutenberg kost <strong>€1500</strong>. Geen uurtje-factuurtje, geen verrassingen achteraf en geen doorlopende kosten voor een pagebuilder. Daarna beheer je je website volledig zelf.
+      </p>
+      <p>
+        Klaar om eigenaar te worden van je eigen website? <a href="#contact">Plan een vrijblijvende kennismaking</a> en ontdek hoe we jouw AI-site op Vercel ombouwen naar een snel, volledig aanpasbaar WordPress.
+      </p>
+    </div>
+  </ServicePage>
+</BaseLayout>
