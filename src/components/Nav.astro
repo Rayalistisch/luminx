@@ -1,7 +1,5 @@
 ---
-import GlowMenu from "./ui/glow-menu";
-import { FlowButton } from "./ui/flow-button";
-
+import Logo from "./pm/Logo.astro";
 interface Props {
   basePath?: string;
 }
@@ -10,108 +8,229 @@ const { basePath = "" } = Astro.props;
 
 const toSection = (id: string) => `${basePath}#${id}`;
 
-const navItems = [
+const groups = [
   {
-    label: "Diensten",
-    href: toSection("diensten"),
-    mega: true,
-    dropdown: [
-      {
-        category: "Online Marketing",
-        items: [
-          { label: "SEO", href: "/diensten/seo" },
-          { label: "SEA", href: "/diensten/sea" },
-          { label: "Social Advertising", href: "/diensten/social-advertising" },
-          { label: "E-mailmarketing", href: "/diensten/emailmarketing" },
-          { label: "GEO – AI-zichtbaarheid", href: "/diensten/geo" },
-        ],
-      },
-      {
-        category: "Technologie",
-        items: [
-          { label: "Websites", href: "/diensten/websites" },
-          { label: "Next.js → WordPress", href: "/diensten/nextjs-naar-wordpress" },
-          { label: "Webshops", href: "/diensten/webshops" },
-          { label: "Procesautomation", href: "/diensten/procesautomation" },
-        ],
-      },
-      {
-        category: "Strategie & Data",
-        items: [
-          { label: "Strategie", href: "/diensten/strategy" },
-          { label: "Google Tag Manager", href: "/diensten/google-tag-manager" },
-          { label: "GA4 Implementatie", href: "/diensten/ga4-implementatie" },
-          { label: "Consent Mode v2", href: "/diensten/consent-mode-v2" },
-        ],
-      },
+    category: "Online marketing",
+    items: [
+      { label: "SEO", href: "/diensten/seo" },
+      { label: "SEA – Google Ads", href: "/diensten/sea" },
+      { label: "Social advertising", href: "/diensten/social-advertising" },
+      { label: "E-mailmarketing", href: "/diensten/emailmarketing" },
+      { label: "GEO – AI-zichtbaarheid", href: "/diensten/geo" },
     ],
   },
   {
-    label: "Werk",
-    href: toSection("werk"),
+    category: "Technologie",
+    items: [
+      { label: "Websites", href: "/diensten/websites" },
+      { label: "AI-websites", href: "/diensten/ai-websites" },
+      { label: "Next.js → WordPress", href: "/diensten/nextjs-naar-wordpress" },
+      { label: "Webshops", href: "/diensten/webshops" },
+      { label: "Procesautomation", href: "/diensten/procesautomation" },
+    ],
   },
   {
-    label: "Over",
-    href: toSection("over"),
+    category: "Strategie & data",
+    items: [
+      { label: "Strategie", href: "/diensten/strategy" },
+      { label: "Google Tag Manager", href: "/diensten/google-tag-manager" },
+      { label: "GA4 implementatie", href: "/diensten/ga4-implementatie" },
+      { label: "Consent Mode v2", href: "/diensten/consent-mode-v2" },
+    ],
   },
+];
+
+const quick = [
+  { label: "Werk", href: toSection("werk") },
+  { label: "Over", href: toSection("over") },
+  { label: "Blog", href: "/blog" },
+  { label: "Gratis tracking-audit", href: "/tracking-audit" },
 ];
 ---
 
-<nav class="site-nav">
-  <a href={basePath || "/"} class="logo">
-    {"LUMINX".split("").map((letter, i) => (
-      <span class="logo-letter" style={`transition-delay: ${i * 0.04}s`}>{letter}</span>
-    ))}
-  </a>
-
-  <div class="nav-glow-wrapper">
-    <GlowMenu client:load items={navItems} />
-  </div>
-
-  <div class="nav-mobile-pill-actions">
-    <a href="#" class="nav-mobile-cta" data-overlay-open aria-label="Contact">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="7" y1="17" x2="17" y2="7"/>
-        <polyline points="7 7 17 7 17 17"/>
-      </svg>
-    </a>
-
-    <button class="nav-burger" aria-label="Menu">
-      <span></span>
-      <span></span>
+<header class="nav" data-nav>
+  <div class="nav__bar">
+    <button class="pm-btn pm-btn--white pm-btn--sm nav__menu" type="button" aria-expanded="false" aria-controls="nav-panel" data-nav-toggle>
+      <span class="nav__burger" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="nav__menu-label">Menu</span>
     </button>
+
+    <Logo as="a" href="/" class="nav__logo" aria-label="LuminX – home" />
+
+    <a href="#" class="pm-btn pm-btn--sm nav__cta" data-overlay-open>
+      <span class="nav__cta-long">Maak kennis</span>
+      <span class="nav__cta-short" aria-hidden="true">Contact</span>
+    </a>
   </div>
 
-  <div class="nav-cta-slot">
-    <FlowButton client:load text="Maak kennis" href="#" data-overlay-open />
+  <div class="nav__panel pm-card pm-card--lift" id="nav-panel" hidden>
+    <div class="nav__groups">
+      {groups.map((g) => (
+        <div class="nav__group">
+          <p class="pm-label">{g.category}</p>
+          <ul>
+            {g.items.map((it) => (
+              <li><a href={it.href}>{it.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="nav__quick">
+      {quick.map((q) => (
+        <a class="pm-tag pm-tag--paper" href={q.href}>{q.label}</a>
+      ))}
+      <a class="pm-tag" href="mailto:hello@luminx.nl">hello@luminx.nl</a>
+    </div>
   </div>
+</header>
 
-  <div class="mobile-menu">
-    <ul class="mobile-menu-links">
-      <li><a href={toSection("werk")}>Werk</a></li>
-      <li>
-        <button class="mobile-diensten-toggle" type="button">Diensten <span class="mobile-chevron">+</span></button>
-        <ul class="mobile-diensten-sub">
-          <li class="mobile-sub-category">Online Marketing</li>
-          <li><a href="/diensten/seo">SEO</a></li>
-          <li><a href="/diensten/sea">SEA – Google Ads</a></li>
-          <li><a href="/diensten/social-advertising">Social Advertising</a></li>
-          <li><a href="/diensten/emailmarketing">E-mailmarketing</a></li>
-          <li><a href="/diensten/geo">GEO – AI-zichtbaarheid</a></li>
-          <li class="mobile-sub-category">Technologie</li>
-          <li><a href="/diensten/websites">Websites</a></li>
-          <li><a href="/diensten/nextjs-naar-wordpress">Next.js → WordPress</a></li>
-          <li><a href="/diensten/webshops">Webshops</a></li>
-          <li><a href="/diensten/procesautomation">Procesautomation</a></li>
-          <li class="mobile-sub-category">Strategie & Data</li>
-          <li><a href="/diensten/strategy">Strategie</a></li>
-          <li><a href="/diensten/google-tag-manager">Google Tag Manager</a></li>
-          <li><a href="/diensten/ga4-implementatie">GA4 Implementatie</a></li>
-        </ul>
-      </li>
-      <li><a href={toSection("over")}>Over</a></li>
-      <li><a href={toSection("contact")}>Contact</a></li>
-    </ul>
-    <a href="#" class="mobile-menu-cta" data-overlay-open>Start Project</a>
-  </div>
-</nav>
+<script>
+  function initNav() {
+    const nav = document.querySelector<HTMLElement>("[data-nav]");
+    const toggle = nav?.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+    const panel = nav?.querySelector<HTMLElement>("#nav-panel");
+    if (!nav || !toggle || !panel) return;
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      nav.classList.toggle("is-open", open);
+      if (open) {
+        panel.hidden = false;
+        requestAnimationFrame(() => panel.classList.add("is-shown"));
+      } else {
+        panel.classList.remove("is-shown");
+        window.setTimeout(() => { if (!nav.classList.contains("is-open")) panel.hidden = true; }, 350);
+      }
+    };
+
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+    panel.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    document.addEventListener("click", (e) => {
+      if (nav.classList.contains("is-open") && !nav.contains(e.target as Node)) setOpen(false);
+    });
+
+    // tuck the bar's backdrop in once we leave the top
+    const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initNav);
+  else initNav();
+</script>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 1000;
+    padding: 18px var(--pm-gutter) 0;
+    pointer-events: none;
+  }
+
+  .nav__bar {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    max-width: calc(var(--pm-max) + 64px);
+    margin-inline: auto;
+  }
+
+  .nav__bar > * { pointer-events: auto; }
+
+  .nav__menu { justify-self: start; gap: 0.7rem; }
+  .nav__cta { justify-self: end; }
+  .nav__cta-short { display: none; }
+
+  .nav__logo {
+    justify-self: center;
+    transition: transform 0.5s var(--pm-ease), opacity 0.3s ease;
+  }
+  /* the wordmark only lives at the top; once content scrolls under it, it tucks away */
+  .nav.is-scrolled:not(.is-open) .nav__logo { opacity: 0; transform: translateY(-24px); pointer-events: none; }
+
+  .nav__burger {
+    display: grid;
+    gap: 3px;
+    width: 16px;
+  }
+  .nav__burger span {
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.4s var(--pm-ease), opacity 0.2s ease;
+  }
+  .nav__burger span:nth-child(2) { width: 70%; }
+  .nav.is-open .nav__burger span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+  .nav.is-open .nav__burger span:nth-child(2) { opacity: 0; }
+  .nav.is-open .nav__burger span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+  /* panel */
+  .nav__panel {
+    pointer-events: auto;
+    max-width: calc(var(--pm-max) + 64px);
+    margin: 18px auto 0;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: var(--pm-milk);
+    opacity: 0;
+    transform: translateY(-16px) scale(0.98);
+    transform-origin: top left;
+    transition: opacity 0.3s ease, transform 0.5s var(--pm-ease);
+    max-height: calc(100dvh - 120px);
+    overflow-y: auto;
+  }
+  .nav__panel.is-shown { opacity: 1; transform: none; }
+
+  .nav__groups {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .nav__group ul { list-style: none; margin: 0.9rem 0 0; padding: 0; display: grid; gap: 0.2rem; }
+  .nav__group a {
+    display: inline-block;
+    font-family: var(--pm-display);
+    font-size: clamp(1.4rem, 2vw, 1.75rem);
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    color: var(--pm-ink);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.4s var(--pm-ease);
+  }
+  @media (hover: hover) {
+    .nav__group a:hover { color: var(--pm-red); transform: translateX(4px); }
+  }
+
+  .nav__quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed var(--pm-ink-line);
+  }
+  .nav__quick a { text-decoration: none; }
+
+  @media (max-width: 860px) {
+    .nav__groups { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .nav { padding-top: 12px; }
+    .nav__menu-label { display: none; }
+    .nav__menu { width: 46px; padding: 0; }
+    .nav__cta-long { display: none; }
+    .nav__cta-short { display: inline; }
+    .nav__logo { font-size: 1.3rem; }
+    .nav__groups { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+</style>

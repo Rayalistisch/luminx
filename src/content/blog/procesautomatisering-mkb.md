@@ -8,7 +8,7 @@ image: /images/marketing-automatisering.png
 relatedLinks:
   - href: /diensten/procesautomation
     label: Procesautomatisering
-    description: Herhaalbare taken automatisch — minder handwerk, meer focus.
+    description: "Herhaalbare taken automatisch: minder handwerk, meer focus."
   - href: /diensten/strategy
     label: Digitale Strategie
     description: Automatisering als onderdeel van een brede groeistrategie.

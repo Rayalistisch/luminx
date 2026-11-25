@@ -1,98 +1,108 @@
 ---
+import Icon from "./pm/Icon.astro";
 const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
 ---
 
-<section class="si-section" data-bg-color="#FEFEFE">
-  <div class="si-container">
-
+<section class="pm-section si-section" aria-labelledby="si-title">
+  <div class="pm-container">
     <div class="si-layout">
 
       <!-- Left: intro -->
-      <div class="si-intro-col">
-        <span class="si-kicker">Gratis</span>
-        <h2>Hoe scoort jouw website op SEO?</h2>
-        <p>Vul je gegevens in en ontdek in 30 seconden waar jouw site staat — op mobiel en desktop. We analyseren titels, meta-tags, crawlbaarheid en meer.</p>
-        <ul class="si-trust">
-          <li>✓ Gebaseerd op Google PageSpeed Insights</li>
-          <li>✓ 14 SEO-checks in één scan</li>
-          <li>✓ Gratis, geen creditcard nodig</li>
+      <div class="si-intro-col" data-reveal>
+        <span class="pm-tag pm-tag--yellow">Gratis</span>
+        <h2 id="si-title" class="pm-h2">Hoe scoort jouw website op SEO?</h2>
+        <p class="pm-opening">Vul je gegevens in en ontdek in 30 seconden waar jouw site staat: op mobiel en desktop. We analyseren titels, meta-tags, crawlbaarheid en meer.</p>
+        <ul class="pm-checks si-trust">
+          <li>Gebaseerd op Google PageSpeed Insights</li>
+          <li>14 SEO-checks in één scan</li>
+          <li>Gratis, geen creditcard nodig</li>
         </ul>
       </div>
 
       <!-- Right: interactive card -->
-      <div class="si-card" id="siCard" data-psi-key={psiKey}>
-
-        <!-- Step 1: Form -->
-        <div class="si-step" id="siStepForm">
-          <form id="siForm" novalidate>
-            <div class="si-field">
-              <label for="siUrl">Website URL</label>
-              <input type="url" id="siUrl" name="url" placeholder="https://jouwsite.nl" required autocomplete="url" />
-            </div>
-            <div class="si-field">
-              <label for="siName">Jouw naam</label>
-              <input type="text" id="siName" name="name" placeholder="Voornaam" required autocomplete="given-name" />
-            </div>
-            <div class="si-field">
-              <label for="siEmail">E-mailadres</label>
-              <input type="email" id="siEmail" name="email" placeholder="jij@bedrijf.nl" required autocomplete="email" />
-            </div>
-            <p class="si-error" id="siError" hidden></p>
-            <button type="submit" class="si-submit">Scan starten →</button>
-          </form>
-        </div>
-
-        <!-- Step 2: Loading -->
-        <div class="si-step" id="siStepLoading" hidden>
-          <div class="si-loader">
-            <div class="si-radar"><span></span><span></span><span></span></div>
-            <p id="siLoadingMsg">Website ophalen…</p>
-            <small id="siLoadingUrl"></small>
+      <div class="si-card-wrap" data-reveal style="--d: 1">
+        <div class="pm-card pm-card--milk pm-card--lift si-card" id="siCard" data-psi-key={psiKey}>
+          <div class="si-card__bar" aria-hidden="true">
+            <span class="pm-icon pm-icon--sm pm-icon--pink"><Icon name="search" /></span>
+            <span class="si-card__bar-title">SEO scan</span>
           </div>
-        </div>
 
-        <!-- Step 3: Results -->
-        <div class="si-step" id="siStepResults" hidden>
-          <div class="si-results-header">
-            <h3>Resultaten <span id="siScoreSite"></span></h3>
-            <p id="siScoreLabel" class="si-score-sublabel"></p>
-          </div>
-          <div class="si-columns">
-            <div class="si-col si-col--good">
-              <h4>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                Goed gedaan
-              </h4>
-              <ul id="siGoodList"></ul>
+          <div class="si-card__body">
+            <!-- Step 1: Form -->
+            <div class="si-step" id="siStepForm">
+              <form id="siForm" class="si-form" novalidate>
+                <div class="si-field">
+                  <label for="siUrl">Website URL</label>
+                  <input type="url" id="siUrl" name="url" placeholder="https://jouwsite.nl" required autocomplete="url" />
+                </div>
+                <div class="si-field">
+                  <label for="siName">Jouw naam</label>
+                  <input type="text" id="siName" name="name" placeholder="Voornaam" required autocomplete="given-name" />
+                </div>
+                <div class="si-field">
+                  <label for="siEmail">E-mailadres</label>
+                  <input type="email" id="siEmail" name="email" placeholder="jij@bedrijf.nl" required autocomplete="email" />
+                </div>
+                <p class="si-error" id="siError" role="alert" hidden></p>
+                <button type="submit" class="pm-btn pm-btn--yellow si-submit">Scan starten →</button>
+              </form>
             </div>
-            <div class="si-col si-col--bad">
-              <h4>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                Verbeterpunten
-              </h4>
-              <ul id="siBadList"></ul>
+
+            <!-- Step 2: Loading -->
+            <div class="si-step" id="siStepLoading" hidden>
+              <div class="si-loader" aria-live="polite">
+                <div class="si-radar" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                  <i class="si-radar__core"><Icon name="search" size={22} stroke={2.5} /></i>
+                </div>
+                <p id="siLoadingMsg">Website ophalen…</p>
+                <small id="siLoadingUrl"></small>
+              </div>
+            </div>
+
+            <!-- Step 3: Results -->
+            <div class="si-step" id="siStepResults" hidden>
+              <div class="si-results-header">
+                <h3 class="pm-h3 si-results-title">Resultaten <span id="siScoreSite"></span></h3>
+                <p id="siScoreLabel" class="pm-text si-score-sublabel"></p>
+              </div>
+              <div class="si-columns">
+                <div class="si-col">
+                  <h4 class="si-col__title">
+                    <span class="pm-icon pm-icon--sm pm-icon--yellow" aria-hidden="true"><Icon name="check" /></span>
+                    Goed gedaan
+                  </h4>
+                  <ul id="siGoodList" class="pm-checks si-list"></ul>
+                </div>
+                <div class="si-col si-col--bad">
+                  <h4 class="si-col__title">
+                    <span class="pm-icon pm-icon--sm" aria-hidden="true"><Icon name="alert" /></span>
+                    Verbeterpunten
+                  </h4>
+                  <ul id="siBadList" class="si-list si-list--bad"></ul>
+                </div>
+              </div>
+              <div class="si-upsell">
+                <p>Wil je <strong>alle</strong> verbeterpunten + GEO-optimalisatie voor AI-zoekmachines?</p>
+                <button type="button" class="pm-btn pm-btn--yellow pm-btn--sm si-upsell-btn" id="siUpsellBtn">Vraag uitgebreide scan aan →</button>
+              </div>
+              <button type="button" class="si-reset" id="siReset">← Nieuwe scan</button>
+            </div>
+
+            <!-- Step 4: Error -->
+            <div class="si-step" id="siStepError" hidden>
+              <div class="si-error-state">
+                <span class="pm-icon pm-icon--pink si-error-state__icon" aria-hidden="true"><Icon name="alert" /></span>
+                <h4 class="pm-h3">Scan mislukt</h4>
+                <p id="siErrorMsg" class="pm-text">De URL kon niet worden gescand. Controleer of de URL correct is en probeer opnieuw.</p>
+                <button type="button" class="pm-btn pm-btn--white pm-btn--sm si-retry" id="siRetry">Opnieuw proberen</button>
+              </div>
             </div>
           </div>
-          <div class="si-upsell">
-            <p>Wil je <strong>alle</strong> verbeterpunten + GEO-optimalisatie voor AI-zoekmachines?</p>
-            <button type="button" class="si-upsell-btn" id="siUpsellBtn">Vraag uitgebreide scan aan →</button>
-          </div>
-          <button type="button" class="si-reset" id="siReset">← Nieuwe scan</button>
-        </div>
-
-        <!-- Step 4: Error -->
-        <div class="si-step" id="siStepError" hidden>
-          <div class="si-error-state">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <h4>Scan mislukt</h4>
-            <p id="siErrorMsg">De URL kon niet worden gescand. Controleer of de URL correct is en probeer opnieuw.</p>
-            <button type="button" class="si-retry" id="siRetry">Opnieuw proberen</button>
-          </div>
-        </div>
-
-      </div><!-- /si-card -->
+        </div><!-- /si-card -->
+      </div>
     </div><!-- /si-layout -->
-  </div><!-- /si-container -->
+  </div>
 </section>
 
 <script is:inline>
@@ -102,7 +112,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     'meta-description': { good: 'Meta-omschrijving gevonden',                 bad: 'Meta-omschrijving ontbreekt of is te kort' },
     'viewport':         { good: 'Mobiele viewport correct ingesteld',         bad: 'Mobiele viewport niet correct ingesteld' },
     'robots-txt':       { good: 'Robots.txt correct geconfigureerd',          bad: 'Robots.txt ontbreekt of blokkeert crawlers' },
-    'canonical':        { good: 'Canonical tag aanwezig',                     bad: 'Geen canonical tag gevonden — duplicate content risico' },
+    'canonical':        { good: 'Canonical tag aanwezig',                     bad: 'Geen canonical tag gevonden: duplicate content risico' },
     'http-status-code': { good: 'Pagina geeft correcte HTTP-statuscode',      bad: 'Pagina geeft een foutieve HTTP-statuscode' },
     'crawlable-anchors':{ good: 'Links zijn goed crawlbaar voor Google',      bad: 'Sommige links zijn niet crawlbaar voor Google' },
     'link-text':        { good: 'Links hebben beschrijvende ankertekst',      bad: 'Links missen beschrijvende ankertekst' },
@@ -110,7 +120,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     'structured-data':  { good: 'Gestructureerde data (schema.org) aanwezig', bad: 'Geen gestructureerde data gevonden' },
     'hreflang':         { good: 'Hreflang correct ingesteld',                 bad: 'Hreflang ontbreekt of is incorrect' },
     'plugins':          { good: 'Geen verouderde browser-plugins gebruikt',   bad: 'Verouderde plugins gevonden die SEO schaden' },
-    'tap-targets':      { good: 'Knoppen groot genoeg voor mobiel gebruik',   bad: 'Knoppen te klein voor mobiel — slechte gebruikservaring' },
+    'tap-targets':      { good: 'Knoppen groot genoeg voor mobiel gebruik',   bad: 'Knoppen te klein voor mobiel: slechte gebruikservaring' },
     'font-size':        { good: 'Lettergrootte leesbaar op mobiel',           bad: 'Tekst te klein op mobiel' },
   };
 
@@ -143,10 +153,10 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
   }
 
   function scoreLabel(score) {
-    if (score >= 90) return 'Uitstekend — je website staat er goed voor op SEO-gebied.';
+    if (score >= 90) return 'Uitstekend: je website staat er goed voor op SEO-gebied.';
     if (score >= 70) return 'Goed, maar er is nog ruimte voor verbetering.';
-    if (score >= 50) return 'Matig — er zijn meerdere aandachtspunten die verkeer kosten.';
-    return 'Kritisch — je website mist belangrijke SEO-fundamenten.';
+    if (score >= 50) return 'Matig: er zijn meerdere aandachtspunten die verkeer kosten.';
+    return 'Kritisch: je website mist belangrijke SEO-fundamenten.';
   }
 
   function renderList(ul, items) {
@@ -201,7 +211,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
         else              bad.push(AUDITS[id].bad);
       });
 
-      const goodFallbacks = ['HTTPS beveiligd — pagina laadt via een veilige verbinding', 'Pagina is bereikbaar voor zoekmachines', 'Basisstructuur van de pagina is correct', 'Geen blokkerende redirect-ketens gevonden'];
+      const goodFallbacks = ['HTTPS beveiligd: pagina laadt via een veilige verbinding', 'Pagina is bereikbaar voor zoekmachines', 'Basisstructuur van de pagina is correct', 'Geen blokkerende redirect-ketens gevonden'];
       const badFallbacks  = ['Paginasnelheid kan worden verbeterd voor betere rankings', 'Interne linkstructuur kan worden geoptimaliseerd', 'Content kan specifieker worden afgestemd op zoekintentie', 'GEO-optimalisatie voor AI-zoekmachines ontbreekt'];
       while (good.length < 4) good.push(goodFallbacks[good.length % goodFallbacks.length]);
       while (bad.length < 4)  bad.push(badFallbacks[bad.length % badFallbacks.length]);
@@ -212,7 +222,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
       } catch(_) {}
 
       const host = new URL(url).hostname.replace('www.', '');
-      if (scoreSite) scoreSite.textContent = '— ' + host;
+      if (scoreSite) scoreSite.textContent = host;
       if (scoreLbl)  scoreLbl.textContent  = scoreLabel(seoScore);
       renderList(goodList, good.slice(0, 4));
       renderList(badList,  bad.slice(0, 4));
@@ -262,313 +272,219 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
 </script>
 
 <style>
-  .si-section {
-    padding: 6rem 4rem;
-  }
-
-  .si-container {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
   .si-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
   }
 
-  /* Left column */
-  .si-kicker {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    background: linear-gradient(135deg, #C4972A, #A07828);
-    color: #fff;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    margin-bottom: 1rem;
-  }
+  .si-intro-col { display: grid; justify-items: start; gap: 1.2rem; }
+  .si-trust { margin-top: 0.5rem; }
 
-  .si-intro-col h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-    color: #0a0a0a;
-  }
-
-  .si-intro-col > p {
-    font-size: 0.97rem;
-    line-height: 1.7;
-    color: rgba(10,10,10,0.65);
-    margin-bottom: 1.75rem;
-  }
-
-  .si-trust {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.55rem;
-  }
-
-  .si-trust li {
-    font-size: 0.88rem;
-    color: rgba(10,10,10,0.7);
+  /* card */
+  .si-card__bar {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.75rem;
+    padding: 0.9rem 1.25rem;
+    background: var(--pm-red);
+    border-bottom: var(--pm-border);
   }
-
-  /* Right column / card */
-  .si-card {
-    background: #fff;
-    border-radius: 20px;
-    border: 1px solid rgba(10,10,10,0.08);
-    box-shadow: 0 8px 40px rgba(10,10,10,0.07);
-    padding: 2.25rem;
+  .si-card__bar-title {
+    font-family: var(--pm-display);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--pm-milk);
   }
+  .si-card__body { padding: clamp(1.5rem, 3vw, 2.25rem); }
 
-  /* Form */
-  .si-field {
-    margin-bottom: 1rem;
-  }
+  .si-step[hidden] { display: none; }
 
+  /* form */
+  .si-form { display: grid; gap: 1rem; }
+  .si-field { display: grid; gap: 0.45rem; }
   .si-field label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 0.35rem;
-    color: rgba(10,10,10,0.75);
+    font-size: var(--pm-fs-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
-
   .si-field input {
     width: 100%;
-    border: 1.5px solid rgba(10,10,10,0.15);
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
+    box-sizing: border-box;
+    padding: 0.85rem 1.1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
     font: inherit;
     font-size: 16px;
-    color: #0a0a0a;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-  }
-
-  .si-field input:focus {
     outline: none;
-    border-color: #C4972A;
+    transition: box-shadow 0.25s var(--pm-ease);
   }
+  .si-field input::placeholder { color: var(--pm-ink-mute); }
+  .si-field input:focus { background: #fff; box-shadow: 0 0 0 3px var(--pm-milk), 0 0 0 5px var(--pm-ink); }
 
   .si-error {
-    color: #ef4444;
-    font-size: 0.85rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .si-submit {
-    width: 100%;
-    background: #0a0a0a;
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 1rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.95rem;
+    margin: 0;
+    padding: 0.7rem 1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-blush);
+    font-size: 0.9rem;
     font-weight: 600;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    transition: opacity 0.2s, transform 0.2s;
   }
-  .si-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+  .si-error[hidden] { display: none; }
+  .si-submit { width: 100%; margin-top: 0.4rem; }
 
-  /* Loading */
+  /* loading */
   .si-loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 0;
+    display: grid;
+    justify-items: center;
     gap: 1rem;
+    padding: 2.5rem 0;
     text-align: center;
   }
-  .si-loader p     { font-family: 'Matter Sans', sans-serif; font-size: 1rem; font-weight: 600; color: #0a0a0a; }
-  .si-loader small { font-size: 0.8rem; color: rgba(10,10,10,0.45); word-break: break-all; }
+  .si-loader p { margin: 0; font-family: var(--pm-display); font-size: 1.6rem; line-height: 1.1; }
+  .si-loader small { color: var(--pm-ink-mute); font-weight: 600; word-break: break-all; }
 
-  .si-radar {
-    position: relative;
-    width: 64px;
-    height: 64px;
-  }
+  .si-radar { position: relative; width: 96px; height: 96px; display: grid; place-items: center; }
   .si-radar span {
     position: absolute;
     inset: 0;
+    border: var(--pm-border);
     border-radius: 50%;
-    border: 2px solid #C4972A;
+    background: var(--pm-pink);
     opacity: 0;
-    animation: siRadarPulse 2s ease-out infinite;
+    animation: si-radar 2s var(--pm-ease) infinite;
   }
   .si-radar span:nth-child(2) { animation-delay: 0.6s; }
   .si-radar span:nth-child(3) { animation-delay: 1.2s; }
-
-  @keyframes siRadarPulse {
-    0%   { transform: scale(0.3); opacity: 0.8; }
-    100% { transform: scale(1);   opacity: 0; }
+  .si-radar__core {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-yellow);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    font-style: normal;
+  }
+  @keyframes si-radar {
+    0% { transform: scale(0.4); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 0; }
   }
 
-  /* Results */
-  .si-results-header {
-    margin-bottom: 1.25rem;
-  }
-  .si-results-header h3 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-    color: #0a0a0a;
-  }
-  .si-score-sublabel {
-    font-size: 0.88rem;
-    color: rgba(10,10,10,0.6);
-    line-height: 1.5;
-  }
+  /* results */
+  .si-results-header { display: grid; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .si-results-title { overflow-wrap: anywhere; }
 
   .si-columns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    margin-bottom: 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
   }
-
-  .si-col h4 {
+  .si-col {
+    padding: 1.1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-paper);
+  }
+  .si-col--bad { background: var(--pm-blush); }
+  .si-col__title {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
+    gap: 0.6rem;
+    margin: 0 0 0.9rem;
+    font-family: var(--pm-display);
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1.1;
   }
-  .si-col--good h4 { color: #16a34a; }
-  .si-col--bad  h4 { color: #dc2626; }
-
-  .si-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.45rem;
-  }
-  .si-col li {
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: rgba(10,10,10,0.8);
-    padding-left: 1rem;
+  .si-list { font-size: 0.9rem; line-height: 1.45; }
+  .si-list--bad { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.85rem; }
+  .si-list--bad :global(li) {
     position: relative;
+    padding-left: 2.1rem;
+    color: var(--pm-ink-soft);
   }
-  .si-col--good li::before { content: '✓'; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
-  .si-col--bad  li::before { content: '!'; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
+  .si-list--bad :global(li)::before {
+    content: "!";
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-red);
+    color: var(--pm-milk);
+    font-size: 0.75rem;
+    font-weight: 900;
+    line-height: 1;
+  }
 
-  /* Upsell */
   .si-upsell {
-    background: #0a0a0a;
-    color: #fff;
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 1.1rem 1.25rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-plum);
+    color: var(--pm-milk);
   }
-  .si-upsell p {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    opacity: 0.85;
-    flex: 1;
-    min-width: 160px;
-    margin: 0;
-  }
-  .si-upsell strong { color: #C4972A; }
-
-  .si-upsell-btn {
-    background: linear-gradient(135deg, #C4972A, #A07828);
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 0.65rem 1.1rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  .si-upsell-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .si-upsell p { flex: 1; min-width: 180px; margin: 0; font-size: 0.92rem; line-height: 1.5; }
+  .si-upsell strong { color: var(--pm-yellow); }
 
   .si-reset {
-    background: none;
-    border: none;
-    font-size: 0.82rem;
-    color: rgba(10,10,10,0.45);
-    cursor: pointer;
     padding: 0;
-    transition: color 0.2s;
-  }
-  .si-reset:hover { color: #0a0a0a; }
-
-  /* Error state */
-  .si-error-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 2rem 0;
-    gap: 0.65rem;
-    color: rgba(10,10,10,0.5);
-  }
-  .si-error-state h4 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.1rem;
-    color: #0a0a0a;
-    margin: 0;
-  }
-  .si-error-state p {
-    font-size: 0.88rem;
-    max-width: 32ch;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .si-retry {
-    background: #0a0a0a;
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 0.7rem 1.4rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-weight: 600;
+    border: 0;
+    background: none;
+    color: var(--pm-ink);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     cursor: pointer;
-    font-size: 0.88rem;
   }
 
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .si-section { padding: 5rem 2rem; }
-    .si-layout { gap: 3rem; }
+  /* error */
+  .si-error-state {
+    display: grid;
+    justify-items: center;
+    gap: 0.85rem;
+    padding: 2rem 0 0.5rem;
+    text-align: center;
+  }
+  .si-error-state p { max-width: 36ch; }
+  .si-error-state__icon { width: 72px; height: 72px; border-radius: 22px; }
+  .si-error-state__icon :global(svg) { width: 34px; height: 34px; }
+
+  @media (hover: hover) {
+    .si-reset:hover { color: var(--pm-red); }
   }
 
-  @media (max-width: 768px) {
-    .si-section { padding: 4rem 1.5rem; }
-    .si-layout { grid-template-columns: 1fr; gap: 2rem; }
+  @media (max-width: 960px) {
+    .si-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
     .si-columns { grid-template-columns: 1fr; }
-    .si-upsell  { flex-direction: column; }
-    .si-upsell-btn { width: 100%; text-align: center; }
+    .si-upsell { flex-direction: column; align-items: stretch; }
+    .si-upsell-btn { width: 100%; white-space: normal; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .si-radar span { animation: none; opacity: 0.25; }
   }
 </style>

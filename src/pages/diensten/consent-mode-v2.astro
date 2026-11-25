@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import ContactOverlay from "../../components/ContactOverlay.astro";
+import Icon from "../../components/pm/Icon.astro";
 
 const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
@@ -23,36 +24,54 @@ const serviceSchema = {
   },
 };
 
+const metrics = [
+  { value: "Verplicht", label: "Sinds maart 2024 (DMA)" },
+  { value: "4 parameters", label: "Correct configureren" },
+  { value: "Advanced Mode", label: "Max. dataherstel" },
+];
+
+const beschermt = [
+  "Remarketing-audiences voor EER-bezoekers",
+  "GA4-data van Nederlandse bezoekers",
+  "Compliance met DMA en GDPR",
+];
+
 const specialismen = [
   {
-    icon: "◎",
+    icon: "globe",
+    tone: "",
     title: "Regiogebaseerde standaardinstellingen",
     description: "EER-landen standaard op 'denied' totdat de bezoeker toestemming geeft. Overige regio's standaard op 'granted'. Correct geconfigureerd via GTM met de juiste parameterlijst.",
   },
   {
-    icon: "◈",
+    icon: "cookie",
+    tone: "pm-icon--pink",
     title: "Cookiebanner integratie",
     description: "Koppeling van Consent Mode v2 aan jouw bestaande cookiebanner of CMP, zodat gebruikerstoestemming automatisch doorgestuurd wordt naar Google's toestemmingssignalen.",
   },
   {
-    icon: "◉",
+    icon: "sliders",
+    tone: "pm-icon--yellow",
     title: "Alle vier de toestemmingsparameters",
-    description: "Correcte configuratie van ad_storage, analytics_storage, ad_user_data én ad_personalization — de vier parameters die verplicht zijn onder DMA en Consent Mode v2.",
+    description: "Correcte configuratie van ad_storage, analytics_storage, ad_user_data én ad_personalization, de vier parameters die verplicht zijn onder DMA en Consent Mode v2.",
   },
   {
-    icon: "◌",
+    icon: "zap",
+    tone: "pm-icon--wine",
     title: "Advanced Mode configuratie",
     description: "Implementatie in Advanced Mode zodat GA4 en Google Ads anonieme signaaldata kunnen ontvangen van bezoekers die tracking weigeren, voor betere conversiemodellering.",
   },
   {
-    icon: "✦",
+    icon: "shield",
+    tone: "",
     title: "Validatie & compliance-check",
     description: "Volledige validatie via de Google Tag Assistant, Consent Mode debugger en handmatige verificatie dat de toestemmingssignalen correct doorgestuurd worden.",
   },
   {
-    icon: "●",
+    icon: "search",
+    tone: "pm-icon--pink",
     title: "Consent Mode audit",
-    description: "Voor websites met een bestaande Consent Mode setup: beoordeling of de configuratie correct is, volledig en DMA-compliant — inclusief veelgemaakte fouten zoals onjuiste regio-parameters.",
+    description: "Voor websites met een bestaande Consent Mode setup: beoordeling of de configuratie correct is, volledig en DMA-compliant, inclusief veelgemaakte fouten zoals onjuiste regio-parameters.",
   },
 ];
 
@@ -60,9 +79,18 @@ const gevolgen = [
   "Geen remarketing-audiences voor EER-gebruikers in Google Ads",
   "Geen GA4-data van nieuwe bezoekers uit Nederland en Europa",
   "Verlies van Google Ads conversie-optimalisatie voor EU-verkeer",
-  "Historische data is permanent verloren — geen backfill mogelijk",
+  "Historische data is permanent verloren: geen backfill mogelijk",
   "Risico op non-compliance met de Digital Markets Act (DMA)",
   "Onjuiste rapportage door ontbrekende EER-datapunten",
+];
+
+const fouten = [
+  "Consent Mode ingesteld voor alle regio's als \"denied\", ook buiten EER",
+  "Consent Mode ingesteld voor alle regio's als \"granted\", ook voor EER (GDPR-risico)",
+  "Cookiebanner werkt visueel maar stuurt geen signalen door naar GTM",
+  "Alleen de twee oude parameters geconfigureerd, ad_user_data en ad_personalization ontbreken",
+  "Basic Mode in plaats van Advanced Mode: minder modellering",
+  "Consent Mode aanwezig maar nooit gevalideerd of getest",
 ];
 
 const opleveringen = [
@@ -72,6 +100,12 @@ const opleveringen = [
   "Advanced Mode voor maximale data-modellering",
   "Validatierapport met bewijs van correcte werking",
   "Documentatie voor jouw team en eventuele audits",
+];
+
+const steps = [
+  { title: "Audit van huidige situatie", body: "Beoordeling van bestaande Consent Mode configuratie, cookiebanner-integratie en GTM-container. Welke parameters zijn aanwezig, kloppen ze, en wat ontbreekt?" },
+  { title: "Implementatie & integratie", body: "Regiogebaseerde configuratie in GTM, alle vier verplichte parameters instellen, Advanced Mode activeren en cookiebanner technisch koppelen aan toestemmingssignalen." },
+  { title: "Validatie & documentatie", body: "Verificatie via Google Tag Assistant en Consent Mode debugger. Validatierapport opstellen en volledige documentatie voor jouw team en eventuele compliance-audits." },
 ];
 
 const faq = [
@@ -85,7 +119,7 @@ const faq = [
   },
   {
     q: "Wat is het verschil tussen Basic Mode en Advanced Mode?",
-    a: "In Basic Mode worden tracking-tags pas geladen na toestemming van de gebruiker. In Advanced Mode worden tags altijd geladen maar zonder identificerende data bij geweigerde toestemming — dit maakt conversiemodellering via AI mogelijk. Advanced Mode geeft meer data en betere modellering.",
+    a: "In Basic Mode worden tracking-tags pas geladen na toestemming van de gebruiker. In Advanced Mode worden tags altijd geladen maar zonder identificerende data bij geweigerde toestemming: dit maakt conversiemodellering via AI mogelijk. Advanced Mode geeft meer data en betere modellering.",
   },
   {
     q: "Ik heb al een cookiebanner. Is dat genoeg?",
@@ -96,6 +130,24 @@ const faq = [
     a: "Met Advanced Mode verlies je minder data dan je denkt. Google kan via AI-gebaseerde conversiemodellering tot 65-70% van verloren data reconstrueren als er voldoende toestemmingsdata beschikbaar is als referentie. Dit werkt alleen als Consent Mode correct in Advanced Mode is geconfigureerd.",
   },
 ];
+
+const outcomes = [
+  "DMA & GDPR-compliant",
+  "Remarketing-audiences voor EER",
+  "Maximale GA4-dataverzameling",
+  "Advanced Mode modellering",
+  "Gevalideerde configuratie",
+  "Volledig gedocumenteerd",
+  "Geen compliance-risico's",
+  "Betrouwbare Google Ads sturing",
+];
+
+const reads = [
+  { href: "/diensten/ga4-implementatie", title: "GA4 Implementatie", body: "Betrouwbare analytics naast correcte Consent Mode-configuratie." },
+  { href: "/diensten/google-tag-manager", title: "Google Tag Manager", body: "De container die Consent Mode v2 correct moet afvuren." },
+];
+
+const pillTones = ["pm-tag--yellow", "pm-tag--pink", "", "pm-tag--paper"];
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -114,360 +166,599 @@ const faqSchema = {
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="cm-page">
+  <main class="svc">
 
-    <section class="cm-hero" data-bg-color="#0A0A0A">
-      <div class="cm-hero-overlay" aria-hidden="true"></div>
-      <div class="cm-hero-inner">
-        <div class="cm-hero-content">
-          <a href="/diensten/google-tag-manager" class="cm-back-link">← Google Tag Manager</a>
-          <span class="cm-kicker">Compliance & Tracking</span>
-          <h1><span class="cm-icon" aria-hidden="true">◉</span> Consent Mode v2</h1>
-          <p class="cm-intro-p">Verplicht voor elke Nederlandse website met Google Ads of GA4. Wij implementeren Consent Mode v2 correct — zodat je juridisch compliant bent én maximale data behoudt.</p>
-          <div class="cm-actions">
-            <a href="#contact" class="cm-btn-primary" data-overlay-open>Plan kennismaking</a>
-            <a href="#gevolgen" class="cm-btn-secondary">Wat staat er op het spel?</a>
-          </div>
-          <div class="cm-metrics">
-            <article class="cm-metric">
-              <strong>Verplicht</strong>
-              <span>Sinds maart 2024 (DMA)</span>
-            </article>
-            <article class="cm-metric">
-              <strong>4 parameters</strong>
-              <span>Correct configureren</span>
-            </article>
-            <article class="cm-metric">
-              <strong>Advanced Mode</strong>
-              <span>Max. dataherstel</span>
-            </article>
+    <!-- Hero -->
+    <section class="svc__hero" aria-labelledby="svc-title">
+      <div class="pm-stack">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <div class="pm-stack__panel svc__panel">
+          <div class="svc__hero-content">
+            <a href="/diensten/google-tag-manager" class="svc__back" data-reveal><Icon name="arrow" size={16} /> Google Tag Manager</a>
+            <span class="pm-tag pm-tag--pink" data-reveal style="--d: 1">Compliance & Tracking</span>
+            <h1 id="svc-title" class="pm-h1 svc__title" data-reveal style="--d: 2">Consent Mode v2</h1>
+            <p class="pm-opening svc__sub" data-reveal style="--d: 3">Verplicht voor elke Nederlandse website met Google Ads of GA4. Wij implementeren Consent Mode v2 correct, zodat je juridisch compliant bent én maximale data behoudt.</p>
+            <div class="svc__actions" data-reveal style="--d: 4">
+              <a href="#contact" class="pm-btn pm-btn--yellow" data-overlay-open>Plan kennismaking <Icon name="arrow" /></a>
+              <a href="#gevolgen" class="pm-btn pm-btn--white">Wat staat er op het spel?</a>
+            </div>
           </div>
         </div>
-        <aside class="cm-hero-panel">
-          <span>Wat je beschermt</span>
-          <ul>
-            <li>Remarketing-audiences voor EER-bezoekers</li>
-            <li>GA4-data van Nederlandse bezoekers</li>
-            <li>Compliance met DMA en GDPR</li>
-          </ul>
-        </aside>
       </div>
-    </section>
 
-    <section class="cm-urgency" id="gevolgen" data-bg-color="#FEFEFE">
-      <div class="cm-container cm-urgency-grid">
-        <div class="cm-urgency-text">
-          <span class="cm-label">Waarom dit urgent is</span>
-          <h2>Zonder Consent Mode v2 verlies je data — permanent</h2>
-          <p>Consent Mode v2 is niet optioneel. Websites die Google Ads of GA4 gebruiken en bezoekers targeten in de EER zijn verplicht om Consent Mode v2 te implementeren als onderdeel van de Digital Markets Act.</p>
-          <p>De gevolgen van een incorrecte of ontbrekende implementatie zijn direct en onomkeerbaar. Gemiste data kan achteraf niet worden teruggehaald.</p>
-        </div>
-        <div class="cm-urgency-panel">
-          <div class="cm-consequence-list">
-            <h3>Gevolgen bij incorrecte implementatie</h3>
-            <ul>
-              {gevolgen.map((g) => (
-                <li>
-                  <span class="cm-x" aria-hidden="true">✕</span>
-                  {g}
-                </li>
-              ))}
+      <div class="pm-container svc__float-wrap">
+        <div class="pm-card pm-card--lift svc__float" data-reveal>
+          <ul class="svc__metrics">
+            {metrics.map((m) => (
+              <li class="pm-stat svc__metric">
+                <strong class="pm-stat__value">{m.value}</strong>
+                <span class="pm-stat__label">{m.label}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="svc__glance">
+            <div class="svc__glance-head">
+              <span class="pm-icon pm-icon--sm" aria-hidden="true"><Icon name="shield" /></span>
+              <span class="pm-label">Wat je beschermt</span>
+            </div>
+            <ul class="pm-checks">
+              {beschermt.map((d) => <li>{d}</li>)}
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="cm-services" data-bg-color="#F7F9FC">
-      <div class="cm-container">
-        <div class="cm-section-head centered">
-          <span class="cm-label">Wat wij implementeren</span>
-          <h2>Een correcte Consent Mode v2 van begin tot eind</h2>
-          <p>Wij zorgen dat jouw Consent Mode v2 niet alleen visueel correct is, maar technisch waterdicht — gevalideerd, gedocumenteerd en DMA-compliant.</p>
+    <!-- Urgentie -->
+    <section class="pm-section" id="gevolgen" aria-labelledby="cm-urgency-title">
+      <div class="pm-container pm-split svc__intro-grid">
+        <div class="svc__intro-text">
+          <span class="pm-label" data-reveal>Waarom dit urgent is</span>
+          <h2 id="cm-urgency-title" class="pm-h2" data-reveal style="--d: 1">Zonder Consent Mode v2 verlies je data: permanent</h2>
+          <p class="pm-text" data-reveal style="--d: 2">Consent Mode v2 is niet optioneel. Websites die Google Ads of GA4 gebruiken en bezoekers targeten in de EER zijn verplicht om Consent Mode v2 te implementeren als onderdeel van de Digital Markets Act.</p>
+          <p class="pm-text" data-reveal style="--d: 3">De gevolgen van een incorrecte of ontbrekende implementatie zijn direct en onomkeerbaar. Gemiste data kan achteraf niet worden teruggehaald.</p>
         </div>
-        <div class="cm-cards-grid">
-          {specialismen.map((item) => (
-            <div class="cm-card">
-              <div class="cm-card-icon" aria-hidden="true">{item.icon}</div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </div>
-          ))}
+        <div class="pm-card pm-card--pink pm-card--lift svc__feature" data-reveal style="--d: 2">
+          <div class="svc__duo-head">
+            <span class="pm-icon pm-icon--milk" aria-hidden="true"><Icon name="alert" /></span>
+            <h3 class="pm-h3">Gevolgen bij incorrecte implementatie</h3>
+          </div>
+          <ul class="pm-checks pm-checks--x svc__checks-ink">
+            {gevolgen.map((g) => <li>{g}</li>)}
+          </ul>
         </div>
       </div>
     </section>
 
-    <section class="cm-context" data-bg-color="#FEFEFE">
-      <div class="cm-container cm-context-grid">
-        <article class="cm-block">
-          <h2>Veelgemaakte fouten die we tegenkomen</h2>
-          <ul class="cm-list cm-list--muted">
-            <li>Consent Mode ingesteld voor alle regio's als "denied" — ook buiten EER</li>
-            <li>Consent Mode ingesteld voor alle regio's als "granted" — ook voor EER (GDPR-risico)</li>
-            <li>Cookiebanner werkt visueel maar stuurt geen signalen door naar GTM</li>
-            <li>Alleen de twee oude parameters geconfigureerd, ad_user_data en ad_personalization ontbreken</li>
-            <li>Basic Mode in plaats van Advanced Mode — minder modellering</li>
-            <li>Consent Mode aanwezig maar nooit gevalideerd of getest</li>
+    <!-- Wat wij implementeren -->
+    <section class="pm-section pm-section--tight" aria-labelledby="cm-services-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>Wat wij implementeren</span>
+          <h2 id="cm-services-title" class="pm-h2" data-reveal style="--d: 1">Een correcte Consent Mode v2 van begin tot eind</h2>
+          <p class="pm-opening" data-reveal style="--d: 2">Wij zorgen dat jouw Consent Mode v2 niet alleen visueel correct is, maar technisch waterdicht, gevalideerd, gedocumenteerd en DMA-compliant.</p>
+        </header>
+        <ul class="svc__grid">
+          {specialismen.map((item, i) => (
+            <li data-reveal style={`--d: ${i % 3}`}>
+              <article class="pm-card svc__tile">
+                <span class:list={["pm-icon", item.tone]} aria-hidden="true"><Icon name={item.icon} /></span>
+                <h3 class="pm-h3">{item.title}</h3>
+                <p class="pm-text">{item.description}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
+
+        <figure class="pm-card pm-card--milk pm-card--lift svc__readout svc__config" data-reveal>
+          <div class="svc__readout-bar" aria-hidden="true"><i></i><i></i><i></i><span>consent-default.js</span></div>
+          <pre class="svc__code"><code><span>gtag(<em>'consent'</em>, <em>'default'</em>, {'{'}</span>
+  <b>ad_storage</b>: <em>'denied'</em>,
+  <b>analytics_storage</b>: <em>'denied'</em>,
+  <b>ad_user_data</b>: <em>'denied'</em>,
+  <b>ad_personalization</b>: <em>'denied'</em>,
+  <b>region</b>: [<em>'NL'</em>, <em>'BE'</em>, <em>'DE'</em>, …]  <span class="svc__code-note">// EER</span>
+{'}'});
+gtag(<em>'consent'</em>, <em>'default'</em>, {'{'}
+  <b>ad_storage</b>: <em>'granted'</em>,  <span class="svc__code-note">// overige regio's</span>
+  …
+{'}'});</code></pre>
+          <figcaption class="svc__config-cap">Regiogebaseerd: EER-landen standaard op 'denied' totdat de bezoeker toestemming geeft, overige regio's op 'granted', met alle vier de DMA-parameters.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Context -->
+    <section class="pm-section" aria-label="Veelgemaakte fouten en oplevering">
+      <div class="pm-container pm-split svc__duo">
+        <article class="pm-card" data-reveal>
+          <div class="svc__duo-head">
+            <span class="pm-icon pm-icon--pink" aria-hidden="true"><Icon name="x" /></span>
+            <h2 class="pm-h2">Veelgemaakte fouten die we tegenkomen</h2>
+          </div>
+          <ul class="pm-checks pm-checks--x">
+            {fouten.map((p) => <li>{p}</li>)}
           </ul>
         </article>
-        <article class="cm-block cm-block--soft">
-          <h2>Wat wij opleveren</h2>
-          <ul class="cm-list">
+        <article class="pm-card pm-card--milk pm-card--lift" data-reveal style="--d: 1">
+          <div class="svc__duo-head">
+            <span class="pm-icon pm-icon--yellow" aria-hidden="true"><Icon name="check" /></span>
+            <h2 class="pm-h2">Wat wij opleveren</h2>
+          </div>
+          <ul class="pm-checks">
             {opleveringen.map((o) => <li>{o}</li>)}
           </ul>
         </article>
       </div>
     </section>
 
-    <section class="cm-approach" data-bg-color="#F7F9FC">
-      <div class="cm-container">
-        <div class="cm-section-head">
-          <span class="cm-label">Aanpak</span>
-          <h2>Van compliance-risico naar waterdichte configuratie in drie stappen.</h2>
-        </div>
-        <div class="cm-steps">
-          <article class="cm-step">
-            <span class="cm-step-num">01</span>
-            <h3>Audit van huidige situatie</h3>
-            <p>Beoordeling van bestaande Consent Mode configuratie, cookiebanner-integratie en GTM-container. Welke parameters zijn aanwezig, kloppen ze, en wat ontbreekt?</p>
-          </article>
-          <article class="cm-step">
-            <span class="cm-step-num">02</span>
-            <h3>Implementatie & integratie</h3>
-            <p>Regiogebaseerde configuratie in GTM, alle vier verplichte parameters instellen, Advanced Mode activeren en cookiebanner technisch koppelen aan toestemmingssignalen.</p>
-          </article>
-          <article class="cm-step">
-            <span class="cm-step-num">03</span>
-            <h3>Validatie & documentatie</h3>
-            <p>Verificatie via Google Tag Assistant en Consent Mode debugger. Validatierapport opstellen en volledige documentatie voor jouw team en eventuele compliance-audits.</p>
-          </article>
+    <!-- Aanpak -->
+    <section class="pm-section pm-section--tight" aria-labelledby="cm-approach-title">
+      <div class="pm-container">
+        <div class="pm-card pm-card--plum pm-card--lift svc__steps-card">
+          <header class="pm-head">
+            <span class="pm-tag pm-tag--pink" data-reveal>Aanpak</span>
+            <h2 id="cm-approach-title" class="pm-h2" data-reveal style="--d: 1">Van compliance-risico naar waterdichte configuratie in drie stappen.</h2>
+          </header>
+          <ol class="svc__steps" style="--steps: 3">
+            {steps.map((s, i) => (
+              <li class="svc__step" data-reveal style={`--d: ${i}`}>
+                <span class="pm-icon pm-icon--yellow svc__step-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <h3 class="pm-h3">{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
 
-    <section class="cm-faq" data-bg-color="#FEFEFE">
-      <div class="cm-container cm-faq-grid">
-        <div class="cm-faq-left">
-          <span class="cm-label">Veelgestelde vragen</span>
-          <h2>Alles over Consent Mode v2</h2>
-          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
-          <a href="#contact" class="cm-inline-cta" data-overlay-open>Stel je vraag →</a>
-        </div>
-        <div class="cm-faq-right">
-          {faq.map((item) => (
-            <details class="cm-faq-item">
-              <summary>{item.q}</summary>
-              <p>{item.a}</p>
-            </details>
+    <!-- FAQ -->
+    <section class="pm-section" aria-labelledby="cm-faq-title">
+      <div class="pm-container pm-container--narrow">
+        <header class="pm-head svc__faq-head">
+          <span class="pm-label" data-reveal>Veelgestelde vragen</span>
+          <h2 id="cm-faq-title" class="pm-h2" data-reveal style="--d: 1">Alles over Consent Mode v2</h2>
+          <p class="pm-opening" data-reveal style="--d: 2">Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="pm-link" data-overlay-open data-reveal style="--d: 3">Stel je vraag <Icon name="arrow" size={18} /></a>
+        </header>
+        <ul class="pm-accordion" data-reveal>
+          {faq.map((item, i) => (
+            <li>
+              <details class="pm-acc" name="cm-faq" open={i === 0}>
+                <summary>{item.q}</summary>
+                <div class="pm-acc__body"><p>{item.a}</p></div>
+              </details>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
 
-    <section class="cm-outcomes" data-bg-color="#0A0A0A">
-      <div class="cm-container">
-        <h2>Resultaten die je mag verwachten</h2>
-        <div class="cm-outcome-tags">
-          <span>DMA & GDPR-compliant</span>
-          <span>Remarketing-audiences voor EER</span>
-          <span>Maximale GA4-dataverzameling</span>
-          <span>Advanced Mode modellering</span>
-          <span>Gevalideerde configuratie</span>
-          <span>Volledig gedocumenteerd</span>
-          <span>Geen compliance-risico's</span>
-          <span>Betrouwbare Google Ads sturing</span>
-        </div>
+    <!-- Resultaten -->
+    <section class="pm-band pm-band--paper pm-section pm-section--tight" aria-labelledby="cm-outcomes-title">
+      <div class="pm-container svc__outcomes-inner">
+        <h2 id="cm-outcomes-title" class="pm-h2" data-reveal>Resultaten die je mag verwachten</h2>
+        <ul class="svc__pills">
+          {outcomes.map((o, i) => (
+            <li data-reveal style={`--d: ${i}`}><span class:list={["pm-tag", pillTones[i % pillTones.length]]}>{o}</span></li>
+          ))}
+        </ul>
       </div>
     </section>
 
-    <section class="cm-related-reads" data-bg-color="#F7F9FC">
-      <div class="cm-container">
-        <span class="cm-related-kicker">Gerelateerde diensten</span>
-        <div class="cm-related-grid">
-          <a href="/diensten/ga4-implementatie" class="cm-related-card">
-            <strong>GA4 Implementatie</strong>
-            <span>Betrouwbare analytics naast correcte Consent Mode-configuratie.</span>
-          </a>
-          <a href="/diensten/google-tag-manager" class="cm-related-card">
-            <strong>Google Tag Manager</strong>
-            <span>De container die Consent Mode v2 correct moet afvuren.</span>
-          </a>
-        </div>
+    <!-- Gerelateerde diensten -->
+    <section class="pm-section pm-section--tight" aria-label="Gerelateerde diensten">
+      <div class="pm-container">
+        <span class="pm-label svc__reads-label">Gerelateerde diensten</span>
+        <ul class="svc__reads">
+          {reads.map((r, i) => (
+            <li data-reveal style={`--d: ${i}`}>
+              <a href={r.href} class="pm-card pm-card--milk svc__read">
+                <span><strong>{r.title}</strong><small>{r.body}</small></span>
+                <Icon name="arrow" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
-    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
-      <div class="cta-content">
-        <h2>Is jouw Consent Mode v2<br/>correct geconfigureerd?</h2>
-        <p>Wij checken jouw huidige configuratie gratis en laten zien of je compliant bent — en wat er ontbreekt als dat niet het geval is.</p>
-        <a href="#" class="cta-button" data-overlay-open>Gratis compliance-check</a>
+    <!-- CTA -->
+    <section class="pm-band svc__cta" id="contact" aria-labelledby="cm-cta-title">
+      <div class="pm-container svc__cta-inner">
+        <h2 id="cm-cta-title" class="pm-h2 pm-outline svc__cta-title" data-reveal>Is jouw Consent Mode v2 correct geconfigureerd?</h2>
+        <p class="pm-opening svc__cta-text" data-reveal style="--d: 1">Wij checken jouw huidige configuratie gratis en laten zien of je compliant bent, en wat er ontbreekt als dat niet het geval is.</p>
+        <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open data-reveal style="--d: 2">Gratis compliance-check <Icon name="arrow" /></a>
       </div>
     </section>
-
-    <Footer />
-    <ContactOverlay />
   </main>
+
+  <Footer />
+  <ContactOverlay />
 </BaseLayout>
 
 <style>
-  .cm-page { background: var(--white); }
-  .cm-container { max-width: 1240px; margin: 0 auto; }
+  /* ── Hero: stacked plum panel + overlapping "at a glance" card ───────── */
+  .svc__hero { position: relative; padding-top: 72px; }
 
-  .cm-related-reads { padding: 4rem 4rem; }
-  .cm-related-kicker { display: inline-block; font-family: 'Matter Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
-  .cm-related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-  .cm-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
-  .cm-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
-  .cm-related-card strong { display: block; font-family: 'Matter Sans', sans-serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
-  .cm-related-card span { font-size: 0.88rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
-  @media (max-width: 768px) { .cm-related-reads { padding: 3rem 2rem; } }
+  .svc__panel {
+    padding: clamp(4.5rem, 8vw, 6.5rem) var(--pm-gutter) clamp(10rem, 17vw, 13rem);
+  }
 
-  .cm-label {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
+  .svc__hero-content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.4rem;
+    max-width: 920px;
+    margin-inline: auto;
+  }
+
+  .svc__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--pm-milk);
+    font-size: 0.875rem;
     font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.45;
-    margin-bottom: 0.75rem;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.25s ease;
+  }
+  .svc__back svg { transform: rotate(180deg); }
+  @media (hover: hover) { .svc__back:hover { opacity: 1; } }
+
+  .svc__title { color: var(--pm-milk); }
+  .svc__sub { max-width: 640px; }
+
+  .svc__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.4rem;
   }
 
-  .cm-section-head { margin-bottom: 3rem; }
-  .cm-section-head h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.022em; }
-  .cm-section-head.centered { text-align: center; }
-  .cm-section-head.centered h2, .cm-section-head.centered p { margin-left: auto; margin-right: auto; }
-  .cm-section-head.centered p { max-width: 560px; }
-  .cm-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
-
-  .cm-inline-cta {
-    display: inline-block; margin-top: 1.5rem;
-    font-family: 'Matter Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
-    text-decoration: none; color: var(--black);
-    border-bottom: 1.5px solid var(--black); padding-bottom: 2px;
-    transition: opacity 0.2s ease;
+  .svc__float-wrap {
+    position: relative;
+    margin-top: clamp(-9rem, -13vw, -7rem);
+    z-index: 2;
   }
-  .cm-inline-cta:hover { opacity: 0.6; }
 
-  .cm-hero { min-height: 88vh; position: relative; background: var(--black); color: var(--white); padding: 10rem 4rem 5.5rem; overflow: hidden; }
-  .cm-hero-overlay {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 16% 20%, rgba(253, 164, 175, 0.16), transparent 42%),
-      radial-gradient(circle at 80% 26%, rgba(196, 181, 253, 0.14), transparent 38%);
+  .svc__float {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 3.5vw, 3rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+    align-items: center;
   }
-  .cm-hero-inner { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 2rem; align-items: end; }
 
-  .cm-back-link { display: inline-flex; margin-bottom: 1.8rem; color: var(--white); text-decoration: none; opacity: 0.6; font-size: 0.9rem; transition: opacity 0.25s ease; }
-  .cm-back-link:hover { opacity: 1; }
-  .cm-kicker { display: block; font-family: 'Matter Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.48; margin-bottom: 1rem; }
-
-  .cm-hero h1 { font-family: 'Matter Sans', sans-serif; font-size: clamp(2.4rem, 5.5vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.4rem; display: flex; align-items: baseline; gap: 0.55rem; }
-  .cm-icon { color: #FDA4AF; font-size: 0.68em; }
-  .cm-intro-p { max-width: 700px; font-size: clamp(1.04rem, 2.3vw, 1.3rem); opacity: 0.88; margin-bottom: 2rem; line-height: 1.7; }
-
-  .cm-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
-  .cm-btn-primary, .cm-btn-secondary { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; text-decoration: none; font-weight: 500; padding: 0.9rem 1.45rem; transition: transform 0.25s ease; }
-  .cm-btn-primary { color: var(--black); background: var(--white); }
-  .cm-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
-  .cm-btn-primary:hover, .cm-btn-secondary:hover { transform: translateY(-2px); }
-
-  .cm-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; max-width: 720px; }
-  .cm-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
-  .cm-metric strong { display: block; font-family: 'Matter Sans', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
-  .cm-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
-
-  .cm-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
-  .cm-hero-panel > span { display: inline-block; font-family: 'Matter Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.58; margin-bottom: 0.75rem; }
-  .cm-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
-  .cm-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
-  .cm-hero-panel li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #FDA4AF, #C4B5FD); position: absolute; left: 0; top: 0.62rem; }
-
-  /* Urgency section */
-  .cm-urgency { padding: 7rem 4rem; }
-  .cm-urgency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-  .cm-urgency-text h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1.25rem; }
-  .cm-urgency-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
-
-  .cm-consequence-list {
-    background: var(--black); color: var(--white);
-    border-radius: 20px; padding: 2rem 2.5rem;
+  .svc__metrics {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
   }
-  .cm-consequence-list h3 { font-family: 'Matter Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.25rem; }
-  .cm-consequence-list ul { list-style: none; display: grid; gap: 0.85rem; }
-  .cm-consequence-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; line-height: 1.6; opacity: 0.9; }
-  .cm-x { color: #FDA4AF; font-size: 0.75rem; flex-shrink: 0; margin-top: 0.22rem; }
+  .svc__metric {
+    container-type: inline-size;
+    height: 100%;
+    padding: 1.1rem 1.15rem 1.2rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
+  }
+  .svc__metric:nth-child(2) { background: var(--pm-yellow); }
+  .svc__metric .pm-stat__value { font-size: clamp(1.1rem, 16cqi, 2.1rem); overflow-wrap: normal; hyphens: auto; }
 
-  /* Cards */
-  .cm-services { padding: 7rem 4rem; }
-  .cm-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  .cm-card { background: #fff; border: 1px solid rgba(10,10,10,0.09); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
-  .cm-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
-  .cm-card-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(10,10,10,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem; transition: background 0.3s ease; }
-  .cm-card:hover .cm-card-icon { background: var(--black); color: var(--white); }
-  .cm-card h3 { font-family: 'Matter Sans', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
-  .cm-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
+  .svc__glance { display: grid; gap: 1rem; }
+  .svc__glance-head { display: flex; align-items: center; gap: 0.85rem; }
 
-  /* Context */
-  .cm-context { padding: 6rem 4rem; }
-  .cm-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
-  .cm-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
-  .cm-block--soft { border-top-color: rgba(10,10,10,0.28); }
-  .cm-block h2 { font-family: 'Matter Sans', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 18ch; }
-  .cm-list { list-style: none; display: grid; gap: 0.8rem; }
-  .cm-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
-  .cm-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
-  .cm-list--muted li { color: rgba(10,10,10,0.65); }
-  .cm-list--muted li::before { background: rgba(10,10,10,0.35); }
+  /* ── Generic section bits ─────────────────────────────────────────────── */
+  .svc__intro-grid { align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+  .svc__intro-text { display: grid; gap: 1.1rem; justify-items: start; }
+  .svc__intro-text .pm-text + .pm-text { margin-top: 0; }
+  .svc__intro-text .pm-link { margin-top: 0.4rem; }
 
-  /* Approach */
-  .cm-approach { padding: 6rem 4rem; }
-  .cm-steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(10,10,10,0.14); border-bottom: 1px solid rgba(10,10,10,0.14); margin-top: 2rem; }
-  .cm-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
-  .cm-step:last-child { border-right: none; }
-  .cm-step-num { display: inline-block; font-family: 'Matter Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
-  .cm-step h3 { font-family: 'Matter Sans', sans-serif; font-size: 1rem; font-weight: 700; }
-  .cm-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+  /* readout card: monospace stat panel (tracking family) */
+  .svc__readout {
+    margin: 0;
+    background: var(--pm-milk);
+  }
+  .svc__readout-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.85rem 1.25rem;
+    border-bottom: var(--pm-border);
+    background: var(--pm-paper);
+  }
+  .svc__readout-bar i {
+    width: 12px;
+    height: 12px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-pink);
+  }
+  .svc__readout-bar i:nth-child(2) { background: var(--pm-yellow); }
+  .svc__readout-bar i:nth-child(3) { background: var(--pm-milk); }
+  .svc__readout-bar span {
+    margin-left: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--pm-ink-soft);
+  }
+  .svc__readout-list { list-style: none; margin: 0; padding: 0; }
+  .svc__readout-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 0.3rem 1.25rem;
+    padding: 1.4rem 1.5rem;
+  }
+  .svc__readout-list li + li { border-top: 2px dashed var(--pm-ink-line); }
+  .svc__readout-list strong {
+    font-family: var(--pm-display);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 3.6vw, 3rem);
+    line-height: 1;
+    color: var(--pm-wine);
+  }
+  .svc__readout-list span {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--pm-ink-soft);
+  }
+
+  /* fanned stat cards (marketing pages) */
+  .svc__fan-wrap { display: grid; gap: 1rem; }
+  .svc__fan { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .svc__fan li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.3rem 1.25rem;
+    padding: 1.4rem 1.6rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
+    box-shadow: var(--pm-drop);
+  }
+  .svc__fan li:nth-child(1) { background: var(--pm-pink); transform: rotate(-1.5deg); }
+  .svc__fan li:nth-child(2) { background: var(--pm-yellow); margin-left: 5%; transform: rotate(1deg); }
+  .svc__fan li:nth-child(3) { transform: rotate(-0.5deg); }
+  .svc__fan-num {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+  .svc__fan strong {
+    font-family: var(--pm-display);
+    font-weight: 400;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+  .svc__fan-label { font-size: 0.95rem; font-weight: 600; color: var(--pm-ink-soft); }
+
+  /* code / config snippet */
+  .svc__code {
+    margin: 0;
+    padding: 1.4rem 1.5rem;
+    overflow-x: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--pm-ink);
+    white-space: pre;
+    tab-size: 2;
+  }
+  .svc__code b { color: var(--pm-wine); font-weight: 700; }
+  .svc__code em { color: var(--pm-red); font-style: normal; }
+  .svc__code-note { color: var(--pm-ink-mute); }
+  .svc__config { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+  .svc__config-cap {
+    padding: 1rem 1.5rem 1.25rem;
+    border-top: 2px dashed var(--pm-ink-line);
+    font-size: 0.95rem;
+    color: var(--pm-ink-soft);
+  }
+  .svc__checks-ink li { color: var(--pm-ink); }
+
+  /* service cards grid */
+  .svc__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.6vw, 1.25rem);
+  }
+  .svc__tile {
+    height: 100%;
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    border-radius: var(--pm-r);
+  }
+  .svc__tile .pm-icon { margin-bottom: 0.4rem; transition: transform 0.5s var(--pm-ease-spring); }
+  .svc__tile h3 { font-size: clamp(1.4rem, 1.8vw, 1.65rem); }
+  @media (hover: hover) {
+    .svc__tile:hover .pm-icon { transform: rotate(-8deg) scale(1.06); }
+  }
+
+  /* benefits: visual card + accordion */
+  .svc__feature {
+    display: grid;
+    gap: 1.1rem;
+    align-content: start;
+    padding: clamp(1.75rem, 3.5vw, 3rem);
+  }
+  .svc__feature .pm-label { color: var(--pm-ink); }
+  .svc__feature .pm-text { color: var(--pm-ink); }
+  .svc__feature-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .svc__feature-stats > div {
+    padding: 1.1rem 1.2rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
+  }
+
+  /* approach: plum card with numbered chain */
+  .svc__steps-card { padding: clamp(2.75rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem); }
+  .svc__steps-card .pm-opening { color: rgba(255, 250, 240, 0.85); }
+  .svc__steps {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--steps, 4), minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .svc__steps::before {
+    content: "";
+    position: absolute;
+    left: 28px;
+    right: 8%;
+    top: 27px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--pm-pink) 0 4px, transparent 4px 10px);
+  }
+  .svc__step { position: relative; display: grid; align-content: start; gap: 0.65rem; }
+  .svc__step-num {
+    font-family: var(--pm-display);
+    font-size: 1.35rem;
+    color: var(--pm-ink);
+    margin-bottom: 0.5rem;
+  }
+  .svc__step h3 { font-size: clamp(1.35rem, 1.7vw, 1.6rem); color: var(--pm-milk); }
+  .svc__step p { margin: 0; color: rgba(255, 250, 240, 0.78); font-size: 0.975rem; }
+
+  /* context: problems vs deliverables */
+  .svc__duo { align-items: stretch; }
+  .svc__duo > .pm-card { display: grid; align-content: start; gap: 1.4rem; padding: clamp(1.75rem, 3.5vw, 2.75rem); }
+  .svc__duo h2 { font-size: clamp(1.75rem, 2.6vw, 2.35rem); }
+  .svc__duo-head { display: flex; align-items: center; gap: 0.9rem; }
+
+  /* related cards */
+  .svc__related {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.6vw, 1.25rem);
+  }
+  .svc__rel {
+    height: 100%;
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    border-radius: var(--pm-r);
+  }
+  .svc__rel p { flex: 1; }
+  .svc__rel .pm-link { margin-top: 0.4rem; }
+  .svc__rel.pm-card--plum .pm-text { color: rgba(255, 250, 240, 0.82); }
+  .svc__rel.pm-card--plum .pm-link { color: var(--pm-yellow); }
 
   /* FAQ */
-  .cm-faq { padding: 7rem 4rem; }
-  .cm-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
-  .cm-faq-left h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-  .cm-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
-  .cm-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
-  .cm-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
-  .cm-faq-item summary { font-family: 'Matter Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-  .cm-faq-item summary::-webkit-details-marker { display: none; }
-  .cm-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
-  .cm-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
-  .cm-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
+  .svc__faq-head .pm-link { margin-top: 0.2rem; }
 
-  /* Outcomes */
-  .cm-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
-  .cm-outcomes h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
-  .cm-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
-  .cm-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
-
-  @media (max-width: 1100px) {
-    .cm-hero-inner, .cm-urgency-grid, .cm-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .cm-cards-grid { grid-template-columns: 1fr 1fr; }
-    .cm-steps { grid-template-columns: 1fr 1fr; }
-    .cm-step:nth-child(2n) { border-right: none; }
-    .cm-context-grid { grid-template-columns: 1fr; }
+  /* outcomes: paper band with pill cloud */
+  .svc__outcomes-inner { display: grid; justify-items: center; text-align: center; gap: clamp(1.5rem, 3vw, 2.25rem); }
+  .svc__pills {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+    max-width: 960px;
   }
+  .svc__pills .pm-tag { font-size: 0.95rem; padding: 0.6rem 1.15rem; box-shadow: 0 4px 0 var(--pm-ink); white-space: normal; text-align: center; }
+  .svc__pills li:nth-child(4n + 2) .pm-tag { transform: rotate(-1.5deg); }
+  .svc__pills li:nth-child(4n + 3) .pm-tag { transform: rotate(1.2deg); }
 
-  @media (max-width: 768px) {
-    .cm-hero, .cm-urgency, .cm-services, .cm-context, .cm-approach, .cm-faq, .cm-outcomes { padding-left: 2rem; padding-right: 2rem; }
-    .cm-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
-    .cm-cards-grid { grid-template-columns: 1fr; }
-    .cm-steps { grid-template-columns: 1fr; }
-    .cm-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
-    .cm-step:first-child { border-top: none; }
-    .cm-metrics { grid-template-columns: 1fr 1fr; }
-    .cm-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
+  /* compact related links */
+  .svc__reads-label { display: block; margin-bottom: 1.25rem; }
+  .svc__reads {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .svc__read {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: var(--pm-r);
+  }
+  .svc__read > span { display: grid; gap: 0.15rem; flex: 1; min-width: 0; }
+  .svc__read strong { font-family: var(--pm-display); font-weight: 400; font-size: 1.3rem; line-height: 1.1; letter-spacing: 0.01em; }
+  .svc__read small { font-size: 0.9rem; line-height: 1.4; color: var(--pm-ink-soft); }
+  .svc__read > svg { flex: none; transition: transform 0.4s var(--pm-ease); }
+  @media (hover: hover) { .svc__read:hover > svg { transform: translateX(4px); } }
+
+  /* closing CTA band */
+  .svc__cta {
+    padding: clamp(5.5rem, 11vw, 8.5rem) 0 clamp(4rem, 8vw, 6rem);
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 1;
+  }
+  .svc__cta-inner { display: grid; justify-items: center; text-align: center; gap: 1.5rem; }
+  .svc__cta-title { font-size: clamp(2.6rem, 6vw, 4.75rem); max-width: 900px; }
+  .svc__cta-text { max-width: 600px; color: var(--pm-ink); }
+  .svc__cta .pm-btn { margin-top: 0.5rem; }
+
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+  @media (max-width: 1080px) {
+    .svc__float { grid-template-columns: 1fr; }
+    .svc__grid, .svc__related { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .svc__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.25rem; }
+    .svc__steps::before { display: none; }
+  }
+  @media (max-width: 640px) {
+    .svc__hero { padding-top: 64px; }
+    .svc__actions { flex-direction: column; align-self: stretch; }
+    .svc__actions .pm-btn, .svc__cta .pm-btn { width: 100%; white-space: normal; text-align: center; }
+    .svc__cta-inner { justify-items: stretch; }
+    .svc__metrics { grid-template-columns: 1fr; }
+    .svc__grid, .svc__related, .svc__steps { grid-template-columns: 1fr; }
+    .svc__feature-stats { grid-template-columns: 1fr; }
+    .svc__readout-list li { grid-template-columns: 1fr; }
+    .svc__fan li:nth-child(2) { margin-left: 0; }
+    .svc__fan li { padding: 1.15rem 1.2rem; column-gap: 1rem; }
+    .svc__code { font-size: 0.78rem; padding: 1.1rem; }
   }
 </style>

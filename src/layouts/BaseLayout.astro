@@ -1,6 +1,6 @@
 ---
-import "../styles/globals.css";
 import "../styles/tailwind.css";
+import "../styles/pom.css";
 import WhatsAppChat from "../components/WhatsAppChat.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
 import MobileBottomBar from "../components/MobileBottomBar.astro";
@@ -178,44 +178,22 @@ const graphSchema = {
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.pexels.com" />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;600;700&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;600;700&display=swap" /></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Unbounded:wght@700&family=Figtree:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Unbounded:wght@700&family=Figtree:wght@400;500;600;700;800&display=swap" />
     <link rel="stylesheet" href="https://calendar.google.com/calendar/scheduling-button-script.css" />
     <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
-      />
-    </noscript>
 
-    <!-- Preload hero Matter Sans weights (headline = LCP) to avoid a font swap -->
-    <link rel="preload" as="font" type="font/otf" href="/fonts/Matter-Heavy.otf" crossorigin />
-    <link rel="preload" as="font" type="font/otf" href="/fonts/Matter-Regular.otf" crossorigin />
 
     <script>document.documentElement.classList.add('js');</script>
-    <script src="/scripts/cursor.js" defer></script>
-    <script src="/scripts/theme.js" defer></script>
     <script src="/scripts/contact-overlay.js" defer></script>
     <script src="/scripts/tracking.js" defer></script>
     <script>
       import Lenis from 'lenis';
       // Lenis alleen op niet-touch apparaten: op mobiel veroorzaken
       // de touch event listeners van Lenis klik-problemen op iOS.
-      if (!window.matchMedia('(pointer: coarse)').matches) {
+      // Niet op de homepage-wereld: die scrolt niet, en Lenis zou het
+      // scrollen in de vensters afvangen.
+      if (!window.matchMedia('(pointer: coarse)').matches && !document.querySelector('[data-world]')) {
         const lenis = new Lenis({
           duration: 1.1,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -227,6 +205,23 @@ const graphSchema = {
         }
         requestAnimationFrame(raf);
       }
+    </script>
+    <script>
+      // Scroll reveal for [data-reveal]; children can stagger via style="--d: n".
+      const revealIO = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-in");
+              revealIO.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+      );
+      const observeReveals = () => document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => revealIO.observe(el));
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", observeReveals);
+      else observeReveals();
     </script>
     <script type="application/ld+json" set:html={JSON.stringify(graphSchema)}></script>
   </head>

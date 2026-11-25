@@ -3,59 +3,70 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import ContactOverlay from "../components/ContactOverlay.astro";
+import Icon from "../components/pm/Icon.astro";
+
+const calendarUrl = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0KnPaRiH37bvNSB0ta7HrOtyHk8wT8EUaAMULRWJcV8kywKhl-TEVeRu1YsOLCFd3vzfBt6dve?gv=true";
 ---
 
 <BaseLayout
   title="Plan een Videocall | LuminX"
   description="Plan een gratis videocall met LuminX. Kies een moment dat jou uitkomt en bespreek je project via Google Meet."
 >
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="videocall-page">
-    <section class="videocall-hero" data-bg-color="#0A0A0A">
-      <div class="videocall-hero-overlay" aria-hidden="true"></div>
-      <div class="videocall-hero-content">
-        <a href="/" class="videocall-back-link">Terug naar homepage</a>
-        <span class="videocall-kicker">Videocall</span>
-        <h1>Plan Een<br/>Gesprek</h1>
-        <p>Kies een moment dat jou uitkomt. We bespreken je project, beantwoorden je vragen en kijken samen naar de mogelijkheden — vrijblijvend via Google Meet.</p>
-      </div>
-    </section>
-
-    <section class="videocall-booking" data-bg-color="#FEFEFE">
-      <div class="videocall-booking-inner">
-        <h2 class="videocall-booking-title">Kies direct je tijdslot</h2>
-        <p class="videocall-booking-intro">
-          Plan je gratis kennismaking direct in onze agenda. Na het boeken ontvang je automatisch een bevestiging met Google Meet-link.
-        </p>
-
-        <div class="videocall-embed-wrap">
-          <iframe
-            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0KnPaRiH37bvNSB0ta7HrOtyHk8wT8EUaAMULRWJcV8kywKhl-TEVeRu1YsOLCFd3vzfBt6dve?gv=true"
-            title="Plan een videocall met LuminX"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
+  <main class="vc">
+    <!-- Hero -->
+    <section class="vc__hero" aria-labelledby="vc-title">
+      <div class="pm-stack">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <div class="pm-stack__panel vc__panel">
+          <div class="vc__hero-content">
+            <a href="/" class="pm-link vc__back" data-reveal><span class="vc__back-icon" aria-hidden="true"><Icon name="arrow" size={18} /></span> Terug naar homepage</a>
+            <span class="pm-tag" data-reveal style="--d: 1"><Icon name="video" size={16} /> Videocall</span>
+            <h1 id="vc-title" class="pm-h1 vc__title" data-reveal style="--d: 2">Plan een gesprek</h1>
+            <p class="pm-opening" data-reveal style="--d: 3">Kies een moment dat jou uitkomt. We bespreken je project, beantwoorden je vragen en kijken samen naar de mogelijkheden, vrijblijvend via Google Meet.</p>
+          </div>
         </div>
+      </div>
 
-        <p class="videocall-embed-fallback">
-          Werkt de kalender niet op jouw device?
-          <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0KnPaRiH37bvNSB0ta7HrOtyHk8wT8EUaAMULRWJcV8kywKhl-TEVeRu1YsOLCFd3vzfBt6dve?gv=true" target="_blank" rel="noopener noreferrer">
-            Open de planner in een nieuw tabblad
-          </a>.
-        </p>
+      <!-- Booking card overlapping the panel -->
+      <div class="pm-container vc__booking-wrap">
+        <div class="pm-card pm-card--lift vc__booking" data-reveal>
+          <header class="vc__booking-head">
+            <span class="pm-icon pm-icon--yellow" aria-hidden="true"><Icon name="calendar" /></span>
+            <h2 class="pm-h2 vc__booking-title">Kies direct je tijdslot</h2>
+            <p class="pm-text">Plan je gratis kennismaking direct in onze agenda. Na het boeken ontvang je automatisch een bevestiging met Google Meet-link.</p>
+          </header>
+
+          <div class="vc__embed">
+            <iframe
+              src={calendarUrl}
+              title="Plan een videocall met LuminX"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <p class="vc__fallback">
+            Werkt de kalender niet op jouw device?
+            <a href={calendarUrl} target="_blank" rel="noopener noreferrer">Open de planner in een nieuw tabblad</a>.
+          </p>
+        </div>
       </div>
     </section>
 
-    <section class="videocall-cta" data-bg-color="#0A0A0A">
-      <div class="videocall-cta-content">
-        <h2>Liever Direct Contact?</h2>
-        <p>Stuur ons een bericht via het contactformulier of app ons op WhatsApp.</p>
-        <a href="#" class="videocall-cta-button" data-overlay-open>Neem contact op</a>
+    <!-- CTA -->
+    <section class="pm-band vc__cta" aria-labelledby="vc-cta-title">
+      <div class="pm-container vc__cta-inner">
+        <h2 id="vc-cta-title" class="pm-h2 pm-outline vc__cta-title" data-reveal>Liever direct contact?</h2>
+        <p class="pm-opening vc__cta-text" data-reveal style="--d: 1">Stuur ons een bericht via het contactformulier of app ons op WhatsApp.</p>
+        <div class="vc__cta-actions" data-reveal style="--d: 2">
+          <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open>Neem contact op <Icon name="arrow" /></a>
+        </div>
       </div>
     </section>
 
@@ -65,197 +76,77 @@ import ContactOverlay from "../components/ContactOverlay.astro";
 </BaseLayout>
 
 <style>
-  .videocall-page {
-    background: var(--white);
+  /* ── Hero ─────────────────────────────────────────── */
+  .vc__hero { position: relative; padding-top: 72px; }
+  .vc__panel { padding: clamp(4rem, 7vw, 6rem) var(--pm-gutter) clamp(11rem, 18vw, 14rem); }
+  .vc__hero-content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.4rem;
+    max-width: 820px;
+    margin-inline: auto;
+  }
+  .vc__title { color: var(--pm-milk); }
+  .vc__back { color: var(--pm-milk); }
+  .vc__back-icon { display: inline-flex; transform: scaleX(-1); }
+  @media (hover: hover) {
+    .vc__back:hover { color: var(--pm-yellow); }
   }
 
-  .videocall-hero {
-    position: relative;
-    background: var(--black);
-    color: var(--white);
-    padding: 10rem 4rem 5rem;
-    overflow: hidden;
+  /* ── Booking card ─────────────────────────────────── */
+  .vc__booking-wrap { position: relative; z-index: 2; margin-top: clamp(-9rem, -14vw, -7rem); }
+  .vc__booking {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 4vw, 3rem);
   }
-
-  .videocall-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(255, 214, 232, 0.18), transparent 42%),
-      radial-gradient(circle at 80% 30%, rgba(200, 231, 245, 0.14), transparent 38%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+  .vc__booking-head {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1rem;
+    max-width: 640px;
+    margin: 0 auto clamp(1.75rem, 3.5vw, 2.5rem);
   }
-
-  .videocall-hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
-  .videocall-back-link {
-    display: inline-flex;
-    margin-bottom: 1.8rem;
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.7;
-    font-size: 0.95rem;
-    transition: opacity 0.25s ease;
-  }
-
-  .videocall-back-link:hover {
-    opacity: 1;
-  }
-
-  .videocall-kicker {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.48;
-    margin-bottom: 1rem;
-  }
-
-  .videocall-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2.6rem, 6vw, 5.4rem);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.4rem;
-    background: linear-gradient(135deg, var(--white) 0%, var(--pastel-pink) 50%, var(--pastel-blue) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .videocall-hero p {
-    max-width: 600px;
-    font-size: clamp(1.04rem, 2.3vw, 1.2rem);
-    opacity: 0.7;
-    line-height: 1.7;
-  }
-
-  .videocall-booking {
-    padding: 5rem 4rem 6rem;
-  }
-
-  .videocall-booking-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
-  .videocall-booking-title {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.9rem, 4vw, 3.1rem);
-    line-height: 1.04;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.75rem;
-  }
-
-  .videocall-booking-intro {
-    max-width: 68ch;
-    color: rgba(10, 10, 10, 0.72);
-    line-height: 1.72;
-    margin-bottom: 1.75rem;
-  }
-
-  .videocall-embed-wrap {
+  .vc__embed {
     width: 100%;
-    border: 1px solid rgba(10, 10, 10, 0.12);
-    border-radius: 18px;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
     overflow: hidden;
-    background: #fff;
-    box-shadow: 0 14px 34px rgba(10, 10, 10, 0.08);
+    background: var(--pm-milk);
   }
-
-  .videocall-embed-wrap iframe {
+  .vc__embed iframe {
     display: block;
     width: 100%;
     min-height: 860px;
     border: 0;
   }
-
-  .videocall-embed-fallback {
-    margin-top: 0.95rem;
-    font-size: 0.9rem;
-    color: rgba(10, 10, 10, 0.58);
-  }
-
-  .videocall-embed-fallback a {
-    color: var(--black);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .videocall-cta {
-    padding: 6rem 4rem;
-    background: var(--black);
-    color: var(--white);
+  .vc__fallback {
+    margin: 1.1rem 0 0;
     text-align: center;
-  }
-
-  .videocall-cta-content {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .videocall-cta-content h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2rem, 4.2vw, 3.4rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-
-  .videocall-cta-content p {
-    font-size: 1.1rem;
-    opacity: 0.6;
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-
-  .videocall-cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--white);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 1.2rem 2.5rem;
-    border-radius: 50px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.95rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: border-color 0.4s ease, background 0.4s ease;
+    color: var(--pm-ink-soft);
+  }
+  .vc__fallback a {
+    color: var(--pm-wine);
+    font-weight: 700;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
-  .videocall-cta-button:hover {
-    border-color: var(--pastel-pink);
-    background: rgba(255, 214, 232, 0.08);
-  }
+  /* ── CTA ──────────────────────────────────────────── */
+  .vc__cta { padding: clamp(5rem, 10vw, 8rem) 0; margin-top: var(--pm-section); }
+  .vc__cta-inner { display: grid; justify-items: center; text-align: center; gap: 1.5rem; }
+  .vc__cta-title { font-size: clamp(2.6rem, 6vw, 4.75rem); }
+  .vc__cta-text { color: var(--pm-ink); }
 
-  @media (max-width: 768px) {
-    .videocall-hero {
-      padding: 8.6rem 2rem 3.5rem;
-    }
-
-    .videocall-booking {
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
-    .videocall-embed-wrap {
-      border-radius: 12px;
-    }
-
-    .videocall-embed-wrap iframe {
-      min-height: 740px;
-    }
-
-    .videocall-cta {
-      padding: 4rem 2rem;
-    }
+  @media (max-width: 640px) {
+    .vc__hero { padding-top: 64px; }
+    .vc__booking { padding: 1rem; border-radius: var(--pm-r); }
+    .vc__booking-head { padding: 0.75rem 0.5rem 0; }
+    .vc__embed { border-radius: var(--pm-r-sm); }
+    .vc__embed iframe { min-height: 740px; }
+    .vc__cta-actions, .vc__cta-actions .pm-btn { width: 100%; }
   }
 </style>

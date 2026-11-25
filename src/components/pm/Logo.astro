@@ -1,0 +1,22 @@
+---
+// LuminX logo: the X mark + LUMINX wordmark. Sized by font-size, coloured by currentColor.
+interface Props {
+  as?: "a" | "span" | "h1";
+  href?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { as: Tag = "span", class: className, ...rest } = Astro.props;
+---
+
+<Tag class:list={["pm-wordmark", className]} {...rest}>
+  <svg class="pm-wordmark__mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M30.5 21.5 40 34" />
+      <path d="M66 21.5 28.5 72H56" />
+      <path d="M57.5 55.5 70.5 72.5" />
+    </g>
+  </svg>
+  <span class="pm-wordmark__text">LUMINX</span>
+</Tag>

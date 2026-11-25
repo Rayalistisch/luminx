@@ -1,17 +1,18 @@
 ---
+import Icon from "./pm/Icon.astro";
 const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
 ---
 
 <div class="seo-overlay" id="seoScanOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Gratis SEO scan" data-psi-key={psiKey}>
-  <div class="seo-modal">
-    <button class="seo-close" id="seoClose" aria-label="Sluiten">&times;</button>
+  <div class="pm-card pm-card--milk pm-card--lift seo-modal">
+    <button class="seo-close" id="seoClose" aria-label="Sluiten"><Icon name="x" size={20} stroke={2.5} /></button>
 
     <!-- Step 1: Form -->
     <div class="seo-step" id="seoStepForm">
-      <span class="seo-kicker">Gratis</span>
-      <h2>SEO Scan</h2>
-      <p class="seo-intro">Ontdek in 30 seconden hoe jouw website scoort op SEO. Vul je gegevens in en wij analyseren je site.</p>
-      <form id="seoForm" novalidate>
+      <span class="pm-tag pm-tag--yellow">Gratis</span>
+      <h2 class="pm-h2 seo-title">SEO Scan</h2>
+      <p class="pm-text seo-intro">Ontdek in 30 seconden hoe jouw website scoort op SEO. Vul je gegevens in en wij analyseren je site.</p>
+      <form id="seoForm" class="seo-form" novalidate>
         <div class="seo-field">
           <label for="seoUrl">Website URL</label>
           <input type="url" id="seoUrl" name="url" placeholder="https://jouwsite.nl" required autocomplete="url" />
@@ -24,8 +25,8 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
           <label for="seoEmail">E-mailadres</label>
           <input type="email" id="seoEmail" name="email" placeholder="jij@bedrijf.nl" required autocomplete="email" />
         </div>
-        <p class="seo-error" id="seoError" hidden></p>
-        <button type="submit" class="seo-submit">
+        <p class="seo-error" id="seoError" role="alert" hidden></p>
+        <button type="submit" class="pm-btn pm-btn--yellow seo-submit">
           <span id="seoSubmitLabel">Scan starten →</span>
         </button>
       </form>
@@ -33,9 +34,10 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
 
     <!-- Step 2: Loading -->
     <div class="seo-step" id="seoStepLoading" hidden>
-      <div class="seo-loader">
-        <div class="seo-radar">
+      <div class="seo-loader" aria-live="polite">
+        <div class="seo-radar" aria-hidden="true">
           <span></span><span></span><span></span>
+          <i class="seo-radar__core"><Icon name="search" size={22} stroke={2.5} /></i>
         </div>
         <p id="seoLoadingMsg">Website ophalen…</p>
         <small id="seoLoadingUrl"></small>
@@ -45,41 +47,41 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     <!-- Step 3: Results -->
     <div class="seo-step" id="seoStepResults" hidden>
       <div class="seo-results-header">
-        <h2>Resultaten <span id="seoScoreSite"></span></h2>
-        <p id="seoScoreLabel" class="seo-score-sublabel"></p>
+        <h2 class="pm-h3 seo-results-title">Resultaten <span id="seoScoreSite"></span></h2>
+        <p id="seoScoreLabel" class="pm-text seo-score-sublabel"></p>
       </div>
 
       <div class="seo-columns">
         <div class="seo-col seo-col--good">
-          <h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <h3 class="seo-col__title">
+            <span class="pm-icon pm-icon--sm pm-icon--yellow" aria-hidden="true"><Icon name="check" /></span>
             Goed gedaan
           </h3>
-          <ul id="seoGoodList"></ul>
+          <ul id="seoGoodList" class="pm-checks seo-list"></ul>
         </div>
         <div class="seo-col seo-col--bad">
-          <h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg>
+          <h3 class="seo-col__title">
+            <span class="pm-icon pm-icon--sm" aria-hidden="true"><Icon name="alert" /></span>
             Verbeterpunten
           </h3>
-          <ul id="seoBadList"></ul>
+          <ul id="seoBadList" class="seo-list seo-list--bad"></ul>
           <p class="seo-more-note">Dit zijn maximaal 4 van de gevonden verbeterpunten. Voor een volledige SEO + GEO analyse zijn er mogelijk meer aandachtspunten.</p>
         </div>
       </div>
 
       <div class="seo-upsell">
         <p>Wil je weten <strong>alle</strong> verbeterpunten, inclusief GEO-optimalisatie voor AI-zoekmachines?</p>
-        <button type="button" class="seo-upsell-btn" id="seoUpsellBtn">Vraag uitgebreide scan aan →</button>
+        <button type="button" class="pm-btn pm-btn--yellow pm-btn--sm seo-upsell-btn" id="seoUpsellBtn">Vraag uitgebreide scan aan →</button>
       </div>
     </div>
 
     <!-- Step 4: Error -->
     <div class="seo-step" id="seoStepError" hidden>
       <div class="seo-error-state">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <h3>Scan mislukt</h3>
-        <p id="seoErrorMsg">De URL kon niet worden gescand. Controleer of de URL correct is en probeer opnieuw.</p>
-        <button type="button" class="seo-retry" id="seoRetry">Opnieuw proberen</button>
+        <span class="pm-icon pm-icon--pink seo-error-state__icon" aria-hidden="true"><Icon name="alert" /></span>
+        <h3 class="pm-h3">Scan mislukt</h3>
+        <p id="seoErrorMsg" class="pm-text">De URL kon niet worden gescand. Controleer of de URL correct is en probeer opnieuw.</p>
+        <button type="button" class="pm-btn pm-btn--white pm-btn--sm seo-retry" id="seoRetry">Opnieuw proberen</button>
       </div>
     </div>
   </div>
@@ -92,7 +94,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     'meta-description':   { good: 'Meta-omschrijving gevonden',                 bad: 'Meta-omschrijving ontbreekt of is te kort' },
     'viewport':           { good: 'Mobiele viewport correct ingesteld',         bad: 'Mobiele viewport niet correct ingesteld' },
     'robots-txt':         { good: 'Robots.txt correct geconfigureerd',          bad: 'Robots.txt ontbreekt of blokkeert crawlers' },
-    'canonical':          { good: 'Canonical tag aanwezig',                     bad: 'Geen canonical tag gevonden — duplicate content risico' },
+    'canonical':          { good: 'Canonical tag aanwezig',                     bad: 'Geen canonical tag gevonden: duplicate content risico' },
     'http-status-code':   { good: 'Pagina geeft correcte HTTP-statuscode',      bad: 'Pagina geeft een foutieve HTTP-statuscode' },
     'crawlable-anchors':  { good: 'Links zijn goed crawlbaar voor Google',      bad: 'Sommige links zijn niet crawlbaar voor Google' },
     'link-text':          { good: 'Links hebben beschrijvende ankertekst',      bad: 'Links missen beschrijvende ankertekst' },
@@ -100,7 +102,7 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
     'structured-data':    { good: 'Gestructureerde data (schema.org) aanwezig', bad: 'Geen gestructureerde data gevonden' },
     'hreflang':           { good: 'Hreflang correct ingesteld',                 bad: 'Hreflang ontbreekt of is incorrect' },
     'plugins':            { good: 'Geen verouderde browser-plugins gebruikt',   bad: 'Verouderde plugins gevonden die SEO schaden' },
-    'tap-targets':        { good: 'Knoppen groot genoeg voor mobiel gebruik',   bad: 'Knoppen te klein voor mobiel — slechte gebruikservaring' },
+    'tap-targets':        { good: 'Knoppen groot genoeg voor mobiel gebruik',   bad: 'Knoppen te klein voor mobiel: slechte gebruikservaring' },
     'font-size':          { good: 'Lettergrootte leesbaar op mobiel',           bad: 'Tekst te klein op mobiel' },
   };
 
@@ -144,10 +146,10 @@ const psiKey = import.meta.env.PUBLIC_PSI_KEY || '';
   }
 
   function scoreLabel(score) {
-    if (score >= 90) return 'Uitstekend — je website staat er goed voor op SEO-gebied.';
+    if (score >= 90) return 'Uitstekend: je website staat er goed voor op SEO-gebied.';
     if (score >= 70) return 'Goed, maar er is nog ruimte voor verbetering.';
-    if (score >= 50) return 'Matig — er zijn meerdere aandachtspunten die verkeer kosten.';
-    return 'Kritisch — je website mist belangrijke SEO-fundamenten.';
+    if (score >= 50) return 'Matig: er zijn meerdere aandachtspunten die verkeer kosten.';
+    return 'Kritisch: je website mist belangrijke SEO-fundamenten.';
   }
 
 function renderList(ul, items) {
@@ -209,7 +211,7 @@ function renderList(ul, items) {
       });
 
       // Fill to 4 if needed with generic fallbacks
-      const goodFallbacks = ['HTTPS beveiligd — pagina laadt via een veilige verbinding', 'Pagina is bereikbaar voor zoekmachines', 'Basisstructuur van de pagina is correct', 'Geen blokkerende redirect-ketens gevonden'];
+      const goodFallbacks = ['HTTPS beveiligd: pagina laadt via een veilige verbinding', 'Pagina is bereikbaar voor zoekmachines', 'Basisstructuur van de pagina is correct', 'Geen blokkerende redirect-ketens gevonden'];
       const badFallbacks  = ['Paginasnelheid kan worden verbeterd voor betere rankings', 'Interne linkstructuur kan worden geoptimaliseerd', 'Content kan specifieker worden afgestemd op zoekintentie', 'GEO-optimalisatie voor AI-zoekmachines ontbreekt'];
 
       while (good.length < 4) good.push(goodFallbacks[good.length % goodFallbacks.length]);
@@ -223,7 +225,7 @@ function renderList(ul, items) {
 
       // Render
       const host = new URL(url).hostname.replace('www.', '');
-      scoreSite.textContent = '— ' + host;
+      scoreSite.textContent = host;
       scoreLbl.textContent  = scoreLabel(seoScore);
 renderList(goodList, good.slice(0, 4));
       renderList(badList, bad.slice(0, 4));
@@ -282,361 +284,221 @@ renderList(goodList, good.slice(0, 4));
     position: fixed;
     inset: 0;
     z-index: 99998;
-    background: rgba(10,10,10,0.7);
-    backdrop-filter: blur(4px);
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 16px;
+    background: rgba(58, 0, 29, 0.55);   /* ink scrim */
   }
-
-  .seo-overlay.is-open {
-    display: flex;
-  }
+  .seo-overlay.is-open { display: flex; animation: seo-fade 0.35s var(--pm-ease) both; }
+  .seo-overlay.is-open .seo-modal { animation: seo-pop 0.7s var(--pm-ease) both; }
+  @keyframes seo-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes seo-pop { from { opacity: 0; transform: translateY(32px) scale(0.96); } to { opacity: 1; transform: none; } }
 
   .seo-modal {
-    position: relative;
-    background: #fff;
-    color: #0a0a0a;
-    border-radius: 20px;
     width: 100%;
-    max-width: 680px;
-    max-height: 90vh;
+    max-width: 700px;
+    max-height: calc(100dvh - 48px);
     overflow-y: auto;
-    padding: 2.5rem;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+    overscroll-behavior: contain;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    color: var(--pm-ink);
   }
 
   .seo-close {
     position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    background: rgba(10,10,10,0.07);
-    border: none;
+    top: 1.1rem;
+    right: 1.1rem;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: var(--pm-border);
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    font-size: 1.2rem;
-    line-height: 1;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    box-shadow: 0 3px 0 var(--pm-ink);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #0a0a0a;
-    transition: background 0.2s;
+    transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease);
+    z-index: 1;
   }
-  .seo-close:hover { background: rgba(10,10,10,0.14); }
+  .seo-close:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--pm-ink); }
 
-  /* Kicker */
-  .seo-kicker {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    background: linear-gradient(135deg, #C4972A, #A07828);
-    color: #fff;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    margin-bottom: 0.8rem;
-  }
+  .seo-step[hidden] { display: none; }
+  #seoStepForm:not([hidden]) { display: grid; justify-items: start; gap: 0.9rem; }
+  .seo-title { padding-right: 3rem; }
+  .seo-intro { margin-bottom: 0.6rem; }
 
-  .seo-step h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-  }
-
-  .seo-intro {
-    color: rgba(10,10,10,0.65);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.8rem;
-  }
-
-  /* Form */
-  .seo-field {
-    margin-bottom: 1rem;
-  }
-
+  /* form */
+  .seo-form { display: grid; gap: 1rem; width: 100%; }
+  .seo-field { display: grid; gap: 0.45rem; }
   .seo-field label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 0.35rem;
-    color: rgba(10,10,10,0.75);
+    font-size: var(--pm-fs-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
-
   .seo-field input {
     width: 100%;
-    border: 1.5px solid rgba(10,10,10,0.15);
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
+    box-sizing: border-box;
+    padding: 0.85rem 1.1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
     font: inherit;
     font-size: 16px; /* min 16px voorkomt iOS auto-zoom */
-    color: #0a0a0a;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-  }
-
-  .seo-field input:focus {
     outline: none;
-    border-color: #C4972A;
+    transition: box-shadow 0.25s var(--pm-ease);
   }
+  .seo-field input::placeholder { color: var(--pm-ink-mute); }
+  .seo-field input:focus { background: #fff; box-shadow: 0 0 0 3px var(--pm-milk), 0 0 0 5px var(--pm-ink); }
 
   .seo-error {
-    color: #ef4444;
-    font-size: 0.85rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .seo-submit {
-    width: 100%;
-    background: #0a0a0a;
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 1rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.95rem;
+    margin: 0;
+    padding: 0.7rem 1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-blush);
+    font-size: 0.9rem;
     font-weight: 600;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    transition: opacity 0.2s, transform 0.2s;
   }
-  .seo-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+  .seo-error[hidden] { display: none; }
+  .seo-submit { width: 100%; margin-top: 0.4rem; }
 
-  /* Loading */
+  /* loading */
   .seo-loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 0;
+    display: grid;
+    justify-items: center;
     gap: 1rem;
+    padding: 3rem 0;
     text-align: center;
   }
+  .seo-loader p { margin: 0; font-family: var(--pm-display); font-size: 1.6rem; line-height: 1.1; }
+  .seo-loader small { color: var(--pm-ink-mute); font-weight: 600; word-break: break-all; }
 
-  .seo-loader p { font-family: 'Matter Sans', sans-serif; font-size: 1rem; font-weight: 600; }
-  .seo-loader small { font-size: 0.8rem; color: rgba(10,10,10,0.45); word-break: break-all; }
-
-  .seo-radar {
-    position: relative;
-    width: 72px;
-    height: 72px;
-  }
-
+  .seo-radar { position: relative; width: 96px; height: 96px; display: grid; place-items: center; }
   .seo-radar span {
     position: absolute;
     inset: 0;
+    border: var(--pm-border);
     border-radius: 50%;
-    border: 2px solid #C4972A;
+    background: var(--pm-pink);
     opacity: 0;
-    animation: radarPulse 2s ease-out infinite;
+    animation: seo-radar 2s var(--pm-ease) infinite;
   }
-
   .seo-radar span:nth-child(2) { animation-delay: 0.6s; }
   .seo-radar span:nth-child(3) { animation-delay: 1.2s; }
-
-  @keyframes radarPulse {
-    0%   { transform: scale(0.3); opacity: 0.8; }
-    100% { transform: scale(1);   opacity: 0; }
-  }
-
-  /* Results */
-  .seo-results-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .seo-score-ring {
+  .seo-radar__core {
     position: relative;
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-yellow);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    font-style: normal;
+  }
+  @keyframes seo-radar {
+    0% { transform: scale(0.4); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 0; }
   }
 
-  .seo-score-ring svg {
-    width: 80px;
-    height: 80px;
-    transform: rotate(-90deg);
-  }
-
-  .seo-ring-bg  { fill: none; stroke: rgba(10,10,10,0.1); stroke-width: 5; }
-  .seo-ring-fill { fill: none; stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s ease, stroke 0.5s ease; }
-
-  .seo-score-ring > span {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 800;
-  }
-
-  .seo-results-header h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-  }
-
-  .seo-score-sublabel {
-    font-size: 0.88rem;
-    color: rgba(10,10,10,0.6);
-    line-height: 1.5;
-  }
+  /* results */
+  .seo-results-header { display: grid; gap: 0.4rem; margin-bottom: 1.5rem; padding-right: 3rem; }
+  .seo-results-title { overflow-wrap: anywhere; }
 
   .seo-columns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
-
-  .seo-col h3 {
+  .seo-col {
+    padding: 1.25rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-paper);
+  }
+  .seo-col--bad { background: var(--pm-blush); }
+  .seo-col__title {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
+    gap: 0.65rem;
+    margin: 0 0 1rem;
+    font-family: var(--pm-display);
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.1;
   }
-
-  .seo-col--good h3 { color: #16a34a; }
-  .seo-col--bad  h3 { color: #dc2626; }
-
-  .seo-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .seo-col li {
-    font-size: 0.85rem;
-    line-height: 1.45;
-    color: rgba(10,10,10,0.8);
-    padding-left: 1rem;
+  .seo-list { font-size: 0.92rem; line-height: 1.45; }
+  .seo-list--bad { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.85rem; }
+  .seo-list--bad :global(li) {
     position: relative;
+    padding-left: 2.1rem;
+    color: var(--pm-ink-soft);
   }
-
-  .seo-col--good li::before { content: '✓'; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
-  .seo-col--bad  li::before { content: '!'; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
-
-  .seo-more-note {
-    margin-top: 0.8rem;
-    font-size: 0.78rem;
-    color: rgba(10,10,10,0.45);
-    line-height: 1.5;
-    font-style: italic;
+  .seo-list--bad :global(li)::before {
+    content: "!";
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-red);
+    color: var(--pm-milk);
+    font-size: 0.75rem;
+    font-weight: 900;
+    line-height: 1;
   }
+  .seo-more-note { margin: 1rem 0 0; font-size: 0.8rem; line-height: 1.5; color: var(--pm-ink-soft); }
 
-  /* Upsell */
   .seo-upsell {
-    background: #0a0a0a;
-    color: #fff;
-    border-radius: 14px;
-    padding: 1.25rem 1.5rem;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    flex-wrap: wrap;
+    padding: 1.25rem 1.4rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-plum);
+    color: var(--pm-milk);
   }
+  .seo-upsell p { flex: 1; min-width: 200px; margin: 0; font-size: 0.95rem; line-height: 1.5; }
+  .seo-upsell strong { color: var(--pm-yellow); }
 
-  .seo-upsell p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    opacity: 0.85;
-    flex: 1;
-    min-width: 200px;
-  }
-
-  .seo-upsell strong { color: #C4972A; }
-
-  .seo-upsell-btn {
-    background: linear-gradient(135deg, #C4972A, #A07828);
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 0.75rem 1.25rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  .seo-upsell-btn:hover { opacity: 0.85; transform: translateY(-1px); }
-
-  /* Error state */
+  /* error */
   .seo-error-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    justify-items: center;
+    gap: 0.85rem;
+    padding: 2.5rem 0 1rem;
     text-align: center;
-    padding: 2.5rem 0;
-    gap: 0.75rem;
-    color: rgba(10,10,10,0.5);
   }
+  .seo-error-state p { max-width: 38ch; }
+  .seo-error-state__icon { width: 72px; height: 72px; border-radius: 22px; }
+  .seo-error-state__icon :global(svg) { width: 34px; height: 34px; }
 
-  .seo-error-state h3 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.2rem;
-    color: #0a0a0a;
-  }
-
-  .seo-error-state p {
-    font-size: 0.9rem;
-    max-width: 36ch;
-    line-height: 1.6;
-  }
-
-  .seo-retry {
-    background: #0a0a0a;
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 0.75rem 1.5rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 0.5rem;
+  @media (hover: hover) {
+    .seo-close:hover { transform: translateY(-2px) rotate(90deg); box-shadow: 0 5px 0 var(--pm-ink); }
   }
 
   @media (max-width: 600px) {
-    .seo-modal {
-      padding: 1.75rem 1.25rem;
-      border-radius: 16px;
-    }
+    .seo-columns { grid-template-columns: 1fr; }
+    .seo-upsell { flex-direction: column; align-items: stretch; }
+    .seo-upsell-btn { width: 100%; white-space: normal; }
+  }
 
-    .seo-columns {
-      grid-template-columns: 1fr;
-    }
-
-    .seo-results-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .seo-upsell {
-      flex-direction: column;
-    }
-
-    .seo-upsell-btn {
-      width: 100%;
-      text-align: center;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .seo-overlay.is-open, .seo-overlay.is-open .seo-modal { animation: none; }
+    .seo-radar span { animation: none; opacity: 0.25; }
+    .seo-close { transition: none; }
   }
 </style>

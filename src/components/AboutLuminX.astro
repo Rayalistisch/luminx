@@ -1,0 +1,94 @@
+---
+import { Image } from "astro:assets";
+import founderImage from "../assets/images/luminx-founder.png";
+import Icon from "./pm/Icon.astro";
+import { PROJECTS, MARKETING, TECH, STATS } from "./world/content";
+---
+
+<!-- the readable homepage: real content for people and search engines -->
+<section class="lx-about" aria-labelledby="hero-title">
+  <div class="lx-about__inner">
+    <header class="lx-about__head">
+      <p class="pm-label">Online marketing bureau · Enschede, Twente</p>
+      <h1 id="hero-title" class="lx-about__title">Van ruis naar <em>omzet</em>.</h1>
+      <p class="lx-about__lead">
+        SEO, ads, social, e-mail: allemaal losse signalen. LuminX maakt er één helder, meetbaar pad van. Van de eerste klik tot je omzet.
+      </p>
+      <p class="lx-about__text">
+        LuminX is een digitaal bureau uit Enschede dat MKB-bedrijven in Twente en daarbuiten helpt groeien. We bouwen websites en webshops die snel laden en converteren, zorgen dat je gevonden wordt in Google én in AI-antwoorden, en automatiseren het werk dat je elke week opnieuw doet. Geen losse trucjes, maar één systeem, met Ray als vast aanspreekpunt.
+      </p>
+      <div class="lx-about__actions">
+        <a href="#" class="pm-btn" data-overlay-open>Start het gesprek <Icon name="arrow" size={18} stroke={2.4} /></a>
+        <a href="/" class="pm-btn pm-btn--white">Verken Lichtland Twente</a>
+      </div>
+    </header>
+
+    <aside class="lx-about__ray" aria-label="Over Ray">
+      <Image src={founderImage} alt="Ray Huffenreuter, oprichter van LuminX" widths={[360, 560]} sizes="(max-width: 960px) 100vw, 360px" loading="lazy" class="lx-about__photo" />
+      <div class="lx-about__raybody">
+        <p class="lx-about__quote">“Rechtstreeks met mij, zonder accountmanager ertussen. Ik bouw, meet en verbeter tot het werkt.”</p>
+        <p class="lx-about__sig"><strong>Ray Huffenreuter</strong> · oprichter LuminX</p>
+        <dl class="lx-about__stats">
+          {STATS.map((st) => (<div><dt>{st.label}</dt><dd>{st.value}</dd></div>))}
+        </dl>
+      </div>
+    </aside>
+
+    <div class="lx-about__cols">
+      <nav class="lx-about__col" aria-labelledby="ab-marketing">
+        <h2 id="ab-marketing" class="lx-about__h2"><span class="lx-about__sw lx-about__sw--pink"></span>Online marketing</h2>
+        <ul class="lx-about__list">
+          {MARKETING.map((it) => (<li><a href={it.href}><strong>{it.title}</strong><span>{it.desc}</span></a></li>))}
+        </ul>
+      </nav>
+      <nav class="lx-about__col" aria-labelledby="ab-tech">
+        <h2 id="ab-tech" class="lx-about__h2"><span class="lx-about__sw lx-about__sw--yellow"></span>Techniek &amp; automatisering</h2>
+        <ul class="lx-about__list">
+          {TECH.map((it) => (<li><a href={it.href}><strong>{it.title}</strong><span>{it.desc}</span></a></li>))}
+        </ul>
+      </nav>
+      <div class="lx-about__col">
+        <h2 class="lx-about__h2"><span class="lx-about__sw lx-about__sw--red"></span>Werk</h2>
+        <ul class="lx-about__list">
+          {PROJECTS.map((p) => (<li><a href={p.href}><strong>{p.title}</strong><span>{p.result}</span></a></li>))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* readable homepage below the world */
+  .lx-about { position: relative; z-index: 2; background: var(--pm-cream); border-top: var(--pm-border); padding: var(--pm-section) var(--pm-gutter); }
+  .lx-about__inner { max-width: var(--pm-max); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 380px); gap: clamp(2.5rem, 5vw, 4rem); align-items: start; }
+  .lx-about__cols { grid-column: 1 / -1; }
+  .lx-about__ray { border: var(--pm-border); border-radius: var(--pm-r-lg); background: var(--pm-milk); box-shadow: var(--pm-drop-lg); overflow: hidden; }
+  .lx-about__ray :global(.lx-about__photo) { display: block; width: 100%; aspect-ratio: 4 / 3.4; object-fit: cover; background: var(--pm-pink); border-bottom: var(--pm-border); }
+  .lx-about__raybody { padding: 1.3rem 1.4rem 1.4rem; }
+  .lx-about__quote { margin: 0; font-family: var(--pm-display); font-size: 1.2rem; line-height: 1.25; color: var(--pm-ink); }
+  .lx-about__sig { margin: 0.7rem 0 0; font-size: 0.88rem; color: var(--pm-ink-soft); }
+  .lx-about__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 1.1rem 0 0; }
+  .lx-about__stats div { display: flex; flex-direction: column-reverse; padding: 0.6rem 0.75rem; border: 2px solid var(--pm-ink); border-radius: var(--pm-r-sm); background: var(--pm-paper); }
+  .lx-about__stats dd { margin: 0; font-family: var(--pm-display); font-size: 1.5rem; line-height: 1; color: var(--pm-wine); }
+  .lx-about__stats dt { font-size: 0.72rem; font-weight: 700; color: var(--pm-ink-soft); }
+  .lx-about__head { max-width: 780px; }
+  .lx-about__title { margin: 0.6rem 0 0; font-family: var(--pm-display); font-size: var(--pm-fs-hero); line-height: 0.95; letter-spacing: -0.035em; color: var(--pm-ink); }
+  .lx-about__title em { font-style: normal; color: var(--pm-wine); }
+  .lx-about__lead { margin: 1.3rem 0 0; font-size: var(--pm-fs-opening); font-weight: 700; line-height: 1.45; color: var(--pm-ink); max-width: 640px; }
+  .lx-about__text { margin: 1rem 0 0; font-size: 1.05rem; line-height: 1.6; color: var(--pm-ink-soft); max-width: 680px; }
+  .lx-about__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2rem; }
+  .lx-about__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); }
+  .lx-about__col { padding: 1.5rem 1.5rem 1rem; border: var(--pm-border); border-radius: var(--pm-r-lg); background: var(--pm-milk); box-shadow: var(--pm-drop); }
+  .lx-about__h2 { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.5rem; font-family: var(--pm-display); font-size: 1.45rem; line-height: 1.1; color: var(--pm-ink); }
+  .lx-about__sw { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--pm-ink); flex: none; }
+  .lx-about__sw--pink { background: var(--pm-pink); }
+  .lx-about__sw--yellow { background: var(--pm-yellow); }
+  .lx-about__sw--red { background: var(--pm-red); }
+  .lx-about__list { list-style: none; margin: 0; padding: 0; }
+  .lx-about__list li + li { border-top: 2px dashed var(--pm-ink-line); }
+  .lx-about__list a { display: grid; gap: 0.1rem; padding: 0.7rem 0; color: var(--pm-ink); text-decoration: none; }
+  .lx-about__list strong { font-weight: 800; transition: color 0.2s ease; }
+  .lx-about__list span { font-size: 0.9rem; color: var(--pm-ink-soft); }
+  @media (hover: hover) { .lx-about__list a:hover strong { color: var(--pm-red); } }
+  @media (max-width: 960px) { .lx-about__inner, .lx-about__cols { grid-template-columns: 1fr; } }
+</style>

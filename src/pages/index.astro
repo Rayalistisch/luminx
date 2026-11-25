@@ -1,33 +1,49 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
-import Hero from "../components/Hero.astro";
-import Solutions from "../components/Solutions.astro";
-import Manifesto from "../components/Manifesto.astro";
-import GrowthSystem from "../components/GrowthSystem.astro";
-import FeaturedProjects from "../components/FeaturedProjects.astro";
-import Proof from "../components/Proof.astro";
-import CTA from "../components/CTA.astro";
-import Footer from "../components/Footer.astro";
+import WorldHome from "../components/WorldHome.astro";
 import ContactOverlay from "../components/ContactOverlay.astro";
 import SeoScanModal from "../components/SeoScanModal.astro";
+import { MARKETING, TECH, PROJECTS } from "../components/world/content";
+
+// The homepage is the interactive map only. Its content lives in the place
+// panels (real HTML); this tells search engines how it is structured.
+const site = "https://luminx.nl";
+const structuredData = [
+  {
+    "@type": "ItemList",
+    "@id": `${site}/#diensten`,
+    name: "Diensten van LuminX",
+    itemListElement: [...MARKETING, ...TECH].map((d, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: d.title,
+      description: d.desc,
+      url: `${site}${d.href}`,
+    })),
+  },
+  {
+    "@type": "ItemList",
+    "@id": `${site}/#werk`,
+    name: "Geselecteerd werk",
+    itemListElement: PROJECTS.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.title,
+      description: `${p.result}. ${p.description}`,
+      url: `${site}${p.href}`,
+    })),
+  },
+];
 ---
 
 <BaseLayout
   title="LuminX – Online Marketing Bureau | Meetbare Groei voor MKB"
   description="LuminX helpt MKB'ers groeien met SEO, Google Ads, web development en procesautomatisering. Directe samenwerking, meetbare resultaten."
+  structuredData={structuredData}
 >
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
-  <Hero />
-  <Solutions />
-  <Manifesto />
-  <GrowthSystem />
-  <FeaturedProjects />
-  <Proof />
-  <CTA />
-  <Footer />
+  <WorldHome />
   <ContactOverlay />
   <SeoScanModal />
 </BaseLayout>

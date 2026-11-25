@@ -79,7 +79,7 @@ Verwijder content alleen als je er zeker van bent dat er niets mee te redden val
 
 ## Hoe lang duurt het voordat je effect ziet?
 
-Dat hangt af van de grootte van de wijzigingen die je doorvoert. Kleine verbeteringen kunnen al binnen een paar dagen effect hebben. Grotere verbeteringen — waarbij Google echt moet "leren" dat jouw website structureel beter is geworden, kunnen **meerdere maanden** duren.
+Dat hangt af van de grootte van de wijzigingen die je doorvoert. Kleine verbeteringen kunnen al binnen een paar dagen effect hebben. Grotere verbeteringen, waarbij Google echt moet "leren" dat jouw website structureel beter is geworden, kunnen **meerdere maanden** duren.
 
 Hoef je niet per se op een volgende grote core update te wachten. Google brengt doorlopend kleinere updates uit die niet worden aangekondigd, maar die wél invloed hebben op je posities als je verbeteringen hebt doorgevoerd.
 
@@ -92,7 +92,7 @@ Een core update is geen aanval op jouw website. Het is Google dat zijn resultate
 1. Wacht tot de update klaar is
 2. Analyseer in Search Console met de juiste datumvergelijking
 3. Beoordeel hoe groot de daling is
-4. Verbeter je content voor de bezoeker — niet voor het algoritme
+4. Verbeter je content voor de bezoeker, niet voor het algoritme
 5. Geef verbeteringen de tijd om effect te hebben
 
 ---

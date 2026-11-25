@@ -1,139 +1,80 @@
 ---
-const lines = [
-  "We verwijderen frictie.",
-  "We automatiseren het werk.",
-  "We engineeren groei.",
-  "We bouwen digitale bedrijven.",
+import { Image } from "astro:assets";
+import founderImage from "../assets/images/luminx-founder.png";
+
+const beliefs = [
+  {
+    title: "We verwijderen frictie.",
+    body: "Trage pagina's, kapotte formulieren, onduidelijke funnels: elk obstakel kost je klanten. We beginnen bij wat nu lekt en dichten dat eerst: pas daarna gaat er budget naar meer verkeer.",
+  },
+  {
+    title: "We automatiseren het werk.",
+    body: "Handmatige exports, dubbele invoer, losse spreadsheets. We koppelen je systemen zodat terugkerend werk zichzelf doet en jij je tijd terugkrijgt.",
+  },
+  {
+    title: "We engineeren groei.",
+    body: "Geen onderbuikgevoel, maar data. Met betrouwbare tracking zien we welk kanaal echt omzet oplevert, en schalen we alleen wat werkt.",
+  },
+  {
+    title: "We bouwen digitale bedrijven.",
+    body: "Website, marketing en automatisering als één systeem, niet als losse projecten. Zodat je bedrijf online net zo soepel draait als op de werkvloer.",
+  },
 ];
 ---
 
-<section class="manifesto-section" data-bg-color="#120A1E">
-  <div class="scene-grain" aria-hidden="true"></div>
+<section class="pm-section manifesto" aria-labelledby="manifesto-title">
+  <div class="pm-container">
+    <header class="pm-head">
+      <span class="pm-label" data-reveal>Waarom LuminX</span>
+      <h2 id="manifesto-title" class="pm-h2" data-reveal style="--d: 1">Omdat groei geen verzameling losse trucjes is.</h2>
+      <p class="pm-opening" data-reveal style="--d: 2">
+        De meeste MKB'ers betalen voor kanalen die niet met elkaar praten. Wij bouwen er één systeem van.
+      </p>
+    </header>
 
-  <div class="manifesto-pin">
-    <div class="manifesto-lines">
-      {lines.map((line, i) => (
-        <p class="manifesto-line" data-index={i}>{line}</p>
-      ))}
+    <div class="pm-split">
+      <figure class="pm-card pm-card--lift manifesto__visual" data-reveal>
+        <Image
+          src={founderImage}
+          alt="Ray Huffenreuter, oprichter van LuminX"
+          widths={[480, 720, 1000]}
+          sizes="(max-width: 860px) 100vw, 640px"
+          quality={90}
+          loading="lazy"
+        />
+        <figcaption class="pm-tag pm-tag--yellow manifesto__caption">Ray, oprichter en jouw vaste aanspreekpunt</figcaption>
+      </figure>
+
+      <ul class="pm-accordion" data-reveal style="--d: 1">
+        {beliefs.map((b, i) => (
+          <li>
+            <details class="pm-acc" name="manifesto" open={i === 0}>
+              <summary>{b.title}</summary>
+              <div class="pm-acc__body"><p>{b.body}</p></div>
+            </details>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>
 
-<script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  function init() {
-    const section = document.querySelector<HTMLElement>(".manifesto-section");
-    const pin = section?.querySelector<HTMLElement>(".manifesto-pin");
-    const lines = gsap.utils.toArray<HTMLElement>(".manifesto-line");
-    if (!section || !pin || !lines.length) return;
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      section.classList.add("is-static");
-      return;
-    }
-
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.set(lines, { opacity: 0, y: 28 });
-    gsap.set(lines[0], { opacity: 1, y: 0 });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: () => `+=${lines.length * 90}%`,
-        scrub: 0.6,
-        pin,
-      },
-    });
-
-    lines.forEach((line, i) => {
-      if (i > 0) {
-        tl.to(lines[i - 1], { opacity: 0, y: -28, duration: 0.4 }, i);
-        tl.fromTo(line, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.4 }, i + 0.1);
-      }
-      tl.to(line, { opacity: 1, y: 0, duration: 0.6 }, i + 0.5); // hold
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-</script>
-
 <style>
-  .manifesto-section {
-    position: relative;
-    isolation: isolate;
-    background: transparent;
-    overflow: hidden;
-  }
-
-  .manifesto-pin {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 4rem clamp(20px, 5vw, 56px);
-  }
-
-  .manifesto-lines {
-    position: relative;
-    display: grid;
-    /* minmax(0, 1fr) instead of the implicit auto track — an auto track
-       sizes to its content's max-content width, which is what let long
-       lines overflow past the viewport despite width:100% below. */
-    grid-template-columns: minmax(0, 1fr);
-    place-items: center;
-    width: 100%;
-  }
-
-  .manifesto-line {
-    grid-area: 1 / 1;
+  .manifesto__visual {
     margin: 0;
-    max-width: 100%;
-    min-width: 0;
-    overflow-wrap: break-word;
-    text-align: center;
-    font-family: 'Matter Sans', sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    font-size: clamp(2rem, 6vw, 4.4rem);
-    color: var(--ink);
+    aspect-ratio: 4 / 4.2;
+    background: linear-gradient(180deg, var(--pm-paper), #F6DFC0);
   }
-
-  /* Baseline: only the first line shows until JS takes over, so a slow or
-     failed script load never stacks all four sentences on top of each other. */
-  .manifesto-line:not(:first-child) {
-    opacity: 0;
+  .manifesto__visual :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 88% 0%;  /* Ray stands right of centre in the source */
   }
-
-  .manifesto-section.is-static .manifesto-line:not(:first-child) {
-    opacity: 0.85;
-  }
-
-  /* Reduced-motion fallback: plain stacked list, no pin/scrub */
-  .manifesto-section.is-static .manifesto-pin {
-    min-height: 0;
-    padding: 6rem clamp(20px, 5vw, 56px);
-  }
-
-  .manifesto-section.is-static .manifesto-lines {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .manifesto-section.is-static .manifesto-line {
-    grid-area: auto;
-    opacity: 0.85;
-  }
-
-  @media (max-width: 640px) {
-    .manifesto-pin { padding: 2.5rem 1.25rem; min-height: 70vh; }
+  .manifesto__caption {
+    position: absolute;
+    left: 1.25rem;
+    bottom: 1.25rem;
+    white-space: normal;
   }
 </style>

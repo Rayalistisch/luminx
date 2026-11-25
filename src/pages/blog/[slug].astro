@@ -1,9 +1,12 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import ContactOverlay from '../../components/ContactOverlay.astro';
+import Icon from '../../components/pm/Icon.astro';
+import rayAvatar from '../../assets/images/ray_avatar.png';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -15,10 +18,19 @@ export async function getStaticPaths() {
 
 type Props = { post: CollectionEntry<'blog'> };
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content, headings } = await post.render();
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const wordCount = post.body.trim().split(/\s+/).length;
+const readingTime = Math.max(1, Math.round(wordCount / 220));
+const toc = headings.filter((h) => h.depth === 2);
+
+const morePosts = (await getCollection('blog'))
+  .filter((p) => p.slug !== post.slug)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
 
 const siteOrigin = (Astro.site?.toString() ?? 'https://luminx.nl').replace(/\/$/, '');
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
@@ -60,48 +72,84 @@ const breadcrumbSchema = {
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="post-page">
-    <section class="post-hero" data-bg-color="#0A0A0A">
-      <div class="post-hero-overlay" aria-hidden="true"></div>
-      <div class="post-hero-inner">
-        <a href="/blog" class="post-back-link">← Blog</a>
-        {post.data.category && (
-          <span class="post-kicker">{post.data.category}</span>
-        )}
-        <h1>{post.data.title}</h1>
-        <p class="post-meta">
-          <span>{formatDate(post.data.pubDate)}</span>
-          <span>·</span>
-          <span>{post.data.author}</span>
-        </p>
+  <main class="post">
+    <section class="post__hero" aria-labelledby="post-title">
+      <div class="pm-stack pm-stack--light">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+
+        <div class="pm-stack__panel post__panel">
+          <div class="post__hero-content">
+            <nav class="post__crumbs" aria-label="Kruimelpad" data-reveal>
+              <a href="/">Home</a>
+              <span aria-hidden="true">/</span>
+              <a href="/blog">Blog</a>
+            </nav>
+            {post.data.category && (
+              <span class="pm-tag pm-tag--yellow" data-reveal style="--d: 1">{post.data.category}</span>
+            )}
+            <h1 id="post-title" class="pm-h1 post__title" data-reveal style="--d: 2">{post.data.title}</h1>
+            <ul class="post__meta" data-reveal style="--d: 3">
+              <li><Icon name="calendar" size={16} /> <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time></li>
+              <li><Icon name="clock" size={16} /> {readingTime} min leestijd</li>
+              <li><Icon name="users" size={16} /> {post.data.author}</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
     {post.data.image && (
-      <div class="post-cover">
-        <img src={post.data.image} alt={post.data.title} loading="eager" decoding="async" />
+      <div class="pm-container pm-container--narrow post__cover-wrap">
+        <figure class="pm-card pm-card--lift pm-media post__cover" data-reveal>
+          <img src={post.data.image} alt={post.data.title} loading="eager" decoding="async" />
+        </figure>
       </div>
     )}
 
-    <article class="post-content" data-bg-color="#FEFEFE">
-      <div class="post-prose">
-        <Content />
+    <article class="pm-section post__article">
+      <div class="pm-container pm-container--narrow">
+        {toc.length > 2 && (
+          <details class="pm-acc post__toc">
+            <summary>In dit artikel</summary>
+            <div class="pm-acc__body">
+              <ol>
+                {toc.map((h) => (
+                  <li><a href={`#${h.slug}`}>{h.text}</a></li>
+                ))}
+              </ol>
+            </div>
+          </details>
+        )}
+
+        <div class="pm-prose post__prose">
+          <Content />
+        </div>
+
+        <aside class="pm-card pm-card--milk post__author" aria-label="Over de auteur">
+          <Image src={rayAvatar} alt="Ray Huffenreuter" width={128} height={128} class="post__author-img" />
+          <div>
+            <span class="pm-label">Geschreven door</span>
+            <p class="post__author-name">{post.data.author}</p>
+            <p class="pm-text post__author-role">Oprichter &amp; Digital Strategist bij LuminX</p>
+          </div>
+        </aside>
       </div>
     </article>
 
     {post.data.relatedLinks && post.data.relatedLinks.length > 0 && (
-      <section class="post-related" data-bg-color="#F7F9FC">
-        <div class="post-related-inner">
-          <span class="post-related-kicker">Gerelateerde diensten</span>
-          <div class="post-related-grid">
-            {post.data.relatedLinks.map((link) => (
-              <a href={link.href} class="post-related-card">
-                <strong>{link.label}</strong>
-                {link.description && <span>{link.description}</span>}
+      <section class="pm-band pm-band--paper post__related" aria-labelledby="related-title">
+        <div class="pm-container pm-container--narrow">
+          <span id="related-title" class="pm-label">Gerelateerde diensten</span>
+          <div class="post__related-grid">
+            {post.data.relatedLinks.map((link, i) => (
+              <a href={link.href} class="pm-card pm-card--milk post__related-card" data-reveal style={`--d: ${i}`}>
+                <strong class="pm-h3">{link.label}</strong>
+                {link.description && <span class="pm-text">{link.description}</span>}
+                <span class="pm-link">Bekijk dienst <Icon name="arrow" size={18} /></span>
               </a>
             ))}
           </div>
@@ -109,11 +157,43 @@ const breadcrumbSchema = {
       </section>
     )}
 
-    <section class="post-cta" data-bg-color="#0A0A0A">
-      <div class="post-cta-inner">
-        <h2>Hulp nodig met online marketing?</h2>
-        <p>Plan een vrijblijvend gesprek en ontdek wat LuminX voor jouw bedrijf kan betekenen.</p>
-        <a href="#" class="cta-button" data-overlay-open>Plan een gesprek</a>
+    {morePosts.length > 0 && (
+      <section class="pm-section pm-section--tight post__more" aria-labelledby="more-title">
+        <div class="pm-container">
+          <header class="pm-head">
+            <span class="pm-label">Verder lezen</span>
+            <h2 id="more-title" class="pm-h2">Meer uit de blog</h2>
+          </header>
+          <ul class="post__more-grid">
+            {morePosts.map((p, i) => (
+              <li data-reveal style={`--d: ${i}`}>
+                <a href={`/blog/${p.slug}`} class="pm-card post__more-card">
+                  {p.data.image && (
+                    <div class="pm-media post__more-media">
+                      <img src={p.data.image} alt={p.data.title} loading="lazy" decoding="async" />
+                    </div>
+                  )}
+                  <div class="post__more-body">
+                    {p.data.category && <span class="pm-tag pm-tag--paper post__more-cat">{p.data.category}</span>}
+                    <h3 class="pm-h3">{p.data.title}</h3>
+                    <span class="pm-link">Lees artikel <Icon name="arrow" size={18} /></span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="post__more-all">
+            <a href="/blog" class="pm-btn pm-btn--white">Alle artikelen</a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="pm-band post__cta" aria-labelledby="post-cta-title">
+      <div class="pm-container post__cta-inner">
+        <h2 id="post-cta-title" class="pm-h2 pm-outline" data-reveal>Hulp nodig met online marketing?</h2>
+        <p class="pm-opening" data-reveal style="--d: 1">Plan een vrijblijvend gesprek en ontdek wat LuminX voor jouw bedrijf kan betekenen.</p>
+        <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open data-reveal style="--d: 2">Plan een gesprek <Icon name="arrow" /></a>
       </div>
     </section>
 
@@ -123,305 +203,250 @@ const breadcrumbSchema = {
 </BaseLayout>
 
 <style>
-  .post-page { background: var(--white); }
+  .post { background: var(--pm-cream); }
 
-  /* Hero */
-  .post-hero {
-    min-height: 50vh;
-    position: relative;
-    background: var(--black);
-    color: var(--white);
-    padding: 10rem 4rem 4.5rem;
-    overflow: hidden;
+  /* ─── Hero ─── */
+  .post__hero { padding-top: 72px; }
+
+  .post__panel {
+    padding: clamp(3rem, 6vw, 4.5rem) var(--pm-gutter) clamp(7rem, 12vw, 9rem);
   }
 
-  .post-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.15), transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(200, 231, 245, 0.12), transparent 38%);
+  .post__hero-content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.25rem;
+    max-width: 900px;
+    margin-inline: auto;
   }
 
-  .post-hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    margin: 0 auto;
+  .post__title {
+    color: var(--pm-milk);
+    font-size: clamp(2.4rem, 5.2vw, 4.5rem);
+    line-height: 1.02;
   }
 
-  .post-back-link {
-    display: inline-flex;
-    margin-bottom: 1.8rem;
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.6;
-    font-size: 0.9rem;
-    transition: opacity 0.25s ease;
-  }
-  .post-back-link:hover { opacity: 1; }
-
-  .post-kicker {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.48;
-    margin-bottom: 1rem;
-  }
-
-  .post-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.8rem);
-    line-height: 1.06;
-    letter-spacing: -0.025em;
-    margin-bottom: 1.4rem;
-  }
-
-  .post-meta {
+  .post__crumbs {
     display: flex;
     gap: 0.5rem;
-    font-size: 0.85rem;
-    opacity: 0.55;
-  }
-
-  /* Cover image */
-  .post-cover {
-    max-width: 900px;
-    margin: -3rem auto 0;
-    padding: 0 4rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .post-cover img {
-    width: 100%;
-    border-radius: 14px;
-    display: block;
-    box-shadow: 0 24px 60px rgba(10,10,10,0.18);
-  }
-
-  /* Article body */
-  .post-content {
-    padding: 5rem 4rem 6rem;
-  }
-
-  .post-prose {
-    max-width: 720px;
-    margin: 0 auto;
-    font-size: clamp(1rem, 1.8vw, 1.08rem);
-    line-height: 1.85;
-    color: rgba(10,10,10,0.84);
-  }
-
-  .post-prose :global(h2) {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    color: var(--pm-pink);
+    font-size: var(--pm-fs-label);
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--black);
-    margin: 2.8rem 0 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
+  .post__crumbs a { color: inherit; text-decoration: none; }
+  @media (hover: hover) { .post__crumbs a:hover { color: var(--pm-milk); } }
 
-  .post-prose :global(h3) {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--black);
-    margin: 2rem 0 0.75rem;
-  }
-
-  .post-prose :global(p) {
-    margin-bottom: 1.4rem;
-  }
-
-  .post-prose :global(ul),
-  .post-prose :global(ol) {
-    padding-left: 1.4rem;
-    margin-bottom: 1.4rem;
-    display: grid;
+  .post__meta {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.5rem;
   }
-
-  .post-prose :global(li) {
-    line-height: 1.75;
-  }
-
-  .post-prose :global(strong) {
+  .post__meta li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border: 2px solid rgba(255, 250, 240, 0.35);
+    border-radius: var(--pm-pill);
+    color: rgba(255, 250, 240, 0.9);
+    font-size: 0.875rem;
     font-weight: 600;
-    color: var(--black);
   }
 
-  .post-prose :global(a) {
-    color: var(--black);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  /* ─── Cover ─── */
+  .post__cover-wrap {
+    position: relative;
+    z-index: 2;
+    margin-top: clamp(-6rem, -10vw, -4.5rem);
+  }
+  .post__cover {
+    margin: 0;
+    aspect-ratio: 16 / 9;
   }
 
-  .post-prose :global(blockquote) {
-    border-left: 3px solid var(--black);
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    margin: 1.8rem 0;
-    color: rgba(10,10,10,0.65);
-    font-style: italic;
-  }
+  /* ─── Article ─── */
+  .post__article { padding-top: clamp(3rem, 6vw, 4.5rem); }
 
-  .post-prose :global(hr) {
-    border: none;
-    border-top: 1px solid rgba(10,10,10,0.12);
-    margin: 2.5rem 0;
+  .post__toc { margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .post__toc ol {
+    margin: 0;
+    padding-left: 1.25em;
+    display: grid;
+    gap: 0.45rem;
   }
-
-  /* Tables */
-  .post-prose :global(table) {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0 2.4rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 0 1px rgba(10,10,10,0.1);
-  }
-
-  .post-prose :global(thead tr) {
-    background: var(--black);
-    color: var(--white);
-  }
-
-  .post-prose :global(th) {
-    padding: 0.85rem 1.1rem;
-    text-align: left;
-    font-family: 'Matter Sans', sans-serif;
+  .post__toc a {
+    color: var(--pm-ink);
     font-weight: 600;
-    font-size: 0.82rem;
+    text-decoration: none;
+  }
+  @media (hover: hover) { .post__toc a:hover { color: var(--pm-wine); text-decoration: underline; } }
+
+  /* markdown elements pm-prose doesn't cover */
+  .post__prose :global(h2),
+  .post__prose :global(h3) { scroll-margin-top: 110px; }
+  .post__prose :global(> :first-child) { margin-top: 0; }
+  .post__prose :global(p) { margin-block: 0; }
+  .post__prose :global(> * + p) { margin-top: 1.1em; }
+  .post__prose :global(h2 + *),
+  .post__prose :global(h3 + *) { margin-top: 0.6em; }
+  .post__prose :global(ul),
+  .post__prose :global(ol) { margin-bottom: 0; }
+  .post__prose :global(li::marker) { color: var(--pm-red); font-weight: 700; }
+  .post__prose :global(hr) {
+    border: 0;
+    height: 2px;
+    margin-block: 2.5em;
+    background: repeating-linear-gradient(90deg, var(--pm-ink-mute) 0 3px, transparent 3px 9px);
+  }
+  .post__prose :global(blockquote) {
+    font-family: var(--pm-display);
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    line-height: 1.3;
+    box-shadow: var(--pm-drop);
+  }
+  .post__prose :global(blockquote p) { margin: 0; }
+  .post__prose :global(blockquote em) { font-style: normal; }
+  .post__prose :global(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    background: var(--pm-milk);
+    -webkit-overflow-scrolling: touch;
+  }
+  .post__prose :global(th) {
+    font-size: 0.8rem;
+    font-weight: 800;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    border-bottom: var(--pm-border);
   }
+  .post__prose :global(td) { vertical-align: top; color: var(--pm-ink-soft); }
+  .post__prose :global(tbody tr:last-child td) { border-bottom: 0; }
+  .post__prose :global(tbody tr:nth-child(even)) { background: rgba(247, 239, 223, 0.6); }
 
-  .post-prose :global(td) {
-    padding: 0.8rem 1.1rem;
-    border-bottom: 1px solid rgba(10,10,10,0.07);
-    vertical-align: top;
-  }
-
-  .post-prose :global(tbody tr:last-child td) {
-    border-bottom: none;
-  }
-
-  .post-prose :global(tbody tr:nth-child(even)) {
-    background: rgba(10,10,10,0.025);
-  }
-
-  .post-prose :global(tbody tr:hover) {
-    background: rgba(10,10,10,0.05);
-  }
-
-  @media (max-width: 600px) {
-    .post-prose :global(table) {
-      display: block;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-  }
-
-  /* Related services */
-  .post-related {
-    padding: 4rem 4rem;
-  }
-
-  .post-related-inner {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .post-related-kicker {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
+  /* inline CTA button used inside markdown (class="cta-button") */
+  .post__prose :global(a.cta-button) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 0 1.75rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-pill);
+    background: var(--pm-yellow);
+    color: var(--pm-ink);
+    box-shadow: var(--pm-drop);
+    font-size: 0.875rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 1.2rem;
-  }
-
-  .post-related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.85rem;
-  }
-
-  .post-related-card {
-    display: block;
-    padding: 1.2rem 1.4rem;
-    border: 1px solid rgba(10, 10, 10, 0.12);
-    border-radius: 10px;
     text-decoration: none;
-    color: var(--black);
-    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+    transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease);
+  }
+  @media (hover: hover) {
+    .post__prose :global(a.cta-button:hover) { transform: translateY(-3px); box-shadow: 0 9px 0 var(--pm-ink); }
   }
 
-  .post-related-card:hover {
-    border-color: var(--black);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
+  /* ─── Author ─── */
+  .post__author {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding: 1.25rem 1.5rem;
   }
-
-  .post-related-card strong {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
+  .post__author :global(.post__author-img) {
+    width: 72px;
+    height: 72px;
+    flex: none;
+    border: var(--pm-border);
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--pm-pink);
   }
-
-  .post-related-card span {
-    font-size: 0.85rem;
-    color: rgba(10, 10, 10, 0.6);
-    line-height: 1.5;
+  .post__author-name {
+    margin: 0.15rem 0 0;
+    font-family: var(--pm-display);
+    font-size: 1.5rem;
+    line-height: 1.1;
   }
+  .post__author-role { font-size: 0.95rem; }
 
-  @media (max-width: 768px) {
-    .post-related { padding: 3rem 2rem; }
-    .post-related-grid { grid-template-columns: 1fr; }
+  /* ─── Related services ─── */
+  .post__related { padding-block: clamp(3rem, 6vw, 4.5rem); }
+  .post__related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
   }
+  .post__related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+  }
+  .post__related-card .pm-text { font-size: 0.95rem; flex: 1; }
+  .post__related-card .pm-link { margin-top: 0.5rem; }
 
-  /* Bottom CTA */
-  .post-cta {
-    padding: 6rem 4rem;
-    background: var(--black);
-    color: var(--white);
+  /* ─── More posts ─── */
+  .post__more-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+    max-width: 1040px;
+    margin-inline: auto;
+  }
+  .post__more-card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    height: 100%;
+  }
+  .post__more-media { border-right: var(--pm-border); min-height: 200px; }
+  .post__more-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+  }
+  .post__more-body .pm-h3 { font-size: clamp(1.25rem, 1.7vw, 1.5rem); }
+  .post__more-body .pm-link { margin-top: auto; }
+  .post__more-cat { align-self: flex-start; background: var(--pm-milk); }
+  .post__more-all { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 3rem); }
+
+  /* ─── CTA ─── */
+  .post__cta { padding-block: clamp(4.5rem, 9vw, 7rem); }
+  .post__cta-inner {
+    display: grid;
+    justify-items: center;
     text-align: center;
+    gap: 1.25rem;
+  }
+  .post__cta-inner .pm-opening { color: var(--pm-ink); }
+  .post__cta-inner .pm-btn { margin-top: 0.5rem; }
+
+  @media (max-width: 860px) {
+    .post__more-grid { grid-template-columns: 1fr; }
   }
 
-  .post-cta-inner {
-    max-width: 600px;
-    margin: 0 auto;
+  @media (max-width: 560px) {
+    .post__more-card { grid-template-columns: 1fr; }
+    .post__more-media { border-right: 0; border-bottom: var(--pm-border); aspect-ratio: 16 / 9; min-height: 0; }
+    .post__author { align-items: flex-start; }
+    .post__author :global(.post__author-img) { width: 56px; height: 56px; }
+    .post__cta-inner .pm-btn { width: 100%; }
   }
 
-  .post-cta h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.9rem;
-  }
-
-  .post-cta p {
-    opacity: 0.72;
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-
-  @media (max-width: 768px) {
-    .post-hero,
-    .post-content,
-    .post-cta {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-    .post-hero { padding-top: 8rem; }
-    .post-cover { padding: 0 2rem; margin-top: -2rem; }
+  @media (prefers-reduced-motion: reduce) {
+    .post__prose :global(a.cta-button) { transition: none; }
   }
 </style>

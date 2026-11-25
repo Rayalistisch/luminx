@@ -1,4 +1,5 @@
 ---
+import Icon from "./pm/Icon.astro";
 const whatsappNumber = "31613698596";
 ---
 
@@ -9,19 +10,25 @@ const whatsappNumber = "31613698596";
     </svg>
   </button>
 
-  <section class="wa-panel" aria-label="WhatsApp chat" data-wa-panel>
+  <section class="pm-card wa-panel" aria-label="WhatsApp chat" data-wa-panel>
     <header class="wa-header">
-      <strong>Stuur ons een WhatsApp</strong>
-      <button type="button" aria-label="Sluit chatvenster" data-wa-close>&times;</button>
+      <span class="wa-header__badge" aria-hidden="true">
+        <svg class="wa-header__logo" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19.05 4.94A9.9 9.9 0 0 0 12.02 2C6.5 2 2 6.49 2 12a9.9 9.9 0 0 0 1.36 5.01L2 22l5.13-1.34A9.9 9.9 0 0 0 12.02 22c5.52 0 10.01-4.49 10.01-10a9.93 9.93 0 0 0-2.98-7.06Zm-7.03 15.4a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.04.8.81-2.97-.2-.31A8.29 8.29 0 0 1 3.7 12c0-4.58 3.73-8.3 8.32-8.3a8.3 8.3 0 0 1 8.3 8.3 8.31 8.31 0 0 1-8.3 8.34Zm4.55-6.22c-.25-.12-1.48-.73-1.71-.81-.23-.09-.4-.12-.57.12-.17.24-.65.81-.8.98-.15.17-.3.18-.56.06-.25-.13-1.08-.4-2.05-1.26-.76-.68-1.28-1.52-1.43-1.77-.15-.24-.02-.37.11-.5.12-.12.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.12-.57-1.37-.78-1.88-.21-.5-.43-.43-.57-.44h-.49c-.17 0-.45.06-.68.32-.23.25-.88.86-.88 2.09 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.52.6.19 1.14.16 1.57.1.48-.07 1.48-.6 1.69-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29Z"></path>
+    </svg>
+      </span>
+      <strong class="wa-header__title">Stuur ons een WhatsApp</strong>
+      <button type="button" class="wa-close" aria-label="Sluit chatvenster" data-wa-close><Icon name="x" size={18} stroke={2.5} /></button>
     </header>
     <div class="wa-body">
       <p>Stel je vraag, wij reageren zo snel mogelijk.</p>
       <textarea
         rows="3"
         placeholder="Typ je bericht..."
+        aria-label="Je bericht"
         data-wa-message
       ></textarea>
-      <button class="wa-send" type="button" data-wa-send>Versturen</button>
+      <button class="pm-btn pm-btn--sm wa-send" type="button" data-wa-send>Versturen <Icon name="send" /></button>
     </div>
   </section>
 </div>
@@ -85,99 +92,119 @@ const whatsappNumber = "31613698596";
   }
 
   .wa-fab {
-    width: 58px;
-    height: 58px;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border: var(--pm-border);
     border-radius: 50%;
-    border: 0;
-    background: #25d366;
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    background: #25D366;
+    color: var(--pm-milk);
+    box-shadow: 0 4px 0 var(--pm-ink);
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+    transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease);
   }
-
-  .wa-fab svg {
-    width: 30px;
-    height: 30px;
-    fill: currentColor;
-  }
+  .wa-fab svg { width: 30px; height: 30px; fill: currentColor; }
+  .wa-fab:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--pm-ink); }
 
   .wa-panel {
     position: absolute;
     right: 0;
-    bottom: 72px;
-    width: min(320px, calc(100vw - 2rem));
-    background: #fff;
-    color: #0a0a0a;
-    border-radius: 16px;
-    border: 1px solid rgba(10, 10, 10, 0.08);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+    bottom: 80px;
+    width: min(340px, calc(100vw - 2.5rem));
+    background: var(--pm-paper);
+    border-radius: var(--pm-r);
+    box-shadow: var(--pm-drop);
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    visibility: hidden;
+    transform: translateY(12px) scale(0.96);
+    transform-origin: bottom right;
     pointer-events: none;
-    transition: opacity 0.22s ease, transform 0.22s ease;
+    transition: opacity 0.3s var(--pm-ease), transform 0.5s var(--pm-ease), visibility 0s linear 0.3s;
   }
-
   .wa-panel.is-open {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    visibility: visible;
+    transform: none;
     pointer-events: auto;
+    transition: opacity 0.3s var(--pm-ease), transform 0.5s var(--pm-ease), visibility 0s;
   }
 
   .wa-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.8rem 0.9rem;
-    border-bottom: 1px solid rgba(10, 10, 10, 0.08);
-    font-family: "Syne", sans-serif;
+    gap: 0.7rem;
+    padding: 0.85rem 0.9rem 0.85rem 1rem;
+    border-bottom: var(--pm-border);
   }
-
-  .wa-header button {
-    border: 0;
-    background: transparent;
+  .wa-header__badge {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: #25D366;
+    color: var(--pm-milk);
+  }
+  .wa-header__logo { width: 18px; height: 18px; fill: currentColor; }
+  .wa-header__title {
+    flex: 1;
+    font-family: var(--pm-display);
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+  .wa-close {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
     cursor: pointer;
-    font-size: 1.2rem;
-    line-height: 1;
   }
 
   .wa-body {
-    padding: 0.9rem;
     display: grid;
-    gap: 0.7rem;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: var(--pm-milk);
   }
-
-  .wa-body p {
-    margin: 0;
-    font-size: 0.92rem;
-    color: rgba(10, 10, 10, 0.76);
-  }
-
+  .wa-body p { margin: 0; font-size: 0.95rem; color: var(--pm-ink-soft); }
   .wa-body textarea {
     width: 100%;
+    box-sizing: border-box;
     resize: none;
-    border: 1px solid rgba(10, 10, 10, 0.15);
-    border-radius: 10px;
-    padding: 0.65rem 0.72rem;
+    padding: 0.75rem 0.9rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
     font: inherit;
-    color: inherit;
+    font-size: 16px;
+    outline: none;
   }
+  .wa-body textarea::placeholder { color: var(--pm-ink-mute); }
+  .wa-body textarea:focus { background: #fff; box-shadow: 0 0 0 3px var(--pm-milk), 0 0 0 5px var(--pm-ink); }
+  .wa-send { width: 100%; }
 
-  .wa-send {
-    border: 0;
-    border-radius: 999px;
-    background: #0a0a0a;
-    color: #fff;
-    font-weight: 600;
-    padding: 0.72rem 1rem;
-    cursor: pointer;
+  @media (hover: hover) {
+    .wa-fab:hover { transform: translateY(-3px); box-shadow: 0 7px 0 var(--pm-ink); }
   }
 
   @media (max-width: 768px) {
-    .wa-widget {
-      display: none;
-    }
+    .wa-widget { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wa-fab, .wa-panel, .wa-panel.is-open { transition: none; }
+    .wa-panel { transform: none; }
   }
 </style>

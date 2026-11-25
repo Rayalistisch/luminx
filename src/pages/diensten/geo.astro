@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import ContactOverlay from "../../components/ContactOverlay.astro";
+import Icon from "../../components/pm/Icon.astro";
 
 const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
@@ -25,36 +26,42 @@ const serviceSchema = {
 
 const specialismen = [
   {
-    icon: "◎",
+    icon: "message",
+    tone: "",
     title: "Promptonderzoek",
     description: "Elke branche heeft een eigen set vragen die gebruikers aan AI stellen. Promptonderzoek brengt in kaart welke dat zijn, wie er nu wordt geciteerd en waar de kennisleemtes liggen.",
   },
   {
-    icon: "◈",
+    icon: "file-text",
+    tone: "pm-icon--pink",
     title: "Contentoptimalisatie voor AI",
     description: "AI-systemen selecteren bronnen op basis van helderheid, structuur en feitelijkheid. Content die daaraan voldoet wordt opgepikt. Content die alleen verkoopt, wordt overgeslagen.",
   },
   {
-    icon: "◉",
+    icon: "code",
+    tone: "pm-icon--yellow",
     title: "Structured data & schema",
     description: "Schema markup en entiteitsherkenning maken het voor AI-modellen mogelijk om een merk, product of expertise correct te classificeren en als bron te gebruiken.",
   },
   {
-    icon: "◌",
+    icon: "quote",
+    tone: "pm-icon--wine",
     title: "Citeerbare expertise",
     description: "AI-modellen citeren stellingen, definities en unieke data. Merken die originele inzichten publiceren worden vaker als bron geselecteerd dan merken die bestaande kennis herhalen.",
   },
   {
-    icon: "✦",
+    icon: "award",
+    tone: "pm-icon--pink",
     title: "Autoriteitsopbouw",
     description: "AI-systemen beoordelen betrouwbaarheid op basis van vermeldingen, backlinks en publicaties. Hoe vaker een merk als bron wordt gerefereerd, hoe zwaarder het weegt in AI-antwoorden.",
   },
   {
-    icon: "●",
+    icon: "chart",
+    tone: "pm-icon--yellow",
     title: "AI-monitoring & rapportage",
     description: "AI-zichtbaarheid is meetbaar. Systematische monitoring toont aan of een merk wordt geciteerd in ChatGPT, Gemini en Perplexity, en waar bijsturing nodig is.",
   },
-];
+] as const;
 
 const benefits = [
   {
@@ -86,11 +93,11 @@ const faq = [
   },
   {
     q: "Wat is het verschil tussen GEO en SEO?",
-    a: "SEO gaat over ranken in zoekmachines via techniek, content en linkbuilding. GEO gaat een stap verder: in plaats van pagina's optimaliseren voor zoekwoorden, zorg je dat jouw expertise, kennis en merk worden opgepikt door AI-systemen. In de praktijk overlappen ze sterk — goede SEO is een fundament voor GEO, en GEO-content presteert ook beter in Google.",
+    a: "SEO gaat over ranken in zoekmachines via techniek, content en linkbuilding. GEO gaat een stap verder: in plaats van pagina's optimaliseren voor zoekwoorden, zorg je dat jouw expertise, kennis en merk worden opgepikt door AI-systemen. In de praktijk overlappen ze sterk: goede SEO is een fundament voor GEO, en GEO-content presteert ook beter in Google.",
   },
   {
     q: "Hoe lang duurt het voor GEO resultaat geeft?",
-    a: "GEO is een langetermijnstrategie, vergelijkbaar met SEO. De eerste resultaten — zoals vaker geciteerd worden in AI-antwoorden — zijn doorgaans zichtbaar na drie tot zes maanden. Autoriteit en consistente zichtbaarheid bouwen zich op over zes tot twaalf maanden.",
+    a: "GEO is een langetermijnstrategie, vergelijkbaar met SEO. De eerste resultaten, zoals vaker geciteerd worden in AI-antwoorden, zijn doorgaans zichtbaar na drie tot zes maanden. Autoriteit en consistente zichtbaarheid bouwen zich op over zes tot twaalf maanden.",
   },
   {
     q: "Hoe meten jullie AI-zichtbaarheid?",
@@ -111,6 +118,78 @@ const faqSchema = {
     acceptedAnswer: { "@type": "Answer", text: a },
   })),
 };
+
+const heroMetrics = [
+  { icon: "bot", value: "3+ kanalen", label: "ChatGPT, Gemini, Perplexity" },
+  { icon: "zap", value: "Vroeg voordeel", label: "Weinig concurrentie nu" },
+  { icon: "layers", value: "SEO + GEO", label: "Eén aanpak, twee kanalen" },
+] as const;
+
+const heroOutcomes = [
+  "Het merk verschijnt als bron in AI-antwoorden over de branche",
+  "Content wordt geselecteerd op basis van autoriteit en structuur",
+  "Zichtbaarheid in een kanaal waar de meeste concurrenten nog afwezig zijn",
+];
+
+const resultStack = [
+  { value: "AI-first", label: "Zoekopdrachten verschuiven" },
+  { value: "3+ tools", label: "ChatGPT, Gemini, Perplexity" },
+  { value: "Nu instappen", label: "Vroeg voordeel t.o.v. concurrenten" },
+];
+
+const steps = [
+  {
+    title: "AI-audit & promptonderzoek",
+    body: "Eerste stap is inzicht: hoe behandelen AI-tools jouw branche? Welke vragen worden gesteld, wie wordt geciteerd en waar zijn de kennisleemtes? Zonder deze data is elke GEO-strategie giswerk.",
+  },
+  {
+    title: "Strategie",
+    body: "De audit bepaalt de prioriteiten: welke bestaande pagina's worden geoptimaliseerd, welke nieuwe content is nodig en welke structurele aanpassingen maken het verschil. Elke actie is gekoppeld aan een meetbaar doel.",
+  },
+  {
+    title: "Implementatie",
+    body: "Content wordt geoptimaliseerd op citeerbare helderheid, structured data wordt geïmplementeerd en autoriteit wordt opgebouwd via publicaties die AI-systemen als betrouwbaarheidssignaal gebruiken.",
+  },
+  {
+    title: "Monitoren & bijsturen",
+    body: "AI-zichtbaarheid wordt maandelijks gemeten: verschijnt het merk in relevante AI-antwoorden? In welke context? Met welke frequentie? Op basis van die data wordt de strategie aangescherpt.",
+  },
+];
+
+const pains = [
+  "Concurrenten worden geciteerd door AI, het eigen merk niet",
+  "Content is geschreven voor Google, niet voor AI-consumptie",
+  "Geen inzicht in welke vragen AI beantwoordt per branche",
+  "Structured data ontbreekt of is incorrect geïmplementeerd",
+  "AI-zichtbaarheid wordt niet gemeten, dus bijsturen is onmogelijk",
+  "Afwachten terwijl early movers posities innemen die later niet meer beschikbaar zijn",
+];
+
+const gains = [
+  "AI-audit met inzicht in hoe het merk, de concurrentie en de branche door AI worden behandeld",
+  "Promptkaart met de exacte vragen die AI beantwoordt in de betreffende markt",
+  "Content die voldoet aan de criteria die AI-systemen hanteren voor bronselectie",
+  "Structured data die AI-modellen in staat stelt het merk correct te classificeren",
+  "Autoriteitsopbouw via publicaties die als betrouwbaarheidssignaal functioneren",
+  "Maandelijkse rapportage met meetbare voortgang op AI-zichtbaarheid",
+];
+
+const outcomes = [
+  "Zichtbaarheid in ChatGPT-antwoorden",
+  "Geciteerd door Gemini en Perplexity",
+  "Sterke digitale autoriteit",
+  "AI-geoptimaliseerde content",
+  "Vroeg marktvoordeel",
+  "Structured data correct geïmplementeerd",
+  "Toekomstbestendige strategie",
+  "Maandelijkse AI-zichtbaarheidsrapportage",
+];
+
+const related = [
+  { href: "/vergelijk/geo-vs-seo", title: "GEO vs. SEO", desc: "Wanneer kies je AI-zichtbaarheid, wanneer zoekmachines?" },
+  { href: "/diensten/seo", title: "SEO", desc: "Structurele zichtbaarheid in Google naast AI-antwoorden." },
+  { href: "/diensten/strategy", title: "Digitale Strategie", desc: "GEO als onderdeel van een brede digitale groeistrategie." },
+];
 ---
 
 <BaseLayout
@@ -119,255 +198,259 @@ const faqSchema = {
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="geo-page">
+  <main class="svc">
 
-    <section class="geo-hero" data-bg-color="#0A0A0A">
-      <div class="geo-hero-overlay" aria-hidden="true"></div>
-      <div class="geo-hero-inner">
-        <div class="geo-hero-content">
-          <a href="/diensten/seo" class="geo-back-link">← SEO</a>
-          <span class="geo-kicker">Specialisme</span>
-          <h1><span class="geo-icon" aria-hidden="true">✦</span> GEO</h1>
-          <p class="geo-intro-p">Steeds meer zoekopdrachten worden beantwoord door AI in plaats van door Google. Merken die nu investeren in AI-zichtbaarheid bouwen een voorsprong op die later niet meer in te halen is. GEO is de discipline die dat mogelijk maakt.</p>
-          <div class="geo-actions">
-            <a href="#contact" class="geo-btn-primary" data-overlay-open>Plan kennismaking</a>
-            <a href="#aanpak" class="geo-btn-secondary">Bekijk aanpak</a>
-          </div>
-          <div class="geo-metrics">
-            <article class="geo-metric">
-              <strong>3+ kanalen</strong>
-              <span>ChatGPT, Gemini, Perplexity</span>
-            </article>
-            <article class="geo-metric">
-              <strong>Vroeg voordeel</strong>
-              <span>Weinig concurrentie nu</span>
-            </article>
-            <article class="geo-metric">
-              <strong>SEO + GEO</strong>
-              <span>Eén aanpak, twee kanalen</span>
-            </article>
+    <!-- Hero -->
+    <section class="svc__hero" aria-labelledby="svc-title">
+      <div class="pm-stack">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+
+        <div class="pm-stack__panel svc__panel">
+          <img class="pm-obj pm-obj--right" src="/images/3d/ai-chip.webp" width="1165" height="1290" alt="" aria-hidden="true" decoding="async" />
+          <div class="svc__hero-content">
+            <a href="/diensten/seo" class="svc__back" data-reveal>
+              <Icon name="arrow" size={16} stroke={2.4} /> SEO
+            </a>
+            <span class="pm-tag svc__tag" data-reveal style="--d: 1"><Icon name="sparkles" size={16} /> Specialisme · AI-zichtbaarheid</span>
+            <h1 id="svc-title" class="pm-h1 svc__title" data-reveal style="--d: 2">GEO</h1>
+            <p class="pm-opening svc__sub" data-reveal style="--d: 3">
+              Steeds meer zoekopdrachten worden beantwoord door AI in plaats van door Google. Merken die nu investeren in AI-zichtbaarheid bouwen een voorsprong op die later niet meer in te halen is. GEO is de discipline die dat mogelijk maakt.
+            </p>
+            <div class="svc__actions" data-reveal style="--d: 4">
+              <a href="#contact" class="pm-btn pm-btn--yellow" data-overlay-open>Plan kennismaking <Icon name="arrow" /></a>
+              <a href="#aanpak" class="pm-btn pm-btn--white">Bekijk aanpak</a>
+            </div>
           </div>
         </div>
-        <aside class="geo-hero-panel">
-          <span>Wat GEO oplevert</span>
-          <ul>
-            <li>Het merk verschijnt als bron in AI-antwoorden over de branche</li>
-            <li>Content wordt geselecteerd op basis van autoriteit en structuur</li>
-            <li>Zichtbaarheid in een kanaal waar de meeste concurrenten nog afwezig zijn</li>
+      </div>
+
+      <div class="pm-container svc__float-wrap">
+        <div class="pm-card pm-card--lift svc__float" data-reveal>
+          <ul class="svc__metrics" aria-label="Kerncijfers">
+            {heroMetrics.map((m, i) => (
+              <li class="svc__metric" data-reveal style={`--d: ${i}`}>
+                <span class:list={["pm-icon", "pm-icon--sm", i === 0 ? "" : i === 1 ? "pm-icon--yellow" : "pm-icon--pink"]} aria-hidden="true"><Icon name={m.icon} /></span>
+                <span class="svc__metric-text">
+                  <strong>{m.value}</strong>
+                  <span>{m.label}</span>
+                </span>
+              </li>
+            ))}
           </ul>
-        </aside>
-      </div>
-    </section>
-
-    <section class="geo-what" data-bg-color="#FEFEFE">
-      <div class="geo-container geo-what-grid">
-        <div class="geo-what-text">
-          <span class="geo-label">Wat is GEO?</span>
-          <h2>Zoekopdrachten verschuiven van Google naar AI</h2>
-          <p>GEO staat voor Generative Engine Optimization. Waar SEO draait om posities in Google, richt GEO zich op zichtbaarheid in de antwoorden van ChatGPT, Gemini en Perplexity. Het verschil is fundamenteel: in Google concurreer je om een klikpositie, in AI concurreer je om geciteerd te worden als bron.</p>
-          <p>AI-systemen selecteren bronnen op basis van autoriteit, structuur en citeerbare expertise. Content die helder, feitelijk en goed gestructureerd is, wordt vaker opgepikt. Content die alleen verkoopt, wordt genegeerd. GEO en SEO zijn geen losse strategieën. Goede GEO-content presteert per definitie ook beter in Google.</p>
-          <a href="#contact" class="geo-inline-cta" data-overlay-open>Gratis GEO-analyse →</a>
-        </div>
-        <div class="geo-what-visual" aria-hidden="true">
-          <div class="geo-stat-stack">
-            <div class="geo-stat-stack-header">
-              <span>GEO Optimalisaties</span>
-            </div>
-            <div class="geo-stat-item">
-              <span class="geo-stat-num">01</span>
-              <div class="geo-stat-body">
-                <span class="geo-stat-value">AI-first</span>
-                <span class="geo-stat-desc">Zoekopdrachten verschuiven</span>
-              </div>
-            </div>
-            <div class="geo-stat-item">
-              <span class="geo-stat-num">02</span>
-              <div class="geo-stat-body">
-                <span class="geo-stat-value">3+ tools</span>
-                <span class="geo-stat-desc">ChatGPT, Gemini, Perplexity</span>
-              </div>
-            </div>
-            <div class="geo-stat-item">
-              <span class="geo-stat-num">03</span>
-              <div class="geo-stat-body">
-                <span class="geo-stat-value">Nu instappen</span>
-                <span class="geo-stat-desc">Vroeg voordeel t.o.v. concurrenten</span>
-              </div>
-            </div>
+          <div class="svc__float-foot">
+            <span class="pm-label">Wat GEO oplevert</span>
+            <ul class="pm-checks svc__float-checks">
+              {heroOutcomes.map((o) => <li>{o}</li>)}
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="geo-services" data-bg-color="#F7F9FC">
-      <div class="geo-container">
-        <div class="geo-section-head centered">
-          <span class="geo-label">Specialisme</span>
-          <h2>De zes pijlers van GEO</h2>
-          <p>GEO bestaat uit zes disciplines die samen bepalen of een merk wel of niet wordt geciteerd door AI-systemen. Elk onderdeel heeft een eigen functie in het proces van onzichtbaar naar bron.</p>
+    <!-- Wat is GEO -->
+    <section class="pm-section svc__what" aria-labelledby="what-title">
+      <div class="pm-container pm-split svc__what-grid">
+        <div class="svc__what-text">
+          <header class="pm-head pm-head--left svc__head-left">
+            <span class="pm-label" data-reveal>Wat is GEO?</span>
+            <h2 id="what-title" class="pm-h2" data-reveal style="--d: 1">Zoekopdrachten verschuiven van Google naar AI</h2>
+          </header>
+          <p class="pm-text" data-reveal style="--d: 2">GEO staat voor Generative Engine Optimization. Waar SEO draait om posities in Google, richt GEO zich op zichtbaarheid in de antwoorden van ChatGPT, Gemini en Perplexity. Het verschil is fundamenteel: in Google concurreer je om een klikpositie, in AI concurreer je om geciteerd te worden als bron.</p>
+          <p class="pm-text" data-reveal style="--d: 3">AI-systemen selecteren bronnen op basis van autoriteit, structuur en citeerbare expertise. Content die helder, feitelijk en goed gestructureerd is, wordt vaker opgepikt. Content die alleen verkoopt, wordt genegeerd. GEO en SEO zijn geen losse strategieën. Goede GEO-content presteert per definitie ook beter in Google.</p>
+          <a href="#contact" class="pm-link svc__inline" data-overlay-open data-reveal style="--d: 4">Gratis GEO-analyse <Icon name="arrow" size={18} stroke={2.4} /></a>
         </div>
-        <div class="geo-cards-grid">
-          {specialismen.map((item) => (
-            <div class="geo-card">
-              <div class="geo-card-icon" aria-hidden="true">{item.icon}</div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </div>
-          ))}
+
+        <div class="pm-card pm-card--plum pm-card--lift svc__stack" aria-hidden="true" data-reveal style="--d: 1">
+          <div class="svc__stack-head">
+            <span class="pm-icon pm-icon--sm pm-icon--pink"><Icon name="sparkles" /></span>
+            <span>GEO Optimalisaties</span>
+          </div>
+          <ol class="svc__stack-list">
+            {resultStack.map((r, i) => (
+              <li>
+                <span class="svc__stack-num">0{i + 1}</span>
+                <span class="svc__stack-body">
+                  <strong>{r.value}</strong>
+                  <span>{r.label}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
 
-    <section class="geo-benefits" data-bg-color="#FEFEFE">
-      <div class="geo-container geo-benefits-grid">
-        <div class="geo-benefits-left">
-          <span class="geo-label">Waarom GEO?</span>
-          <h2>Waarom GEO nu relevant is voor elk bedrijf</h2>
-          <p>Het zoekgedrag van consumenten verandert structureel. AI-tools beantwoorden steeds meer vragen die voorheen via Google gingen. Bedrijven die niet zichtbaar zijn in AI-antwoorden, verliezen een groeiend deel van hun potentiële bereik.</p>
-          <div class="geo-benefit-stats">
-            <div class="geo-bstat">
+    <!-- Zes pijlers -->
+    <section class="pm-section pm-band--paper svc__types" aria-labelledby="types-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>Specialisme</span>
+          <h2 id="types-title" class="pm-h2" data-reveal style="--d: 1">De zes pijlers van GEO</h2>
+          <p class="pm-opening" data-reveal style="--d: 2">GEO bestaat uit zes disciplines die samen bepalen of een merk wel of niet wordt geciteerd door AI-systemen. Elk onderdeel heeft een eigen functie in het proces van onzichtbaar naar bron.</p>
+        </header>
+        <ul class="svc__grid">
+          {specialismen.map((t, i) => (
+            <li class="pm-card pm-card--milk pm-card--pad svc__tile" data-reveal style={`--d: ${i % 3}`}>
+              <span class="svc__tile-top">
+                <span class:list={["pm-icon", t.tone]}><Icon name={t.icon} /></span>
+                <span class="svc__tile-num" aria-hidden="true">0{i + 1}</span>
+              </span>
+              <h3 class="pm-h3 svc__tile-title">{t.title}</h3>
+              <p class="pm-text">{t.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Waarom GEO -->
+    <section class="pm-section svc__benefits" aria-labelledby="benefits-title">
+      <div class="pm-container pm-split svc__benefits-grid">
+        <div class="svc__benefits-left">
+          <header class="pm-head pm-head--left">
+            <span class="pm-label" data-reveal>Waarom GEO?</span>
+            <h2 id="benefits-title" class="pm-h2" data-reveal style="--d: 1">Waarom GEO nu relevant is voor elk bedrijf</h2>
+            <p class="pm-opening" data-reveal style="--d: 2">Het zoekgedrag van consumenten verandert structureel. AI-tools beantwoorden steeds meer vragen die voorheen via Google gingen. Bedrijven die niet zichtbaar zijn in AI-antwoorden, verliezen een groeiend deel van hun potentiële bereik.</p>
+          </header>
+          <div class="svc__minis">
+            <div class="pm-card pm-card--pink svc__mini" data-reveal style="--d: 3">
+              <span class="pm-icon pm-icon--sm pm-icon--milk" aria-hidden="true"><Icon name="trending-up" /></span>
               <strong>Groeiend</strong>
               <span>AI-zoekopdrachten nemen elk kwartaal toe</span>
             </div>
-            <div class="geo-bstat">
+            <div class="pm-card pm-card--yellow svc__mini" data-reveal style="--d: 4">
+              <span class="pm-icon pm-icon--sm pm-icon--milk" aria-hidden="true"><Icon name="target" /></span>
               <strong>Weinig concurrentie</strong>
               <span>De meeste bureaus zijn hier nog niet mee bezig</span>
             </div>
           </div>
         </div>
-        <div class="geo-benefits-right">
-          {benefits.map((b) => (
-            <details class="geo-benefit-item">
-              <summary>{b.title}</summary>
-              <p>{b.body}</p>
-            </details>
+        <ul class="pm-accordion" data-reveal style="--d: 1">
+          {benefits.map((b, i) => (
+            <li>
+              <details class="pm-acc" name="geo-benefits" open={i === 0}>
+                <summary>{b.title}</summary>
+                <div class="pm-acc__body"><p>{b.body}</p></div>
+              </details>
+            </li>
           ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Aanpak -->
+    <section class="pm-section pm-section--tight svc__approach" id="aanpak" aria-labelledby="approach-title">
+      <div class="pm-container">
+        <div class="pm-card pm-card--plum pm-card--lift svc__plum">
+          <header class="pm-head pm-head--left svc__plum-head">
+            <span class="pm-tag pm-tag--pink" data-reveal>Aanpak</span>
+            <h2 id="approach-title" class="pm-h2" data-reveal style="--d: 1">Van onzichtbaar naar geciteerd in vier fases</h2>
+          </header>
+          <ol class="svc__timeline">
+            {steps.map((s, i) => (
+              <li class="svc__tl-step" data-reveal style={`--d: ${i}`}>
+                <span class:list={["svc__tl-num", i === steps.length - 1 && "svc__tl-num--goal"]} aria-hidden="true">0{i + 1}</span>
+                <div class="svc__tl-body">
+                  <h3 class="svc__tl-title">{s.title}</h3>
+                  <p>{s.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
 
-    <section class="geo-approach" id="aanpak" data-bg-color="#F7F9FC">
-      <div class="geo-container">
-        <div class="geo-section-head">
-          <span class="geo-label">Aanpak</span>
-          <h2>Van onzichtbaar naar geciteerd in vier fases</h2>
-        </div>
-        <div class="geo-steps">
-          <article class="geo-step">
-            <span class="geo-step-num">01</span>
-            <h3>AI-audit & promptonderzoek</h3>
-            <p>Eerste stap is inzicht: hoe behandelen AI-tools jouw branche? Welke vragen worden gesteld, wie wordt geciteerd en waar zijn de kennisleemtes? Zonder deze data is elke GEO-strategie giswerk.</p>
-          </article>
-          <article class="geo-step">
-            <span class="geo-step-num">02</span>
-            <h3>Strategie</h3>
-            <p>De audit bepaalt de prioriteiten: welke bestaande pagina's worden geoptimaliseerd, welke nieuwe content is nodig en welke structurele aanpassingen maken het verschil. Elke actie is gekoppeld aan een meetbaar doel.</p>
-          </article>
-          <article class="geo-step">
-            <span class="geo-step-num">03</span>
-            <h3>Implementatie</h3>
-            <p>Content wordt geoptimaliseerd op citeerbare helderheid, structured data wordt geïmplementeerd en autoriteit wordt opgebouwd via publicaties die AI-systemen als betrouwbaarheidssignaal gebruiken.</p>
-          </article>
-          <article class="geo-step">
-            <span class="geo-step-num">04</span>
-            <h3>Monitoren & bijsturen</h3>
-            <p>AI-zichtbaarheid wordt maandelijks gemeten: verschijnt het merk in relevante AI-antwoorden? In welke context? Met welke frequentie? Op basis van die data wordt de strategie aangescherpt.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="geo-context" data-bg-color="#FEFEFE">
-      <div class="geo-container geo-context-grid">
-        <article class="geo-block">
-          <h2>Veelvoorkomende fouten bij GEO</h2>
-          <ul class="geo-list geo-list--muted">
-            <li>Concurrenten worden geciteerd door AI, het eigen merk niet</li>
-            <li>Content is geschreven voor Google, niet voor AI-consumptie</li>
-            <li>Geen inzicht in welke vragen AI beantwoordt per branche</li>
-            <li>Structured data ontbreekt of is incorrect geïmplementeerd</li>
-            <li>AI-zichtbaarheid wordt niet gemeten, dus bijsturen is onmogelijk</li>
-            <li>Afwachten terwijl early movers posities innemen die later niet meer beschikbaar zijn</li>
+    <!-- Fouten vs oplevering -->
+    <section class="pm-section svc__compare" aria-label="Veelvoorkomende fouten en wat GEO oplevert">
+      <div class="pm-container pm-split">
+        <article class="pm-card pm-card--pink pm-card--pad svc__compare-card" data-reveal>
+          <span class="pm-icon pm-icon--milk" aria-hidden="true"><Icon name="alert" /></span>
+          <h2 class="pm-h3">Veelvoorkomende fouten bij GEO</h2>
+          <ul class="pm-checks pm-checks--x">
+            {pains.map((p) => <li>{p}</li>)}
           </ul>
         </article>
-        <article class="geo-block geo-block--soft">
-          <h2>Wat een GEO-traject oplevert</h2>
-          <ul class="geo-list">
-            <li>AI-audit met inzicht in hoe het merk, de concurrentie en de branche door AI worden behandeld</li>
-            <li>Promptkaart met de exacte vragen die AI beantwoordt in de betreffende markt</li>
-            <li>Content die voldoet aan de criteria die AI-systemen hanteren voor bronselectie</li>
-            <li>Structured data die AI-modellen in staat stelt het merk correct te classificeren</li>
-            <li>Autoriteitsopbouw via publicaties die als betrouwbaarheidssignaal functioneren</li>
-            <li>Maandelijkse rapportage met meetbare voortgang op AI-zichtbaarheid</li>
+        <article class="pm-card pm-card--milk pm-card--lift pm-card--pad svc__compare-card" data-reveal style="--d: 1">
+          <span class="pm-icon pm-icon--yellow" aria-hidden="true"><Icon name="check" /></span>
+          <h2 class="pm-h3">Wat een GEO-traject oplevert</h2>
+          <ul class="pm-checks">
+            {gains.map((g) => <li>{g}</li>)}
           </ul>
         </article>
       </div>
     </section>
 
-    <section class="geo-faq" data-bg-color="#F7F9FC">
-      <div class="geo-container geo-faq-grid">
-        <div class="geo-faq-left">
-          <span class="geo-label">Veelgestelde vragen</span>
-          <h2>Alles over GEO en AI-zichtbaarheid</h2>
-          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
-          <a href="#contact" class="geo-inline-cta" data-overlay-open>Stel je vraag →</a>
-        </div>
-        <div class="geo-faq-right">
-          {faq.map((item) => (
-            <details class="geo-faq-item">
-              <summary>{item.q}</summary>
-              <p>{item.a}</p>
-            </details>
+    <!-- Resultaten -->
+    <section class="pm-section pm-section--tight pm-band--plum svc__outcomes" aria-labelledby="outcomes-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-icon pm-icon--yellow" aria-hidden="true" data-reveal><Icon name="target" /></span>
+          <h2 id="outcomes-title" class="pm-h2" data-reveal style="--d: 1">Resultaten die je mag verwachten</h2>
+        </header>
+        <ul class="svc__chips">
+          {outcomes.map((o, i) => (
+            <li class:list={["pm-tag", i % 3 === 0 ? "pm-tag--yellow" : i % 3 === 1 ? "pm-tag--paper" : "pm-tag--pink"]} data-reveal style={`--d: ${i % 4}`}>{o}</li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
 
-    <section class="geo-outcomes" data-bg-color="#0A0A0A">
-      <div class="geo-container">
-        <h2>Resultaten die je mag verwachten</h2>
-        <div class="geo-outcome-tags">
-          <span>Zichtbaarheid in ChatGPT-antwoorden</span>
-          <span>Geciteerd door Gemini en Perplexity</span>
-          <span>Sterke digitale autoriteit</span>
-          <span>AI-geoptimaliseerde content</span>
-          <span>Vroeg marktvoordeel</span>
-          <span>Structured data correct geïmplementeerd</span>
-          <span>Toekomstbestendige strategie</span>
-          <span>Maandelijkse AI-zichtbaarheidsrapportage</span>
-        </div>
+    <!-- FAQ -->
+    <section class="pm-section svc__faq" aria-labelledby="faq-title">
+      <div class="pm-container svc__faq-grid">
+        <header class="pm-head pm-head--left svc__faq-head">
+          <span class="pm-label" data-reveal>Veelgestelde vragen</span>
+          <h2 id="faq-title" class="pm-h2" data-reveal style="--d: 1">Alles over GEO en AI-zichtbaarheid</h2>
+          <p class="pm-text" data-reveal style="--d: 2">Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="pm-btn pm-btn--white pm-btn--sm" data-overlay-open data-reveal style="--d: 3">Stel je vraag <Icon name="arrow" /></a>
+        </header>
+        <ul class="pm-accordion" data-reveal style="--d: 1">
+          {faq.map((item, i) => (
+            <li>
+              <details class="pm-acc" name="geo-faq" open={i === 0}>
+                <summary>{item.q}</summary>
+                <div class="pm-acc__body"><p>{item.a}</p></div>
+              </details>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
-    <section class="geo-related-reads" data-bg-color="#F7F9FC">
-      <div class="geo-container">
-        <span class="geo-related-kicker">Gerelateerd</span>
-        <div class="geo-related-grid">
-          <a href="/vergelijk/geo-vs-seo" class="geo-related-card">
-            <strong>GEO vs. SEO</strong>
-            <span>Wanneer kies je AI-zichtbaarheid, wanneer zoekmachines?</span>
-          </a>
-          <a href="/diensten/seo" class="geo-related-card">
-            <strong>SEO</strong>
-            <span>Structurele zichtbaarheid in Google naast AI-antwoorden.</span>
-          </a>
-          <a href="/diensten/strategy" class="geo-related-card">
-            <strong>Digitale Strategie</strong>
-            <span>GEO als onderdeel van een brede digitale groeistrategie.</span>
-          </a>
-        </div>
+    <!-- Gerelateerd -->
+    <section class="pm-section pm-section--tight svc__related" aria-labelledby="related-title">
+      <div class="pm-container">
+        <header class="pm-head pm-head--left">
+          <span id="related-title" class="pm-label">Gerelateerd</span>
+        </header>
+        <ul class="svc__related-grid">
+          {related.map((r, i) => (
+            <li data-reveal style={`--d: ${i}`}>
+              <a href={r.href} class="pm-card svc__related-card">
+                <span class="svc__related-text">
+                  <strong>{r.title}</strong>
+                  <span>{r.desc}</span>
+                </span>
+                <span class="svc__arrow" aria-hidden="true"><Icon name="arrow" size={18} stroke={2.4} /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
-    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
-      <div class="cta-content">
-        <h2>Klaar om zichtbaar te worden<br/>in AI-antwoorden?</h2>
-        <p>We analyseren hoe AI-tools jouw branche behandelen en presenteren een concreet plan om jouw merk en expertise op de kaart te zetten.</p>
-        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+    <!-- CTA -->
+    <section class="pm-band svc__cta" id="contact" aria-labelledby="cta-title">
+      <div class="pm-container svc__cta-inner">
+        <span class="pm-icon pm-icon--yellow" aria-hidden="true" data-reveal><Icon name="sparkles" /></span>
+        <h2 id="cta-title" class="pm-h2 pm-outline svc__cta-title" data-reveal style="--d: 1">Klaar om zichtbaar te worden in AI-antwoorden?</h2>
+        <p class="pm-opening svc__cta-text" data-reveal style="--d: 2">We analyseren hoe AI-tools jouw branche behandelen en presenteren een concreet plan om jouw merk en expertise op de kaart te zetten.</p>
+        <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open data-reveal style="--d: 3">Plan kennismaking <Icon name="arrow" /></a>
       </div>
     </section>
 
@@ -377,393 +460,284 @@ const faqSchema = {
 </BaseLayout>
 
 <style>
-  .geo-page { background: var(--white); }
+  /* ── Hero ───────────────────────────────────────────────────────────── */
+  .svc__hero { position: relative; padding-top: 72px; }
 
-  .geo-container { max-width: 1240px; margin: 0 auto; }
-
-  .geo-label {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.45;
-    margin-bottom: 0.75rem;
+  .svc__panel {
+    padding: clamp(4rem, 8vw, 6rem) var(--pm-gutter) clamp(12rem, 20vw, 15rem);
   }
 
-  .geo-section-head { margin-bottom: 3rem; }
-  .geo-section-head h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.9rem, 3.6vw, 3rem);
-    line-height: 1.08;
-    letter-spacing: -0.022em;
-  }
-  .geo-section-head.centered { text-align: center; }
-  .geo-section-head.centered h2,
-  .geo-section-head.centered p { margin-left: auto; margin-right: auto; }
-  .geo-section-head.centered p { max-width: 560px; }
-  .geo-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
-
-  .geo-inline-cta {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--black);
-    border-bottom: 1.5px solid var(--black);
-    padding-bottom: 2px;
-    transition: opacity 0.2s ease;
-  }
-  .geo-inline-cta:hover { opacity: 0.6; }
-
-  /* Hero */
-  .geo-hero {
-    min-height: 88vh;
-    position: relative;
-    background: var(--black);
-    color: var(--white);
-    padding: 10rem 4rem 5.5rem;
-    overflow: hidden;
-  }
-
-  .geo-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 16% 18%, rgba(229, 212, 237, 0.18), transparent 42%),
-      radial-gradient(circle at 82% 24%, rgba(212, 244, 221, 0.12), transparent 38%);
-  }
-
-  .geo-hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 1240px;
-    margin: 0 auto;
+  .svc__hero-content {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 360px;
-    gap: 2rem;
-    align-items: end;
+    justify-items: center;
+    text-align: center;
+    gap: 1.4rem;
+    max-width: 900px;
+    margin-inline: auto;
   }
 
-  .geo-back-link {
-    display: inline-flex;
-    margin-bottom: 1.8rem;
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.6;
-    font-size: 0.9rem;
-    transition: opacity 0.25s ease;
-  }
-  .geo-back-link:hover { opacity: 1; }
-
-  .geo-kicker {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.48;
-    margin-bottom: 1rem;
-  }
-
-  .geo-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2.6rem, 6vw, 5.4rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.4rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.55rem;
-  }
-
-  .geo-icon { color: var(--pastel-purple); font-size: 0.68em; }
-
-  .geo-intro-p {
-    max-width: 700px;
-    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
-    opacity: 0.88;
-    margin-bottom: 2rem;
-    line-height: 1.7;
-  }
-
-  .geo-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
-
-  .geo-btn-primary,
-  .geo-btn-secondary {
+  .svc__back {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 999px;
+    gap: 0.45rem;
+    color: var(--pm-milk);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     text-decoration: none;
-    font-weight: 500;
-    padding: 0.9rem 1.45rem;
-    transition: transform 0.25s ease;
+    opacity: 0.85;
   }
-  .geo-btn-primary  { color: var(--black); background: var(--white); }
-  .geo-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
-  .geo-btn-primary:hover, .geo-btn-secondary:hover { transform: translateY(-2px); }
+  .svc__back :global(svg) { transform: rotate(180deg); }
+  @media (hover: hover) { .svc__back:hover { opacity: 1; color: var(--pm-yellow); } }
 
-  .geo-metrics {
+  .svc__tag { white-space: normal; }
+  .svc__title { color: var(--pm-milk); font-size: clamp(4rem, 11vw, 8.5rem); }
+  .svc__sub { max-width: 700px; }
+
+  .svc__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .svc__float-wrap {
+    position: relative;
+    margin-top: clamp(-10rem, -16vw, -8rem);
+    z-index: 2;
+  }
+
+  .svc__float {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 3.5vw, 3rem);
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .svc__metrics {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.7rem;
-    max-width: 720px;
+    gap: 0.75rem;
   }
-
-  .geo-metric { border-top: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
-  .geo-metric strong { display: block; font-family: 'Matter Sans', sans-serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
-  .geo-metric span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.72; }
-
-  .geo-hero-panel { border-left: 1px solid rgba(255,255,255,0.25); padding: 0.5rem 0 0.5rem 1.5rem; }
-  .geo-hero-panel > span {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.58;
-    margin-bottom: 0.75rem;
-  }
-  .geo-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
-  .geo-hero-panel li { line-height: 1.55; padding-left: 1rem; position: relative; opacity: 0.92; }
-  .geo-hero-panel li::before {
-    content: "";
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-mint));
-    position: absolute;
-    left: 0; top: 0.62rem;
-  }
-
-  /* What is GEO */
-  .geo-what { padding: 7rem 4rem; }
-  .geo-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-  .geo-what-text h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    line-height: 1.1;
-    letter-spacing: -0.022em;
-    margin-bottom: 1.25rem;
-  }
-  .geo-what-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
-
-  .geo-what-visual { display: flex; justify-content: center; align-items: flex-start; }
-
-  .geo-stat-stack {
-    width: 100%;
-    max-width: 380px;
-    border: 1px solid rgba(10,10,10,0.09);
-    border-radius: 24px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 16px 56px rgba(10,10,10,0.08);
-  }
-
-  .geo-stat-stack-header {
-    padding: 0.9rem 1.75rem;
-    background: var(--black);
+  .svc__metric {
+    container-type: inline-size;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.9rem;
+    padding: 1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
   }
-  .geo-stat-stack-header span {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-  }
-  .geo-stat-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #A07828;
-    flex-shrink: 0;
-  }
+  .svc__metric .pm-icon { box-shadow: none; }
+  .svc__metric-text { display: grid; gap: 0.1rem; min-width: 0; }
+  .svc__metric-text strong { font-family: var(--pm-display); font-weight: 400; font-size: clamp(1.4rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing: 0.01em; }
+  .svc__metric-text span { font-size: 0.88rem; line-height: 1.3; color: var(--pm-ink-soft); }
 
-  .geo-stat-item {
-    padding: 1.5rem 1.75rem;
-    border-bottom: 1px solid rgba(10,10,10,0.07);
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-  }
-  .geo-stat-item:last-child { border-bottom: none; }
-
-  .geo-stat-num {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: rgba(10,10,10,0.28);
-    flex-shrink: 0;
-    width: 1.2rem;
-  }
-
-  .geo-stat-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    min-width: 0;
-  }
-
-  .geo-stat-value {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.45rem;
-    letter-spacing: -0.025em;
-    color: var(--black);
-    line-height: 1.1;
-  }
-  .geo-stat-desc {
-    font-size: 0.78rem;
-    color: rgba(10,10,10,0.48);
-    line-height: 1.4;
-  }
-
-  /* Specialismen */
-  .geo-services { padding: 7rem 4rem; }
-  .geo-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-
-  .geo-card {
-    background: #fff;
-    border: 1px solid rgba(10,10,10,0.09);
-    border-radius: 20px;
-    padding: 2rem 1.75rem;
-    text-align: center;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-  }
-  .geo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
-
-  .geo-card-icon {
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    background: rgba(10,10,10,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    margin: 0 auto 1.25rem;
-    transition: background 0.3s ease;
-  }
-  .geo-card:hover .geo-card-icon { background: var(--black); color: var(--white); }
-  .geo-card h3 { font-family: 'Matter Sans', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
-  .geo-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
-
-  /* Benefits */
-  .geo-benefits { padding: 7rem 4rem; }
-  .geo-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .geo-benefits-left h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    line-height: 1.1;
-    letter-spacing: -0.022em;
-    margin-bottom: 1rem;
-  }
-  .geo-benefits-left p { color: rgba(10,10,10,0.68); line-height: 1.8; }
-  .geo-benefit-stats { margin-top: 2rem; display: grid; gap: 1.25rem; }
-  .geo-bstat { border-left: 3px solid var(--black); padding-left: 1rem; }
-  .geo-bstat strong { display: block; font-family: 'Matter Sans', sans-serif; font-size: 1.8rem; line-height: 1; margin-bottom: 0.25rem; }
-  .geo-bstat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
-
-  .geo-benefit-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
-  .geo-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
-  .geo-benefit-item summary {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
-  .geo-benefit-item summary::-webkit-details-marker { display: none; }
-  .geo-benefit-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
-  .geo-benefit-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
-  .geo-benefit-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
-
-  /* Aanpak */
-  .geo-approach { padding: 6rem 4rem; }
-  .geo-steps {
+  .svc__float-foot {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid rgba(10,10,10,0.14);
-    border-bottom: 1px solid rgba(10,10,10,0.14);
-    margin-top: 2rem;
+    gap: 1rem;
+    padding-top: clamp(1.25rem, 2.5vw, 1.75rem);
+    border-top: 2px dashed var(--pm-ink-line);
   }
-  .geo-step { padding: 1.75rem 1.25rem; min-height: 210px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
-  .geo-step:last-child { border-right: none; }
-  .geo-step-num { display: inline-block; font-family: 'Matter Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
-  .geo-step h3 { font-family: 'Matter Sans', sans-serif; font-size: 1rem; font-weight: 700; }
-  .geo-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
+  .svc__float-checks { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 1.5rem; }
 
-  /* Context */
-  .geo-context { padding: 6rem 4rem; }
-  .geo-context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
-  .geo-block { border-top: 1px solid rgba(10,10,10,0.14); padding: 1.8rem 0 0; }
-  .geo-block--soft { border-top-color: rgba(10,10,10,0.28); }
-  .geo-block h2 { font-family: 'Matter Sans', sans-serif; font-size: 1.75rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 16ch; }
-  .geo-list { list-style: none; display: grid; gap: 0.8rem; }
-  .geo-list li { position: relative; padding-left: 1.1rem; line-height: 1.65; color: rgba(10,10,10,0.84); }
-  .geo-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--black); position: absolute; left: 0; top: 0.64rem; }
-  .geo-list--muted li { color: rgba(10,10,10,0.65); }
-  .geo-list--muted li::before { background: rgba(10,10,10,0.35); }
+  /* ── Wat is ─────────────────────────────────────────────────────────── */
+  .svc__what { padding-top: clamp(4rem, 8vw, 6.5rem); }
+  .svc__what-grid { align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+  .svc__head-left { margin-bottom: 1.5rem; }
+  .svc__inline { margin-top: 1.75rem; }
 
-  /* FAQ */
-  .geo-faq { padding: 7rem 4rem; }
-  .geo-faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
-  .geo-faq-left h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-  .geo-faq-left p { color: rgba(10,10,10,0.65); line-height: 1.8; font-size: 0.92rem; }
-  .geo-faq-item { border-top: 1px solid rgba(10,10,10,0.1); padding: 1.25rem 0; }
-  .geo-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
-  .geo-faq-item summary { font-family: 'Matter Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-  .geo-faq-item summary::-webkit-details-marker { display: none; }
-  .geo-faq-item summary::after { content: "+"; font-size: 1.3rem; font-weight: 300; flex-shrink: 0; opacity: 0.45; transition: transform 0.25s ease, opacity 0.25s ease; }
-  .geo-faq-item[open] summary::after { transform: rotate(45deg); opacity: 1; }
-  .geo-faq-item p { margin-top: 0.75rem; color: rgba(10,10,10,0.68); line-height: 1.8; font-size: 0.92rem; }
-
-  /* Outcomes */
-  .geo-outcomes { padding: 6rem 4rem; background: var(--black); color: var(--white); }
-  .geo-outcomes h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
-  .geo-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
-  .geo-outcome-tags span { border-bottom: 1px solid rgba(255,255,255,0.35); padding: 0.3rem 0; font-size: 0.9rem; margin-right: 0.4rem; }
-
-  /* Responsive */
-  @media (max-width: 1100px) {
-    .geo-hero-inner, .geo-what-grid, .geo-benefits-grid, .geo-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .geo-cards-grid { grid-template-columns: 1fr 1fr; }
-    .geo-steps { grid-template-columns: 1fr 1fr; }
-    .geo-step:nth-child(2n) { border-right: none; }
-    .geo-context-grid { grid-template-columns: 1fr; }
-    .geo-what-visual { display: none; }
+  .svc__stack { max-width: 460px; justify-self: center; width: 100%; }
+  .svc__stack-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.1rem 1.5rem;
+    border-bottom: var(--pm-border);
+    font-family: var(--pm-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
   }
+  .svc__stack-head .pm-icon { box-shadow: none; }
+  .svc__stack-list { list-style: none; margin: 0; padding: 0; background: var(--pm-milk); color: var(--pm-ink); }
+  .svc__stack-list li { display: flex; align-items: center; gap: 1.25rem; padding: 1.35rem 1.5rem; }
+  .svc__stack-list li + li { border-top: 1px solid var(--pm-ink-line); }
+  .svc__stack-num { font-weight: 800; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--pm-red); }
+  .svc__stack-body { display: grid; gap: 0.15rem; }
+  .svc__stack-body strong { font-family: var(--pm-display); font-weight: 400; font-size: clamp(1.7rem, 2.6vw, 2.2rem); line-height: 1.05; }
+  .svc__stack-body span { font-size: 0.9rem; color: var(--pm-ink-soft); }
 
-  @media (max-width: 768px) {
-    .geo-hero, .geo-what, .geo-services, .geo-benefits, .geo-approach, .geo-context, .geo-faq, .geo-outcomes { padding-left: 2rem; padding-right: 2rem; }
-    .geo-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
-    .geo-cards-grid { grid-template-columns: 1fr; }
-    .geo-steps { grid-template-columns: 1fr; }
-    .geo-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
-    .geo-step:first-child { border-top: none; }
-    .geo-metrics { grid-template-columns: 1fr 1fr; }
-    .geo-hero-panel { border-left: none; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0; padding-top: 1rem; }
-    .geo-related-grid { grid-template-columns: 1fr; }
+  /* ── Tile grid ──────────────────────────────────────────────────────── */
+  .svc__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .svc__tile { display: grid; align-content: start; gap: 1rem; transition: transform 0.5s var(--pm-ease), box-shadow 0.5s var(--pm-ease); }
+  .svc__tile-top { display: flex; align-items: center; justify-content: space-between; }
+  .svc__tile-top .pm-icon { transition: transform 0.5s var(--pm-ease-spring); }
+  .svc__tile-num { font-family: var(--pm-display); font-size: 2.25rem; line-height: 1; color: var(--pm-ink-line); }
+  .svc__tile-title { font-size: clamp(1.4rem, 1.9vw, 1.7rem); }
+  @media (hover: hover) {
+    .svc__tile:hover { transform: translateY(-4px); box-shadow: var(--pm-drop); }
+    .svc__tile:hover .pm-icon { transform: rotate(-8deg) scale(1.06); }
   }
 
-  .geo-related-reads { padding: 4rem 4rem; }
-  .geo-related-kicker { display: inline-block; font-family: 'Matter Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
-  .geo-related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .geo-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
-  .geo-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
-  .geo-related-card strong { display: block; font-family: 'Matter Sans', sans-serif; font-size: 1.1rem; margin-bottom: 0.35rem; }
-  .geo-related-card span { font-size: 0.9rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
-  @media (max-width: 768px) { .geo-related-reads { padding: 3rem 2rem; } }
+  /* ── Benefits ───────────────────────────────────────────────────────── */
+  .svc__benefits-grid { gap: clamp(2rem, 5vw, 4rem); }
+  .svc__benefits-left .pm-head { margin-bottom: 2rem; }
+  .svc__minis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  .svc__mini {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    padding: 1.4rem;
+    border-radius: var(--pm-r);
+    box-shadow: var(--pm-drop);
+  }
+  .svc__mini .pm-icon { margin-bottom: 0.4rem; box-shadow: none; }
+  .svc__mini strong { font-family: var(--pm-display); font-weight: 400; font-size: clamp(1.5rem, 2.2vw, 1.9rem); line-height: 1.05; letter-spacing: 0.01em; }
+  .svc__mini span:last-child { font-size: 0.92rem; line-height: 1.45; }
+
+  /* ── Approach (plum timeline) ───────────────────────────────────────── */
+  .svc__plum {
+    padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3.5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .svc__plum-head { margin-bottom: 0; position: sticky; top: 120px; }
+
+  .svc__timeline { position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: 1.75rem; }
+  .svc__timeline::before {
+    content: "";
+    position: absolute;
+    left: 27px;
+    top: 28px;
+    bottom: 28px;
+    width: 2px;
+    background: repeating-linear-gradient(180deg, var(--pm-pink) 0 4px, transparent 4px 10px);
+  }
+  .svc__tl-step { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 1.25rem; align-items: start; }
+  .svc__tl-num {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: var(--pm-border);
+    border-radius: 18px;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    font-family: var(--pm-display);
+    font-size: 1.5rem;
+  }
+  .svc__tl-num--goal { background: var(--pm-yellow); }
+  .svc__tl-title { margin: 0.6rem 0 0.4rem; font-family: var(--pm-display); font-weight: 400; font-size: clamp(1.4rem, 2vw, 1.75rem); line-height: 1.1; letter-spacing: 0.01em; }
+  .svc__tl-body p { margin: 0; color: rgba(255, 250, 240, 0.82); }
+
+  /* ── Compare ────────────────────────────────────────────────────────── */
+  .svc__compare .pm-split { gap: clamp(1rem, 2.5vw, 2rem); }
+  .svc__compare-card { display: grid; align-content: start; gap: 1.25rem; height: 100%; }
+  .svc__compare-card.pm-card--pink .pm-checks li { color: var(--pm-ink); }
+
+  /* ── Outcomes (plum band) ───────────────────────────────────────────── */
+  .svc__outcomes { border-block: var(--pm-border); }
+  .svc__chips {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 960px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .svc__chips .pm-tag { font-size: 1rem; padding: 0.65rem 1.25rem; box-shadow: 0 4px 0 var(--pm-ink); white-space: normal; text-align: center; }
+
+  /* ── FAQ ────────────────────────────────────────────────────────────── */
+  .svc__faq-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .svc__faq-head { position: sticky; top: 120px; margin-bottom: 0; }
+  .svc__faq .pm-acc summary { font-size: clamp(1.2rem, 1.6vw, 1.45rem); }
+
+  /* ── Related ────────────────────────────────────────────────────────── */
+  .svc__related { padding-top: 0; }
+  .svc__related .pm-head { margin-bottom: 1.25rem; }
+  .svc__related-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .svc__related-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 100%;
+    padding: 1.25rem 1.4rem;
+    border-radius: var(--pm-r);
+  }
+  .svc__related-text { display: grid; gap: 0.2rem; }
+  .svc__related-text strong { font-family: var(--pm-display); font-weight: 400; font-size: 1.35rem; line-height: 1.1; letter-spacing: 0.01em; }
+  .svc__related-text span { font-size: 0.92rem; color: var(--pm-ink-soft); line-height: 1.45; }
+  .svc__arrow {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    transition: background-color 0.3s ease, transform 0.4s var(--pm-ease);
+  }
+  @media (hover: hover) {
+    .svc__related-card:hover .svc__arrow { background: var(--pm-yellow); transform: translateX(3px); }
+  }
+
+  /* ── CTA band ───────────────────────────────────────────────────────── */
+  .svc__cta {
+    padding: clamp(5rem, 10vw, 8rem) 0 clamp(3rem, 6vw, 4.5rem);
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 1;
+  }
+  .svc__cta-inner { display: grid; justify-items: center; text-align: center; gap: 1.5rem; }
+  .svc__cta-title { max-width: 900px; font-size: clamp(2.6rem, 6vw, 4.75rem); }
+  .svc__cta-text { max-width: 600px; }
+
+  /* ── Responsive ─────────────────────────────────────────────────────── */
+  @media (max-width: 1080px) {
+    .svc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .svc__metrics, .svc__float-checks { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 860px) {
+    .svc__plum, .svc__faq-grid { grid-template-columns: 1fr; }
+    .svc__plum-head, .svc__faq-head { position: static; }
+  }
+  @media (max-width: 640px) {
+    .svc__hero { padding-top: 64px; }
+    .svc__actions { flex-direction: column; align-self: stretch; }
+    .svc__actions .pm-btn, .svc__cta .pm-btn { width: 100%; }
+    .svc__grid, .svc__minis { grid-template-columns: 1fr; }
+  }
 </style>

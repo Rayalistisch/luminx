@@ -32,14 +32,14 @@ Uit onderzoek blijkt dat **67% van besluitvormers de data van hun eigen organisa
 
 Laten we eerlijk zijn: datakwaliteit klinkt als een IT-probleem. Maar de impact is puur financieel.
 
-Amerikaanse bedrijven verliezen jaarlijks **$3,1 biljoen** door slechte datakwaliteit. Vertaal dat naar je eigen situatie: als je trackingdata niet klopt, weet je niet welke campagnes converteren, welke kanalen renderen en waar je budget naartoe moet. Je mist kansen en gooit geld weg — op basis van verkeerde informatie.
+Amerikaanse bedrijven verliezen jaarlijks **$3,1 biljoen** door slechte datakwaliteit. Vertaal dat naar je eigen situatie: als je trackingdata niet klopt, weet je niet welke campagnes converteren, welke kanalen renderen en waar je budget naartoe moet. Je mist kansen en gooit geld weg, op basis van verkeerde informatie.
 
 Slechte data leidt gemiddeld tot:
 - **20% productiviteitsdaling** bij teams die op die data vertrouwen
 - **30% kostenstijging** door verkeerde beslissingen
 - Gemiddeld **€12-15 miljoen verlies per jaar** bij grotere organisaties (voor MKB naar rato)
 
-Maar ook als je geen multinational bent, geldt hetzelfde principe: als je niet weet welke campagne jouw klanten binnenbrengt, gooi je de helft van je marketingbudget weg — en weet je niet welke helft.
+Maar ook als je geen multinational bent, geldt hetzelfde principe: als je niet weet welke campagne jouw klanten binnenbrengt, gooi je de helft van je marketingbudget weg, en weet je niet welke helft.
 
 ---
 
@@ -63,7 +63,7 @@ Denk aan:
 
 ## De 5 meest gemaakte fouten die je tracking verpesten
 
-Zelfs bedrijven die GTM gebruiken, zien hun data vaak niet kloppen. Dit zijn de meest voorkomende — en schadelijkste — fouten:
+Zelfs bedrijven die GTM gebruiken, zien hun data vaak niet kloppen. Dit zijn de meest voorkomende, en schadelijkste, fouten:
 
 ### 1. Dubbele tracking
 De GTM-container is geïnstalleerd, maar de oude Google Analytics-code staat nog hardcoded in de website. Resultaat: elke pageview wordt dubbel geteld, conversies worden geïnfleerd en je rapportage is onbruikbaar.
@@ -72,7 +72,7 @@ De GTM-container is geïnstalleerd, maar de oude Google Analytics-code staat nog
 Tags vuren op de verkeerde momenten. Een formulier-conversie wordt gemeld zodra iemand de pagina bezoekt in plaats van wanneer ze het formulier daadwerkelijk indienen. Resultaat: je denkt dat je converteert, maar het zijn slechts paginabezoeken.
 
 ### 3. Container niet gepubliceerd
-Wijzigingen aangemaakt in GTM, maar vergeten op "Publiceren" te klikken. De live website draait nog op de oude versie. Dit klinkt simpel, maar het gebeurt vaker dan je denkt — en de gevolgen zijn onzichtbaar tot je een audit doet.
+Wijzigingen aangemaakt in GTM, maar vergeten op "Publiceren" te klikken. De live website draait nog op de oude versie. Dit klinkt simpel, maar het gebeurt vaker dan je denkt, en de gevolgen zijn onzichtbaar tot je een audit doet.
 
 ### 4. Geen versiebeheer of documentatie
 Zonder duidelijke namen voor tags, triggers en variabelen en zonder versiehistorie is het onmogelijk te achterhalen wat een trackingprobleem veroorzaakte. Een "fix" van zes maanden geleden kan vandaag voor fouten zorgen die niemand meer begrijpt.
@@ -98,7 +98,7 @@ Naast de bestaande toestemmingstypen zijn er twee nieuwe vereisten:
 De gevolgen zijn direct en permanent:
 - **Geen remarketing-audiences** voor EER-gebruikers in Google Ads
 - **Geen GA4-data** van nieuwe bezoekers uit Nederland en Europa
-- **Historische data is verloren** — er is geen manier om gemiste periodes te herstellen
+- **Historische data is verloren**: er is geen manier om gemiste periodes te herstellen
 
 Een van de meest voorkomende fouten is een configuratie die voor **alle gebruikers** toestemming verleent of ontkent, ongeacht hun locatie. Gebruikers in de EU worden dan niet goed behandeld (juridisch risico), of gebruikers buiten de EU worden onnodig geblokkeerd (dataverlies).
 
@@ -143,10 +143,10 @@ En toch investeert de meerderheid van het MKB nauwelijks in een correcte trackin
 Een goed ingericht Google Tag Manager-account is meer dan "weten hoeveel bezoekers je website heeft". Het is het systeem dat je in staat stelt om:
 
 **Marketingbudget op de juiste plek neer te leggen**
-Je ziet exact welk kanaal, welke campagne en welk zoekwoord jouw klanten binnenbrengt — niet alleen bezoekers, maar daadwerkelijke omzet. Zo stop je met geld uitgeven aan wat niet werkt en schaal je op wat wél werkt.
+Je ziet exact welk kanaal, welke campagne en welk zoekwoord jouw klanten binnenbrengt, niet alleen bezoekers, maar daadwerkelijke omzet. Zo stop je met geld uitgeven aan wat niet werkt en schaal je op wat wél werkt.
 
 **Remarketing-doelgroepen op te bouwen op basis van gedrag**
-Gebruikers die een productpagina hebben bezocht maar niet gekocht, bezoekers van je prijzenpagina, mensen die het contactformulier begonnen maar niet afmaakten — GTM maakt het mogelijk om al deze segmenten te tracken en gericht te retargeten.
+Gebruikers die een productpagina hebben bezocht maar niet gekocht, bezoekers van je prijzenpagina, mensen die het contactformulier begonnen maar niet afmaakten: GTM maakt het mogelijk om al deze segmenten te tracken en gericht te retargeten.
 
 **Snel te testen en bij te sturen**
 Nieuwe campagne? Nieuw formulier? Je implementeert de bijbehorende tracking zelf, in minuten, zonder developer. En als iets misgaat, rol je terug naar een vorige versie.
@@ -158,15 +158,15 @@ Met Consent Mode v2 correct ingesteld voldoe je aan de DMA, bescherm je de priva
 
 ## Conclusie: tracking is geen kostenpost, het is een investering
 
-Veel bedrijven zien tracking als iets technisch — iets wat "gewoon geregeld moet zijn" op de achtergrond. Maar de realiteit is dat slechte tracking stilletjes budget verslindt, beslissingen verstoort en kansen vernietigt.
+Veel bedrijven zien tracking als iets technisch: iets wat "gewoon geregeld moet zijn" op de achtergrond. Maar de realiteit is dat slechte tracking stilletjes budget verslindt, beslissingen verstoort en kansen vernietigt.
 
-Een correcte Google Tag Manager-implementatie — met de juiste tags, triggers, variabelen en Consent Mode-configuratie — is de fundering waarop elke winstgevende marketingstrategie gebouwd moet worden.
+Een correcte Google Tag Manager-implementatie, met de juiste tags, triggers, variabelen en Consent Mode-configuratie, is de fundering waarop elke winstgevende marketingstrategie gebouwd moet worden.
 
 Zonder die fundering bouw je op drijfzand.
 
 ---
 
 **Wil je weten of de tracking van jouw website betrouwbaar is?**
-Bij LuminX voeren we een [volledige tracking-audit](/tracking-audit) uit: van [GTM-configuratie](/diensten/google-tag-manager) tot [Consent Mode v2](/diensten/consent-mode-v2), van [GA4-implementatie](/diensten/ga4-implementatie) tot Google Ads conversietracking. We zorgen dat je data klopt — zodat elke marketingbeslissing op een solide basis staat.
+Bij LuminX voeren we een [volledige tracking-audit](/tracking-audit) uit: van [GTM-configuratie](/diensten/google-tag-manager) tot [Consent Mode v2](/diensten/consent-mode-v2), van [GA4-implementatie](/diensten/ga4-implementatie) tot Google Ads conversietracking. We zorgen dat je data klopt, zodat elke marketingbeslissing op een solide basis staat.
 
 [Plan een gratis kennismaking](#contact) en ontdek wat jouw tracking nu mist.

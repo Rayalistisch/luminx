@@ -1,123 +1,145 @@
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="footer-logo">LUMINX</span>
-      <p>Strategie, automatisering en digitale producten die merken laten groeien.</p>
+---
+import Logo from "./pm/Logo.astro";
+const columns = [
+  {
+    title: "Navigatie",
+    links: [
+      { label: "Werk", href: "/#werk" },
+      { label: "Diensten", href: "/#diensten" },
+      { label: "Over", href: "/#over" },
+      { label: "Contact", href: "/#contact" },
+      { label: "Blog", href: "/blog" },
+    ],
+  },
+  {
+    title: "Diensten",
+    links: [
+      { label: "Procesautomation", href: "/diensten/procesautomation" },
+      { label: "Websites", href: "/diensten/websites" },
+      { label: "Webshops", href: "/diensten/webshops" },
+      { label: "Strategie", href: "/diensten/strategy" },
+      { label: "Online marketing", href: "/diensten/online-marketing" },
+    ],
+  },
+  {
+    title: "Vergelijk",
+    links: [
+      { label: "SEO vs. SEA", href: "/vergelijk/seo-vs-sea" },
+      { label: "GEO vs. SEO", href: "/vergelijk/geo-vs-seo" },
+      { label: "Gratis tracking-audit", href: "/tracking-audit" },
+      { label: "Plan een videocall", href: "/videocall" },
+    ],
+  },
+  {
+    title: "Contact",
+    links: [
+      { label: "hello@luminx.nl", href: "mailto:hello@luminx.nl" },
+      { label: "+31 6 1369 8596", href: "tel:+31613698596" },
+    ],
+  },
+];
+---
+
+<footer class="footer pm-band">
+  <div class="pm-container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Logo as="a" href="/" class="footer__logo" aria-label="LuminX – home" />
+        <p>Strategie, automatisering en digitale producten die merken laten groeien. Vanuit Enschede, voor heel Twente.</p>
+      </div>
+
+      <nav class="footer__cols" aria-label="Footer">
+        {columns.map((c) => (
+          <div class="footer__col">
+            <p class="footer__title">{c.title}</p>
+            <ul>
+              {c.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+            </ul>
+          </div>
+        ))}
+      </nav>
     </div>
 
-    <div class="footer-links">
-      <h4>Navigatie</h4>
-      <ul>
-        <li><a href="/#werk">Werk</a></li>
-        <li><a href="/#diensten">Diensten</a></li>
-        <li><a href="/#over">Over</a></li>
-        <li><a href="/#contact">Contact</a></li>
-        <li><a href="/blog">Blog</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-links">
-      <h4>Diensten</h4>
-      <ul>
-        <li><a href="/diensten/procesautomation">Procesautomation</a></li>
-        <li><a href="/diensten/websites">Websites</a></li>
-        <li><a href="/diensten/webshops">Webshops</a></li>
-        <li><a href="/diensten/strategy">Strategie</a></li>
-        <li><a href="/diensten/online-marketing">Online Marketing</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-links">
-      <h4>Vergelijk</h4>
-      <ul>
-        <li><a href="/vergelijk/seo-vs-sea">SEO vs. SEA</a></li>
-        <li><a href="/vergelijk/geo-vs-seo">GEO vs. SEO</a></li>
-        <li><a href="/tracking-audit">Gratis Tracking-audit</a></li>
-        <li><a href="/videocall">Plan een videocall</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-links">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:hello@luminx.nl">hello@luminx.nl</a></li>
-        <li><a href="tel:+31613698596">+31 6 1369 8596</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-wordmark" aria-hidden="true">
-    {"LUMINX".split("").map((letter, i) => (
-      <span class="footer-wordmark-letter" style={`transition-delay: ${i * 0.07}s`}>{letter}</span>
-    ))}
-  </div>
-
-  <div class="footer-bottom">
-    <p>&copy; 2026 LUMINX. Alle rechten voorbehouden.</p>
-    <div class="footer-legal">
+    <div class="footer__bar">
       <a href="/privacy">Privacyverklaring</a>
+      <p>&copy; {new Date().getFullYear()} LuminX. Alle rechten voorbehouden.</p>
       <a href="/algemene-voorwaarden">Algemene voorwaarden</a>
     </div>
   </div>
 </footer>
 
-<script is:inline>
-  (function () {
-    var wordmark = document.querySelector(".footer-wordmark");
-    if (!wordmark) return;
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          wordmark.classList.add("is-visible");
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.2 });
-    observer.observe(wordmark);
-  })();
-</script>
-
 <style>
-  .footer-wordmark {
-    display: flex;
-    justify-content: center;
-    padding: 0 2rem;
-    overflow: hidden;
-    line-height: 0.85;
-    margin-bottom: -0.08em;
+  .footer {
+    padding: clamp(4rem, 8vw, 6rem) 0 clamp(1.5rem, 3vw, 2.5rem);
   }
 
-  .footer-wordmark-letter {
-    display: inline-block;
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3.5rem, 12vw, 12rem);
+  .footer__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .footer__logo { font-size: clamp(2rem, 3.6vw, 2.75rem); }
+
+  .footer__brand p {
+    max-width: 360px;
+    margin: 1.5rem 0 0;
+    color: var(--pm-ink);
+    font-weight: 600;
+  }
+
+  .footer__cols {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .footer__title {
+    margin: 0 0 1rem;
+    font-size: var(--pm-fs-label);
     font-weight: 800;
-    letter-spacing: -0.04em;
-    color: rgba(255,255,255,0.06);
-    transform: translateY(110%);
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pm-ink);
   }
 
-  .footer-wordmark.is-visible .footer-wordmark-letter {
-    transform: translateY(0);
-  }
-
-  .footer-legal {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 0.75rem;
-    justify-content: center;
-  }
-
-  .footer-legal a {
-    color: rgba(255,255,255,0.3);
+  .footer__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .footer__col a {
+    color: var(--pm-milk);
+    font-weight: 600;
     text-decoration: none;
-    font-size: 0.75rem;
-    transition: color 0.3s ease;
+    overflow-wrap: anywhere;
+    transition: color 0.2s ease;
   }
+  @media (hover: hover) { .footer__col a:hover { color: var(--pm-ink); } }
 
-  .footer-legal a:hover {
-    color: rgba(255,255,255,0.6);
+  .footer__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    padding: 1.6rem clamp(1.25rem, 3vw, 2.25rem);
+    background: var(--pm-wine);
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    box-shadow: var(--pm-drop-lg);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .footer__bar p { margin: 0; letter-spacing: 0; text-transform: none; }
+  .footer__bar a { color: var(--pm-milk); text-decoration: none; }
+  @media (hover: hover) { .footer__bar a:hover { color: var(--pm-yellow); } }
+
+  @media (max-width: 960px) {
+    .footer__top { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .footer__cols { grid-template-columns: 1fr 1fr; }
+    .footer__bar { justify-content: center; text-align: center; }
+    .footer__bar p { order: 3; width: 100%; }
   }
 </style>

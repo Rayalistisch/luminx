@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 tina/__generated__
 .tina/__generated__
+
+# local browser-automation screenshots
+.playwright-mcp/

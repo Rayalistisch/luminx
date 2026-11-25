@@ -26,7 +26,7 @@ Het systeem werkt in vijf stappen:
 2. Google koppelt de zoekopdracht aan een relevant bedrijf
 3. De bestaande landingspagina van dat bedrijf wordt beoordeeld op relevantie
 4. Als de score te laag is, genereert een AI-model een nieuwe pagina op basis van beschikbare bedrijfsgegevens
-5. De zoekresultaten linken naar die AI-gegenereerde pagina — niet naar jouw website
+5. De zoekresultaten linken naar die AI-gegenereerde pagina, niet naar jouw website
 
 Kortom: Google kan besluiten dat jouw pagina niet relevant genoeg is voor een specifieke zoekopdracht, en vervolgens zelf een betere maken. Voor jou, zonder jou.
 
@@ -57,7 +57,7 @@ De beste verdediging is een website die Google geen reden geeft om iets te verva
 
 **Gebruik gestructureerde data (schema.org).** Als Google je bedrijfsinformatie, diensten en content goed kan begrijpen via structured data, is er minder aanleiding om iets te "verbeteren". Wij zetten dit standaard in voor onze klanten.
 
-**Bouw aan een sterk merk buiten Google om.** Organisch zoekverkeer is waardevol, maar mag nooit je enige kanaal zijn. [E-mailmarketing](/diensten/emailmarketing), directe naamsbekendheid en terugkerende bezoekers zijn buiten het bereik van dit soort ingrepen. Ook [GEO (Generative Engine Optimization)](/diensten/geo) — zichtbaarheid in AI-tools als ChatGPT en Gemini — vermindert de afhankelijkheid van traditionele zoekresultaten.
+**Bouw aan een sterk merk buiten Google om.** Organisch zoekverkeer is waardevol, maar mag nooit je enige kanaal zijn. [E-mailmarketing](/diensten/emailmarketing), directe naamsbekendheid en terugkerende bezoekers zijn buiten het bereik van dit soort ingrepen. Ook [GEO (Generative Engine Optimization)](/diensten/geo) - zichtbaarheid in AI-tools als ChatGPT en Gemini - vermindert de afhankelijkheid van traditionele zoekresultaten.
 
 **Houd je Google Business Profile actueel.** Als Google AI-pagina's gaat genereren op basis van beschikbare bedrijfsdata, is dit één van de belangrijkste bronnen. Een volledig en up-to-date profiel geeft jou meer invloed op het eindresultaat.
 

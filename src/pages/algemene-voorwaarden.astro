@@ -3,141 +3,180 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import ContactOverlay from "../components/ContactOverlay.astro";
+import Icon from "../components/pm/Icon.astro";
+
+const toc = [
+  { id: "artikel-1", n: "1", label: "Definities" },
+  { id: "artikel-2", n: "2", label: "Toepasselijkheid" },
+  { id: "artikel-3", n: "3", label: "Offertes en aanbiedingen" },
+  { id: "artikel-4", n: "4", label: "Uitvoering van diensten" },
+  { id: "artikel-5", n: "5", label: "Medewerking opdrachtgever" },
+  { id: "artikel-6", n: "6", label: "Levertijden" },
+  { id: "artikel-7", n: "7", label: "Tarieven en betaling" },
+  { id: "artikel-8", n: "8", label: "Intellectueel eigendom" },
+  { id: "artikel-9", n: "9", label: "Wijzigingen en meerwerk" },
+  { id: "artikel-10", n: "10", label: "Opzegging en annulering" },
+  { id: "artikel-11", n: "11", label: "Aansprakelijkheid" },
+  { id: "artikel-12", n: "12", label: "Overmacht" },
+  { id: "artikel-13", n: "13", label: "Geheimhouding" },
+  { id: "artikel-14", n: "14", label: "Privacy" },
+  { id: "artikel-15", n: "15", label: "Toepasselijk recht en geschillen" },
+  { id: "artikel-16", n: "16", label: "Wijzigingen" },
+];
 ---
 
 <BaseLayout
   title="Algemene Voorwaarden | LuminX"
   description="Algemene voorwaarden van LuminX. Lees de voorwaarden die van toepassing zijn op onze dienstverlening."
 >
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="legal-page">
-    <section class="legal-hero" data-bg-color="#0A0A0A">
-      <div class="legal-hero-content">
-        <a href="/" class="legal-back-link">&larr; Terug naar homepage</a>
-        <span class="legal-kicker">Juridisch</span>
-        <h1>Algemene Voorwaarden</h1>
-        <p>Laatst bijgewerkt: 19 maart 2026</p>
+  <main class="legal">
+    <section class="legal__hero" aria-labelledby="legal-title">
+      <div class="pm-stack pm-stack--light">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+
+        <div class="pm-stack__panel legal__panel">
+          <div class="legal__hero-content">
+            <a href="/" class="legal__back" data-reveal>
+              <Icon name="arrow" size={16} class="legal__back-icon" /> Terug naar homepage
+            </a>
+            <span class="pm-tag pm-tag--yellow" data-reveal style="--d: 1">Juridisch</span>
+            <h1 id="legal-title" class="pm-h1 legal__title" data-reveal style="--d: 2">Algemene Voorwaarden</h1>
+            <p class="legal__updated" data-reveal style="--d: 3">Laatst bijgewerkt: 19 maart 2026</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="legal-body" data-bg-color="#FEFEFE">
-      <div class="legal-content">
+    <section class="pm-section legal__body">
+      <div class="pm-container legal__layout">
+        <nav class="pm-card legal__toc" aria-label="Inhoud">
+          <span class="pm-label">Inhoud</span>
+          <ol>
+            {toc.map((item) => (
+              <li><a href={`#${item.id}`}><span>{item.n}</span>{item.label}</a></li>
+            ))}
+          </ol>
+        </nav>
 
-        <h2>1. Definities</h2>
-        <p>In deze algemene voorwaarden wordt verstaan onder:</p>
-        <ul>
-          <li><strong>LuminX:</strong> de eenmanszaak LuminX, gevestigd in Nederland, ingeschreven bij de Kamer van Koophandel.</li>
-          <li><strong>Opdrachtgever:</strong> de natuurlijke of rechtspersoon die een overeenkomst aangaat met LuminX.</li>
-          <li><strong>Diensten:</strong> alle werkzaamheden waartoe opdracht is gegeven, waaronder maar niet beperkt tot online marketing, webdevelopment, marketing automation, SEO, SEA, en strategisch advies.</li>
-          <li><strong>Overeenkomst:</strong> elke afspraak tussen LuminX en opdrachtgever tot het verlenen van diensten.</li>
-        </ul>
+        <article class="pm-card pm-card--milk pm-card--lift legal__card">
+          <div class="pm-prose legal__prose">
+          <h2 id="artikel-1">1. Definities</h2>
+          <p>In deze algemene voorwaarden wordt verstaan onder:</p>
+          <ul>
+            <li><strong>LuminX:</strong> de eenmanszaak LuminX, gevestigd in Nederland, ingeschreven bij de Kamer van Koophandel.</li>
+            <li><strong>Opdrachtgever:</strong> de natuurlijke of rechtspersoon die een overeenkomst aangaat met LuminX.</li>
+            <li><strong>Diensten:</strong> alle werkzaamheden waartoe opdracht is gegeven, waaronder maar niet beperkt tot online marketing, webdevelopment, marketing automation, SEO, SEA, en strategisch advies.</li>
+            <li><strong>Overeenkomst:</strong> elke afspraak tussen LuminX en opdrachtgever tot het verlenen van diensten.</li>
+          </ul>
 
-        <h2>2. Toepasselijkheid</h2>
-        <p>
-          Deze algemene voorwaarden zijn van toepassing op alle aanbiedingen, offertes, overeenkomsten en leveringen van diensten door LuminX. Afwijkingen zijn alleen geldig indien schriftelijk overeengekomen.
-        </p>
-        <p>
-          Door het aangaan van een overeenkomst met LuminX accepteert de opdrachtgever deze algemene voorwaarden.
-        </p>
+          <h2 id="artikel-2">2. Toepasselijkheid</h2>
+          <p>
+            Deze algemene voorwaarden zijn van toepassing op alle aanbiedingen, offertes, overeenkomsten en leveringen van diensten door LuminX. Afwijkingen zijn alleen geldig indien schriftelijk overeengekomen.
+          </p>
+          <p>
+            Door het aangaan van een overeenkomst met LuminX accepteert de opdrachtgever deze algemene voorwaarden.
+          </p>
 
-        <h2>3. Offertes en aanbiedingen</h2>
-        <ul>
-          <li>Alle offertes zijn vrijblijvend en geldig voor 30 dagen, tenzij anders vermeld.</li>
-          <li>Een overeenkomst komt tot stand na schriftelijke bevestiging door beide partijen (inclusief e-mail).</li>
-          <li>Prijzen zijn exclusief btw, tenzij uitdrukkelijk anders vermeld.</li>
-        </ul>
+          <h2 id="artikel-3">3. Offertes en aanbiedingen</h2>
+          <ul>
+            <li>Alle offertes zijn vrijblijvend en geldig voor 30 dagen, tenzij anders vermeld.</li>
+            <li>Een overeenkomst komt tot stand na schriftelijke bevestiging door beide partijen (inclusief e-mail).</li>
+            <li>Prijzen zijn exclusief btw, tenzij uitdrukkelijk anders vermeld.</li>
+          </ul>
 
-        <h2>4. Uitvoering van diensten</h2>
-        <p>
-          LuminX voert alle diensten naar beste inzicht en vermogen uit, in overeenstemming met de eisen van goed vakmanschap. Het betreft een inspanningsverplichting, geen resultaatverplichting.
-        </p>
-        <p>
-          LuminX heeft het recht om werkzaamheden door derden te laten uitvoeren indien dit noodzakelijk is voor een goede uitvoering van de overeenkomst. De opdrachtgever wordt hiervan op de hoogte gesteld.
-        </p>
+          <h2 id="artikel-4">4. Uitvoering van diensten</h2>
+          <p>
+            LuminX voert alle diensten naar beste inzicht en vermogen uit, in overeenstemming met de eisen van goed vakmanschap. Het betreft een inspanningsverplichting, geen resultaatverplichting.
+          </p>
+          <p>
+            LuminX heeft het recht om werkzaamheden door derden te laten uitvoeren indien dit noodzakelijk is voor een goede uitvoering van de overeenkomst. De opdrachtgever wordt hiervan op de hoogte gesteld.
+          </p>
 
-        <h2>5. Medewerking opdrachtgever</h2>
-        <p>
-          De opdrachtgever zorgt ervoor dat alle gegevens en materialen die nodig zijn voor de uitvoering van de overeenkomst tijdig worden aangeleverd. Vertragingen door het niet tijdig aanleveren van informatie komen voor rekening van de opdrachtgever.
-        </p>
-        <p>
-          De opdrachtgever verleent LuminX toegang tot alle benodigde accounts, platformen en systemen die nodig zijn voor de uitvoering van de diensten (zoals Google Ads, Analytics, sociale media accounts, etc.).
-        </p>
+          <h2 id="artikel-5">5. Medewerking opdrachtgever</h2>
+          <p>
+            De opdrachtgever zorgt ervoor dat alle gegevens en materialen die nodig zijn voor de uitvoering van de overeenkomst tijdig worden aangeleverd. Vertragingen door het niet tijdig aanleveren van informatie komen voor rekening van de opdrachtgever.
+          </p>
+          <p>
+            De opdrachtgever verleent LuminX toegang tot alle benodigde accounts, platformen en systemen die nodig zijn voor de uitvoering van de diensten (zoals Google Ads, Analytics, sociale media accounts, etc.).
+          </p>
 
-        <h2>6. Levertijden</h2>
-        <p>
-          Genoemde levertijden en deadlines zijn indicatief, tenzij uitdrukkelijk een fatale termijn is overeengekomen. Bij overschrijding heeft de opdrachtgever geen recht op schadevergoeding of ontbinding, tenzij de overschrijding onredelijk is.
-        </p>
+          <h2 id="artikel-6">6. Levertijden</h2>
+          <p>
+            Genoemde levertijden en deadlines zijn indicatief, tenzij uitdrukkelijk een fatale termijn is overeengekomen. Bij overschrijding heeft de opdrachtgever geen recht op schadevergoeding of ontbinding, tenzij de overschrijding onredelijk is.
+          </p>
 
-        <h2>7. Tarieven en betaling</h2>
-        <ul>
-          <li>Tarieven worden vooraf overeengekomen en vastgelegd in de offerte of overeenkomst.</li>
-          <li>Facturen dienen binnen 14 dagen na factuurdatum te worden voldaan, tenzij anders overeengekomen.</li>
-          <li>Bij te late betaling is LuminX gerechtigd wettelijke rente en incassokosten in rekening te brengen.</li>
-          <li>LuminX behoudt zich het recht voor om werkzaamheden op te schorten bij uitblijvende betaling.</li>
-        </ul>
+          <h2 id="artikel-7">7. Tarieven en betaling</h2>
+          <ul>
+            <li>Tarieven worden vooraf overeengekomen en vastgelegd in de offerte of overeenkomst.</li>
+            <li>Facturen dienen binnen 14 dagen na factuurdatum te worden voldaan, tenzij anders overeengekomen.</li>
+            <li>Bij te late betaling is LuminX gerechtigd wettelijke rente en incassokosten in rekening te brengen.</li>
+            <li>LuminX behoudt zich het recht voor om werkzaamheden op te schorten bij uitblijvende betaling.</li>
+          </ul>
 
-        <h2>8. Intellectueel eigendom</h2>
-        <p>
-          Alle rechten van intellectueel eigendom op de door LuminX ontwikkelde materialen (waaronder ontwerpen, code, teksten, strategieën en campagnestructuren) berusten bij LuminX, tenzij schriftelijk anders overeengekomen.
-        </p>
-        <p>
-          Na volledige betaling verkrijgt de opdrachtgever een gebruiksrecht op het eindproduct voor het overeengekomen doel. Bronbestanden worden alleen overgedragen indien dit expliciet is afgesproken.
-        </p>
-        <p>
-          LuminX behoudt het recht om geleverd werk te gebruiken voor promotiedoeleinden (portfolio, case studies), tenzij de opdrachtgever hier schriftelijk bezwaar tegen maakt.
-        </p>
+          <h2 id="artikel-8">8. Intellectueel eigendom</h2>
+          <p>
+            Alle rechten van intellectueel eigendom op de door LuminX ontwikkelde materialen (waaronder ontwerpen, code, teksten, strategieën en campagnestructuren) berusten bij LuminX, tenzij schriftelijk anders overeengekomen.
+          </p>
+          <p>
+            Na volledige betaling verkrijgt de opdrachtgever een gebruiksrecht op het eindproduct voor het overeengekomen doel. Bronbestanden worden alleen overgedragen indien dit expliciet is afgesproken.
+          </p>
+          <p>
+            LuminX behoudt het recht om geleverd werk te gebruiken voor promotiedoeleinden (portfolio, case studies), tenzij de opdrachtgever hier schriftelijk bezwaar tegen maakt.
+          </p>
 
-        <h2>9. Wijzigingen en meerwerk</h2>
-        <p>
-          Indien tijdens de uitvoering blijkt dat aanpassingen nodig zijn die buiten de oorspronkelijke scope vallen, wordt dit beschouwd als meerwerk. LuminX informeert de opdrachtgever hierover en meerwerk wordt pas uitgevoerd na schriftelijke akkoordverklaring.
-        </p>
+          <h2 id="artikel-9">9. Wijzigingen en meerwerk</h2>
+          <p>
+            Indien tijdens de uitvoering blijkt dat aanpassingen nodig zijn die buiten de oorspronkelijke scope vallen, wordt dit beschouwd als meerwerk. LuminX informeert de opdrachtgever hierover en meerwerk wordt pas uitgevoerd na schriftelijke akkoordverklaring.
+          </p>
 
-        <h2>10. Opzegging en annulering</h2>
-        <ul>
-          <li>Lopende overeenkomsten kunnen door beide partijen schriftelijk worden opgezegd met een opzegtermijn van 30 dagen.</li>
-          <li>Bij tussentijdse beëindiging door de opdrachtgever zijn reeds verrichte werkzaamheden en gemaakte kosten verschuldigd.</li>
-          <li>LuminX behoudt zich het recht voor de overeenkomst per direct te ontbinden bij faillissement, surseance van betaling of herhaaldelijke wanbetaling van de opdrachtgever.</li>
-        </ul>
+          <h2 id="artikel-10">10. Opzegging en annulering</h2>
+          <ul>
+            <li>Lopende overeenkomsten kunnen door beide partijen schriftelijk worden opgezegd met een opzegtermijn van 30 dagen.</li>
+            <li>Bij tussentijdse beëindiging door de opdrachtgever zijn reeds verrichte werkzaamheden en gemaakte kosten verschuldigd.</li>
+            <li>LuminX behoudt zich het recht voor de overeenkomst per direct te ontbinden bij faillissement, surseance van betaling of herhaaldelijke wanbetaling van de opdrachtgever.</li>
+          </ul>
 
-        <h2>11. Aansprakelijkheid</h2>
-        <p>
-          De aansprakelijkheid van LuminX is beperkt tot het bedrag dat in het desbetreffende geval door de beroepsaansprakelijkheidsverzekering wordt uitgekeerd, of — indien geen uitkering plaatsvindt — tot maximaal het factuurbedrag van de betreffende opdracht (met een maximum van de laatste 3 maanden).
-        </p>
-        <p>
-          LuminX is niet aansprakelijk voor indirecte schade, waaronder gederfde winst, gemiste besparingen, verlies van gegevens of schade door bedrijfsstagnatie.
-        </p>
-        <p>
-          LuminX is niet aansprakelijk voor schade veroorzaakt door wijzigingen in platformen van derden (Google, Meta, etc.), wijzigingen in algoritmes, of downtime van externe diensten.
-        </p>
+          <h2 id="artikel-11">11. Aansprakelijkheid</h2>
+          <p>
+            De aansprakelijkheid van LuminX is beperkt tot het bedrag dat in het desbetreffende geval door de beroepsaansprakelijkheidsverzekering wordt uitgekeerd, of, indien geen uitkering plaatsvindt, tot maximaal het factuurbedrag van de betreffende opdracht (met een maximum van de laatste 3 maanden).
+          </p>
+          <p>
+            LuminX is niet aansprakelijk voor indirecte schade, waaronder gederfde winst, gemiste besparingen, verlies van gegevens of schade door bedrijfsstagnatie.
+          </p>
+          <p>
+            LuminX is niet aansprakelijk voor schade veroorzaakt door wijzigingen in platformen van derden (Google, Meta, etc.), wijzigingen in algoritmes, of downtime van externe diensten.
+          </p>
 
-        <h2>12. Overmacht</h2>
-        <p>
-          In geval van overmacht (waaronder ziekte, storingen bij derden, internetuitval, wijzigingen in wet- of regelgeving) is LuminX niet gehouden tot het nakomen van enige verplichting. In geval van langdurige overmacht (meer dan 60 dagen) hebben beide partijen het recht de overeenkomst te ontbinden.
-        </p>
+          <h2 id="artikel-12">12. Overmacht</h2>
+          <p>
+            In geval van overmacht (waaronder ziekte, storingen bij derden, internetuitval, wijzigingen in wet- of regelgeving) is LuminX niet gehouden tot het nakomen van enige verplichting. In geval van langdurige overmacht (meer dan 60 dagen) hebben beide partijen het recht de overeenkomst te ontbinden.
+          </p>
 
-        <h2>13. Geheimhouding</h2>
-        <p>
-          Beide partijen verplichten zich tot geheimhouding van alle vertrouwelijke informatie die zij in het kader van de overeenkomst van elkaar ontvangen. Deze verplichting geldt ook na beëindiging van de overeenkomst.
-        </p>
+          <h2 id="artikel-13">13. Geheimhouding</h2>
+          <p>
+            Beide partijen verplichten zich tot geheimhouding van alle vertrouwelijke informatie die zij in het kader van de overeenkomst van elkaar ontvangen. Deze verplichting geldt ook na beëindiging van de overeenkomst.
+          </p>
 
-        <h2>14. Privacy</h2>
-        <p>
-          LuminX verwerkt persoonsgegevens in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG). Zie onze <a href="/privacy">privacyverklaring</a> voor meer informatie.
-        </p>
+          <h2 id="artikel-14">14. Privacy</h2>
+          <p>
+            LuminX verwerkt persoonsgegevens in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG). Zie onze <a href="/privacy">privacyverklaring</a> voor meer informatie.
+          </p>
 
-        <h2>15. Toepasselijk recht en geschillen</h2>
-        <p>
-          Op alle overeenkomsten is uitsluitend Nederlands recht van toepassing. Geschillen worden bij voorkeur in onderling overleg opgelost. Indien dit niet lukt, wordt het geschil voorgelegd aan de bevoegde rechter in het arrondissement waar LuminX is gevestigd.
-        </p>
+          <h2 id="artikel-15">15. Toepasselijk recht en geschillen</h2>
+          <p>
+            Op alle overeenkomsten is uitsluitend Nederlands recht van toepassing. Geschillen worden bij voorkeur in onderling overleg opgelost. Indien dit niet lukt, wordt het geschil voorgelegd aan de bevoegde rechter in het arrondissement waar LuminX is gevestigd.
+          </p>
 
-        <h2>16. Wijzigingen</h2>
-        <p>
-          LuminX behoudt zich het recht voor deze algemene voorwaarden te wijzigen. De meest actuele versie is altijd beschikbaar op deze pagina. Bij lopende overeenkomsten worden wijzigingen 30 dagen na bekendmaking van kracht.
-        </p>
-
+          <h2 id="artikel-16">16. Wijzigingen</h2>
+          <p>
+            LuminX behoudt zich het recht voor deze algemene voorwaarden te wijzigen. De meest actuele versie is altijd beschikbaar op deze pagina. Bij lopende overeenkomsten worden wijzigingen 30 dagen na bekendmaking van kracht.
+          </p>
+          </div>
+        </article>
       </div>
     </section>
   </main>
@@ -147,112 +186,110 @@ import ContactOverlay from "../components/ContactOverlay.astro";
 </BaseLayout>
 
 <style>
-  .legal-page {
-    min-height: 100vh;
+  .legal { background: var(--pm-cream); min-height: 100vh; }
+
+  .legal__hero { padding-top: 72px; }
+
+  .legal__panel {
+    padding: clamp(3rem, 6vw, 4.5rem) var(--pm-gutter) clamp(3rem, 6vw, 4.5rem);
   }
 
-  .legal-hero {
-    position: relative;
-    padding: clamp(8rem, 14vw, 12rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
-    background: #0A0A0A;
-    color: #fff;
+  .legal__hero-content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.1rem;
+    max-width: 820px;
+    margin-inline: auto;
   }
 
-  .legal-hero-content {
-    max-width: 48rem;
-    margin: 0 auto;
-  }
+  .legal__title { color: var(--pm-milk); font-size: clamp(2.6rem, 6vw, 5rem); }
 
-  .legal-back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    color: rgba(255,255,255,0.4);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.3s ease;
-  }
-
-  .legal-back-link:hover {
-    color: rgba(255,255,255,0.7);
-  }
-
-  .legal-kicker {
-    display: block;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 1rem;
-  }
-
-  .legal-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-  }
-
-  .legal-hero p {
-    color: rgba(255,255,255,0.4);
-    font-size: 0.85rem;
-  }
-
-  .legal-body {
-    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-    background: #FEFEFE;
-    color: #1a1a1a;
-  }
-
-  .legal-content {
-    max-width: 48rem;
-    margin: 0 auto;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+  .legal__updated {
+    margin: 0;
+    color: rgba(255, 250, 240, 0.8);
     font-size: 0.95rem;
-    line-height: 1.75;
+    font-weight: 600;
   }
 
-  .legal-content h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.35rem;
+  .legal__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--pm-pink);
+    font-size: var(--pm-fs-label);
     font-weight: 700;
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-    color: #0a0a0a;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .legal__back :global(.legal__back-icon) { transform: rotate(180deg); }
+  @media (hover: hover) { .legal__back:hover { color: var(--pm-milk); } }
+
+  .legal__body { padding-top: clamp(3rem, 6vw, 4.5rem); }
+
+  .legal__layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: start;
+    max-width: calc(1120px + var(--pm-gutter) * 2);
   }
 
-  .legal-content p {
-    margin-bottom: 1rem;
-    color: #333;
+  /* sticky table of contents (desktop) */
+  .legal__toc {
+    position: sticky;
+    top: 110px;
+    padding: 1.5rem;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+  }
+  .legal__toc ol {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .legal__toc a {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 10px;
+    color: var(--pm-ink-soft);
+    font-size: 0.925rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+  .legal__toc a span {
+    flex: none;
+    min-width: 1.4em;
+    color: var(--pm-red);
+    font-weight: 800;
+  }
+  @media (hover: hover) {
+    .legal__toc a:hover { background: var(--pm-milk); color: var(--pm-ink); }
   }
 
-  .legal-content ul {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
+  .legal__card { padding: clamp(1.5rem, 4vw, 3.5rem); }
+
+  .legal__prose { font-size: 1.0625rem; }
+  .legal__prose :global(h2) { scroll-margin-top: 110px; font-size: clamp(1.6rem, 2.4vw, 2rem); }
+  .legal__prose :global(> h2:first-child) { margin-top: 0; }
+  .legal__prose :global(h2 + *) { margin-top: 0.6em; }
+  .legal__prose :global(p) { margin-block: 0; }
+  .legal__prose :global(> * + p) { margin-top: 1em; }
+  .legal__prose :global(h2 + p) { margin-top: 0.6em; }
+  .legal__prose :global(ul) { margin-bottom: 0; }
+  .legal__prose :global(li::marker) { color: var(--pm-red); }
+
+  @media (max-width: 960px) {
+    .legal__layout { grid-template-columns: 1fr; }
+    .legal__toc { display: none; }
   }
 
-  .legal-content li {
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-
-  .legal-content a {
-    color: #0a0a0a;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: opacity 0.3s ease;
-  }
-
-  .legal-content a:hover {
-    opacity: 0.6;
-  }
-
-  @media (max-width: 768px) {
-    .legal-hero {
-      padding-top: 7rem;
-    }
+  @media (max-width: 640px) {
+    .legal__card { border-radius: var(--pm-r); }
   }
 </style>

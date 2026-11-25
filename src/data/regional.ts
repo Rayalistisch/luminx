@@ -38,7 +38,7 @@ export const cities: City[] = [
     context:
       "Hengelo is een industriële sleutelstad in Twente met grote namen als Thales en een sterk B2B-ecosysteem dat steeds verder digitaliseert.",
     marketNote:
-      "Hengelose bedrijven — zeker in de B2B-sector — lopen vaak achter op digitale zichtbaarheid. Dat is een kans: wie nu een sterke online positie opbouwt, pakt marktaandeel van concurrenten die nog niet bewegen.",
+      "Hengelose bedrijven, zeker in de B2B-sector, lopen vaak achter op digitale zichtbaarheid. Dat is een kans: wie nu een sterke online positie opbouwt, pakt marktaandeel van concurrenten die nog niet bewegen.",
   },
   {
     name: "Almelo",
@@ -47,14 +47,14 @@ export const cities: City[] = [
     context:
       "Almelo is een ondernemende stad in het hart van Twente, met een sterk MKB-klimaat en groeiende behoefte aan digitale aanwezigheid en procesefficiëntie.",
     marketNote:
-      "In Almelo is de online marketing markt nog relatief open. Voor MKB-bedrijven die nu starten met een gestructureerde aanpak, zijn de kosten per lead lager dan in grotere steden — met hogere kansen op een sterke lokale positie.",
+      "In Almelo is de online marketing markt nog relatief open. Voor MKB-bedrijven die nu starten met een gestructureerde aanpak, zijn de kosten per lead lager dan in grotere steden, met hogere kansen op een sterke lokale positie.",
   },
   {
     name: "Oldenzaal",
     slug: "oldenzaal",
     layout: "highlight",
     context:
-      "Oldenzaal is een compacte ondernemersstad op de grens met Duitsland — strategisch gelegen en volop in beweging voor lokale en regionale groei.",
+      "Oldenzaal is een compacte ondernemersstad op de grens met Duitsland, strategisch gelegen en volop in beweging voor lokale en regionale groei.",
     marketNote:
       "De ligging van Oldenzaal maakt het interessant voor bedrijven die zowel de Nederlandse als de Duitse markt willen bedienen. Online marketing kan die tweeledige doelgroep effectief bereiken.",
   },
@@ -64,7 +64,7 @@ export const services: Record<string, ServiceDef> = {
   websites: {
     label: "Websites",
     icon: "✦",
-    metaTitle: (city) => `Website Laten Maken ${city} | LuminX — Partner in Twente`,
+    metaTitle: (city) => `Website Laten Maken ${city} | LuminX | Partner in Twente`,
     metaDesc: (city) =>
       `Op zoek naar een professionele website in ${city}? LuminX bouwt snelle, converterende websites in custom code, Framer of WordPress voor bedrijven in ${city}.`,
     intro: (city, context) =>
@@ -102,11 +102,11 @@ export const services: Record<string, ServiceDef> = {
   webshops: {
     label: "Webshops",
     icon: "◈",
-    metaTitle: (city) => `Webshop Laten Maken ${city} | LuminX — Shopify & WooCommerce`,
+    metaTitle: (city) => `Webshop Laten Maken ${city} | LuminX | Shopify & WooCommerce`,
     metaDesc: (city) =>
       `Webshop laten maken in ${city}? LuminX bouwt Shopify en WooCommerce shops die verkopen voor bedrijven in ${city} en heel Twente.`,
     intro: (city, context) =>
-      `${context} LuminX bouwt voor bedrijven in ${city} webshops die verkopen — met geoptimaliseerde checkout, productfeeds en volledige e-commerce tracking.`,
+      `${context} LuminX bouwt voor bedrijven in ${city} webshops die verkopen, met geoptimaliseerde checkout, productfeeds en volledige e-commerce tracking.`,
     metrics: [
       { value: "+25-50%", label: "Hogere conversieratio" },
       { value: "4-8 weken", label: "Naar live" },
@@ -141,7 +141,7 @@ export const services: Record<string, ServiceDef> = {
     label: "Online Marketing",
     icon: "✧",
     metaTitle: (city) =>
-      `Online Marketing ${city} | LuminX — Marketingbureau Twente`,
+      `Online Marketing ${city} | LuminX | Marketingbureau Twente`,
     metaDesc: (city) =>
       `Online marketing bureau in ${city}? LuminX realiseert meetbare groei via SEA, social en funneloptimalisatie voor bedrijven in ${city} en heel Twente.`,
     intro: (city, context) =>
@@ -180,7 +180,7 @@ export const services: Record<string, ServiceDef> = {
     label: "SEO",
     icon: "◎",
     metaTitle: (city) =>
-      `SEO Specialist ${city} | LuminX — SEO Bureau Twente`,
+      `SEO Specialist ${city} | LuminX | SEO Bureau Twente`,
     metaDesc: (city) =>
       `Op zoek naar een SEO specialist in ${city}? LuminX vergroot je organisch bereik met technische SEO, contentstrategie en linkbuilding voor bedrijven in ${city} en Twente.`,
     intro: (city, context) =>
@@ -219,7 +219,7 @@ export const services: Record<string, ServiceDef> = {
     label: "Procesautomation",
     icon: "◆",
     metaTitle: (city) =>
-      `Procesautomatisering ${city} | LuminX — Bureau Twente`,
+      `Procesautomatisering ${city} | LuminX | Bureau Twente`,
     metaDesc: (city) =>
       `Procesautomatisering in ${city}? LuminX helpt bedrijven in ${city} repetitieve taken automatiseren voor minder handwerk en meer efficiëntie in Twente.`,
     intro: (city, context) =>
@@ -257,7 +257,7 @@ export const services: Record<string, ServiceDef> = {
   strategy: {
     label: "Strategie",
     icon: "●",
-    metaTitle: (city) => `Digitale Strategie ${city} | LuminX — Bureau Twente`,
+    metaTitle: (city) => `Digitale Strategie ${city} | LuminX | Bureau Twente`,
     metaDesc: (city) =>
       `Digitale strategie voor bedrijven in ${city}? LuminX vertaalt ambitie naar een heldere roadmap met concrete KPI's voor voorspelbare groei in Twente.`,
     intro: (city, context) =>
@@ -295,11 +295,11 @@ export const services: Record<string, ServiceDef> = {
   sea: {
     label: "SEA & Google Ads",
     icon: "▲",
-    metaTitle: (city) => `SEA & Google Ads ${city} | LuminX — Bureau Twente`,
+    metaTitle: (city) => `SEA & Google Ads ${city} | LuminX | Bureau Twente`,
     metaDesc: (city) =>
       `Google Ads bureau in ${city}? LuminX beheert betaalde campagnes voor bedrijven in ${city} met focus op lagere kosten en meer kwalitatieve leads in Twente.`,
     intro: (city, context) =>
-      `${context} LuminX beheert voor bedrijven in ${city} betaalde zoekcampagnes die direct zichtbaar zijn op de momenten die ertoe doen — met scherpe targeting en aantoonbaar rendement.`,
+      `${context} LuminX beheert voor bedrijven in ${city} betaalde zoekcampagnes die direct zichtbaar zijn op de momenten die ertoe doen, met scherpe targeting en aantoonbaar rendement.`,
     metrics: [
       { value: "-20-40%", label: "Lagere CPC" },
       { value: "+35-65%", label: "Meer conversies" },
@@ -334,11 +334,11 @@ export const services: Record<string, ServiceDef> = {
     label: "Bedrijfsautomatisering",
     icon: "⬡",
     metaTitle: (city) =>
-      `Bedrijfsautomatisering ${city} | LuminX — Bureau Twente`,
+      `Bedrijfsautomatisering ${city} | LuminX | Bureau Twente`,
     metaDesc: (city) =>
       `Bedrijfsautomatisering in ${city}? LuminX helpt bedrijven in ${city} handmatige processen elimineren en operationele efficiëntie structureel verbeteren.`,
     intro: (city, context) =>
-      `${context} LuminX helpt bedrijven in ${city} hun operatie te stroomlijnen door slimme automatisering van terugkerende taken — van offertes en facturatie tot voorraadbeheer en klantcommunicatie.`,
+      `${context} LuminX helpt bedrijven in ${city} hun operatie te stroomlijnen door slimme automatisering van terugkerende taken, van offertes en facturatie tot voorraadbeheer en klantcommunicatie.`,
     metrics: [
       { value: "30-60%", label: "Minder handmatig werk" },
       { value: "4-10 weken", label: "Eerste resultaat" },
@@ -373,11 +373,11 @@ export const services: Record<string, ServiceDef> = {
     label: "E-mailmarketing",
     icon: "◉",
     metaTitle: (city) =>
-      `E-mailmarketing ${city} | LuminX — Marketingbureau Twente`,
+      `E-mailmarketing ${city} | LuminX | Marketingbureau Twente`,
     metaDesc: (city) =>
       `E-mailmarketing bureau in ${city}? LuminX ontwikkelt e-mailstrategieën en campagnes voor bedrijven in ${city} die leiden tot meer omzet en klantbinding in Twente.`,
     intro: (city, context) =>
-      `${context} LuminX ontwikkelt voor bedrijven in ${city} e-mailmarketingstrategieën die verder gaan dan nieuwsbrieven — gericht op relevantie, timing en meetbare omzetbijdrage.`,
+      `${context} LuminX ontwikkelt voor bedrijven in ${city} e-mailmarketingstrategieën die verder gaan dan nieuwsbrieven: gericht op relevantie, timing en meetbare omzetbijdrage.`,
     metrics: [
       { value: "35-55%", label: "Gemiddelde open rate" },
       { value: "+25%", label: "Meer herhaalomzet" },

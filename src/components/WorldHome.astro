@@ -1,0 +1,1085 @@
+---
+import { Image } from "astro:assets";
+import founderImage from "../assets/images/luminx-founder.png";
+import Icon from "./pm/Icon.astro";
+import World from "./world/World";
+import { PROJECTS, MARKETING, TECH, BELIEFS, STATS, PLACES } from "./world/content";
+
+const total = PLACES.length;
+const indexOf = (id: string) => PLACES.findIndex((p) => p.id === id) + 1;
+---
+
+<script is:inline>document.documentElement.classList.add("lx-js");</script>
+
+<div class="lx-loader" data-world-loader aria-hidden="true">
+  <div class="lx-loader__inner">
+    <span class="lx-loader__sun"></span>
+    <span class="lx-loader__title">LuminX</span>
+    <span class="lx-loader__sub">Twente wordt opgewarmd</span>
+    <span class="lx-loader__bar"><span></span></span>
+  </div>
+</div>
+
+<section class="lx-world" data-world aria-label="Lichtland Twente: verken ons werk in 3D">
+  <div class="lx-stage" aria-hidden="true">
+    <World client:only="react" />
+  </div>
+  <div class="lx-tip" data-tip aria-hidden="true">
+    <strong></strong>
+    <span data-tip-sub></span>
+    <em>Klik om te openen</em>
+  </div>
+
+  <!-- a quiet hint that disappears once you start exploring -->
+  <p class="lx-hint" data-hint aria-hidden="true">
+    <span class="lx-hint__dot"></span>
+    <span class="lx-hint--mouse">Sleep om rond te kijken · klik op een gebouw</span>
+    <span class="lx-hint--touch">Veeg om rond te kijken · tik op een gebouw</span>
+  </p>
+  <h1 class="lx-caption">LuminX · Online marketing bureau in Enschede, Twente</h1>
+
+  <!-- menu: the land, and the sheets that open beside it -->
+  <nav class="lx-menu" aria-label="Hoofdmenu">
+    <button type="button" class="lx-menu__item is-active" data-sheet-open="land" aria-current="true">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      Het land
+    </button>
+    <button type="button" class="lx-menu__item" data-sheet-open="diensten">Diensten</button>
+    <button type="button" class="lx-menu__item" data-sheet-open="werk">Werk</button>
+    <button type="button" class="lx-menu__item" data-sheet-open="over">Over</button>
+    <button type="button" class="lx-menu__item" data-sheet-open="contact">Contact</button>
+  </nav>
+
+  <!-- controls -->
+  <div class="lx-controls" role="toolbar" aria-label="Wereld bedienen">
+    <button type="button" class="lx-ctrl lx-ctrl--tour" data-tour>
+      <Icon name="play" size={16} /> <span>Rondleiding</span>
+    </button>
+    <button type="button" class="lx-ctrl lx-ctrl--dusk" data-dusk aria-pressed="false">
+      <span class="lx-ctrl__bulb" aria-hidden="true"></span> <span data-dusk-label>Lichten aan</span>
+    </button>
+    <div class="lx-ctrl-zoom">
+      <button type="button" class="lx-ctrl lx-ctrl--icon" data-zoom="1" aria-label="Inzoomen"><Icon name="plus" size={18} stroke={2.4} /></button>
+      <button type="button" class="lx-ctrl lx-ctrl--icon" data-zoom="-1" aria-label="Uitzoomen"><span class="lx-minus" aria-hidden="true"></span></button>
+    </div>
+  </div>
+
+  <!-- info panel: every place's content lives here as real HTML -->
+  <aside class="lx-panel" data-panel aria-label="Informatie over deze plek">
+    <div class="lx-panel__bar">
+      <button type="button" class="lx-panel__nav" data-prev aria-label="Vorige plek"><Icon name="arrow" size={16} stroke={2.4} /></button>
+      <span class="lx-panel__count" data-count>1 / {total}</span>
+      <button type="button" class="lx-panel__nav" data-next aria-label="Volgende plek"><Icon name="arrow" size={16} stroke={2.4} /></button>
+      <button type="button" class="lx-panel__close" data-close aria-label="Terug naar overzicht"><Icon name="x" size={18} stroke={2.4} /></button>
+    </div>
+
+    <div class="lx-panel__scroll" data-panel-scroll data-lenis-prevent>
+      <!-- molen -->
+      <article class="lx-place" data-place="marketing" aria-labelledby="pl-marketing">
+        <header class="lx-place__head lx-place__head--pink">
+          <span class="pm-icon pm-icon--wine"><Icon name="megaphone" /></span>
+          <div>
+            <p class="lx-kicker">De molen · vangt de wind</p>
+            <h2 id="pl-marketing" class="lx-place__title">Online marketing</h2>
+          </div>
+        </header>
+        <div class="lx-place__body">
+          <p class="lx-lead">Gevonden worden, geklikt worden, gekozen worden. Zoals de molen de wind vangt, vangen wij aandacht en zetten die om in klanten.</p>
+          <ul class="lx-list">
+            {MARKETING.map((it) => (
+              <li><a href={it.href}><span><strong>{it.title}</strong><span>{it.desc}</span></span><span class="lx-list__arrow" aria-hidden="true"><Icon name="arrow" size={16} stroke={2.4} /></span></a></li>
+            ))}
+          </ul>
+          <p class="pm-tag pm-tag--paper lx-badge"><Icon name="trending-up" size={16} /> Gem. 3× meer organisch verkeer</p>
+        </div>
+      </article>
+
+      <!-- fabriek -->
+      <article class="lx-place" data-place="techniek" aria-labelledby="pl-techniek">
+        <header class="lx-place__head lx-place__head--yellow">
+          <span class="pm-icon pm-icon--milk"><Icon name="code" /></span>
+          <div>
+            <p class="lx-kicker">De textielfabriek · draait door</p>
+            <h2 id="pl-techniek" class="lx-place__title">Techniek &amp; automatisering</h2>
+          </div>
+        </header>
+        <div class="lx-place__body">
+          <p class="lx-lead">Het fundament onder alles wat je online doet. Twente bouwde ooit fabrieken die dag en nacht draaiden; wij bouwen systemen die dat voor jou doen.</p>
+          <ul class="lx-list">
+            {TECH.map((it) => (
+              <li><a href={it.href}><span><strong>{it.title}</strong><span>{it.desc}</span></span><span class="lx-list__arrow" aria-hidden="true"><Icon name="arrow" size={16} stroke={2.4} /></span></a></li>
+            ))}
+          </ul>
+          <p class="pm-tag pm-tag--paper lx-badge"><Icon name="trending-up" size={16} /> 0 dagen downtime bij migraties</p>
+        </div>
+      </article>
+
+      <!-- erven: projecten -->
+      {PROJECTS.map((p, i) => (
+        <article class="lx-place" data-place={p.id} aria-labelledby={`pl-${p.id}`}>
+          <figure class="lx-place__media"><img src={p.image} alt={`Project ${p.title}`} loading="lazy" decoding="async" /></figure>
+          <div class="lx-place__body">
+            <p class="lx-kicker">Geselecteerd werk · erf {i + 1} van {PROJECTS.length}</p>
+            <h2 id={`pl-${p.id}`} class="lx-place__title">{p.title}</h2>
+            <p class="lx-result"><Icon name="trending-up" size={20} /> {p.result}</p>
+            <p class="lx-lead">{p.description}</p>
+            <span class="pm-tag lx-tag">{p.tag}</span>
+            {p.id === "gsm-team" && (
+              <blockquote class="lx-quote">
+                <p>“Ray heeft onze webshop volledig gemigreerd naar Shopify zonder één dag downtime. De laadtijd ging met 40% omlaag en onze conversie steeg direct mee.”</p>
+                <footer><strong>Barry</strong> · GSM Team</footer>
+              </blockquote>
+            )}
+            <a class="pm-btn pm-btn--sm lx-place__cta" href={p.href}>Bekijk de case <Icon name="arrow" size={16} stroke={2.4} /></a>
+          </div>
+        </article>
+      ))}
+
+      <!-- thuis: over + contact -->
+      <article class="lx-place" data-place="luminx" aria-labelledby="pl-luminx">
+        <div class="lx-place__body">
+          <p class="lx-kicker">Het erf van LuminX · Enschede</p>
+          <h2 id="pl-luminx" class="lx-place__title">Groei is geen verzameling losse trucjes.</h2>
+          <p class="lx-lead">De meeste MKB'ers betalen voor kanalen die niet met elkaar praten. Wij bouwen er één systeem van, zoals al die lichtjes samen één pad naar huis vormen.</p>
+          <ul class="lx-beliefs">
+            {BELIEFS.map((b) => (
+              <li><strong>{b.title}</strong><span>{b.body}</span></li>
+            ))}
+          </ul>
+          <dl class="lx-stats">
+            {STATS.map((s) => (
+              <div><dt>{s.label}</dt><dd>{s.value}</dd></div>
+            ))}
+          </dl>
+          <div class="lx-founder">
+            <Image src={founderImage} alt="Ray Huffenreuter, oprichter van LuminX" widths={[96, 160]} sizes="56px" loading="lazy" class="lx-founder__img" />
+            <p><strong>Ray Huffenreuter</strong><span>Oprichter en jouw vaste aanspreekpunt. Reactie binnen 24 uur.</span></p>
+          </div>
+          <div class="lx-actions">
+            <a href="#" class="pm-btn pm-btn--sm" data-overlay-open>Stuur een bericht <Icon name="arrow" size={16} stroke={2.4} /></a>
+            <a href="/videocall" class="pm-btn pm-btn--sm pm-btn--white">Plan een videocall</a>
+          </div>
+          <p class="lx-contact">
+            <a href="mailto:hello@luminx.nl"><Icon name="mail" size={16} /> hello@luminx.nl</a>
+            <a href="tel:+31613698596"><Icon name="phone" size={16} /> +31 6 1369 8596</a>
+          </p>
+          <nav class="lx-legal" aria-label="Meer van LuminX">
+            <a href="/over">Meer over LuminX</a>
+            <a href="/blog">Blog</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/algemene-voorwaarden">Voorwaarden</a>
+          </nav>
+        </div>
+      </article>
+    </div>
+  </aside>
+
+  <!-- menu sheets: real content, opened beside the land -->
+  <aside class="lx-sheet" data-sheet aria-label="LuminX">
+    <button type="button" class="lx-sheet__close" data-sheet-close aria-label="Sluiten"><Icon name="x" size={18} stroke={2.4} /></button>
+    <div class="lx-sheet__scroll" data-sheet-scroll data-lenis-prevent>
+
+      <!-- Over -->
+      <section class="lx-sec" data-sec="over" id="over" aria-labelledby="sec-over">
+        <header class="lx-sec__hero lx-sec__hero--photo">
+          <Image src={founderImage} alt="Ray Huffenreuter, oprichter van LuminX" widths={[640, 960]} sizes="(max-width: 820px) 100vw, 620px" class="lx-sec__photo" />
+          <div class="lx-sec__herotext">
+            <p class="lx-sec__kicker">Hoi, ik ben Ray.</p>
+            <h2 id="sec-over" class="lx-sec__title">5+ jaar online groei voor het MKB in Twente. <em>Van losse signalen naar één pad dat omzet oplevert.</em></h2>
+            <a href="#" class="lx-sec__cta" data-overlay-open>Een idee of een vraag? Vraag het Ray.</a>
+          </div>
+        </header>
+        <div class="lx-sec__body">
+          <p class="lx-sec__lead">Eén aanspreekpunt, alle disciplines. <span>Van website tot ads en automatisering, onder één dak.</span></p>
+          <p class="lx-sec__sub">En ja, Twentse nuchterheid zit er gratis bij.</p>
+          <div class="lx-cards">
+            <div class="lx-cardlet"><Icon name="message" size={20} /><strong>Je praat direct met Ray.</strong><span>Geen accountmanager ertussen. Jij briefed Ray, Ray bouwt het.</span></div>
+            <div class="lx-cardlet"><Icon name="arrow" size={20} /><strong>Geen overdrachten.</strong><span>Eén hoofd, van eerste idee tot live en gemeten.</span></div>
+            <div class="lx-cardlet"><Icon name="clock" size={20} /><strong>Snel live.</strong><span>Weken in plaats van maanden, zonder in te leveren op kwaliteit.</span></div>
+            <div class="lx-cardlet"><Icon name="chart" size={20} /><strong>Meetbaar.</strong><span>Betrouwbare tracking, zodat je ziet wat elke euro oplevert.</span></div>
+          </div>
+          <ul class="lx-beliefs">
+            {BELIEFS.map((b) => (<li><strong>{b.title}</strong><span>{b.body}</span></li>))}
+          </ul>
+          <dl class="lx-stats">
+            {STATS.map((st) => (<div><dt>{st.label}</dt><dd>{st.value}</dd></div>))}
+          </dl>
+          <a href="/over" class="lx-sec__more">Lees meer over LuminX <Icon name="arrow" size={16} stroke={2.4} /></a>
+        </div>
+      </section>
+
+      <!-- Diensten -->
+      <section class="lx-sec" data-sec="diensten" id="diensten" aria-labelledby="sec-diensten">
+        <header class="lx-sec__hero lx-sec__hero--pink">
+          <p class="lx-sec__kicker">Diensten · de Oude Markt, Enschede</p>
+          <h2 id="sec-diensten" class="lx-sec__title">Alles wat groei nodig heeft. <em>Elk winkeltje rond het ijs is een dienst.</em></h2>
+        </header>
+        <div class="lx-sec__body">
+          <h3 class="lx-sec__h3"><span class="lx-dot lx-dot--pink"></span>Online marketing</h3>
+          <div class="lx-cards">
+            {MARKETING.map((it) => (<a class="lx-cardlet lx-cardlet--link" href={it.href}><strong>{it.title}</strong><span>{it.desc}</span><Icon name="arrow" size={16} stroke={2.4} /></a>))}
+          </div>
+          <h3 class="lx-sec__h3"><span class="lx-dot lx-dot--yellow"></span>Techniek &amp; automatisering</h3>
+          <div class="lx-cards">
+            {TECH.map((it) => (<a class="lx-cardlet lx-cardlet--link" href={it.href}><strong>{it.title}</strong><span>{it.desc}</span><Icon name="arrow" size={16} stroke={2.4} /></a>))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Werk -->
+      <section class="lx-sec" data-sec="werk" id="werk" aria-labelledby="sec-werk">
+        <header class="lx-sec__hero lx-sec__hero--yellow">
+          <p class="lx-sec__kicker">Geselecteerd werk</p>
+          <h2 id="sec-werk" class="lx-sec__title">Bewijs, geen beloftes. <em>Elk erf in het land is een echte klant.</em></h2>
+        </header>
+        <div class="lx-sec__body">
+          <div class="lx-works">
+            {PROJECTS.map((p) => (
+              <a class="lx-work" href={p.href}>
+                <span class="lx-work__media"><img src={p.image} alt={`Project ${p.title}`} loading="lazy" decoding="async" /></span>
+                <span class="lx-work__body">
+                  <span class="pm-tag lx-work__tag">{p.tag}</span>
+                  <strong>{p.title}</strong>
+                  <span class="lx-work__result"><Icon name="trending-up" size={16} /> {p.result}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+          <blockquote class="lx-quote">
+            <p>“Ray heeft onze webshop volledig gemigreerd naar Shopify zonder één dag downtime. De laadtijd ging met 40% omlaag en onze conversie steeg direct mee.”</p>
+            <footer><strong>Barry</strong> · GSM Team</footer>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="lx-sec" data-sec="contact" id="contact" aria-labelledby="sec-contact">
+        <header class="lx-sec__hero lx-sec__hero--wine">
+          <p class="lx-sec__kicker">Contact</p>
+          <h2 id="sec-contact" class="lx-sec__title">Laten we de lichten aandoen. <em>Ray reageert binnen 24 uur.</em></h2>
+        </header>
+        <div class="lx-sec__body">
+          <div class="lx-cards">
+            <a href="#" class="lx-cardlet lx-cardlet--link" data-overlay-open><Icon name="send" size={20} /><strong>Stuur een bericht</strong><span>Vertel kort wat je wilt bereiken.</span></a>
+            <a href="/videocall" class="lx-cardlet lx-cardlet--link"><Icon name="video" size={20} /><strong>Plan een videocall</strong><span>Een halfuur, vrijblijvend.</span></a>
+            <a href="mailto:hello@luminx.nl" class="lx-cardlet lx-cardlet--link"><Icon name="mail" size={20} /><strong>hello@luminx.nl</strong><span>Mail mag altijd.</span></a>
+            <a href="tel:+31613698596" class="lx-cardlet lx-cardlet--link"><Icon name="phone" size={20} /><strong>+31 6 1369 8596</strong><span>Bellen of appen.</span></a>
+          </div>
+          <p class="lx-sec__sub"><Icon name="map-pin" size={16} /> Enschede, Twente · werkzaam in heel Nederland</p>
+          <nav class="lx-legal" aria-label="Meer van LuminX">
+            <a href="/over">Over LuminX</a>
+            <a href="/blog">Blog</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/algemene-voorwaarden">Voorwaarden</a>
+          </nav>
+        </div>
+      </section>
+      <!-- any page of the site, loaded into the popup -->
+      <section class="lx-sec lx-pagesec" data-sec="page" aria-live="polite">
+        <div class="lx-pagebar">
+          <button type="button" class="lx-pagebar__back" data-page-back><Icon name="arrow" size={16} stroke={2.4} /> <span data-page-back-label>Terug</span></button>
+          <a class="lx-pagebar__open" data-page-open href="/" target="_blank" rel="noopener">Open als pagina <Icon name="arrow-up-right" size={14} stroke={2.4} /></a>
+        </div>
+        <div class="lx-pagebody" data-page-body></div>
+      </section>
+    </div>
+    <button type="button" class="lx-sheet__down" data-sheet-down aria-label="Verder lezen"><Icon name="arrow" size={18} stroke={2.4} /></button>
+  </aside>
+</section>
+
+
+
+<script>
+  import { PLACES, PROJECTS } from "./world/content";
+
+  const root = document.documentElement;
+  const loader = document.querySelector<HTMLElement>("[data-world-loader]");
+  const panel = document.querySelector<HTMLElement>("[data-panel]")!;
+  const scroller = document.querySelector<HTMLElement>("[data-panel-scroll]")!;
+  const count = document.querySelector<HTMLElement>("[data-count]")!;
+  const duskBtn = document.querySelector<HTMLButtonElement>("[data-dusk]")!;
+  const duskLabel = document.querySelector<HTMLElement>("[data-dusk-label]")!;
+  const articles = Array.from(document.querySelectorAll<HTMLElement>("[data-place]"));
+  const order = PLACES.map((p) => p.id);
+  let current: string | null = null;
+  let ready = false;
+  let lightsOn = false;
+
+  const select = (id: string | null) => window.dispatchEvent(new CustomEvent("lx:select", { detail: { id } }));
+  const setDusk = (on: boolean) => {
+    lightsOn = on;
+    duskBtn.setAttribute("aria-pressed", String(on));
+    duskLabel.textContent = on ? "Lichten uit" : "Lichten aan";
+    root.classList.toggle("lx-night", on);
+    window.dispatchEvent(new CustomEvent("lx:dusk", { detail: { on } }));
+  };
+
+  /* ─── menu sheets ─────────────────────────────────────────────── */
+  const sheet = document.querySelector<HTMLElement>("[data-sheet]")!;
+  const sheetScroll = document.querySelector<HTMLElement>("[data-sheet-scroll]")!;
+  const secs = Array.from(document.querySelectorAll<HTMLElement>("[data-sec]"));
+  const menuItems = Array.from(document.querySelectorAll<HTMLElement>("[data-sheet-open]"));
+  // where the camera goes while a sheet is open (null = the whole land, nudged aside)
+  const SHEET_VIEW: Record<string, string | null> = { over: "luminx", contact: "luminx", diensten: "oudemarkt", werk: null };
+  let sheetOpen: string | null = null;
+  const setMenu = (id: string) => menuItems.forEach((m) => {
+    const on = m.dataset.sheetOpen === id;
+    m.classList.toggle("is-active", on);
+    if (on) m.setAttribute("aria-current", "true"); else m.removeAttribute("aria-current");
+  });
+  const hideSheet = () => {
+    sheetOpen = null;
+    sheet.classList.remove("is-open");
+    root.classList.remove("lx-sheet-open");
+    setMenu("land");
+  };
+  const openSheet = (id: string) => {
+    sheet.classList.remove("is-wide");
+    if (location.pathname !== "/") { history.pushState({}, "", "/"); document.title = homeTitle; }
+    if (id === "land") {
+      if (sheetOpen) window.dispatchEvent(new CustomEvent("lx:view", { detail: { id: null, sheet: false } }));
+      if (current) select(null);
+      hideSheet();
+      return;
+    }
+    if (current) select(null);
+    sheetOpen = id;
+    secs.forEach((x) => x.classList.toggle("is-active", x.dataset.sec === id));
+    sheet.classList.add("is-open");
+    root.classList.add("lx-sheet-open");
+    sheetScroll.scrollTop = 0;
+    setMenu(id);
+    window.dispatchEvent(new CustomEvent("lx:view", { detail: { id: SHEET_VIEW[id] ?? null, sheet: true } }));
+    if (id === "contact" && !lightsOn) setDusk(true);
+  };
+  menuItems.forEach((m) => m.addEventListener("click", () => openSheet(m.dataset.sheetOpen!)));
+  document.querySelector("[data-sheet-close]")?.addEventListener("click", () => openSheet("land"));
+  document.querySelector("[data-sheet-down]")?.addEventListener("click", () => sheetScroll.scrollBy({ top: sheetScroll.clientHeight * 0.8, behavior: "smooth" }));
+
+  /* ─── every internal page opens in the popup ──────────────────────── */
+  const pageBody = document.querySelector<HTMLElement>("[data-page-body]")!;
+  const pageBackLabel = document.querySelector<HTMLElement>("[data-page-back-label]")!;
+  const pageOpen = document.querySelector<HTMLAnchorElement>("[data-page-open]")!;
+  const homeTitle = document.title;
+  const pageCache = new Map<string, Promise<{ title: string; main: Element } | null>>();
+  let returnTo: string | null = null;
+  const FULL_PAGES = ["/videocall", "/tracking-audit", "/coming-soon"];
+  const SHEET_NAMES: Record<string, string> = { diensten: "Diensten", werk: "Werk", over: "Over", contact: "Contact" };
+
+  const viewFor = (path: string): { view: string | null; menu: string } => {
+    if (path.startsWith("/diensten")) return { view: "oudemarkt", menu: "diensten" };
+    if (path.startsWith("/cases")) {
+      const p = PROJECTS.find((x) => path.startsWith(x.href));
+      return { view: p ? p.id : null, menu: "werk" };
+    }
+    if (path.startsWith("/over")) return { view: "luminx", menu: "over" };
+    return { view: null, menu: "" };
+  };
+
+  // bring along any stylesheet the page needs that this page doesn't have yet
+  // (in production the site shares one stylesheet, so this is usually a no-op)
+  const adoptStyles = (doc: Document) => {
+    doc.head.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]').forEach((l) => {
+      const href = new URL(l.getAttribute("href")!, location.href).href;
+      const has = Array.from(document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]')).some((x) => x.href === href);
+      if (!has) document.head.appendChild(Object.assign(document.createElement("link"), { rel: "stylesheet", href }));
+    });
+    doc.head.querySelectorAll("style").forEach((st) => {
+      const id = st.getAttribute("data-vite-dev-id");
+      const dupe = id
+        ? document.head.querySelector(`style[data-vite-dev-id="${CSS.escape(id)}"]`)
+        : Array.from(document.head.querySelectorAll("style")).some((x) => x.textContent === st.textContent);
+      if (!dupe) document.head.appendChild(st.cloneNode(true));
+    });
+  };
+
+  const fetchPage = (url: string) => {
+    const key = url.split("#")[0];
+    if (!pageCache.has(key)) {
+      pageCache.set(key, fetch(key, { credentials: "same-origin" })
+        .then((r) => (r.ok ? r.text() : Promise.reject()))
+        .then((html) => {
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const main = doc.querySelector("main");
+          if (main) adoptStyles(doc);
+          return main ? { title: doc.title, main } : null;
+        })
+        .catch(() => null));
+    }
+    return pageCache.get(key)!;
+  };
+
+  const openPage = async (url: string, push = true) => {
+    const path = url.split("#")[0].split("?")[0];
+    const hash = url.includes("#") ? url.slice(url.indexOf("#")) : "";
+    if (current) select(null);
+    if (sheetOpen && sheetOpen !== "page") returnTo = sheetOpen;
+    else if (!sheetOpen) returnTo = null;
+    pageBackLabel.textContent = returnTo ? `Terug naar ${SHEET_NAMES[returnTo] ?? "het overzicht"}` : "Terug naar het land";
+    pageOpen.href = path;
+    sheetOpen = "page";
+    secs.forEach((x) => x.classList.toggle("is-active", x.dataset.sec === "page"));
+    sheet.classList.add("is-open", "is-wide");
+    root.classList.add("lx-sheet-open");
+    pageBody.innerHTML = '<div class="lx-pageload"><span></span><span></span><span></span></div>';
+    sheetScroll.scrollTop = 0;
+    const { view, menu } = viewFor(path);
+    setMenu(menu || "none");
+    window.dispatchEvent(new CustomEvent("lx:view", { detail: { id: view, sheet: true } }));
+    if (push) history.pushState({ lxPage: url }, "", url);
+
+    const page = await fetchPage(url);
+    if (sheetOpen !== "page") return;
+    if (!page) { location.href = url; return; }
+    const main = document.importNode(page.main, true);
+    main.querySelectorAll("script").forEach((n) => n.remove());
+    // content that normally animates in on scroll is simply shown
+    main.querySelectorAll("[data-reveal]").forEach((n) => n.classList.add("is-in"));
+    pageBody.replaceChildren(main);
+    document.title = page.title;
+    if (hash) pageBody.querySelector(hash)?.scrollIntoView();
+  };
+
+  const toHomeUrl = () => {
+    if (location.pathname !== "/") history.pushState({}, "", "/");
+    document.title = homeTitle;
+  };
+
+  document.querySelector("[data-page-back]")?.addEventListener("click", () => {
+    toHomeUrl();
+    sheet.classList.remove("is-wide");
+    if (returnTo) openSheet(returnTo);
+    else openSheet("land");
+  });
+
+  // intercept internal links anywhere on the page (menu, panels, the popup itself)
+  document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const target = e.target as Element;
+    const overlayBtn = target.closest("[data-overlay-open]");
+    if (overlayBtn && pageBody.contains(overlayBtn)) {
+      // buttons inside a loaded page: hand over to the site's own contact overlay
+      e.preventDefault();
+      document.querySelector<HTMLElement>("header [data-overlay-open]")?.click();
+      return;
+    }
+    const a = target.closest<HTMLAnchorElement>("a[href]");
+    if (!a || a.hasAttribute("data-overlay-open") || a.hasAttribute("download") || a.hasAttribute("data-page-open")) return;
+    if (a.target && a.target !== "_self") return;
+    const u = new URL(a.href, location.href);
+    if (u.origin !== location.origin) return;
+    if (u.pathname === "/" || /\.(pdf|xml|txt|png|jpe?g|webp|svg)$/i.test(u.pathname)) return;
+    // pages that rely on their own scripts (booking widget, audit form) open normally
+    if (FULL_PAGES.some((p) => u.pathname.startsWith(p))) return;
+    if (u.pathname === location.pathname && u.hash) {
+      e.preventDefault();
+      pageBody.querySelector(u.hash)?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    e.preventDefault();
+    // close the site menu if it was open
+    const nav = document.querySelector("[data-nav]");
+    if (nav?.classList.contains("is-open")) document.querySelector<HTMLElement>("[data-nav-toggle]")?.click();
+    openPage(u.pathname + u.search + u.hash);
+  });
+
+  window.addEventListener("popstate", (e) => {
+    const st = e.state as { lxPage?: string } | null;
+    if (st?.lxPage) openPage(st.lxPage, false);
+    else if (location.pathname === "/") {
+      document.title = homeTitle;
+      sheet.classList.remove("is-wide");
+      if (sheetOpen === "page") { if (returnTo) openSheet(returnTo); else openSheet("land"); }
+    }
+  });
+
+  window.addEventListener("lx:select", (e) => {
+    const id = (e as CustomEvent<{ id: string | null }>).detail.id;
+    if (id && sheetOpen) hideSheet();
+    current = id;
+    root.classList.toggle("lx-focused", !!id);
+    panel.classList.toggle("is-open", !!id);
+    if (!id) return;
+    articles.forEach((a) => a.classList.toggle("is-active", a.dataset.place === id));
+    count.textContent = `${order.indexOf(id) + 1} / ${order.length}`;
+    scroller.scrollTop = 0;
+    // the farm at the end of the lane is where the lights come on
+    if (id === "luminx" && !lightsOn) setDusk(true);
+  });
+
+  const step = (dir: number) => {
+    const i = current ? order.indexOf(current) : -1;
+    select(order[(i + dir + order.length) % order.length]);
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-select]").forEach((b) =>
+    b.addEventListener("click", () => select(b.dataset.select!)),
+  );
+  document.querySelector("[data-prev]")?.addEventListener("click", () => step(-1));
+  document.querySelector("[data-next]")?.addEventListener("click", () => step(1));
+  document.querySelector("[data-close]")?.addEventListener("click", () => select(null));
+  document.querySelector("[data-tour]")?.addEventListener("click", () => select(order[0]));
+  // the hint bows out after the first real interaction with the land
+  const hint = document.querySelector<HTMLElement>("[data-hint]");
+  const dismiss = () => hint?.classList.add("is-gone");
+  document.querySelector(".lx-stage")?.addEventListener("pointerdown", dismiss, { once: true });
+  window.addEventListener("lx:select", dismiss, { once: true });
+  duskBtn.addEventListener("click", () => setDusk(!lightsOn));
+  document.querySelectorAll<HTMLElement>("[data-zoom]").forEach((b) =>
+    b.addEventListener("click", () => window.dispatchEvent(new CustomEvent("lx:zoom", { detail: { dir: Number(b.dataset.zoom) } }))),
+  );
+  window.addEventListener("keydown", (e) => {
+    if (sheetOpen && e.key === "Escape") return openSheet("land");
+    if (!current) return;
+    if (e.key === "Escape") select(null);
+    if (e.key === "ArrowRight") step(1);
+    if (e.key === "ArrowLeft") step(-1);
+  });
+
+  // deep links (#werk, #diensten, #over …) open the matching place
+  const HASH: Record<string, string> = { techniek: "techniek", marketing: "marketing" };
+  const fromHash = () => {
+    const h = location.hash.slice(1);
+    if (h in SHEET_VIEW) return openSheet(h);
+    const id = HASH[h] ?? (order.includes(h) ? h : null);
+    if (!id) return;
+    document.querySelector("[data-world]")?.scrollIntoView({ behavior: "smooth" });
+    select(id);
+  };
+  window.addEventListener("hashchange", () => ready && fromHash());
+
+  const done = () => {
+    if (ready) return;
+    ready = true;
+    loader?.classList.add("is-done");
+    fromHash();
+  };
+  window.addEventListener("luminx:world-ready", () => requestAnimationFrame(done), { once: true });
+  window.setTimeout(done, 9000);
+</script>
+
+<style is:global>
+  /* the homepage is the map: nothing to scroll to */
+  html:has(.lx-world):not(.lx-no3d), html:has(.lx-world):not(.lx-no3d) body { overflow: hidden; height: 100%; }
+
+  /* keep the floating widgets out of the info panel's way */
+  html.lx-focused .wa-widget { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+
+  /* without WebGL the places become a plain, readable page */
+  html.lx-no3d .lx-stage, html.lx-no3d .lx-controls, html.lx-no3d .lx-panel__bar { display: none !important; }
+</style>
+
+<style>
+  /* ─── loader ───────────────────────────────────────────────────────── */
+  .lx-loader { display: none; }
+  :global(html.lx-js) .lx-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    background: var(--pm-cream);
+    transition: opacity 1.1s var(--pm-ease), visibility 0s linear 1.1s;
+  }
+  .lx-loader.is-done { opacity: 0; visibility: hidden; }
+  .lx-loader__inner { display: grid; justify-items: center; gap: 0.6rem; }
+  .lx-loader__sun {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 60%, var(--pm-yellow), var(--pm-pink) 70%);
+    border: 2px solid var(--pm-ink);
+    box-shadow: 0 6px 0 var(--pm-ink);
+    animation: lx-rise 1.6s var(--pm-ease) both;
+  }
+  .lx-loader__title { font-family: var(--pm-logo); font-size: 1.6rem; color: var(--pm-ink); margin-top: 0.6rem; }
+  .lx-loader__sub { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pm-ink-mute); }
+  .lx-loader__bar { width: 160px; height: 4px; border-radius: 4px; background: var(--pm-ink-line); overflow: hidden; margin-top: 0.4rem; }
+  .lx-loader__bar span { display: block; height: 100%; width: 40%; border-radius: inherit; background: var(--pm-red); animation: lx-bar 1.2s ease-in-out infinite; }
+  @keyframes lx-rise { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes lx-bar { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+
+  /* ─── world ────────────────────────────────────────────────────────── */
+  .lx-world {
+    --panel-w: min(440px, 40vw);
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .lx-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(180deg, #86a2cc 0%, #f9cda4 46%, #ffd9a3 56%, #d9a257 58%, #a6ae5d 100%);
+    cursor: grab;
+  }
+  .lx-stage:active { cursor: grabbing; }
+  .lx-tip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.55rem 0.85rem 0.6rem;
+    border: 2px solid var(--pm-ink);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-milk);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    color: var(--pm-ink);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    white-space: nowrap;
+  }
+  .lx-tip.is-on { opacity: 1; }
+  .lx-tip strong { font-family: var(--pm-display); font-size: 1.02rem; line-height: 1.1; }
+  .lx-tip span { font-size: 0.8rem; font-weight: 600; color: var(--pm-ink-soft); }
+  .lx-tip em { margin-top: 0.25rem; font-style: normal; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pm-red); }
+  @media (pointer: coarse) { .lx-tip { display: none; } }
+  .lx-stage :global(.lx-canvas) { position: absolute !important; inset: 0; }
+
+  /* hint + "meer" */
+  .lx-hint {
+    position: absolute;
+    left: max(var(--pm-gutter), calc((100vw - var(--pm-max)) / 2));
+    bottom: clamp(44px, 6vh, 64px);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0.55rem 1rem 0.55rem 0.7rem;
+    border: 2px solid var(--pm-ink);
+    border-radius: var(--pm-pill);
+    background: color-mix(in srgb, var(--pm-milk) 88%, transparent);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pm-ink);
+    pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.8s var(--pm-ease);
+  }
+  .lx-hint.is-gone { opacity: 0; transform: translateY(12px); }
+  .lx-hint__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pm-yellow); border: 2px solid var(--pm-ink); animation: lx-pulse 1.8s ease-in-out infinite; }
+  @keyframes lx-pulse { 50% { transform: scale(1.35); } }
+  .lx-hint--touch { display: none; }
+  @media (pointer: coarse) { .lx-hint--touch { display: inline; } .lx-hint--mouse { display: none; } }
+
+  .lx-caption {
+    position: absolute;
+    left: max(var(--pm-gutter), calc((100vw - var(--pm-max)) / 2));
+    bottom: 14px;
+    z-index: 2;
+    margin: 0;
+    font-family: var(--pm-body);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--pm-pill);
+    background: color-mix(in srgb, var(--pm-milk) 72%, transparent);
+    backdrop-filter: blur(6px);
+    color: color-mix(in srgb, var(--pm-ink) 80%, transparent);
+    transition: color 1.2s ease, background-color 1.2s ease, opacity 0.4s ease;
+  }
+  :global(html.lx-night) .lx-caption { color: color-mix(in srgb, var(--pm-milk) 80%, transparent); background: color-mix(in srgb, var(--pm-ink) 50%, transparent); }
+  :global(html.lx-focused) .lx-caption { opacity: 0; }
+
+
+  /* ─── menu pill ─────────────────────────────────────────────────── */
+  .lx-menu {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(20px, 3.5vh, 32px);
+    z-index: 5;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2px;
+    padding: 5px;
+    border: 2px solid var(--pm-ink);
+    border-radius: var(--pm-pill);
+    background: color-mix(in srgb, var(--pm-milk) 92%, transparent);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 0 var(--pm-ink);
+  }
+  .lx-menu__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    padding: 0 1.15rem;
+    border: 0;
+    border-radius: var(--pm-pill);
+    background: transparent;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--pm-ink);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  @media (hover: hover) { .lx-menu__item:not(.is-active):hover { background: color-mix(in srgb, var(--pm-yellow) 55%, transparent); } }
+  .lx-menu__item.is-active { background: var(--pm-ink); color: var(--pm-milk); }
+  .lx-menu__item:focus-visible { outline: 2px solid var(--pm-red); outline-offset: 2px; }
+  :global(html.lx-focused) .lx-menu { opacity: 0.0; pointer-events: none; transform: translate(-50%, 12px); }
+  .lx-menu { transition: opacity 0.4s ease, transform 0.6s var(--pm-ease); }
+  :global(html.lx-sheet-open) .lx-hint, :global(html.lx-sheet-open) .lx-caption { opacity: 0; }
+
+  /* ─── menu sheet (left) ─────────────────────────────────────────── */
+  .lx-sheet {
+    --sheet-w: min(640px, 46vw);
+    position: absolute;
+    top: 88px;
+    left: var(--pm-gutter);
+    bottom: calc(clamp(20px, 3.5vh, 32px) + 70px);
+    z-index: 4;
+    width: var(--sheet-w);
+    border: var(--pm-border);
+    border-radius: var(--pm-r-lg);
+    background: var(--pm-milk);
+    box-shadow: var(--pm-drop-lg);
+    overflow: hidden;
+    transform: translateX(calc(-100% - var(--pm-gutter) - 24px));
+    visibility: hidden;
+    transition: transform 0.8s var(--pm-ease), visibility 0s linear 0.8s;
+  }
+  .lx-sheet.is-open { transform: none; visibility: visible; transition: transform 0.8s var(--pm-ease), visibility 0s; }
+  .lx-sheet__scroll { height: 100%; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+  .lx-sheet__close, .lx-sheet__down {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.4s var(--pm-ease);
+  }
+  .lx-sheet__close { top: 14px; right: 14px; border: 2px solid var(--pm-ink); background: var(--pm-milk); color: var(--pm-ink); }
+  .lx-sheet__down { right: 16px; bottom: 16px; border: 0; background: var(--pm-ink); color: var(--pm-milk); }
+  .lx-sheet__down :global(svg) { transform: rotate(90deg); }
+  @media (hover: hover) {
+    .lx-sheet__close:hover { transform: rotate(90deg); }
+    .lx-sheet__down:hover { transform: translateY(3px); }
+  }
+
+  :global(html.lx-js) .lx-sec:not(.is-active) { display: none; }
+  .lx-sheet.is-wide { --sheet-w: min(1080px, 74vw); }
+  .lx-sheet { transition: transform 0.8s var(--pm-ease), visibility 0s linear 0.8s, width 0.6s var(--pm-ease); }
+  .lx-pagebar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 4.6rem 0.8rem 1rem;
+    background: color-mix(in srgb, var(--pm-milk) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--pm-ink-line);
+  }
+  .lx-pagebar__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.9rem;
+    border: 2px solid var(--pm-ink);
+    border-radius: var(--pm-pill);
+    background: var(--pm-milk);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--pm-ink);
+    cursor: pointer;
+  }
+  .lx-pagebar__back :global(svg) { transform: rotate(180deg); }
+  .lx-pagebar__back:hover { background: var(--pm-yellow); }
+  .lx-pagebar__open { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; font-weight: 700; color: var(--pm-ink-soft); text-decoration: none; }
+  .lx-pagebar__open:hover { color: var(--pm-red); }
+  .lx-pagebody { background: var(--pm-cream); }
+  /* pages were built for a full window: tame the tallest heroes inside the popup */
+  .lx-pagebody :global(main) { min-height: 0; }
+  .lx-pagebody :global([style*="100vh"]), .lx-pagebody :global([style*="100svh"]) { min-height: 0 !important; }
+  .lx-pageload { display: flex; justify-content: center; gap: 0.5rem; padding: 5rem 0; }
+  .lx-pageload span { width: 12px; height: 12px; border-radius: 50%; background: var(--pm-pink); border: 2px solid var(--pm-ink); animation: lx-bounce 0.9s ease-in-out infinite; }
+  .lx-pageload span:nth-child(2) { animation-delay: 0.15s; }
+  .lx-pageload span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes lx-bounce { 50% { transform: translateY(-10px); } }
+  .lx-sec.is-active { animation: lx-in 0.7s var(--pm-ease) both; }
+  .lx-sec__hero { position: relative; padding: clamp(5rem, 9vh, 7rem) clamp(1.5rem, 3vw, 2.6rem) 2.2rem; color: var(--pm-ink); }
+  .lx-sec__hero--pink { background: var(--pm-pink); }
+  .lx-sec__hero--yellow { background: var(--pm-yellow); }
+  .lx-sec__hero--wine { background: var(--pm-wine); color: var(--pm-milk); }
+  .lx-sec__hero--wine .lx-sec__title em { color: var(--pm-yellow); }
+  .lx-sec__hero--photo { padding: 0; background: var(--pm-ink); color: var(--pm-milk); overflow: hidden; }
+  .lx-sec__hero--photo :global(.lx-sec__photo) { display: block; width: 100%; height: clamp(300px, 52vh, 520px); object-fit: cover; object-position: center 20%; filter: grayscale(1) contrast(1.05); }
+  .lx-sec__herotext {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 6rem clamp(1.5rem, 3vw, 2.6rem) 2rem;
+    background: linear-gradient(180deg, rgba(58, 0, 29, 0) 0%, rgba(30, 4, 16, 0.82) 45%, rgba(30, 4, 16, 0.95) 100%);
+  }
+  .lx-sec__kicker { margin: 0 0 0.8rem; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; }
+  .lx-sec__title { margin: 0; font-family: var(--pm-display); font-size: clamp(1.9rem, 2.8vw, 2.7rem); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
+  .lx-sec__title em { font-style: normal; color: var(--pm-wine); }
+  .lx-sec__hero--photo .lx-sec__title em { color: var(--pm-pink); }
+  .lx-sec__cta {
+    display: inline-flex;
+    margin-top: 1.4rem;
+    padding: 0.75rem 1.2rem;
+    border-radius: var(--pm-pill);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .lx-sec__cta:hover { background: var(--pm-yellow); }
+  .lx-sec__body { padding: 2rem clamp(1.5rem, 3vw, 2.6rem) 5.5rem; }
+  .lx-sec__lead { margin: 0; font-family: var(--pm-display); font-size: clamp(1.4rem, 2vw, 1.8rem); line-height: 1.15; color: var(--pm-ink); text-wrap: balance; }
+  .lx-sec__lead span { color: var(--pm-ink-mute); }
+  .lx-sec__sub { display: flex; align-items: center; gap: 0.4rem; margin: 0.8rem 0 0; color: var(--pm-ink-soft); font-weight: 600; }
+  .lx-sec__h3 { display: flex; align-items: center; gap: 0.55rem; margin: 1.8rem 0 0.2rem; font-family: var(--pm-display); font-size: 1.3rem; color: var(--pm-ink); }
+  .lx-sec__h3:first-child { margin-top: 0; }
+  .lx-dot { width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--pm-ink); }
+  .lx-dot--pink { background: var(--pm-pink); }
+  .lx-dot--yellow { background: var(--pm-yellow); }
+  .lx-sec__more { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.6rem; font-weight: 800; color: var(--pm-ink); text-decoration: none; border-bottom: 2px solid var(--pm-pink); }
+
+  .lx-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.2rem; }
+  .lx-cardlet {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    padding: 1.1rem 1.2rem 1.2rem;
+    border: 2px solid var(--pm-ink-line);
+    border-radius: var(--pm-r);
+    background: #fff;
+    color: var(--pm-ink);
+    text-decoration: none;
+  }
+  .lx-cardlet > :global(svg) { color: var(--pm-ink); margin-bottom: 0.4rem; }
+  .lx-cardlet strong { font-size: 1rem; }
+  .lx-cardlet span { font-size: 0.88rem; line-height: 1.45; color: var(--pm-ink-soft); }
+  .lx-cardlet--link { transition: border-color 0.2s ease, transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease); }
+  .lx-cardlet--link > :global(svg:last-child) { position: absolute; top: 1.1rem; right: 1.1rem; margin: 0; color: var(--pm-ink-mute); }
+  @media (hover: hover) {
+    .lx-cardlet--link:hover { border-color: var(--pm-ink); transform: translateY(-2px); box-shadow: 0 4px 0 var(--pm-ink); }
+  }
+
+  .lx-works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+  .lx-work { display: flex; flex-direction: column; border: 2px solid var(--pm-ink); border-radius: var(--pm-r); overflow: hidden; background: #fff; color: var(--pm-ink); text-decoration: none; transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease); }
+  .lx-work__media { aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 2px solid var(--pm-ink); background: var(--pm-paper); }
+  .lx-work__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s var(--pm-ease); }
+  .lx-work__body { display: grid; gap: 0.35rem; padding: 0.85rem 0.95rem 1rem; }
+  .lx-work__tag { justify-self: start; font-size: 0.66rem; }
+  .lx-work__body strong { font-family: var(--pm-display); font-size: 1.15rem; line-height: 1.1; }
+  .lx-work__result { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; font-weight: 700; }
+  .lx-work__result :global(svg) { color: var(--pm-red); flex: none; }
+  @media (hover: hover) {
+    .lx-work:hover { transform: translateY(-3px); box-shadow: 0 5px 0 var(--pm-ink); }
+    .lx-work:hover .lx-work__media img { transform: scale(1.05); }
+  }
+
+  /* controls */
+  .lx-controls {
+    position: absolute;
+    right: var(--pm-gutter);
+    bottom: clamp(96px, 14vh, 140px);
+    z-index: 3;
+    display: grid;
+    justify-items: end;
+    gap: 0.55rem;
+    transition: right 0.8s var(--pm-ease);
+  }
+  :global(html.lx-focused) .lx-controls { right: calc(var(--panel-w) + var(--pm-gutter) * 2); }
+  :global(html.lx-focused) .lx-ctrl--tour { opacity: 0; pointer-events: none; }
+  .lx-ctrl {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0 1rem;
+    border: 2px solid var(--pm-ink);
+    border-radius: var(--pm-pill);
+    background: var(--pm-milk);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pm-ink);
+    cursor: pointer;
+    transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease), background-color 0.25s ease, color 0.25s ease, opacity 0.3s ease;
+  }
+  @media (hover: hover) { .lx-ctrl:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--pm-ink); } }
+  .lx-ctrl:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--pm-ink); }
+  .lx-ctrl--tour { background: var(--pm-wine); color: var(--pm-milk); }
+  .lx-ctrl__bulb { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--pm-ink); background: var(--pm-paper); transition: background-color 0.4s ease, box-shadow 0.4s ease; }
+  .lx-ctrl--dusk[aria-pressed="true"] { background: var(--pm-ink); color: var(--pm-milk); }
+  .lx-ctrl--dusk[aria-pressed="true"] .lx-ctrl__bulb { background: var(--pm-yellow); border-color: var(--pm-yellow); box-shadow: 0 0 14px 3px rgba(254, 203, 102, 0.8); }
+  .lx-ctrl-zoom { display: flex; gap: 0.45rem; }
+  .lx-ctrl--icon { width: 44px; padding: 0; justify-content: center; }
+  .lx-minus { width: 14px; height: 2.4px; border-radius: 2px; background: currentColor; }
+
+  /* panel */
+  .lx-panel {
+    position: absolute;
+    top: 96px;
+    right: var(--pm-gutter);
+    bottom: 24px;
+    z-index: 4;
+    width: var(--panel-w);
+    display: flex;
+    flex-direction: column;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-lg);
+    background: var(--pm-milk);
+    box-shadow: var(--pm-drop-lg);
+    color: var(--pm-ink);
+    overflow: hidden;
+    transform: translateX(calc(100% + var(--pm-gutter) + 24px));
+    visibility: hidden;
+    transition: transform 0.8s var(--pm-ease), visibility 0s linear 0.8s;
+  }
+  .lx-panel.is-open { transform: none; visibility: visible; transition: transform 0.8s var(--pm-ease), visibility 0s; }
+  .lx-panel__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 0.75rem;
+    border-bottom: var(--pm-border);
+    background: var(--pm-paper);
+  }
+  .lx-panel__count { min-width: 3.4rem; text-align: center; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.08em; }
+  .lx-panel__nav, .lx-panel__close {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 2px solid var(--pm-ink);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.4s var(--pm-ease);
+  }
+  .lx-panel__nav[data-prev] :global(svg) { transform: rotate(180deg); }
+  .lx-panel__close { margin-left: auto; background: var(--pm-ink); color: var(--pm-milk); }
+  @media (hover: hover) {
+    .lx-panel__nav:hover { background: var(--pm-yellow); }
+    .lx-panel__close:hover { transform: rotate(90deg); }
+  }
+  .lx-panel__scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+
+  :global(html.lx-js) .lx-place:not(.is-active) { display: none; }
+  .lx-place.is-active { animation: lx-in 0.7s var(--pm-ease) both; }
+  @keyframes lx-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  .lx-place__head { display: flex; align-items: center; gap: 1rem; padding: 1.3rem 1.5rem; border-bottom: var(--pm-border); }
+  .lx-place__head--pink { background: var(--pm-pink); }
+  .lx-place__head--yellow { background: var(--pm-yellow); }
+  .lx-place__body { padding: 1.4rem 1.5rem 1.6rem; }
+  .lx-place__media { margin: 0; aspect-ratio: 16 / 10; border-bottom: var(--pm-border); overflow: hidden; background: var(--pm-paper); }
+  .lx-place__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lx-place__title { margin: 0.25rem 0 0; font-family: var(--pm-display); font-size: clamp(1.7rem, 2.4vw, 2.3rem); line-height: 1.02; letter-spacing: -0.025em; text-wrap: balance; }
+  .lx-place__head .lx-place__title { font-size: clamp(1.5rem, 2vw, 1.9rem); }
+  .lx-kicker { margin: 0; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pm-ink-soft); }
+  .lx-lead { margin: 0.8rem 0 0; font-size: 1rem; font-weight: 600; color: var(--pm-ink-soft); line-height: 1.5; }
+  .lx-place__head + .lx-place__body .lx-lead { margin-top: 0; }
+  .lx-result { display: flex; align-items: center; gap: 0.5rem; margin: 0.9rem 0 0; padding: 0.7rem 0.9rem; border: 2px solid var(--pm-ink); border-radius: var(--pm-r-sm); background: var(--pm-yellow); font-weight: 800; }
+  .lx-result :global(svg) { flex: none; color: var(--pm-wine); }
+  .lx-tag { display: inline-block; margin-top: 1rem; }
+  .lx-place__cta { margin-top: 1.4rem; }
+  .lx-badge { display: inline-flex; align-items: center; gap: 0.4rem; margin: 1rem 0 0; }
+
+  .lx-list { list-style: none; margin: 0.8rem 0 0; padding: 0; }
+  .lx-list li + li { border-top: 2px dashed var(--pm-ink-line); }
+  .lx-list a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.8rem 0.2rem; color: var(--pm-ink); text-decoration: none; }
+  .lx-list a > span:first-child { display: grid; gap: 0.1rem; }
+  .lx-list strong { font-family: var(--pm-display); font-size: 1.15rem; line-height: 1.15; transition: color 0.2s ease; }
+  .lx-list strong + span { font-size: 0.86rem; color: var(--pm-ink-soft); }
+  .lx-list__arrow { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border: var(--pm-border); border-radius: 50%; background: var(--pm-paper); transition: transform 0.45s var(--pm-ease), background-color 0.2s ease, color 0.2s ease; }
+  @media (hover: hover) {
+    .lx-list a:hover strong { color: var(--pm-red); }
+    .lx-list a:hover .lx-list__arrow { background: var(--pm-red); color: var(--pm-milk); transform: rotate(-30deg); }
+  }
+
+  .lx-quote { margin: 1.3rem 0 0; padding: 1.1rem 1.2rem; border-left: 4px solid var(--pm-pink); background: var(--pm-paper); border-radius: 0 var(--pm-r-sm) var(--pm-r-sm) 0; }
+  .lx-quote p { margin: 0; font-family: var(--pm-display); font-size: 1.15rem; line-height: 1.25; }
+  .lx-quote footer { margin-top: 0.6rem; font-size: 0.88rem; color: var(--pm-ink-soft); }
+
+  .lx-beliefs { list-style: none; display: grid; gap: 0.8rem; margin: 1.3rem 0 0; padding: 1.2rem 0 0; border-top: 2px dashed var(--pm-ink-line); }
+  .lx-beliefs li { display: grid; gap: 0.15rem; }
+  .lx-beliefs strong { font-family: var(--pm-display); font-size: 1.05rem; line-height: 1.15; }
+  .lx-beliefs span { font-size: 0.88rem; color: var(--pm-ink-soft); line-height: 1.4; }
+  .lx-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin: 1.3rem 0 0; }
+  .lx-stats div { display: flex; flex-direction: column-reverse; gap: 0.15rem; padding: 0.75rem 0.9rem; border: 2px solid var(--pm-ink); border-radius: var(--pm-r-sm); background: var(--pm-paper); }
+  .lx-stats dd { margin: 0; font-family: var(--pm-display); font-size: 1.7rem; line-height: 1; color: var(--pm-wine); }
+  .lx-stats dt { font-size: 0.75rem; font-weight: 700; color: var(--pm-ink-soft); }
+  .lx-founder { display: flex; align-items: center; gap: 0.85rem; margin-top: 1.3rem; padding-top: 1.2rem; border-top: 2px dashed var(--pm-ink-line); scroll-margin-top: 120px; }
+  .lx-founder :global(.lx-founder__img) { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--pm-ink); background: var(--pm-pink); flex: none; }
+  .lx-founder p { margin: 0; display: grid; line-height: 1.3; }
+  .lx-founder span { font-size: 0.86rem; color: var(--pm-ink-soft); }
+  .lx-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.3rem; }
+  .lx-contact { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin: 1.1rem 0 0; }
+  .lx-legal { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 1.4rem; padding-top: 1rem; border-top: 2px dashed var(--pm-ink-line); }
+  .lx-legal a { font-size: 0.8rem; font-weight: 700; color: var(--pm-ink-soft); text-decoration: none; }
+  .lx-legal a:hover { color: var(--pm-red); }
+  .lx-contact a { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--pm-ink); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--pm-pink); }
+
+  /* ─── mobile: panel becomes a bottom sheet ─────────────────────────── */
+  @media (max-width: 820px) {
+    .lx-hint { display: none; }
+    .lx-menu { left: 8px; right: 8px; bottom: 84px; transform: none; overflow-x: auto; scrollbar-width: none; justify-content: space-between; }
+    :global(html.lx-focused) .lx-menu { transform: translateY(12px); }
+    .lx-menu__item { padding: 0 0.62rem; font-size: 0.8rem; min-height: 40px; gap: 0.3rem; }
+    .lx-sheet { top: 76px; left: 8px; right: 8px; width: auto; bottom: 146px; transform: translateY(calc(100% + 160px)); }
+    .lx-sec__hero--photo :global(.lx-sec__photo) { height: 300px; }
+    .lx-cards, .lx-works { grid-template-columns: 1fr; }
+    .lx-caption { left: 16px; right: auto; bottom: 146px; max-width: calc(100% - 32px); font-size: 0.6rem; letter-spacing: 0.06em; }
+    .lx-controls { top: 84px; bottom: auto; right: 16px; }
+    :global(html.lx-focused) .lx-controls { right: 16px; }
+    .lx-ctrl { min-height: 40px; padding: 0 0.8rem; font-size: 0.7rem; }
+    .lx-ctrl--icon { width: 40px; padding: 0; }
+    .lx-panel {
+      top: auto;
+      left: 8px;
+      right: 8px;
+      bottom: 88px;
+      width: auto;
+      max-height: 56svh;
+      border-radius: var(--pm-r-lg);
+      transform: translateY(calc(100% + 24px));
+    }
+    .lx-place__media { aspect-ratio: 16 / 8; }
+  }
+
+  /* ─── no WebGL: the panel content reads as a normal page ──────────── */
+  :global(html.lx-no3d) .lx-world { height: auto; min-height: 0; overflow: visible; padding: 120px var(--pm-gutter) 48px; }
+  :global(html.lx-no3d) .lx-hint, :global(html.lx-no3d) .lx-menu, :global(html.lx-no3d) .lx-sheet__close, :global(html.lx-no3d) .lx-sheet__down { display: none; }
+  :global(html.lx-no3d) .lx-sheet { position: static; transform: none; visibility: visible; width: auto; max-width: var(--pm-max); margin: 0 auto 2rem; }
+  :global(html.lx-no3d) .lx-sec { display: block !important; }
+  :global(html.lx-no3d) .lx-caption { position: static; display: block; max-width: var(--pm-max); margin: 0 auto 1rem; }
+  :global(html.lx-no3d) .lx-panel { position: static; transform: none; visibility: visible; width: auto; max-width: var(--pm-max); margin: 0 auto; }
+  :global(html.lx-no3d) .lx-place { display: block !important; border-bottom: var(--pm-border); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lx-panel, .lx-hint, .lx-controls { transition: none; }
+    .lx-place.is-active { animation: none; }
+  }
+</style>

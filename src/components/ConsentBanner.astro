@@ -1,7 +1,14 @@
+---
+import Icon from "./pm/Icon.astro";
+---
+
 <div class="consent-widget" data-consent-widget hidden>
   <div class="consent-banner" role="dialog" aria-live="polite" aria-label="Cookievoorkeuren">
-    <h3>Deze website gebruikt cookies</h3>
-    <p>We gebruiken cookies voor analytics en marketing om de website te verbeteren.</p>
+    <div class="consent-banner__head">
+      <span class="pm-icon pm-icon--sm pm-icon--yellow" aria-hidden="true"><Icon name="cookie" /></span>
+      <h3 class="consent-banner__title">Deze website gebruikt cookies</h3>
+    </div>
+    <p class="consent-banner__text">We gebruiken cookies voor analytics en marketing om de website te verbeteren.</p>
 
     <div class="consent-preferences" data-consent-preferences hidden>
       <label class="consent-pref-item">
@@ -9,7 +16,7 @@
           <strong>Analytics</strong>
           <small>Helpt ons prestaties en gebruik te meten.</small>
         </span>
-        <input type="checkbox" data-consent-analytics />
+        <input type="checkbox" class="consent-switch" data-consent-analytics />
       </label>
 
       <label class="consent-pref-item">
@@ -17,19 +24,19 @@
           <strong>Marketing</strong>
           <small>Voor advertentie-metingen en personalisatie.</small>
         </span>
-        <input type="checkbox" data-consent-marketing />
+        <input type="checkbox" class="consent-switch" data-consent-marketing />
       </label>
     </div>
 
     <div class="consent-actions">
-      <button type="button" class="consent-btn consent-btn--ghost" data-consent-customize>Aanpassen</button>
-      <button type="button" class="consent-btn consent-btn--ghost" data-consent-save hidden>Opslaan</button>
-      <button type="button" class="consent-btn consent-btn--primary" data-consent-accept>Alles toestaan</button>
+      <button type="button" class="pm-btn pm-btn--white pm-btn--sm consent-btn" data-consent-customize>Aanpassen</button>
+      <button type="button" class="pm-btn pm-btn--white pm-btn--sm consent-btn" data-consent-save hidden>Opslaan</button>
+      <button type="button" class="pm-btn pm-btn--yellow pm-btn--sm consent-btn" data-consent-accept>Alles toestaan</button>
     </div>
   </div>
 
   <button type="button" class="consent-manage" data-consent-manage aria-label="Cookie-instellingen" hidden>
-    <img src="/favicon.png" alt="" aria-hidden="true" />
+    <Icon name="cookie" size={22} />
   </button>
 </div>
 
@@ -163,173 +170,151 @@
   .consent-widget {
     position: fixed;
     left: 1rem;
-    right: 1rem;
     bottom: 1rem;
     z-index: 100000;
     pointer-events: none;
+    max-width: calc(100vw - 2rem);
   }
+  .consent-widget[hidden] { display: none; }
 
   .consent-banner {
     pointer-events: auto;
-    max-width: 700px;
-    margin: 0 auto;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(10, 10, 10, 0.94);
-    color: #fff;
-    padding: 1rem;
+    width: min(440px, calc(100vw - 2rem));
     display: none;
     gap: 0.9rem;
+    padding: 1.4rem 1.5rem 1.5rem;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    box-shadow: var(--pm-drop);
   }
-
   .consent-banner.is-open {
     display: grid;
+    animation: consent-in 0.6s var(--pm-ease) both;
+  }
+  @keyframes consent-in {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
   }
 
-  .consent-banner h3 {
+  .consent-banner__head { display: flex; align-items: center; gap: 0.8rem; }
+  .consent-banner__title {
     margin: 0;
-    font-size: 1.1rem;
-    font-family: "Syne", sans-serif;
-    color: #fff;
+    font-family: var(--pm-display);
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
   }
-
-  .consent-banner p {
+  .consent-banner__text {
     margin: 0;
-    max-width: 640px;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     line-height: 1.5;
-    opacity: 0.9;
+    color: var(--pm-ink-soft);
   }
 
   .consent-preferences {
     display: grid;
     gap: 0.6rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding-top: 0.8rem;
   }
-
-  .consent-preferences[hidden] {
-    display: none;
-  }
+  .consent-preferences[hidden] { display: none; }
 
   .consent-pref-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    padding: 0.75rem 0.9rem;
+    background: var(--pm-paper);
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    cursor: pointer;
   }
+  .consent-pref-item strong { display: block; font-size: 0.95rem; font-weight: 800; }
+  .consent-pref-item small { display: block; margin-top: 0.12rem; font-size: 0.8rem; color: var(--pm-ink-soft); }
 
-  .consent-pref-item strong {
-    display: block;
-    font-size: 0.9rem;
+  /* checkbox rendered as a chunky switch */
+  .consent-switch {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: none;
+    position: relative;
+    width: 48px;
+    height: 28px;
+    margin: 0;
+    border: var(--pm-border);
+    border-radius: var(--pm-pill);
+    background: var(--pm-milk);
+    cursor: pointer;
+    transition: background-color 0.25s ease;
   }
-
-  .consent-pref-item small {
-    display: block;
-    opacity: 0.76;
-    font-size: 0.78rem;
-    margin-top: 0.12rem;
-  }
-
-  .consent-pref-item input {
+  .consent-switch::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
     width: 18px;
     height: 18px;
+    border-radius: 50%;
+    background: var(--pm-ink);
+    transition: transform 0.35s var(--pm-ease-spring);
   }
+  .consent-switch:checked { background: var(--pm-yellow); }
+  .consent-switch:checked::after { transform: translateX(20px); }
 
   .consent-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.65rem;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: center;
+    margin-top: 0.25rem;
   }
-
-  .consent-btn {
-    border: 1px solid transparent;
-    border-radius: 999px;
-    padding: 0.72rem 1.2rem;
-    min-height: 46px;
-    min-width: 150px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .consent-btn[hidden] {
-    display: none;
-  }
-
-  .consent-btn--ghost {
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.34);
-    color: #fff;
-  }
-
-  .consent-btn--primary {
-    background: #fff;
-    color: #0a0a0a;
-    min-width: 180px;
-  }
+  .consent-btn { flex: 1 1 auto; }
+  .consent-btn[hidden] { display: none; }
 
   .consent-manage {
     pointer-events: auto;
-    margin-left: 0;
-    margin-right: auto;
+    display: grid;
+    place-items: center;
     width: 44px;
     height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgba(10, 10, 10, 0.18);
-    background: rgba(255, 255, 255, 0.95);
-    color: #0a0a0a;
     padding: 0;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .consent-manage img {
-    width: 35px;
-    height: 35px;
+    border: var(--pm-border);
     border-radius: 50%;
-    object-fit: cover;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    cursor: pointer;
+    transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease);
+  }
+  .consent-manage[hidden] { display: none; }
+  .consent-manage:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--pm-ink); }
+  @media (hover: hover) {
+    .consent-manage:hover { transform: translateY(-2px) rotate(-12deg); box-shadow: 0 6px 0 var(--pm-ink); }
   }
 
   @media (max-width: 768px) {
-    /* Push banner above the mobile bottom bar */
+    /* banner sits above the mobile bottom bar */
     .consent-widget {
-      top: auto;
-      left: 1rem;
-      right: 1rem;
-      bottom: calc(80px + env(safe-area-inset-bottom));
+      left: 16px;
+      right: 16px;
+      bottom: calc(88px + env(safe-area-inset-bottom));
+      max-width: none;
     }
+    .consent-banner { width: 100%; box-sizing: border-box; }
+    .consent-actions { display: grid; grid-template-columns: 1fr; }
+    .consent-btn { width: 100%; }
 
-    .consent-banner {
-      align-items: stretch;
-      margin: 0;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .consent-actions {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-
-    .consent-btn {
-      width: 100%;
-    }
-
-    /* Cookie manage button: naast de bottom bar onderin */
+    /* manage button: beside the bottom bar, vertically centred on it */
     .consent-manage {
       position: fixed;
-      left: 1rem;
-      bottom: calc(1rem + env(safe-area-inset-bottom));
-      top: auto;
-      transform: none;
-      margin: 0;
+      left: 16px;
+      bottom: calc(16px + 9px + env(safe-area-inset-bottom));
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .consent-banner.is-open { animation: none; }
+    .consent-switch::after, .consent-manage { transition: none; }
   }
 </style>

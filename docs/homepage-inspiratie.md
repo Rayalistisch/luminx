@@ -11,11 +11,11 @@ Doel: basis voor de herstructurering van de LuminX homepage
 - Headline vertelt meteen: WIE je bent + WAT je doet + VOOR WIE
   - "Jouw partner in digitale transformatie en software development"
 - Twee CTA-routes: primair (afspraak) + secundair (verken diensten)
-- Geen decoratieve tekst die ruimte inneemt — meteen to the point
+- Geen decoratieve tekst die ruimte inneemt: meteen to the point
 
 ### 2. Diensten als visueel grid
 - Zes diensten, elk met een afbeelding en max. 20 woorden beschrijving
-- Niet genummerd, niet als tabel — als kaarten met visuele hiërarchie
+- Niet genummerd, niet als tabel, als kaarten met visuele hiërarchie
 - Gebruiker snapt in één oogopslag het aanbod
 
 ### 3. Cases met concrete uitkomsten
@@ -27,13 +27,13 @@ Doel: basis voor de herstructurering van de LuminX homepage
 ### 4. Team-sectie met persoonlijkheid
 - Headline: "Ons team. Ofja, eigenlijk jouw team."
 - Foto's + naam + rol + korte persoonsbeschrijving
-- Humaniseert het bureau — je weet met wie je werkt
+- Humaniseert het bureau: je weet met wie je werkt
 - Zelfs voor een solo-founder werkt dit: één goede foto + persoonlijk verhaal
 
 ### 5. Technologie / werkwijze transparantie
 - Legt uit welke tools/technieken ze gebruiken (Laravel, Vue.js, etc.)
 - Bouwt geloofwaardigheid op zonder te technisch te worden
-- Uitklapbaar per technologie — niet overweldigend
+- Uitklapbaar per technologie, niet overweldigend
 
 ### 6. Blog met auteursnamen
 - Artikelen gekoppeld aan echte personen met foto
@@ -57,8 +57,8 @@ Doel: basis voor de herstructurering van de LuminX homepage
 | Element | cube.nl aanpak |
 |---|---|
 | Register | Professioneel maar menselijk |
-| Urgentie | Mild ("Benieuwd?", "Klaar voor") — niet pusherig |
-| Persoonlijk | "Ofja, eigenlijk jouw team" — durft informeel te zijn |
+| Urgentie | Mild ("Benieuwd?", "Klaar voor"), niet pusherig |
+| Persoonlijk | "Ofja, eigenlijk jouw team": durft informeel te zijn |
 | Specifiek | Echte namen, echte cijfers, echte mensen |
 
 ---

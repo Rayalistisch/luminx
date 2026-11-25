@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import AboutLuminX from "../components/AboutLuminX.astro";
+import Footer from "../components/Footer.astro";
+import ContactOverlay from "../components/ContactOverlay.astro";
+---
+
+<BaseLayout
+  title="Over LuminX – Online marketing bureau in Enschede, Twente"
+  description="LuminX is een online marketing bureau uit Enschede. SEO, Google Ads, websites, webshops en procesautomatisering voor MKB in Twente, met Ray als vast aanspreekpunt."
+>
+  <Nav basePath="/" />
+  <main>
+    <AboutLuminX />
+  </main>
+  <Footer />
+  <ContactOverlay />
+</BaseLayout>

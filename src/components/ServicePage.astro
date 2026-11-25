@@ -1,7 +1,10 @@
 ---
+import Logo from "./pm/Logo.astro";
 import Footer from "./Footer.astro";
 import ContactOverlay from "./ContactOverlay.astro";
 import Nav from "./Nav.astro";
+import Icon from "./pm/Icon.astro";
+import type { ComponentProps } from "astro/types";
 
 interface Metric {
   value: string;
@@ -27,6 +30,7 @@ interface FAQ {
 interface Props {
   title: string;
   intro: string;
+  /** Icon name from pm/Icon.astro, or one of the legacy glyphs (✦ ◈ ✧ …). */
   icon?: string;
   highlights: string[];
   process: string[];
@@ -42,7 +46,7 @@ interface Props {
 const {
   title,
   intro,
-  icon = "✦",
+  icon = "sparkles",
   highlights,
   process,
   painPoints,
@@ -53,6 +57,25 @@ const {
   faq,
   parentService,
 } = Astro.props;
+
+// Legacy glyph icons (still used in src/data/regional.ts) → pm icon names.
+const glyphIcons: Record<string, string> = {
+  "✦": "globe",
+  "◈": "bag",
+  "✧": "megaphone",
+  "◎": "search",
+  "◆": "workflow",
+  "●": "compass",
+  "▲": "target",
+  "⬡": "zap",
+  "◉": "mail",
+};
+type IconName = ComponentProps<typeof Icon>["name"];
+const iconName = (glyphIcons[icon] ?? icon) as IconName;
+
+const outcomeIcons = ["trending-up", "zap", "heart", "chart", "target", "clock"] as IconName[];
+const outcomeTones = ["pm-icon--yellow", "", "pm-icon--pink", "pm-icon--wine", "pm-icon--yellow", ""];
+const metricTones = ["svc__metric--yellow", "svc__metric--milk", "svc__metric--pink"];
 
 const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
@@ -95,116 +118,194 @@ const faqSchema = faq?.length ? {
 } : null;
 ---
 
-<div class="cursor"></div>
-<div class="cursor-follower"></div>
 <Nav basePath="/" />
 <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
 <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
 {faqSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>}
 
-<main class="service-page">
-  <section class="service-hero" data-bg-color="#0A0A0A">
-    <div class="service-hero-overlay" aria-hidden="true"></div>
-    <div class="service-hero-grid">
-      <div class="service-hero-content">
-        {parentService
-          ? <a href={parentService.href} class="service-back-link">← {parentService.label}</a>
-          : <a href="/" class="service-back-link">Terug naar homepage</a>
-        }
-        <span class="service-kicker">Specialisme</span>
-        <h1>
-          <span class="service-icon" aria-hidden="true">{icon}</span>
-          {title}
-        </h1>
-        <p>{intro}</p>
+<main class="svc">
+  <!-- ─── Hero: stacked layers + plum panel ─────────────────────────────── -->
+  <section class="svc__hero" aria-labelledby="svc-title">
+    <div class="pm-stack">
+      <span class="pm-stack__layer" aria-hidden="true"></span>
+      <span class="pm-stack__layer" aria-hidden="true"></span>
+      <span class="pm-stack__layer" aria-hidden="true"></span>
 
-        <div class="service-hero-actions">
-          <a href="#contact" class="service-primary-link">Plan kennismaking</a>
-          <a href="#aanpak" class="service-secondary-link">Bekijk aanpak</a>
+      <div class="pm-stack__panel svc__panel">
+        <div class="svc__hero-content">
+          {parentService
+            ? <a href={parentService.href} class="svc__back" data-reveal><Icon name="arrow" size={18} stroke={2.4} /> {parentService.label}</a>
+            : <a href="/" class="svc__back" data-reveal><Icon name="arrow" size={18} stroke={2.4} /> Terug naar homepage</a>
+          }
+          <span class="pm-icon pm-icon--yellow svc__badge" aria-hidden="true" data-reveal><Icon name={iconName} /></span>
+          <span class="pm-tag pm-tag--pink" data-reveal style="--d: 1">Specialisme</span>
+          <h1 id="svc-title" class="pm-h1 svc__title" data-reveal style="--d: 1">{title}</h1>
+          <p class="pm-opening svc__intro" data-reveal style="--d: 2">{intro}</p>
+
+          <div class="svc__actions" data-reveal style="--d: 3">
+            <a href="#contact" class="pm-btn pm-btn--yellow">Plan kennismaking <Icon name="arrow" /></a>
+            <a href="#aanpak" class="pm-btn pm-btn--white">Bekijk aanpak</a>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="service-metrics">
-          {metrics.map((metric) => (
-            <article class="service-metric">
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
-            </article>
+    <!-- floating card: metrics + first outcomes -->
+    <div class="pm-container svc__float-wrap">
+      <div class="pm-card pm-card--lift svc__float" data-reveal>
+        <ul class="svc__metrics" aria-label="Kerncijfers">
+          {metrics.map((metric, i) => (
+            <li class:list={["pm-stat", "svc__metric", metricTones[i % metricTones.length]]}>
+              <strong class="pm-stat__value">{metric.value}</strong>
+              <span class="pm-stat__label">{metric.label}</span>
+            </li>
           ))}
+        </ul>
+        <div class="svc__notice">
+          <span class="pm-label">Wat je direct merkt</span>
+          <ul class="pm-checks">
+            {outcomes.slice(0, 3).map((outcome) => <li>{outcome}</li>)}
+          </ul>
         </div>
       </div>
-
-      <aside class="service-intro-panel">
-        <span>Wat je direct merkt</span>
-        <ul>
-          {outcomes.slice(0, 3).map((outcome) => <li>{outcome}</li>)}
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <section class="service-context" data-bg-color="#FEFEFE">
-    <div class="service-context-grid">
-      <article class="service-block">
-        <h2>Waar organisaties op vastlopen</h2>
-        <ul class="service-list service-list--muted">
-          {painPoints.map((point) => <li>{point}</li>)}
-        </ul>
-      </article>
-
-      <article class="service-block service-block--soft">
-        <h2>Wat wij concreet opleveren</h2>
-        <ul class="service-list">
-          {highlights.map((item) => <li>{item}</li>)}
-        </ul>
-      </article>
-    </div>
-  </section>
-
-  <section class="service-approach" id="aanpak" data-bg-color="#F7F9FC">
-    <div class="service-approach-head">
-      <span>Aanpak</span>
-      <h2>Van analyse naar implementatie in duidelijke fases.</h2>
-    </div>
-
-    <div class="service-approach-grid">
-      {process.map((step, index) => (
-        <article class="service-step">
-          <span class="service-step-index">0{index + 1}</span>
-          <p>{step}</p>
+  <!-- ─── Pain points ↔ highlights ──────────────────────────────────────── -->
+  <section class="pm-section svc__context">
+    <div class="pm-container">
+      <div class="svc__context-grid">
+        <article class="pm-card pm-card--milk pm-card--pad svc__ctx" data-reveal>
+          <span class="pm-label">Het probleem</span>
+          <h2 class="pm-h3 svc__ctx-title">Waar organisaties op vastlopen</h2>
+          <ul class="pm-checks pm-checks--x">
+            {painPoints.map((point) => <li>{point}</li>)}
+          </ul>
         </article>
-      ))}
-    </div>
-  </section>
 
-  <section class="service-outcomes" data-bg-color="#0A0A0A">
-    <div class="service-outcomes-inner">
-      <h2>Resultaten die je mag verwachten</h2>
-      <div class="service-outcome-tags">
-        {outcomes.map((outcome) => <span>{outcome}</span>)}
+        <article class="pm-card pm-card--yellow pm-card--lift pm-card--pad svc__ctx svc__ctx--good" data-reveal style="--d: 1">
+          <span class="pm-label svc__ctx-label">De oplossing</span>
+          <h2 class="pm-h3 svc__ctx-title">Wat wij concreet opleveren</h2>
+          <ul class="pm-checks svc__ctx-checks">
+            {highlights.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
       </div>
     </div>
   </section>
 
-  {Astro.slots.has('body') && (
-    <section class="service-body" data-bg-color="#FEFEFE">
-      <div class="service-body-inner">
-        <slot name="body" />
+  <!-- ─── Process: plum card with numbered step chain ───────────────────── -->
+  <section class="pm-section--tight svc__approach" id="aanpak" aria-labelledby="svc-approach-title">
+    <div class="pm-container">
+      <div class="pm-card pm-card--plum pm-card--lift svc__approach-card">
+        <header class="pm-head svc__approach-head">
+          <span class="pm-tag pm-tag--pink" data-reveal>Aanpak</span>
+          <h2 id="svc-approach-title" class="pm-h2" data-reveal style="--d: 1">Van analyse naar implementatie in duidelijke fases.</h2>
+        </header>
+
+        <ol class="svc__steps" style={`--steps: ${process.length}`}>
+          {process.map((step, index) => (
+            <li class="svc__step" data-reveal style={`--d: ${index}`}>
+              <span class:list={["svc__step-num", index === process.length - 1 && "svc__step-num--last"]}>{String(index + 1).padStart(2, "0")}</span>
+              <p>{step}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Outcomes ──────────────────────────────────────────────────────── -->
+  <section class="pm-section svc__outcomes" aria-labelledby="svc-outcomes-title">
+    <div class="pm-container">
+      <header class="pm-head">
+        <span class="pm-label" data-reveal>Resultaat</span>
+        <h2 id="svc-outcomes-title" class="pm-h2" data-reveal style="--d: 1">Resultaten die je mag verwachten</h2>
+      </header>
+      <ul class="svc__outcome-grid">
+        {outcomes.map((outcome, i) => (
+          <li class="pm-card svc__outcome" data-reveal style={`--d: ${i}`}>
+            <span class:list={["pm-icon", "pm-icon--sm", outcomeTones[i % outcomeTones.length]]} aria-hidden="true">
+              <Icon name={outcomeIcons[i % outcomeIcons.length]} />
+            </span>
+            <p>{outcome}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── Long-form body (slot) ─────────────────────────────────────────── -->
+  {Astro.slots.has("body") && (
+    <section class="pm-band pm-band--paper svc__body">
+      <div class="pm-container pm-container--narrow">
+        <div class="pm-prose svc__prose" data-reveal>
+          <slot name="body" />
+        </div>
       </div>
     </section>
   )}
 
+  <!-- ─── Regions ───────────────────────────────────────────────────────── -->
   {relatedRegions && relatedRegions.length > 0 && (
-    <section class="service-regions" data-bg-color="#F7F9FC">
-      <div class="service-regions-inner">
-        <span class="service-regions-kicker">Regionale aanwezigheid</span>
-        <h2>Actief in heel Twente</h2>
-        <p>LuminX werkt voor bedrijven door heel Twente. Bekijk onze aanpak per regio.</p>
-        <ul class="service-regions-grid">
-          {relatedRegions.map((region) => (
-            <li>
-              <a href={region.href} class="service-region-card">
-                <span>{region.label}</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    <section class="pm-section--tight svc__regions" aria-labelledby="svc-regions-title">
+      <div class="pm-container">
+        <div class="pm-card pm-card--pink pm-card--pad pm-card--lift svc__regions-card">
+          <div class="svc__regions-head">
+            <span class="pm-label svc__regions-label">Regionale aanwezigheid</span>
+            <h2 id="svc-regions-title" class="pm-h2">Actief in heel Twente</h2>
+            <p class="pm-text svc__regions-text">LuminX werkt voor bedrijven door heel Twente. Bekijk onze aanpak per regio.</p>
+          </div>
+          <ul class="svc__regions-grid">
+            {relatedRegions.map((region) => (
+              <li>
+                <a href={region.href} class="svc__region">
+                  <span>{region.label}</span>
+                  <Icon name="arrow" size={18} stroke={2.4} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ─── FAQ ───────────────────────────────────────────────────────────── -->
+  {faq && faq.length > 0 && (
+    <section class="pm-section svc__faq" aria-labelledby="svc-faq-title">
+      <div class="pm-container">
+        <div class="svc__faq-grid">
+          <header class="pm-head pm-head--left svc__faq-head">
+            <span class="pm-label" data-reveal>Veelgestelde vragen</span>
+            <h2 id="svc-faq-title" class="pm-h2" data-reveal style="--d: 1">Antwoorden op veelgestelde vragen</h2>
+            <a href="#" class="pm-link" data-overlay-open data-reveal style="--d: 2">Staat je vraag er niet tussen? <Icon name="arrow" size={18} stroke={2.4} /></a>
+          </header>
+          <div class="pm-accordion">
+            {faq.map(({ q, a }, i) => (
+              <details class="pm-acc" open={i === 0} data-reveal style={`--d: ${i}`}>
+                <summary>{q}</summary>
+                <div class="pm-acc__body"><p>{a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ─── Related services ──────────────────────────────────────────────── -->
+  {relatedServices && relatedServices.length > 0 && (
+    <section class="pm-section--tight svc__related" aria-labelledby="svc-related-title">
+      <div class="pm-container">
+        <h2 id="svc-related-title" class="pm-label svc__related-label">Gerelateerde diensten</h2>
+        <ul class="svc__related-grid">
+          {relatedServices.map((s, i) => (
+            <li data-reveal style={`--d: ${i}`}>
+              <a href={s.href} class="pm-card svc__related-card">
+                <strong>{s.label}</strong>
+                {s.description && <span>{s.description}</span>}
+                <span class="svc__related-arrow" aria-hidden="true"><Icon name="arrow-up-right" size={20} stroke={2.4} /></span>
               </a>
             </li>
           ))}
@@ -213,780 +314,375 @@ const faqSchema = faq?.length ? {
     </section>
   )}
 
-  {relatedServices && relatedServices.length > 0 && (
-    <section class="service-related" data-bg-color="#FEFEFE">
-      <div class="service-related-inner">
-        <span class="service-related-kicker">Gerelateerde diensten</span>
-        <div class="service-related-grid">
-          {relatedServices.map((s) => (
-            <a href={s.href} class="service-related-card">
-              <strong>{s.label}</strong>
-              {s.description && <span>{s.description}</span>}
-            </a>
-          ))}
-        </div>
+  <!-- ─── CTA band ──────────────────────────────────────────────────────── -->
+  <section class="pm-band svc__cta" id="contact" aria-labelledby="svc-cta-title">
+    <div class="pm-container svc__cta-inner">
+      <Logo aria-hidden="true" data-reveal />
+      <h2 id="svc-cta-title" class="pm-h2 pm-outline svc__cta-title" data-reveal style="--d: 1">Klaar voor de volgende stap?</h2>
+      <p class="pm-opening svc__cta-text" data-reveal style="--d: 2">We vertalen jouw vraagstuk naar een praktisch plan met duidelijke prioriteiten, scope en resultaat.</p>
+      <div class="svc__cta-actions" data-reveal style="--d: 3">
+        <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open>Plan kennismaking <Icon name="arrow" /></a>
       </div>
-    </section>
-  )}
-
-  {faq && faq.length > 0 && (
-    <section class="service-faq" data-bg-color="#FEFEFE">
-      <div class="service-faq-inner">
-        <span class="service-faq-kicker">Veelgestelde vragen</span>
-        <h2>Antwoorden op veelgestelde vragen</h2>
-        <dl class="service-faq-list">
-          {faq.map(({ q, a }) => (
-            <div class="service-faq-item">
-              <dt>{q}</dt>
-              <dd>{a}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  )}
-
-  <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
-    <div class="cta-content">
-      <h2>Klaar Voor De<br/>Volgende Stap?</h2>
-      <p>We vertalen jouw vraagstuk naar een praktisch plan met duidelijke prioriteiten, scope en resultaat.</p>
-      <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+      <ul class="svc__cta-contact" data-reveal style="--d: 4">
+        <li><a href="mailto:hello@luminx.nl"><Icon name="mail" size={20} /> hello@luminx.nl</a></li>
+        <li><a href="tel:+31613698596"><Icon name="phone" size={20} /> +31 6 1369 8596</a></li>
+      </ul>
     </div>
   </section>
-
-  <Footer />
-  <ContactOverlay />
 </main>
 
+<Footer />
+<ContactOverlay />
+
 <style>
-  .service-page {
-    background: var(--white);
+  /* ── Hero ── */
+  .svc__hero { position: relative; padding-top: 72px; }
+
+  .svc__panel {
+    padding: clamp(3.5rem, 7vw, 5.5rem) var(--pm-gutter) clamp(11rem, 18vw, 14rem);
   }
 
-  .service-hero {
-    min-height: 88vh;
-    position: relative;
-    background: var(--black);
-    color: var(--white);
-    padding: 10rem 4rem 5.5rem;
-    overflow: hidden;
-  }
-
-  .service-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.18), transparent 42%),
-      radial-gradient(circle at 82% 24%, rgba(200, 231, 245, 0.14), transparent 38%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
-  }
-
-  .service-hero-grid {
-    position: relative;
-    z-index: 1;
-    max-width: 1240px;
-    margin: 0 auto;
+  .svc__hero-content {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 360px;
-    gap: 2rem;
-    align-items: end;
+    justify-items: center;
+    text-align: center;
+    gap: 1.4rem;
+    max-width: 920px;
+    margin-inline: auto;
   }
 
-  .service-back-link {
-    display: inline-flex;
-    margin-bottom: 1.8rem;
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.7;
-    font-size: 0.95rem;
-    transition: opacity 0.25s ease;
-  }
-
-  .service-back-link:hover { opacity: 1; }
-
-  .service-kicker {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.48;
-    margin-bottom: 1rem;
-  }
-
-  .service-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2.6rem, 6vw, 5.4rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.4rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.55rem;
-  }
-
-  .service-icon {
-    color: var(--pastel-pink);
-    font-size: 0.68em;
-  }
-
-  .service-hero p {
-    max-width: 700px;
-    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
-    opacity: 0.88;
-    margin-bottom: 2rem;
-    line-height: 1.7;
-  }
-
-  .service-hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .service-primary-link,
-  .service-secondary-link {
+  .svc__back {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 999px;
+    gap: 0.45rem;
+    color: rgba(255, 250, 240, 0.8);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     text-decoration: none;
-    font-weight: 500;
-    padding: 0.9rem 1.45rem;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+  .svc__back :global(svg) { transform: rotate(180deg); transition: transform 0.4s var(--pm-ease); }
+  @media (hover: hover) {
+    .svc__back:hover { color: var(--pm-milk); }
+    .svc__back:hover :global(svg) { transform: rotate(180deg) translateX(4px); }
   }
 
-  .service-primary-link {
-    color: var(--black);
-    background: var(--white);
-  }
+  .svc__badge { margin-top: 0.5rem; }
+  .svc__title { color: var(--pm-milk); overflow-wrap: anywhere; }
+  .svc__intro { max-width: 680px; }
 
-  .service-secondary-link {
-    color: var(--white);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .service-primary-link:hover,
-  .service-secondary-link:hover {
-    transform: translateY(-2px);
-  }
-
-  .service-metrics {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.7rem;
-    max-width: 720px;
-  }
-
-  .service-metric {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.75rem 0;
-    background: transparent;
-  }
-
-  .service-metric strong {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.25rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .service-metric span {
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.72;
-  }
-
-  .service-intro-panel {
-    border-left: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    background: transparent;
-  }
-
-  .service-intro-panel > span {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.58;
-    margin-bottom: 0.75rem;
-  }
-
-  .service-intro-panel ul {
-    list-style: none;
-    display: grid;
-    gap: 0.65rem;
-  }
-
-  .service-intro-panel li {
-    line-height: 1.55;
-    padding-left: 1rem;
-    position: relative;
-    opacity: 0.92;
-  }
-
-  .service-intro-panel li::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
-    position: absolute;
-    left: 0;
-    top: 0.62rem;
-  }
-
-  .service-context {
-    padding: 6rem 4rem;
-  }
-
-  .service-context-grid {
-    max-width: 1240px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.4rem;
-  }
-
-  .service-block {
-    border-top: 1px solid rgba(10, 10, 10, 0.14);
-    padding: 1.8rem 0 0;
-    background: transparent;
-  }
-
-  .service-block--soft {
-    border-top-color: rgba(10, 10, 10, 0.28);
-  }
-
-  .service-block h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.85rem;
-    line-height: 1.06;
-    margin-bottom: 1.2rem;
-    max-width: 16ch;
-  }
-
-  .service-list {
-    list-style: none;
-    display: grid;
-    gap: 0.8rem;
-  }
-
-  .service-list li {
-    position: relative;
-    padding-left: 1.1rem;
-    line-height: 1.65;
-    color: rgba(10, 10, 10, 0.84);
-  }
-
-  .service-list li::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--black);
-    position: absolute;
-    left: 0;
-    top: 0.64rem;
-  }
-
-  .service-list--muted li {
-    color: rgba(10, 10, 10, 0.7);
-  }
-
-  .service-list--muted li::before {
-    background: rgba(10, 10, 10, 0.42);
-  }
-
-  .service-approach {
-    padding: 6rem 4rem;
-  }
-
-  .service-approach-head {
-    max-width: 1240px;
-    margin: 0 auto 2rem;
-  }
-
-  .service-approach-head > span {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 0.9rem;
-  }
-
-  .service-approach-head h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2rem, 4.3vw, 3.6rem);
-    line-height: 1.04;
-    letter-spacing: -0.025em;
-    max-width: 18ch;
-  }
-
-  .service-approach-grid {
-    max-width: 1240px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
-    border-top: 1px solid rgba(10, 10, 10, 0.16);
-    border-bottom: 1px solid rgba(10, 10, 10, 0.16);
-  }
-
-  .service-step {
-    padding: 1.4rem 1.2rem 1.5rem;
-    min-height: 190px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    border-right: 1px solid rgba(10, 10, 10, 0.12);
-  }
-
-  .service-step:last-child {
-    border-right: none;
-  }
-
-  .service-step-index {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
-    opacity: 0.52;
-  }
-
-  .service-step p {
-    color: rgba(10, 10, 10, 0.8);
-    line-height: 1.7;
-  }
-
-  .service-outcomes {
-    padding: 6rem 4rem;
-    background: var(--black);
-    color: var(--white);
-  }
-
-  .service-outcomes-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
-  .service-outcomes h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2rem, 4.2vw, 3.4rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.4rem;
-  }
-
-  .service-outcome-tags {
+  .svc__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.55rem;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
   }
 
-  .service-outcome-tags span {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 0;
-    padding: 0.3rem 0;
-    font-size: 0.9rem;
-  }
-
-  /* Body / article section */
-  .service-body {
-    padding: 6rem 4rem;
-    background: var(--white);
-  }
-
-  .service-body-inner {
-    max-width: 780px;
-    margin: 0 auto;
-  }
-
-  .service-body-inner :global(h2) {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--black);
-    margin: 2.5rem 0 1rem;
-  }
-
-  .service-body-inner :global(h2:first-child) {
-    margin-top: 0;
-  }
-
-  .service-body-inner :global(p) {
-    font-size: 1rem;
-    line-height: 1.85;
-    color: rgba(10,10,10,0.75);
-    margin-bottom: 1.2rem;
-  }
-
-  .service-body-inner :global(ul) {
-    list-style: none;
-    margin: 1rem 0 1.5rem;
-    display: grid;
-    gap: 0.6rem;
-  }
-
-  .service-body-inner :global(ul li) {
+  .svc__float-wrap {
     position: relative;
-    padding-left: 1.2rem;
-    color: rgba(10,10,10,0.8);
-    line-height: 1.65;
+    z-index: 2;
+    margin-top: clamp(-9rem, -14vw, -7.5rem);
   }
 
-  .service-body-inner :global(ul li)::before {
-    content: "";
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--black);
-    position: absolute;
-    left: 0;
-    top: 0.65rem;
-  }
-
-  .service-body-inner :global(a) {
-    color: var(--black);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-    transition: opacity 0.2s ease;
-  }
-
-  .service-body-inner :global(a:hover) {
-    opacity: 0.6;
-  }
-
-  @media (max-width: 768px) {
-    .service-body { padding: 4rem 2rem; }
-  }
-
-  /* Regions section */
-  .service-regions {
-    padding: 6rem 4rem;
-  }
-
-  .service-regions-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
-  .service-regions-kicker {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 0.9rem;
-  }
-
-  .service-regions h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.6rem;
-  }
-
-  .service-regions > div > p {
-    color: rgba(10, 10, 10, 0.65);
-    margin-bottom: 2rem;
-  }
-
-  .service-regions-grid {
-    list-style: none;
+  .svc__float {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+    align-items: center;
+  }
+
+  .svc__metrics {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.75rem;
   }
+  .svc__metric {
+    container-type: inline-size;
+    padding: 1.2rem 1.25rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    box-shadow: var(--pm-drop);
+    align-content: start;
+  }
+  .svc__metric .pm-stat__value {
+    font-size: clamp(1.1rem, 16cqi, 2.3rem);
+    overflow-wrap: normal; hyphens: auto;
+    font-weight: 400;
+  }
+  .svc__metric--yellow { background: var(--pm-yellow); }
+  .svc__metric--milk { background: var(--pm-milk); }
+  .svc__metric--pink { background: var(--pm-blush); }
 
-  .service-region-card {
+  .svc__notice { display: grid; gap: 0.9rem; }
+
+  /* ── Context ── */
+  .svc__context-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+    align-items: start;
+  }
+  .svc__ctx { display: grid; gap: 1rem; }
+  .svc__ctx-title { margin-bottom: 0.5rem; }
+  .svc__ctx--good { margin-top: clamp(0rem, 4vw, 3rem); }
+  .svc__ctx-label { color: var(--pm-wine); }
+  .svc__ctx-checks li { color: var(--pm-ink); }
+  .svc__ctx-checks li::before { background-color: var(--pm-milk); }
+
+  /* ── Approach ── */
+  .svc__approach-card {
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem);
+  }
+
+  .svc__steps {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--steps, 4), minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .svc__steps::before {
+    content: "";
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    top: 27px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--pm-pink) 0 4px, transparent 4px 10px);
+  }
+
+  .svc__step { position: relative; display: grid; gap: 1rem; align-content: start; }
+  .svc__step-num {
+    display: inline-grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    font-family: var(--pm-display);
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+  .svc__step-num--last { background: var(--pm-yellow); }
+  .svc__step p {
+    margin: 0;
+    padding: 1.1rem 1.2rem;
+    background: rgba(255, 250, 240, 0.08);
+    border: 2px solid rgba(255, 250, 240, 0.18);
+    border-radius: var(--pm-r);
+    color: rgba(255, 250, 240, 0.9);
+    line-height: 1.55;
+  }
+
+  /* ── Outcomes ── */
+  .svc__outcome-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(0.9rem, 2vw, 1.25rem);
+  }
+  .svc__outcome {
+    display: grid;
+    gap: 1.1rem;
+    align-content: start;
+    padding: 1.5rem;
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
+  }
+  .svc__outcome p { margin: 0; font-weight: 600; line-height: 1.45; }
+
+  /* ── Body ── */
+  .svc__body { padding-block: clamp(4rem, 8vw, 6.5rem); }
+  .svc__prose > :global(:first-child),
+  .svc__prose > :global(:first-child > h2:first-child) { margin-top: 0; }
+  /* the body slot arrives wrapped in a plain <div slot="body"> */
+  .svc__prose > :global(div:not([class]) > * + *) { margin-top: 1.1em; }
+  .svc__prose :global(h2) { margin-top: 2em; }
+  .svc__prose :global(ul) { list-style: none; padding: 0; display: grid; gap: 0.75rem; }
+  .svc__prose :global(ul li) {
+    position: relative;
+    padding: 1rem 1.25rem 1rem 3.1rem;
+    background: var(--pm-milk);
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    margin: 0;
+  }
+  .svc__prose :global(ul li)::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 1.2rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-yellow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A001D' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 62% no-repeat;
+  }
+
+  /* ── Regions ── */
+  .svc__regions-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+  }
+  .svc__regions-head { display: grid; gap: 0.9rem; }
+  .svc__regions-label, .svc__regions-text { color: var(--pm-ink); }
+  .svc__regions-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .svc__region {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
-    padding: 1.1rem 1.2rem;
-    border: 1px solid rgba(10, 10, 10, 0.12);
-    border-radius: 10px;
+    gap: 0.75rem;
+    height: 100%;
+    padding: 1rem 1.25rem;
+    background: var(--pm-milk);
+    border: var(--pm-border);
+    border-radius: var(--pm-pill);
+    color: var(--pm-ink);
+    font-weight: 700;
     text-decoration: none;
-    color: var(--black);
-    font-weight: 500;
-    font-size: 0.95rem;
-    background: var(--white);
-    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+    transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease);
+  }
+  @media (hover: hover) {
+    .svc__region:hover { transform: translateY(-3px); box-shadow: var(--pm-drop); }
   }
 
-  .service-region-card:hover {
-    border-color: var(--black);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
+  /* ── FAQ ── */
+  .svc__faq-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
   }
+  .svc__faq-head { position: sticky; top: 110px; margin-bottom: 0; }
 
-  /* Related services section */
-  .service-related {
-    padding: 4rem 4rem;
-  }
-
-  .service-related-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
-  .service-related-kicker {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 1.2rem;
-  }
-
-  .service-related-grid {
+  /* ── Related ── */
+  .svc__related { padding-top: 0; }
+  .svc__related-label { margin: 0 0 1.25rem; text-align: center; }
+  .svc__related-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1rem;
   }
-
-  .service-related-card {
-    display: block;
-    padding: 1.4rem 1.6rem;
-    border: 1px solid rgba(10, 10, 10, 0.12);
-    border-radius: 10px;
-    text-decoration: none;
-    color: var(--black);
-    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
-  }
-
-  .service-related-card:hover {
-    border-color: var(--black);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
-  }
-
-  .service-related-card strong {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.05rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .service-related-card span {
-    font-size: 0.88rem;
-    color: rgba(10, 10, 10, 0.6);
-    line-height: 1.5;
-  }
-
-  @media (max-width: 768px) {
-    .service-related { padding: 3rem 2rem; }
-  }
-
-  /* FAQ section */
-  .service-faq {
-    padding: 6rem 4rem;
-  }
-
-  .service-faq-inner {
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  .service-faq-kicker {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 0.9rem;
-  }
-
-  .service-faq h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 2.5rem;
-  }
-
-  .service-faq-list {
+  .svc__related-card {
     display: grid;
-    gap: 0;
+    gap: 0.4rem;
+    height: 100%;
+    padding: 1.5rem 3.5rem 1.5rem 1.5rem;
+    border-radius: var(--pm-r);
+    background: var(--pm-paper);
+  }
+  .svc__related-card strong {
+    font-family: var(--pm-display);
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+  .svc__related-card span { color: var(--pm-ink-soft); font-size: 0.95rem; line-height: 1.45; }
+  .svc__related-arrow {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-yellow);
+  }
+  .svc__related-card .svc__related-arrow { color: var(--pm-ink); }
+
+  /* ── CTA ── */
+  .svc__cta {
+    padding: clamp(5rem, 10vw, 8rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: -1px;
+  }
+  .svc__cta-inner { display: grid; justify-items: center; text-align: center; gap: 1.4rem; }
+  .svc__cta-title { font-size: clamp(2.6rem, 6vw, 4.75rem); }
+  .svc__cta-text { color: var(--pm-ink); max-width: 560px; }
+  .svc__cta-actions { display: flex; justify-content: center; margin-top: 0.5rem; }
+  .svc__cta-contact {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 2rem;
+  }
+  .svc__cta-contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--pm-milk);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  @media (hover: hover) { .svc__cta-contact a:hover { color: var(--pm-ink); } }
+
+  /* ── Responsive ── */
+  @media (max-width: 1080px) {
+    .svc__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2rem; }
+    .svc__steps::before { display: none; }
   }
 
-  .service-faq-item {
-    border-top: 1px solid rgba(10, 10, 10, 0.12);
-    padding: 1.6rem 0;
+  @media (max-width: 960px) {
+    .svc__float { grid-template-columns: 1fr; }
+    .svc__context-grid,
+    .svc__regions-card,
+    .svc__faq-grid { grid-template-columns: 1fr; }
+    .svc__ctx--good { margin-top: 0; }
+    .svc__faq-head { position: static; }
   }
 
-  .service-faq-item:last-child {
-    border-bottom: 1px solid rgba(10, 10, 10, 0.12);
-  }
+  @media (max-width: 640px) {
+    .svc__hero { padding-top: 64px; }
+    .svc__actions,
+    .svc__cta-actions { flex-direction: column; align-self: stretch; }
+    .svc__actions .pm-btn,
+    .svc__cta-actions .pm-btn { width: 100%; }
+    .svc__metrics { grid-template-columns: 1fr; }
+    .svc__regions-grid { grid-template-columns: 1fr; }
 
-  .service-faq-item dt {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin-bottom: 0.65rem;
-    color: var(--black);
-  }
-
-  .service-faq-item dd {
-    color: rgba(10, 10, 10, 0.72);
-    line-height: 1.75;
-    max-width: 70ch;
-  }
-
-  @media (max-width: 1100px) {
-    .service-hero-grid {
-      grid-template-columns: 1fr;
+    .svc__steps { grid-template-columns: 1fr; gap: 1.25rem; }
+    .svc__steps::before {
+      display: block;
+      left: 27px;
+      right: auto;
+      top: 28px;
+      bottom: 28px;
+      width: 2px;
+      height: auto;
+      background: repeating-linear-gradient(180deg, var(--pm-pink) 0 4px, transparent 4px 10px);
     }
-
-    .service-context-grid,
-    .service-approach-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .service-step:nth-child(2n) {
-      border-right: none;
-    }
-  }
-
-  @media (max-width: 1100px) {
-    .service-regions-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 768px) {
-    .service-hero,
-    .service-context,
-    .service-approach,
-    .service-outcomes,
-    .service-regions,
-    .service-faq {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-
-    .service-regions-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .service-hero {
-      padding-top: 8.6rem;
-      padding-bottom: 4.2rem;
-    }
-
-    .service-hero-content {
-      text-align: left;
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .service-back-link {
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .service-hero h1 {
-      justify-content: flex-start;
-      font-size: clamp(2rem, 11.5vw, 3rem);
-      overflow-wrap: anywhere;
-      word-break: break-word;
-      line-height: 0.98;
-      max-width: 100%;
-    }
-
-    .service-hero p {
-      margin-left: 0;
-      margin-right: 0;
-      max-width: 100%;
-    }
-
-    .service-hero-actions {
-      justify-content: flex-start;
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      max-width: 320px;
-    }
-
-    .service-primary-link,
-    .service-secondary-link {
-      width: 100%;
-      text-align: center;
-    }
-
-    .service-metrics,
-    .service-context-grid,
-    .service-approach-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .service-metrics {
-      max-width: 420px;
-      margin-left: 0;
-      margin-right: 0;
-      text-align: left;
-    }
-
-    .service-intro-panel {
-      border-left: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.25);
-      padding-left: 0;
-      padding-top: 1rem;
-      text-align: left;
-      max-width: 520px;
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .service-intro-panel li {
-      text-align: left;
-    }
-
-    .service-approach-head {
-      text-align: left;
-    }
-
-    .service-approach-head h2 {
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    .service-outcomes-inner {
-      text-align: left;
-    }
-
-    .service-outcome-tags {
-      justify-content: flex-start;
-    }
-
-    .service-step {
-      border-right: none;
-      border-top: 1px solid rgba(10, 10, 10, 0.1);
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    .service-step:first-child {
-      border-top: none;
-    }
-
-    .service-step {
-      min-height: auto;
-    }
+    .svc__step { grid-template-columns: 56px minmax(0, 1fr); align-items: start; }
   }
 </style>

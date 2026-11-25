@@ -1,5 +1,177 @@
 ---
-import ExperienceHero from "./ui/experience-hero";
+import Icon from "./pm/Icon.astro";
+
+const channels = [
+  { label: "SEO", dienst: "Gevonden worden in Google", href: "/diensten/seo", icon: "search", tone: "" },
+  { label: "GEO", dienst: "Geciteerd worden door AI", href: "/diensten/geo", icon: "sparkles", tone: "pm-icon--pink" },
+  { label: "Google Ads", dienst: "Direct bovenaan met SEA", href: "/diensten/sea", icon: "megaphone", tone: "pm-icon--yellow" },
+  { label: "Social", dienst: "Adverteren op Meta", href: "/diensten/social-advertising", icon: "share", tone: "pm-icon--wine" },
+  { label: "Websites", dienst: "Een site die converteert", href: "/diensten/websites", icon: "globe", tone: "pm-icon--wine" },
+  { label: "Webshops", dienst: "Online verkopen", href: "/diensten/webshops", icon: "bag", tone: "" },
+  { label: "Tracking", dienst: "Meten wat werkt", href: "/diensten/google-tag-manager", icon: "chart", tone: "pm-icon--pink" },
+  { label: "Automatisering", dienst: "Terugkerend werk eruit", href: "/diensten/procesautomation", icon: "workflow", tone: "pm-icon--yellow" },
+] as const;
 ---
 
-<ExperienceHero client:load />
+<section class="hero" aria-labelledby="hero-title">
+  <div class="pm-stack hero__stack">
+    <span class="pm-stack__layer" aria-hidden="true"></span>
+    <span class="pm-stack__layer" aria-hidden="true"></span>
+    <span class="pm-stack__layer" aria-hidden="true"></span>
+
+    <div class="pm-stack__panel hero__panel">
+      <img class="pm-obj pm-obj--right" src="/images/3d/channel-hub.webp" width="823" height="787" alt="" aria-hidden="true" decoding="async" />
+      <img class="pm-obj pm-obj--left" src="/images/3d/ai-chip.webp" width="1165" height="1290" alt="" aria-hidden="true" decoding="async" />
+      <div class="hero__content">
+        <span class="pm-tag hero__tag" data-reveal>Online marketing · Enschede</span>
+        <h1 id="hero-title" class="pm-h1 hero__title" data-reveal style="--d: 1">Van ruis naar omzet</h1>
+        <p class="pm-opening hero__sub" data-reveal style="--d: 2">
+          SEO, ads, social, e-mail: allemaal losse signalen. LuminX maakt er één helder,
+          meetbaar pad van. Van de eerste klik tot je omzet.
+        </p>
+        <div class="hero__actions" data-reveal style="--d: 3">
+          <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open>
+            Start het gesprek <Icon name="arrow" />
+          </a>
+          <a href="#werk" class="pm-btn pm-btn--white">Bekijk het werk</a>
+        </div>
+        <a href="#kanalen" class="pm-scrollcue hero__cue" data-reveal style="--d: 4">
+          Ontdek hieronder
+          <span class="pm-scrollcue__thread" aria-hidden="true"><span class="pm-scrollcue__mouse"></span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pm-container hero__float-wrap" id="kanalen">
+    <div class="pm-card pm-card--lift hero__float" data-reveal>
+      <div class="hero__float-head">
+        <span class="pm-icon pm-icon--sm hero__float-badge" aria-hidden="true"><Icon name="heart" /></span>
+        <h2 class="pm-h2 hero__float-title">Alle kanalen, één doel: omzet.</h2>
+        <p class="pm-text">Elk kanaal voedt hetzelfde hart. Kies waar je begint: wij verbinden de rest.</p>
+      </div>
+      <ul class="hero__channels">
+        {channels.map((c, i) => (
+          <li data-reveal style={`--d: ${i}`}>
+            <a href={c.href} class="hero__channel">
+              <span class:list={["pm-icon", c.tone]}><Icon name={c.icon} /></span>
+              <span class="hero__channel-text">
+                <strong>{c.label}</strong>
+                <span>{c.dienst}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-top: 72px;          /* nav sits over the first layer, like the reference */
+  }
+
+  .hero__panel {
+    padding: clamp(5rem, 9vw, 7rem) var(--pm-gutter) clamp(13rem, 22vw, 17rem);
+  }
+
+  /* the headline runs wide here, so park the hub higher and smaller than on service heroes */
+  @media (min-width: 1181px) {
+    .hero__panel .pm-obj--right { top: 3%; width: clamp(150px, 14vw, 230px); }
+  }
+
+  .hero__content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.6rem;
+    max-width: 960px;
+    margin-inline: auto;
+  }
+
+  .hero__title {
+    color: var(--pm-milk);
+    font-size: clamp(3.2rem, 7.4vw, 6.75rem);
+  }
+
+  .hero__sub { max-width: 600px; }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .hero__cue { margin-top: 2rem; }
+
+  /* floating card overlapping the bottom of the panel */
+  .hero__float-wrap {
+    position: relative;
+    margin-top: clamp(-11rem, -18vw, -9rem);
+    z-index: 2;
+  }
+
+  .hero__float {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    background: var(--pm-paper);
+  }
+
+  .hero__float-head {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .hero__float-badge { margin-top: -0.25rem; }
+  .hero__float-title { max-width: 640px; }
+
+  .hero__channels {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .hero__channel {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    height: 100%;
+    padding: 0.9rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    text-decoration: none;
+    transition: transform 0.45s var(--pm-ease), box-shadow 0.45s var(--pm-ease);
+  }
+  .hero__channel .pm-icon { box-shadow: none; transition: transform 0.5s var(--pm-ease-spring); }
+  @media (hover: hover) {
+    .hero__channel:hover { transform: translateY(-3px); box-shadow: var(--pm-drop); }
+    .hero__channel:hover .pm-icon { transform: rotate(-8deg) scale(1.06); }
+  }
+
+  .hero__channel-text { display: grid; gap: 0.1rem; min-width: 0; }
+  .hero__channel-text strong { font-family: var(--pm-display); font-weight: 400; font-size: 1.25rem; overflow-wrap: anywhere; line-height: 1.1; letter-spacing: 0.01em; }
+  .hero__channel-text span { font-size: 0.85rem; line-height: 1.3; color: var(--pm-ink-soft); }
+
+  @media (max-width: 1180px) {
+    .hero__channels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .hero { padding-top: 64px; }
+    .hero__actions { flex-direction: column; align-self: stretch; }
+    .hero__actions .pm-btn { width: 100%; }
+    .hero__cue { margin-top: 0.5rem; }
+    .hero__channels { grid-template-columns: 1fr; }
+  }
+</style>

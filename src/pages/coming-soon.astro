@@ -1,15 +1,80 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ComingSoonHero from "../components/ComingSoonHero.astro";
-import HorizontalShowcase from "../components/HorizontalShowcase.astro";
 import ComingSoonFooter from "../components/ComingSoonFooter.astro";
+import Icon from "../components/pm/Icon.astro";
+
+// Formerly the pinned horizontal showcase - now a simple card grid.
+const pillars = [
+  { index: "02", title: "Strategie", desc: "Data-gedreven marketing die converteert", icon: "target", tone: "" },
+  { index: "03", title: "Automation", desc: "Complete marketing automations. Gemiddeld 150% efficiënter", icon: "workflow", tone: "pm-icon--pink" },
+  { index: "04", title: "Impact", desc: "Meetbare resultaten, schaalbare groei", icon: "trending-up", tone: "pm-icon--yellow" },
+  { index: "05", title: "Data", desc: "Inzichten die de toekomst vormen", icon: "chart", tone: "pm-icon--wine" },
+] as const;
 ---
 
 <BaseLayout title="LuminX - Coming Soon" description="LuminX. Binnenkort live." robots="noindex,nofollow">
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <ComingSoonHero />
-  <HorizontalShowcase />
+
+  <section class="pm-section cs-build" id="wat-wij-bouwen" aria-labelledby="cs-build-title">
+    <div class="pm-container">
+      <div class="pm-head">
+        <span class="pm-label" data-reveal>01</span>
+        <h2 id="cs-build-title" class="pm-h2" data-reveal style="--d: 1">Wat wij bouwen</h2>
+      </div>
+
+      <ul class="cs-build__grid">
+        {pillars.map((p, i) => (
+          <li class="pm-card pm-card--pad pm-card--hover cs-build__card" data-reveal style={`--d: ${i}`}>
+            <div class="cs-build__top">
+              <span class:list={["pm-icon", p.tone]}><Icon name={p.icon} /></span>
+              <span class="cs-build__index">{p.index}</span>
+            </div>
+            <h3 class="pm-h3">{p.title}</h3>
+            <p class="pm-text">{p.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
   <ComingSoonFooter />
-  <script src="/scripts/horizontal-scroll.js" defer></script>
 </BaseLayout>
+
+<style>
+  .cs-build__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  }
+
+  .cs-build__card {
+    display: grid;
+    align-content: start;
+    gap: 0.9rem;
+    background: var(--pm-paper);
+  }
+  .cs-build__card:nth-child(even) { background: var(--pm-milk); }
+
+  .cs-build__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .cs-build__index {
+    font-family: var(--pm-display);
+    font-size: 1.5rem;
+    color: var(--pm-ink-mute);
+  }
+
+  @media (max-width: 1024px) {
+    .cs-build__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .cs-build__grid { grid-template-columns: 1fr; }
+  }
+</style>

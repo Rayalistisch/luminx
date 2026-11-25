@@ -1,4 +1,5 @@
 ---
+import Icon from "./pm/Icon.astro";
 ---
 
 <div class="mbb-wrap">
@@ -6,30 +7,25 @@
   <div class="mbb-chat-panel" id="mbbChatPanel" aria-hidden="true">
     <div class="mbb-chat-header">
       <span>Stuur ons een WhatsApp</span>
-      <button type="button" aria-label="Sluit" id="mbbChatClose">&times;</button>
+      <button type="button" class="mbb-chat-close" aria-label="Sluit" id="mbbChatClose"><Icon name="x" size={18} stroke={2.5} /></button>
     </div>
     <div class="mbb-chat-body">
       <p>Stel je vraag, wij reageren zo snel mogelijk.</p>
-      <textarea rows="3" placeholder="Typ je bericht..." id="mbbChatInput"></textarea>
-      <button type="button" class="mbb-send" id="mbbChatSend">Versturen</button>
+      <textarea rows="3" placeholder="Typ je bericht..." aria-label="Je bericht" id="mbbChatInput"></textarea>
+      <button type="button" class="pm-btn pm-btn--sm mbb-send" id="mbbChatSend">Versturen <Icon name="send" /></button>
     </div>
   </div>
 
   <!-- Bottom bar -->
   <div class="mbb-bar">
-    <button type="button" class="mbb-btn mbb-whatsapp" id="mbbWaBtn">
+    <button type="button" class="mbb-btn mbb-whatsapp" id="mbbWaBtn" aria-controls="mbbChatPanel">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M19.05 4.94A9.9 9.9 0 0 0 12.02 2C6.5 2 2 6.49 2 12a9.9 9.9 0 0 0 1.36 5.01L2 22l5.13-1.34A9.9 9.9 0 0 0 12.02 22c5.52 0 10.01-4.49 10.01-10a9.93 9.93 0 0 0-2.98-7.06Zm-7.03 15.4a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.04.8.81-2.97-.2-.31A8.29 8.29 0 0 1 3.7 12c0-4.58 3.73-8.3 8.32-8.3a8.3 8.3 0 0 1 8.3 8.3 8.31 8.31 0 0 1-8.3 8.34Zm4.55-6.22c-.25-.12-1.48-.73-1.71-.81-.23-.09-.4-.12-.57.12-.17.24-.65.81-.8.98-.15.17-.3.18-.56.06-.25-.13-1.08-.4-2.05-1.26-.76-.68-1.28-1.52-1.43-1.77-.15-.24-.02-.37.11-.5.12-.12.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.12-.57-1.37-.78-1.88-.21-.5-.43-.43-.57-.44h-.49c-.17 0-.45.06-.68.32-.23.25-.88.86-.88 2.09 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.52.6.19 1.14.16 1.57.1.48-.07 1.48-.6 1.69-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29Z"/>
       </svg>
       WhatsApp
     </button>
     <a href="#" class="mbb-btn mbb-afspraak" data-overlay-open>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="3" y="4" width="18" height="18" rx="2"/>
-        <line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8" y1="2" x2="8" y2="6"/>
-        <line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
+      <Icon name="calendar" size={18} />
       Plan Afspraak
     </a>
   </div>
@@ -64,148 +60,138 @@
 </script>
 
 <style>
-  .mbb-wrap {
-    display: none;
-  }
+  .mbb-wrap { display: none; }
 
   @media (max-width: 768px) {
     .mbb-wrap {
       display: block;
       position: fixed;
-      bottom: 0;
       left: 0;
       right: 0;
+      bottom: 0;
       z-index: 9000;
-      padding: 0 1rem calc(1rem + env(safe-area-inset-bottom));
-      padding-left: calc(1rem + 44px + 0.5rem);
+      padding: 0 16px calc(16px + env(safe-area-inset-bottom));
+      padding-left: calc(16px + 44px + 10px);   /* room for the cookie-manage button */
       pointer-events: none;
     }
 
-    /* Chat panel — absolute so it doesn't stretch the wrapper over hero buttons */
+    /* chat panel - absolute so it doesn't stretch the wrapper over page buttons */
     .mbb-chat-panel {
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: calc(100% + 0.6rem);
-      background: #fff;
-      border-radius: 16px;
-      border: 1px solid rgba(10,10,10,0.1);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+      left: 16px;
+      right: 16px;
+      bottom: calc(100% + 0.75rem);
       overflow: hidden;
+      background: var(--pm-paper);
+      color: var(--pm-ink);
+      border: var(--pm-border);
+      border-radius: var(--pm-r);
+      box-shadow: var(--pm-drop);
       opacity: 0;
-      transform: translateY(10px);
+      visibility: hidden;
+      transform: translateY(12px);
       pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      transition: opacity 0.3s var(--pm-ease), transform 0.5s var(--pm-ease), visibility 0s linear 0.3s;
     }
-
     .mbb-chat-panel.is-open {
       opacity: 1;
-      transform: translateY(0);
+      visibility: visible;
+      transform: none;
       pointer-events: auto;
+      transition: opacity 0.3s var(--pm-ease), transform 0.5s var(--pm-ease), visibility 0s;
     }
 
     .mbb-chat-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.85rem 1rem;
-      border-bottom: 1px solid rgba(10,10,10,0.08);
-      font-family: 'Matter Sans', sans-serif;
-      font-weight: 600;
-      font-size: 0.92rem;
-      color: #0a0a0a;
+      gap: 0.75rem;
+      padding: 0.8rem 0.9rem 0.8rem 1.1rem;
+      border-bottom: var(--pm-border);
+      font-family: var(--pm-display);
+      font-size: 1.25rem;
+      line-height: 1.1;
     }
-
-    .mbb-chat-header button {
-      border: none;
-      background: transparent;
-      font-size: 1.3rem;
-      line-height: 1;
+    .mbb-chat-close {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: var(--pm-border);
+      border-radius: 50%;
+      background: var(--pm-milk);
+      color: var(--pm-ink);
       cursor: pointer;
-      color: rgba(10,10,10,0.5);
     }
 
     .mbb-chat-body {
-      padding: 0.9rem 1rem;
       display: grid;
-      gap: 0.65rem;
+      gap: 0.75rem;
+      padding: 1rem 1.1rem 1.1rem;
+      background: var(--pm-milk);
     }
-
-    .mbb-chat-body p {
-      margin: 0;
-      font-size: 0.88rem;
-      color: rgba(10,10,10,0.65);
-    }
-
+    .mbb-chat-body p { margin: 0; font-size: 0.95rem; color: var(--pm-ink-soft); }
     .mbb-chat-body textarea {
       width: 100%;
-      resize: none;
-      border: 1px solid rgba(10,10,10,0.15);
-      border-radius: 10px;
-      padding: 0.65rem 0.75rem;
-      font: inherit;
-      font-size: 0.92rem;
-      color: #0a0a0a;
       box-sizing: border-box;
+      resize: none;
+      padding: 0.75rem 0.9rem;
+      border: var(--pm-border);
+      border-radius: var(--pm-r-sm);
+      background: var(--pm-milk);
+      color: var(--pm-ink);
+      font: inherit;
+      font-size: 16px;
+      outline: none;
     }
+    .mbb-chat-body textarea::placeholder { color: var(--pm-ink-mute); }
+    .mbb-chat-body textarea:focus { background: #fff; box-shadow: 0 0 0 3px var(--pm-milk), 0 0 0 5px var(--pm-ink); }
+    .mbb-send { width: 100%; }
 
-    .mbb-send {
-      border: none;
-      border-radius: 999px;
-      background: #0a0a0a;
-      color: #fff;
-      font-family: 'Matter Sans', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.72rem 1rem;
-      cursor: pointer;
-    }
-
-    /* Floating bar */
+    /* floating pill bar */
     .mbb-bar {
       pointer-events: auto;
       display: flex;
-      gap: 0.5rem;
-      background: rgba(15, 15, 15, 0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 20px;
-      padding: 0.5rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.08);
+      gap: 6px;
+      padding: 6px;
+      background: var(--pm-milk);
+      border: var(--pm-border);
+      border-radius: var(--pm-pill);
+      box-shadow: 0 4px 0 var(--pm-ink);
     }
 
     .mbb-btn {
-      flex: 1;
+      flex: 1 1 auto;
+      min-width: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      padding: 0.85rem 0.5rem;
-      border-radius: 14px;
-      font-family: 'Matter Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
+      gap: 0.4rem;
+      min-height: 46px;
+      padding: 0 0.6rem;
+      border: var(--pm-border);
+      border-radius: var(--pm-pill);
+      font-family: var(--pm-body);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
       text-decoration: none;
-      border: none;
       cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
+    .mbb-btn svg { flex: none; }
+    .mbb-btn:active { transform: translateY(2px); }
 
-    .mbb-btn:active {
-      opacity: 0.8;
-      transform: scale(0.97);
-    }
+    .mbb-whatsapp { background: #25D366; color: var(--pm-ink); }
+    .mbb-afspraak { background: var(--pm-wine); color: var(--pm-milk); }
+  }
 
-    .mbb-whatsapp {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-    }
-
-    .mbb-afspraak {
-      background: linear-gradient(135deg, #C4972A 0%, #A07828 100%);
-      color: #fff;
-      box-shadow: 0 2px 12px rgba(196,151,42,0.35);
-    }
+  @media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+    .mbb-chat-panel, .mbb-chat-panel.is-open, .mbb-btn { transition: none; }
+    .mbb-chat-panel { transform: none; }
   }
 </style>

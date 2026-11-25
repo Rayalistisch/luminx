@@ -1,72 +1,75 @@
-<div id="contact-overlay" class="overlay">
-  <button class="overlay-close" data-overlay-close aria-label="Sluiten">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  </button>
+---
+import Icon from "./pm/Icon.astro";
+---
 
-  <div class="overlay-grid">
-    <div class="overlay-info">
-      <span class="overlay-label">Contact</span>
-      <h2 class="overlay-title">Laten We<br/>Praten</h2>
-      <p class="overlay-desc">Benieuwd wat ik voor je kan betekenen? <br>Praten is altijd gratis!</p>
+<div id="contact-overlay" class="co" role="dialog" aria-modal="true" aria-labelledby="co-title">
+  <div class="co__inner pm-container">
+    <button type="button" class="co__close" data-overlay-close aria-label="Sluiten">
+      <Icon name="x" size={22} stroke={2.5} />
+    </button>
 
-      <div class="overlay-details">
-        <a href="mailto:hello@luminx.nl" class="overlay-detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M22 6l-10 7L2 6"/>
-          </svg>
-          <span>hello@luminx.nl</span>
-        </a>
-        <a href="tel:+31613698596" class="overlay-detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          <span>+31 6 1369 8596</span>
-        </a>
-        <div id="overlay-calendar-button-slot"></div>
+    <div class="co__grid">
+      <div class="co__info">
+        <span class="pm-label">Contact</span>
+        <h2 id="co-title" class="pm-h1 co__title">Laten we praten</h2>
+        <p class="pm-opening co__desc">Benieuwd wat ik voor je kan betekenen? <br />Praten is altijd gratis!</p>
+
+        <ul class="co__details">
+          <li>
+            <a href="mailto:hello@luminx.nl" class="co__detail">
+              <span class="pm-icon pm-icon--sm pm-icon--yellow"><Icon name="mail" /></span>
+              <span>hello@luminx.nl</span>
+            </a>
+          </li>
+          <li>
+            <a href="tel:+31613698596" class="co__detail">
+              <span class="pm-icon pm-icon--sm pm-icon--pink"><Icon name="phone" /></span>
+              <span>+31 6 1369 8596</span>
+            </a>
+          </li>
+          <li class="co__cal">
+            <span class="pm-icon pm-icon--sm pm-icon--wine" aria-hidden="true"><Icon name="calendar" /></span>
+            <div id="overlay-calendar-button-slot"></div>
+          </li>
+        </ul>
       </div>
-    </div>
 
-    <div class="overlay-form-wrap">
-      <form
-        class="overlay-form"
-        id="contact-form"
-        method="POST"
-        action="https://api.web3forms.com/submit"
-      >
-        <input type="hidden" name="access_key" value="fc8f918e-1c5c-44a4-acde-948f7f99eeae" />
-        <input type="hidden" name="subject" value="Nieuw contactverzoek via luminx.nl" />
-        <input type="hidden" name="from_name" value="luminx.nl" />
-        <input type="text" name="botcheck" tabindex="-1" autocomplete="off" class="form-honeypot" aria-hidden="true" />
-        <div class="form-group">
-          <label for="contact-name">Naam</label>
-          <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="Je naam" />
+      <div class="pm-card pm-card--lift pm-card--milk co__card">
+        <form
+          class="co__form"
+          id="contact-form"
+          method="POST"
+          action="https://api.web3forms.com/submit"
+        >
+          <input type="hidden" name="access_key" value="fc8f918e-1c5c-44a4-acde-948f7f99eeae" />
+          <input type="hidden" name="subject" value="Nieuw contactverzoek via luminx.nl" />
+          <input type="hidden" name="from_name" value="luminx.nl" />
+          <input type="text" name="botcheck" tabindex="-1" autocomplete="off" class="co__honeypot" aria-hidden="true" />
+          <div class="co__field">
+            <label for="contact-name">Naam</label>
+            <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="Je naam" />
+          </div>
+          <div class="co__field">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="naam@voorbeeld.nl" />
+          </div>
+          <div class="co__field">
+            <label for="contact-message">Bericht</label>
+            <textarea id="contact-message" name="message" rows="4" required placeholder="Vertel ons over je project..."></textarea>
+          </div>
+          <button type="submit" class="pm-btn pm-btn--yellow co__submit">
+            <span class="form-submit-text">Verstuur Bericht</span>
+            <Icon name="arrow" />
+          </button>
+        </form>
+        <p class="co__error" id="form-error" role="alert">
+          Er ging iets mis bij het verzenden. Probeer het opnieuw of mail naar hello@luminx.nl.
+        </p>
+        <div class="co__success" id="form-success">
+          <span class="pm-icon pm-icon--yellow co__success-icon" aria-hidden="true"><Icon name="check" /></span>
+          <h3 class="pm-h2">Bedankt!</h3>
+          <p class="pm-text">We nemen zo snel mogelijk contact met je op.</p>
         </div>
-        <div class="form-group">
-          <label for="contact-email">Email</label>
-          <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="naam@voorbeeld.nl" />
-        </div>
-        <div class="form-group">
-          <label for="contact-message">Bericht</label>
-          <textarea id="contact-message" name="message" rows="3" required placeholder="Vertel ons over je project..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">
-          <span class="form-submit-text">Verstuur Bericht</span>
-          <svg class="form-submit-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </button>
-      </form>
-      <p class="form-error" id="form-error" role="alert">
-        Er ging iets mis bij het verzenden. Probeer het opnieuw of mail naar hello@luminx.nl.
-      </p>
-      <div class="form-success" id="form-success">
-        <h3>Bedankt!</h3>
-        <p>We nemen zo snel mogelijk contact met je op.</p>
       </div>
     </div>
   </div>
@@ -107,7 +110,7 @@
 
       window.calendar.schedulingButton.load({
         url: calendarUrl,
-        color: "#A79B8E",
+        color: "#9A1436",
         label: "Plan een videocall",
         target: slot,
       });
@@ -138,195 +141,132 @@
       initWithRetry();
     }
 
-    // Form submit via AJAX
-    var form = document.getElementById("contact-form");
-    var successEl = document.getElementById("form-success");
-    var errorEl = document.getElementById("form-error");
-
-    if (form) {
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        errorEl.classList.remove("is-visible");
-
-        var data = new FormData(form);
-        try {
-          var res = await fetch(form.action, {
-            method: "POST",
-            body: data,
-            headers: { Accept: "application/json" },
-          });
-          if (res.ok) {
-            form.style.display = "none";
-            successEl.classList.add("is-visible");
-          } else {
-            errorEl.classList.add("is-visible");
-          }
-        } catch {
-          errorEl.classList.add("is-visible");
-        }
-      });
-    }
   })();
 </script>
-
 <style>
-  .overlay {
+  .co {
     position: fixed;
     inset: 0;
     z-index: 9999999;
-    background: var(--black);
-    color: var(--white);
-    transform: translateY(-100%);
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
+    background: var(--pm-cream);
+    color: var(--pm-ink);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
+    transition: opacity 0.45s var(--pm-ease), visibility 0s linear 0.45s;
   }
-
-  .overlay.is-open {
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  .overlay-close {
-    position: absolute;
-    top: 2.5rem;
-    right: 4rem;
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--white);
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.3s ease, transform 0.3s ease;
-    z-index: 2;
-  }
-
-  .overlay-close:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: rotate(90deg);
-  }
-
-  .overlay-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    height: 100vh;
-    padding: 5.5rem 6rem 3rem;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .overlay-label {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.4;
-    display: block;
-    margin-bottom: 1rem;
-  }
-
-  .overlay-title {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2.6rem, 5vw, 4.2rem);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.25rem;
-    background: linear-gradient(135deg, var(--white) 0%, var(--pastel-pink) 50%, var(--pastel-blue) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .overlay-desc {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.6;
-    opacity: 0.6;
-    max-width: 400px;
-    margin-bottom: 1.75rem;
-  }
-
-  .overlay-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .overlay-detail {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--white);
-    text-decoration: none;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-
-  .overlay-detail:hover {
+  .co.is-open {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.45s var(--pm-ease), visibility 0s;
   }
 
-  .overlay-detail svg {
-    flex-shrink: 0;
-    opacity: 0.5;
+  .co__inner {
+    position: relative;
+    min-height: 100%;
+    display: grid;
+    align-items: center;
+    padding-block: clamp(5.5rem, 9vh, 7rem) clamp(2.5rem, 6vh, 4rem);
   }
 
-  #overlay-calendar-button-slot {
-    min-height: 28px;
+  .co__close {
+    position: absolute;
+    top: clamp(1rem, 3vh, 2rem);
+    right: var(--pm-gutter);
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    cursor: pointer;
+    transition: transform 0.4s var(--pm-ease), box-shadow 0.4s var(--pm-ease);
+  }
+  .co__close:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--pm-ink); }
+
+  .co__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
   }
 
-  #overlay-calendar-button-slot.is-ready {
-    min-height: 0;
+  /* entrance: info slides up, card scales in */
+  .co__info, .co__card {
+    transition: transform 0.8s var(--pm-ease), opacity 0.6s var(--pm-ease);
+  }
+  .co:not(.is-open) .co__info { transform: translateY(32px); opacity: 0; }
+  .co:not(.is-open) .co__card { transform: translateY(40px) scale(0.96); opacity: 0; }
+  .co.is-open .co__card { transition-delay: 0.08s; }
+
+  .co__info { display: grid; gap: 1.25rem; justify-items: start; }
+  .co__title { font-size: clamp(2.6rem, 6.5vw, 5.75rem); overflow-wrap: break-word; }
+  .co__grid > * { min-width: 0; }
+  .co__desc { max-width: 440px; }
+
+  .co__details {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .co__detail, .co__cal {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--pm-ink);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    text-decoration: none;
+  }
+  .co__detail > span:last-child {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.25s ease;
   }
 
-  #overlay-calendar-button-slot :is(button, a) {
+  #overlay-calendar-button-slot { min-height: 28px; display: flex; align-items: center; }
+  #overlay-calendar-button-slot.is-ready { min-height: 0; }
+  #overlay-calendar-button-slot :global(:is(button, a)) {
     display: inline-flex !important;
     align-items: center;
-    gap: 1rem;
-    color: var(--white) !important;
-    text-decoration: none !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-size: 1rem !important;
-    font-weight: 400 !important;
-    opacity: 0.7;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
+    min-height: 0 !important;
     padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
+    color: var(--pm-ink) !important;
+    font-family: var(--pm-body) !important;
+    font-size: 1.0625rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    text-decoration: underline !important;
+    text-decoration-color: transparent !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 4px;
     line-height: 1.3;
     cursor: pointer;
-    transition: opacity 0.3s ease;
+    transition: text-decoration-color 0.25s ease;
   }
 
-  #overlay-calendar-button-slot :is(button, a):hover {
-    opacity: 1;
-  }
-
-  /* Form */
-  .overlay-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .form-group {
-    position: relative;
-  }
-
-  .form-honeypot {
+  /* form card */
+  .co__card { padding: clamp(1.5rem, 3vw, 2.5rem); }
+  .co__form { display: grid; gap: 1.1rem; }
+  .co__honeypot {
     position: absolute;
     left: -9999px;
     width: 1px;
@@ -334,156 +274,78 @@
     opacity: 0;
     pointer-events: none;
   }
-
-  .form-group label {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+  .co__field { display: grid; gap: 0.45rem; }
+  .co__field label {
+    font-size: var(--pm-fs-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    opacity: 0.35;
-    display: block;
-    margin-bottom: 0.5rem;
+    color: var(--pm-ink);
   }
-
-  .form-group input,
-  .form-group textarea {
+  .co__field input, .co__field textarea {
     width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--white);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 300;
-    padding: 0.5rem 0;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.2);
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: rgba(255, 255, 255, 0.5);
-  }
-
-  .form-group textarea {
-    resize: none;
-    line-height: 1.6;
-  }
-
-  .form-submit {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: transparent;
-    color: var(--white);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 1rem 2.2rem;
-    border-radius: 50px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.95rem;
+    box-sizing: border-box;
+    padding: 0.9rem 1.1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    font: inherit;
+    font-size: 16px;
     font-weight: 500;
-    cursor: pointer;
-    transition: border-color 0.4s ease, background 0.4s ease;
-    margin-top: 0.5rem;
-    align-self: flex-start;
+    outline: none;
+    transition: box-shadow 0.25s var(--pm-ease), background-color 0.25s ease;
+  }
+  .co__field textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+  .co__field input::placeholder, .co__field textarea::placeholder { color: var(--pm-ink-mute); }
+  .co__field input:focus, .co__field input:focus-visible,
+  .co__field textarea:focus, .co__field textarea:focus-visible {
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 0 3px var(--pm-milk), 0 0 0 5px var(--pm-ink);
   }
 
-  .form-submit:hover {
-    border-color: var(--pastel-pink);
-    background: rgba(255, 214, 232, 0.08);
-  }
+  .co__submit { justify-self: start; margin-top: 0.4rem; }
+  .co__submit:disabled { opacity: 0.6; cursor: wait; }
 
-  .form-submit-arrow {
-    transition: transform 0.3s ease;
+  .co__error {
+    display: none;
+    margin: 1rem 0 0;
+    padding: 0.85rem 1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r-sm);
+    background: var(--pm-blush);
+    color: var(--pm-ink);
+    font-size: 0.95rem;
+    font-weight: 600;
   }
+  .co__error.is-visible { display: block; }
 
-  .form-submit:hover .form-submit-arrow {
-    transform: translateX(4px);
-  }
-
-  /* Success state */
-  .form-success {
+  .co__success {
     display: none;
     text-align: center;
-    padding: 4rem 0;
+    padding: clamp(2rem, 5vw, 3.5rem) 0;
+    justify-items: center;
+    gap: 1rem;
+  }
+  .co__success.is-visible { display: grid; }
+  .co__success-icon { width: 72px; height: 72px; border-radius: 22px; }
+  .co__success-icon :global(svg) { width: 34px; height: 34px; }
+
+  @media (hover: hover) {
+    .co__close:hover { transform: translateY(-2px) rotate(90deg); box-shadow: 0 6px 0 var(--pm-ink); }
+    .co__detail:hover > span:last-child,
+    #overlay-calendar-button-slot :global(:is(button, a):hover) { text-decoration-color: var(--pm-red) !important; }
   }
 
-  .form-error {
-    display: none;
-    margin-top: 1rem;
-    color: #ffb7c7;
-    font-size: 0.95rem;
+  @media (max-width: 860px) {
+    .co__inner { align-items: start; padding-top: 5.5rem; }
+    .co__grid { grid-template-columns: 1fr; gap: 2.25rem; }
+    .co__submit { justify-self: stretch; }
   }
 
-  .form-error.is-visible {
-    display: block;
-  }
-
-  .form-success.is-visible {
-    display: block;
-  }
-
-  .form-success h3 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .form-success p {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 300;
-    opacity: 0.6;
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .overlay-grid {
-      padding: 5rem 4rem 3rem;
-      gap: 3rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .overlay {
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .overlay-grid {
-      grid-template-columns: 1fr;
-      height: auto;
-      min-height: 100vh;
-      padding: 5rem 2rem 3rem;
-      gap: 2.5rem;
-      align-items: start;
-    }
-
-    .overlay-close {
-      top: 1.5rem;
-      right: 2rem;
-      width: 40px;
-      height: 40px;
-    }
-
-    .overlay-title {
-      font-size: clamp(2.2rem, 10vw, 3rem);
-    }
-
-    .overlay-desc {
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .co, .co.is-open, .co__info, .co__card, .co__close { transition: none; }
+    .co:not(.is-open) .co__info, .co:not(.is-open) .co__card { transform: none; }
   }
 </style>

@@ -32,19 +32,19 @@ Drie ontwikkelingen zorgen er samen voor dat je tracking steeds minder ziet:
 
 **1. Ad blockers: 43% van jouw bezoekers blokkeert scripts**
 
-Momenteel gebruikt bijna **43% van alle internetgebruikers** een ad blocker. In Europa is dat zelfs 40%, met Duitsland koploper op 49%. Jongeren tussen 18 en 34 jaar — precies de koopkrachtige doelgroep voor veel webshops — vormen 68% van alle ad-blocker gebruikers.
+Momenteel gebruikt bijna **43% van alle internetgebruikers** een ad blocker. In Europa is dat zelfs 40%, met Duitsland koploper op 49%. Jongeren tussen 18 en 34 jaar, precies de koopkrachtige doelgroep voor veel webshops, vormen 68% van alle ad-blocker gebruikers.
 
 Client-side tracking draait volledig in de browser van de bezoeker. Als die browser het script blokkeert, meet je niets. Geen event, geen conversie, geen data voor je algoritme.
 
 **2. Safari ITP: elke iPhone knipt jouw cookies na 7 dagen**
 
-Apple's Intelligent Tracking Prevention (ITP) limiteert vrijwel alle cookies op Safari tot 7 dagen. Dat klinkt beperkt tot Safari-gebruikers, maar vergis je niet: Apple verplicht alle browsers op iOS — Chrome iOS, Firefox iOS, alles — om Safari's WebKit-engine te gebruiken. **Elke browser op elke iPhone of iPad valt onder ITP.**
+Apple's Intelligent Tracking Prevention (ITP) limiteert vrijwel alle cookies op Safari tot 7 dagen. Dat klinkt beperkt tot Safari-gebruikers, maar vergis je niet: Apple verplicht alle browsers op iOS, Chrome iOS, Firefox iOS, alles, om Safari's WebKit-engine te gebruiken. **Elke browser op elke iPhone of iPad valt onder ITP.**
 
 Met Safari 26 (uitgebracht in 2025) is Apple nog een stap verder gegaan. Advanced Fingerprinting Protection blokkeert nu ook fingerprinting-technieken die marketeers gebruikten als cookie-alternatief: schermafmetingen, canvas readback, audio fingerprinting en meer.
 
 **3. iOS ATT: 75% van iPhone-gebruikers heeft tracking uitgeschakeld**
 
-Sinds de introductie van App Tracking Transparency (ATT) in iOS 14 heeft circa **75% van iPhone-gebruikers** tracking uitgeschakeld. Meta heeft daardoor structureel minder signaaldata voor de Pixel — wat leidt tot slechte attribuering en inefficiënte campagne-optimalisatie.
+Sinds de introductie van App Tracking Transparency (ATT) in iOS 14 heeft circa **75% van iPhone-gebruikers** tracking uitgeschakeld. Meta heeft daardoor structureel minder signaaldata voor de Pixel, wat leidt tot slechte attribuering en inefficiënte campagne-optimalisatie.
 
 Meta erkent zelf dat **meer dan 50% van browser-side conversies** ongetracked blijft door privacyregels en cookie-restricties.
 
@@ -60,7 +60,7 @@ Bij **server-side tracking** verloopt de datastroom anders:
 
 1. De browser stuurt een event naar **jouw eigen server** (niet naar Google of Meta)
 2. Jouw server verwerkt de data en stuurt die door naar Google Ads, GA4, Meta CAPI, etc.
-3. Ad blockers zien geen verdacht script — ze zien alleen verkeer naar jouw eigen domein
+3. Ad blockers zien geen verdacht script: ze zien alleen verkeer naar jouw eigen domein
 4. Cookies worden gezet door jouw server op jouw eigen domein, volledig first-party
 
 Het resultaat: **browsers blokkeren jouw tracking niet**, cookies leven maanden in plaats van 7 dagen, en jij behoudt volledige controle over welke data naar welk platform gaat.
@@ -80,7 +80,7 @@ De cijfers uit de praktijk zijn overtuigend:
 | Bolighuset (woonwinkel) | ROAS 10 naar 12, +56% omzet |
 | Calendly | 2x hogere ROAS |
 
-In 200+ onderzochte cases verbeterde server-side tracking het bijgehouden aantal conversies met **18 tot 40%**. Dat is geen technisch randdetail — dat is het verschil tussen een winstgevende en een verlieslatende campagne.
+In 200+ onderzochte cases verbeterde server-side tracking het bijgehouden aantal conversies met **18 tot 40%**. Dat is geen technisch randdetail: dat is het verschil tussen een winstgevende en een verlieslatende campagne.
 
 ---
 
@@ -96,9 +96,9 @@ De aanbevolen aanpak: **zowel Pixel als CAPI tegelijk draaien**. Meta gebruikt d
 
 ### Google Enhanced Conversions
 
-Enhanced Conversions sturen gehashte first-party klantdata (e-mailadres, telefoonnummer) mee bij conversie-events. Google matcht dit aan ingelogde Google-accounts — ook als er geen cookie aanwezig is.
+Enhanced Conversions sturen gehashte first-party klantdata (e-mailadres, telefoonnummer) mee bij conversie-events. Google matcht dit aan ingelogde Google-accounts, ook als er geen cookie aanwezig is.
 
-In een multi-account experiment over meerdere klanten zag Workshop Digital gemiddeld een **+16% lift** in meetbare leads na implementatie. Calendly meldde een **verdubbeling van de ROAS**. Voor een e-commerce retailer resulteerde het in een **95% match rate** — ver boven de industrie-benchmark.
+In een multi-account experiment over meerdere klanten zag Workshop Digital gemiddeld een **+16% lift** in meetbare leads na implementatie. Calendly meldde een **verdubbeling van de ROAS**. Voor een e-commerce retailer resulteerde het in een **95% match rate**: ver boven de industrie-benchmark.
 
 ---
 
@@ -128,7 +128,7 @@ Server-side tracking wordt gerealiseerd via **[Google Tag Manager Server-Side (s
 
 Je hebt daarvoor:
 1. **Een sGTM-container** in je Google Tag Manager-account
-2. **Een managed hosting-provider** — geen eigen server nodig. Nederlandse providers zoals TAGGRS of Stape bieden dit voor €19 tot €65/maand. Data blijft in de EU, wat AVG-compliance eenvoudiger maakt.
+2. **Een managed hosting-provider**: geen eigen server nodig. Nederlandse providers zoals TAGGRS of Stape bieden dit voor €19 tot €65/maand. Data blijft in de EU, wat AVG-compliance eenvoudiger maakt.
 3. **Een subdomein** op je eigen website (bijv. gtm.jouwnaam.nl) dat verwijst naar de sGTM-server
 4. **Client-side tags vervangen** door server-side equivalenten voor GA4, Meta CAPI, Google Ads
 
@@ -145,7 +145,7 @@ Gemeten resultaten na server-side migraties:
 - **Total Blocking Time daalt met 60%**
 - Mobile performance score stijgt significant
 
-Dat is niet alleen fijn voor de gebruiker — het verbetert direct jouw Core Web Vitals score, wat meetbaar bijdraagt aan organische Google-rankings.
+Dat is niet alleen fijn voor de gebruiker, het verbetert direct jouw Core Web Vitals score, wat meetbaar bijdraagt aan organische Google-rankings.
 
 ---
 
@@ -153,7 +153,7 @@ Dat is niet alleen fijn voor de gebruiker — het verbetert direct jouw Core Web
 
 In de Twente/Overijssel regio zijn er vrijwel geen bureaus die server-side tracking actief aanbieden of zelf toepassen. Dat betekent dat de meeste lokale webshops en MKB-bedrijven op dit moment draaien op trackingdata met een gat van 20 tot 60%.
 
-Wie nu overstapt op server-side tracking, neemt beslissingen op basis van betere data dan de concurrent. Lagere CPA, hogere ROAS, betere campagnesturing — op basis van cijfers die jouw concurrent niet eens ziet.
+Wie nu overstapt op server-side tracking, neemt beslissingen op basis van betere data dan de concurrent. Lagere CPA, hogere ROAS, betere campagnesturing, op basis van cijfers die jouw concurrent niet eens ziet.
 
 ---
 
@@ -161,13 +161,13 @@ Wie nu overstapt op server-side tracking, neemt beslissingen op basis van betere
 
 Je tracking ziet er misschien compleet uit. Maar client-side pixels, een standard GTM-container en een cookiebanner zijn niet genoeg meer in 2026. Safari 26 blokkeert fingerprinting. iOS blokkeert cross-app tracking. Ad blockers blokkeren scripts. GDPR beperkt wat je mag meten.
 
-Server-side tracking is de oplossing die al deze blokkades omzeilt — niet door regels te overtreden, maar door data via jouw eigen infrastructuur te verwerken voordat het de browser raakt.
+Server-side tracking is de oplossing die al deze blokkades omzeilt, niet door regels te overtreden, maar door data via jouw eigen infrastructuur te verwerken voordat het de browser raakt.
 
 Het resultaat: meer data, betere campagnesturing, lagere kosten per conversie, en een snellere website.
 
 ---
 
 **Wil je weten hoeveel data jouw website nu verliest?**
-Bij LuminX doen we een [gratis tracking-audit](/tracking-audit): we analyseren jouw [GTM-container](/diensten/google-tag-manager), [GA4-implementatie](/diensten/ga4-implementatie) en [Consent Mode v2](/diensten/consent-mode-v2) — en laten zien wat je nu mist. Inclusief advies over of server-side tracking voor jouw situatie zinvol is.
+Bij LuminX doen we een [gratis tracking-audit](/tracking-audit): we analyseren jouw [GTM-container](/diensten/google-tag-manager), [GA4-implementatie](/diensten/ga4-implementatie) en [Consent Mode v2](/diensten/consent-mode-v2), en laten zien wat je nu mist. Inclusief advies over of server-side tracking voor jouw situatie zinvol is.
 
 Neem contact op en ontdek wat je conversiedata je nu niet vertelt.

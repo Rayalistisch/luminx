@@ -1,75 +1,76 @@
 ---
 import { Image } from "astro:assets";
 import founderImage from "../assets/images/ray_avatar.png";
+import Icon from "./pm/Icon.astro";
 
 const stats = [
-  { value: 150, suffix: "%", label: "Effectiever werken" },
-  { value: 10, suffix: "+", label: "Klanten" },
-  { value: 5, suffix: "+", label: "Jaren ervaring" },
-  { value: 2, suffix: "", label: "Awards" },
+  { value: 150, suffix: "%", label: "Effectiever werken", tone: "yellow" },
+  { value: 10, suffix: "+", label: "Klanten", tone: "milk" },
+  { value: 5, suffix: "+", label: "Jaren ervaring", tone: "milk" },
+  { value: 2, suffix: "", label: "Awards", tone: "pink" },
 ];
 ---
 
-<section class="proof-section proof-section--light" id="over" data-bg-color="#F2ECE3">
-  <div class="scene-grain" aria-hidden="true"></div>
+<section class="pm-section proof" id="over" aria-labelledby="proof-title">
+  <div class="pm-container">
+    <header class="pm-head">
+      <span class="pm-label" data-reveal>Bewezen resultaat</span>
+      <h2 id="proof-title" class="pm-h2" data-reveal style="--d: 1">Wat klanten zeggen.</h2>
+    </header>
 
-  <div class="proof-inner">
-    <div class="proof-quote-block section-header">
-      <span class="section-kicker kicker">Bewezen resultaat</span>
-      <blockquote class="proof-quote">
-        “Ray heeft onze webshop volledig gemigreerd naar Shopify zonder één dag downtime.
-        De laadtijd ging met 40% omlaag en onze conversie steeg direct mee.”
-      </blockquote>
-      <div class="proof-quote-author">
-        <span class="proof-quote-name">Barry</span>
-        <span class="proof-quote-role">GSM Team</span>
+    <div class="proof__grid">
+      <figure class="pm-card pm-card--pink pm-card--lift proof__quote" data-reveal>
+        <span class="proof__mark" aria-hidden="true">“</span>
+        <blockquote class="pm-display">
+          Ray heeft onze webshop volledig gemigreerd naar Shopify zonder één dag downtime.
+          De laadtijd ging met 40% omlaag en onze conversie steeg direct mee.
+        </blockquote>
+        <figcaption>
+          <strong>Barry</strong>
+          <span>GSM Team</span>
+        </figcaption>
+      </figure>
+
+      <div class="proof__side">
+        <div class="proof__stats">
+          {stats.map((s, i) => (
+            <div class:list={["pm-card", "pm-stat", "proof__stat", `proof__stat--${s.tone}`]} data-value={s.value} data-suffix={s.suffix} data-reveal style={`--d: ${i}`}>
+              <span class="pm-stat__value">{s.value}{s.suffix}</span>
+              <span class="pm-stat__label">{s.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="pm-card proof__founder" data-reveal style="--d: 2">
+          <Image
+            class="proof__avatar"
+            src={founderImage}
+            alt="Ray – oprichter van LuminX"
+            widths={[96, 160]}
+            sizes="80px"
+            loading="lazy"
+          />
+          <div>
+            <p>Rechtstreekse samenwerking met Ray, oprichter van LuminX: geen accountmanager ertussen, geen bureau-constructie.</p>
+            <a href="#" class="pm-link" data-overlay-open>Plan een kennismaking <Icon name="arrow" size={18} stroke={2.4} /></a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="proof-stats">
-      {stats.map((s) => (
-        <div class="proof-stat" data-value={s.value} data-suffix={s.suffix}>
-          <span class="proof-stat-value">0{s.suffix}</span>
-          <span class="proof-stat-label">{s.label}</span>
-        </div>
-      ))}
-    </div>
-
-    <div class="proof-founder">
-      <Image
-        class="proof-founder-image"
-        src={founderImage}
-        alt="Ray – oprichter van LuminX"
-        widths={[96, 160]}
-        sizes="96px"
-        loading="lazy"
-      />
-      <p class="proof-founder-text">
-        Rechtstreekse samenwerking met Ray, oprichter van LuminX — geen accountmanager
-        ertussen, geen bureau-constructie.
-      </p>
-      <a href="#" class="proof-founder-cta" data-overlay-open>Plan een kennismaking →</a>
-    </div>
-
-    <p class="proof-clients">Vertrouwd door GSM Team, ActifAid en Ascendio.</p>
+    <p class="proof__clients" data-reveal>Vertrouwd door <strong>GSM Team</strong>, <strong>ActifAid</strong> en <strong>Ascendio</strong>.</p>
   </div>
 </section>
 
 <script>
   function animateCount(el: HTMLElement) {
-    const valueEl = el.querySelector<HTMLElement>(".proof-stat-value");
+    const valueEl = el.querySelector<HTMLElement>(".pm-stat__value");
     if (!valueEl) return;
     const target = Number(el.dataset.value || "0");
     const suffix = el.dataset.suffix || "";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const duration = 1200;
     const start = performance.now();
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      valueEl.textContent = `${target}${suffix}`;
-      return;
-    }
-
     const tick = (now: number) => {
       const p = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
@@ -79,10 +80,9 @@ const stats = [
     requestAnimationFrame(tick);
   }
 
-  function init() {
-    const stats = document.querySelectorAll<HTMLElement>(".proof-stat");
+  function initProof() {
+    const stats = document.querySelectorAll<HTMLElement>(".proof__stat");
     if (!stats.length) return;
-
     const io = new IntersectionObserver(
       (entries, obs) => {
         entries.forEach((entry) => {
@@ -97,152 +97,90 @@ const stats = [
     stats.forEach((s) => io.observe(s));
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initProof);
+  else initProof();
 </script>
 
 <style>
-  .proof-section {
-    position: relative;
-    isolation: isolate;
-    background: transparent;
-    padding: 7rem clamp(20px, 5vw, 56px);
-    overflow: hidden;
-  }
-
-  /* Light-section treatment: dark ink text on the warm off-white body colour. */
-  .proof-section--light .proof-quote { color: #0F1115; }
-  .proof-section--light .proof-quote-name { color: #0F1115; }
-  .proof-section--light .proof-quote-role { color: rgba(15, 17, 21, 0.5); }
-  .proof-section--light .proof-stats { border-top-color: rgba(15, 17, 21, 0.14); border-bottom-color: rgba(15, 17, 21, 0.14); }
-  .proof-section--light .proof-stat-label { color: rgba(15, 17, 21, 0.55); }
-  .proof-section--light .proof-founder-text { color: rgba(15, 17, 21, 0.62); }
-  .proof-section--light .proof-founder-cta { color: #0F1115; border-bottom-color: rgba(15, 17, 21, 0.35); }
-  .proof-section--light .proof-founder-cta:hover { border-bottom-color: rgba(15, 17, 21, 0.7); }
-  .proof-section--light .proof-clients { color: rgba(15, 17, 21, 0.45); }
-  .proof-section--light :global(.kicker) { color: rgba(15, 17, 21, 0.55); }
-
-  .proof-inner {
-    position: relative;
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 4rem;
-  }
-
-  .proof-quote-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .proof-quote {
-    margin: 0;
-    font-family: 'Matter Sans', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.3;
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
-    color: var(--ink);
-    max-width: 20ch;
-  }
-
-  .proof-quote-author {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .proof-quote-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .proof-quote-role {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.45);
-  }
-
-  .proof-stats {
+  .proof__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 2.5rem 0;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+    align-items: stretch;
   }
 
-  .proof-stat {
+  .proof__quote {
+    margin: 0;
+    padding: clamp(2rem, 4.5vw, 3.75rem);
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    justify-content: space-between;
+    gap: 2rem;
   }
-
-  .proof-stat-value {
-    font-family: 'Matter Sans', sans-serif;
-    font-weight: 800;
-    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-    color: var(--signal-bright);
+  .proof__mark {
+    font-family: var(--pm-display);
+    font-size: 7rem;
+    line-height: 0.6;
+    height: 2.5rem;
+    color: var(--pm-milk);
+    -webkit-text-stroke: 2px var(--pm-ink);
+    paint-order: stroke fill;
   }
-
-  .proof-stat-label {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.5);
+  .proof__quote blockquote {
+    margin: 0;
+    font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+    line-height: 1.18;
   }
+  .proof__quote figcaption { display: grid; gap: 0.1rem; }
+  .proof__quote figcaption strong { font-size: 1.1rem; }
+  .proof__quote figcaption span { font-weight: 600; color: var(--pm-ink-soft); }
 
-  .proof-founder {
+  .proof__side { display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); }
+
+  .proof__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+  .proof__stat {
+    padding: 1.4rem 1.5rem;
+    border-radius: var(--pm-r);
+    box-shadow: var(--pm-drop);
+  }
+  .proof__stat--yellow { background: var(--pm-yellow); }
+  .proof__stat--milk { background: var(--pm-milk); }
+  .proof__stat--pink { background: var(--pm-blush); }
+
+  .proof__founder {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
+    padding: 1.4rem 1.5rem;
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
   }
-
-  .proof-founder-image {
-    width: 64px;
-    height: 64px;
+  .proof__founder p { margin: 0 0 0.6rem; color: var(--pm-ink-soft); }
+  .proof__founder :global(.proof__avatar) {
+    flex: none;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
+    border: var(--pm-border);
     object-fit: cover;
+    background: var(--pm-yellow);
   }
 
-  .proof-founder-text {
-    margin: 0;
-    max-width: 44ch;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.6);
+  .proof__clients {
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    text-align: center;
+    color: var(--pm-ink-soft);
   }
+  .proof__clients strong { color: var(--pm-ink); }
 
-  .proof-founder-cta {
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    padding-bottom: 2px;
-    transition: border-color 0.25s ease;
+  @media (max-width: 960px) {
+    .proof__grid { grid-template-columns: 1fr; }
   }
-
-  .proof-founder-cta:hover {
-    border-color: rgba(255, 255, 255, 0.7);
-  }
-
-  .proof-clients {
-    margin: 0;
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.35);
-  }
-
-  @media (max-width: 640px) {
-    .proof-section { padding: 5rem 1.25rem; }
-    .proof-stats { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+  @media (max-width: 480px) {
+    .proof__founder { flex-direction: column; align-items: flex-start; }
   }
 </style>

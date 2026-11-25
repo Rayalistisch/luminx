@@ -82,10 +82,10 @@ const localBusinessSchema = {
             <div class="regional-channels">
               <h2>Kanalen die we inzetten</h2>
               <ul>
-                <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
-                <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
-                <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
-                <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
+                <li><a href="/diensten/seo">SEO</a>: structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
+                <li><a href="/diensten/sea">Google Ads</a>: direct bovenaan bij actieve zoekopdrachten</li>
+                <li><a href="/diensten/social-advertising">Social Advertising</a>: bereik op Meta en LinkedIn</li>
+                <li><a href="/diensten/emailmarketing">E-mailmarketing</a>: leads nurturen en klanten activeren</li>
               </ul>
               <p class="regional-other">
                 Ook actief in:
@@ -107,10 +107,10 @@ const localBusinessSchema = {
             <div class="regional-card">
               <h2>Kanalen die we inzetten</h2>
               <ul>
-                <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
-                <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
-                <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
-                <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
+                <li><a href="/diensten/seo">SEO</a>: structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
+                <li><a href="/diensten/sea">Google Ads</a>: direct bovenaan bij actieve zoekopdrachten</li>
+                <li><a href="/diensten/social-advertising">Social Advertising</a>: bereik op Meta en LinkedIn</li>
+                <li><a href="/diensten/emailmarketing">E-mailmarketing</a>: leads nurturen en klanten activeren</li>
               </ul>
               <p class="regional-other">
                 Ook actief in:
@@ -132,10 +132,10 @@ const localBusinessSchema = {
             <div class="regional-col">
               <h2>Kanalen die we inzetten</h2>
               <ul>
-                <li><a href="/diensten/seo">SEO</a> — structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
-                <li><a href="/diensten/sea">Google Ads</a> — direct bovenaan bij actieve zoekopdrachten</li>
-                <li><a href="/diensten/social-advertising">Social Advertising</a> — bereik op Meta en LinkedIn</li>
-                <li><a href="/diensten/emailmarketing">E-mailmarketing</a> — leads nurturen en klanten activeren</li>
+                <li><a href="/diensten/seo">SEO</a>: structurele zichtbaarheid zonder doorlopende advertentiekosten</li>
+                <li><a href="/diensten/sea">Google Ads</a>: direct bovenaan bij actieve zoekopdrachten</li>
+                <li><a href="/diensten/social-advertising">Social Advertising</a>: bereik op Meta en LinkedIn</li>
+                <li><a href="/diensten/emailmarketing">E-mailmarketing</a>: leads nurturen en klanten activeren</li>
               </ul>
               <p class="regional-other">
                 Ook actief in:
@@ -154,72 +154,68 @@ const localBusinessSchema = {
 </BaseLayout>
 
 <style>
-  /* Base: cols (Enschede) */
+  /* Rendered inside ServicePage's .pm-prose body band. Four city layouts keep
+     their own rhythm, all in the pm card language. */
   .regional-body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2.5rem);
     align-items: start;
+  }
+  .regional-body h2 { margin-top: 0; font-size: clamp(1.6rem, 2.4vw, 2.1rem); }
+  .regional-body p { margin: 0 0 1em; }
+  .regional-body ul { margin: 0 0 1em; }
+
+  /* cols (Enschede): plain columns, second column carded */
+  .regional-col:last-child,
+  .regional-card,
+  .regional-highlight {
+    background: var(--pm-milk);
+    border: var(--pm-border);
+    border-radius: var(--pm-r-lg);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
   }
 
   /* cols-reverse (Hengelo) */
-  .regional-body--cols-reverse {
-    direction: rtl;
-  }
-  .regional-body--cols-reverse > * {
-    direction: ltr;
+  .regional-body--cols-reverse > :first-child { order: 2; }
+
+  /* cards (Almelo): both columns carded, second lifted */
+  .regional-body--cards .regional-card:last-child {
+    box-shadow: var(--pm-drop-lg);
+    background: var(--pm-cream);
   }
 
-  /* cards (Almelo) */
-  .regional-body--cards {
-    gap: 2rem;
-  }
-  .regional-card {
-    border: 1px solid #e5e5e5;
-    border-radius: 12px;
-    padding: 2rem;
-  }
-
-  /* highlight (Oldenzaal) */
-  .regional-body--highlight {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
+  /* highlight (Oldenzaal): a pink note card */
   .regional-highlight {
-    background: #f5f5f3;
-    border-radius: 12px;
-    padding: 2rem;
+    background: var(--pm-pink);
+    box-shadow: var(--pm-drop-lg);
+    color: var(--pm-ink);
   }
+  .regional-highlight p { color: var(--pm-ink); }
+  .regional-highlight a { color: var(--pm-ink); }
   .regional-highlight-label {
-    font-size: 0.75rem;
+    font-family: var(--pm-body);
+    font-size: var(--pm-fs-label);
     font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: 0.08em;
-    opacity: 0.5;
+    text-transform: uppercase;
     margin-bottom: 0.75rem !important;
   }
   .regional-highlight-note {
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 1.5;
+    font-family: var(--pm-display);
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    line-height: 1.2;
     margin-bottom: 1.25rem !important;
   }
 
   .regional-other {
-    font-size: 0.85rem !important;
-    opacity: 0.6;
-    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: var(--pm-ink-mute);
+    margin-top: 1.25rem !important;
   }
 
   @media (max-width: 768px) {
-    .regional-body,
-    .regional-body--highlight {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .regional-body--cols-reverse {
-      direction: ltr;
-    }
+    .regional-body { grid-template-columns: 1fr; }
+    .regional-body--cols-reverse > :first-child { order: 0; }
   }
 </style>

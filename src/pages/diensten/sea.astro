@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import ContactOverlay from "../../components/ContactOverlay.astro";
+import Icon from "../../components/pm/Icon.astro";
 
 const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
@@ -23,38 +24,62 @@ const serviceSchema = {
   },
 };
 
+const heroMetrics = [
+  { value: "4–8×", label: "Gemiddelde ROAS" },
+  { value: "−20–40%", label: "Lagere kosten per lead" },
+  { value: "2–4 wkn", label: "Eerste campagne live" },
+];
+
+const heroOutcomes = [
+  "Lagere kosten per acquisitie bij hogere leadkwaliteit",
+  "Volledige transparantie via realtime dashboarding",
+  "Minder budgetverspilling door nauwkeurige doelgroepsegmentatie",
+];
+
+const resultStack = [
+  { value: "4–8×", label: "Gemiddelde ROAS" },
+  { value: "−40%", label: "Lagere kosten per lead" },
+  { value: "vanaf dag 1", label: "Eerste klikken" },
+];
+
 const campaignTypes = [
   {
-    icon: "◈",
+    icon: "search",
+    tone: "",
     title: "Google Search Ads",
     description: "Tekstadvertenties bovenaan de zoekresultaten bij relevante zoekopdrachten. Bereikt gebruikers met hoge koopintentie en genereert directe conversies.",
   },
   {
-    icon: "◉",
+    icon: "bag",
+    tone: "pm-icon--yellow",
     title: "Google Shopping",
     description: "Productadvertenties met afbeelding, prijs en titel direct in de zoekresultaten. Het meest effectieve campagnetype voor e-commerce en productgerichte bedrijven.",
   },
   {
-    icon: "◎",
+    icon: "eye",
+    tone: "pm-icon--pink",
     title: "Display & Remarketing",
     description: "Visuele advertenties op het Google Display Netwerk. Display vergroot merkbekendheid; remarketing heractivert eerdere bezoekers met gepersonaliseerde boodschappen.",
   },
   {
-    icon: "◌",
+    icon: "zap",
+    tone: "pm-icon--wine",
     title: "Performance Max",
     description: "AI-gestuurd campagnetype dat automatisch het optimale kanaal, format en biedstrategie selecteert. Levert doorgaans de hoogste conversie-output binnen het Google Ads ecosysteem.",
   },
   {
-    icon: "✦",
+    icon: "play",
+    tone: "",
     title: "YouTube Ads",
     description: "Videoadvertenties vóór en tijdens YouTube-content. Effectief voor merkbekendheid en overweging, met volledig meetbare resultaten op weergave- en conversieniveau.",
   },
   {
-    icon: "●",
+    icon: "globe",
+    tone: "pm-icon--yellow",
     title: "Microsoft Advertising",
     description: "Aanvullend zoeknetwerk via Bing, Yahoo en DuckDuckGo. Kenmerkt zich door lagere CPC's en minder concurrentie, met een doorgaans hoger converterend zakelijk publiek.",
   },
-];
+] as const;
 
 const benefits = [
   {
@@ -79,6 +104,66 @@ const benefits = [
   },
 ];
 
+const steps = [
+  {
+    icon: "compass",
+    title: "Audit & strategie",
+    body: "Het bestaande account wordt geanalyseerd (of vanaf nul opgebouwd). Zoekwoordonderzoek, concurrentieanalyse en het vaststellen van doelstellingen, KPI's en budgetallocatie vormen de basis.",
+  },
+  {
+    icon: "layers",
+    title: "Opzet & creatie",
+    body: "De campagnestructuur wordt opgebouwd, advertentieteksten geschreven, conversietracking via GTM en GA4 geinstalleerd, en remarketingdoelgroepen ingericht.",
+  },
+  {
+    icon: "chart",
+    title: "Livegang & monitoring",
+    body: "Na livegang volgt dagelijkse monitoring op kwaliteitsscore, impressieshare, CTR en conversies. Snel bijsturen in de eerste weken is cruciaal voor campagnesucces.",
+  },
+  {
+    icon: "trending-up",
+    title: "Optimalisatie & schaling",
+    body: "Op basis van data worden biedstrategieën geoptimaliseerd, verliesgevende zoekwoorden uitgesloten, nieuwe advertentieformats getest en bewezen campagnes opgeschaald.",
+  },
+] as const;
+
+const pains = [
+  "Advertentiebudget verdwijnt zonder aantoonbaar rendement",
+  "Campagnes draaien te breed, zonder focus op de juiste doelgroepsegmenten",
+  "Zwakke aansluiting tussen advertentie, zoekwoord en landingspagina",
+  "Ontbrekende structurele optimalisatie op basis van data en conversies",
+  "Geen inzicht in welke campagnes daadwerkelijk omzet genereren",
+  "Onoverzichtelijke accountstructuur die bijsturing bemoeilijkt",
+];
+
+const gains = [
+  "Campagnestructuur gebaseerd op zoekintentie en fase in de klantreis",
+  "Geoptimaliseerde advertentieteksten met doorlopende A/B-tests voor hogere CTR",
+  "Conversiegerichte landingspagina-analyse en concrete verbeterpunten",
+  "Wekelijkse optimalisatie op ROAS, CPL en kwaliteitsscore",
+  "Volledige conversietracking via GA4 en Google Tag Manager",
+  "Maandelijkse rapportage met conclusies en strategische aanbevelingen",
+];
+
+const outcomes = [
+  "Lagere kosten per acquisitie",
+  "Hogere leadkwaliteit",
+  "Realtime inzicht via dashboard",
+  "Snelle schaalbaarheid",
+  "Minder budgetverspilling",
+  "Voorspelbare leadinstroom",
+  "Volledig accounteigenaarschap",
+  "Geïntegreerde kanaalstrategie",
+];
+
+const related = [
+  { href: "/vergelijk/seo-vs-sea", title: "SEO vs. SEA", desc: "Wanneer kies je organisch, wanneer betaald?" },
+  { href: "/tracking-audit", title: "Gratis Tracking-audit", desc: "Ontdek of je Google Ads conversies correct meet." },
+  { href: "/diensten/online-marketing", title: "Online Marketing", desc: "SEA als onderdeel van een samenhangende marketingaanpak." },
+  { href: "/diensten/seo", title: "SEO", desc: "Structurele zichtbaarheid naast betaalde campagnes." },
+  { href: "/diensten/social-advertising", title: "Social Advertising", desc: "Bereik op Meta en LinkedIn naast Google Ads." },
+];
+
 const faq = [
   {
     q: "Wat doet een SEA specialist precies?",
@@ -86,7 +171,7 @@ const faq = [
   },
   {
     q: "Wat kost Google Ads beheer?",
-    a: "De kosten bestaan uit twee onderdelen: het advertentiebudget dat rechtstreeks naar Google gaat, en de beheervergoeding aan LuminX. De beheervergoeding is afhankelijk van de campagnecomplexiteit en het maandbudget. We werken altijd met een helder voorstel zodat je precies weet wat je betaalt — en wat je terugkrijgt.",
+    a: "De kosten bestaan uit twee onderdelen: het advertentiebudget dat rechtstreeks naar Google gaat, en de beheervergoeding aan LuminX. De beheervergoeding is afhankelijk van de campagnecomplexiteit en het maandbudget. We werken altijd met een helder voorstel zodat je precies weet wat je betaalt, en wat je terugkrijgt.",
   },
   {
     q: "Hoe snel zie ik resultaat met SEA?",
@@ -119,273 +204,254 @@ const faqSchema = {
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="sea-page">
+  <main class="svc">
 
     <!-- Hero -->
-    <section class="sea-hero" data-bg-color="#0A0A0A">
-      <div class="sea-hero-overlay" aria-hidden="true"></div>
-      <div class="sea-hero-inner">
-        <div class="sea-hero-content">
-          <a href="/diensten/online-marketing" class="sea-back-link">← Online Marketing</a>
-          <span class="sea-kicker">Specialisme</span>
-          <h1><span class="sea-icon" aria-hidden="true">◈</span> SEA</h1>
-          <p class="sea-intro-p">Betaald zoeken is een precisiemiddel: de juiste boodschap, op het juiste moment, voor de juiste doelgroep, met elke euro verantwoord.</p>
-          <div class="sea-actions">
-            <a href="#contact" class="sea-btn-primary">Plan kennismaking</a>
-            <a href="#aanpak" class="sea-btn-secondary">Bekijk aanpak</a>
-          </div>
-          <div class="sea-metrics">
-            <article class="sea-metric">
-              <strong>4–8×</strong>
-              <span>Gemiddelde ROAS</span>
-            </article>
-            <article class="sea-metric">
-              <strong>−20–40%</strong>
-              <span>Lagere kosten per lead</span>
-            </article>
-            <article class="sea-metric">
-              <strong>2–4 wkn</strong>
-              <span>Eerste campagne live</span>
-            </article>
+    <section class="svc__hero" aria-labelledby="svc-title">
+      <div class="pm-stack">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+
+        <div class="pm-stack__panel svc__panel">
+          <img class="pm-obj pm-obj--right" src="/images/3d/google-ads.webp" width="1252" height="1316" alt="" aria-hidden="true" decoding="async" />
+          <div class="svc__hero-content">
+            <a href="/diensten/online-marketing" class="svc__back" data-reveal>
+              <Icon name="arrow" size={16} stroke={2.4} /> Online Marketing
+            </a>
+            <span class="pm-tag svc__tag" data-reveal style="--d: 1"><Icon name="megaphone" size={16} /> Specialisme · Google Ads</span>
+            <h1 id="svc-title" class="pm-h1 svc__title" data-reveal style="--d: 2">SEA</h1>
+            <p class="pm-opening svc__sub" data-reveal style="--d: 3">
+              Betaald zoeken is een precisiemiddel: de juiste boodschap, op het juiste moment, voor de juiste doelgroep, met elke euro verantwoord.
+            </p>
+            <div class="svc__actions" data-reveal style="--d: 4">
+              <a href="#contact" class="pm-btn pm-btn--yellow">Plan kennismaking <Icon name="arrow" /></a>
+              <a href="#aanpak" class="pm-btn pm-btn--white">Bekijk aanpak</a>
+            </div>
           </div>
         </div>
-        <aside class="sea-hero-panel">
-          <span>Meetbare uitkomsten</span>
-          <ul>
-            <li>Lagere kosten per acquisitie bij hogere leadkwaliteit</li>
-            <li>Volledige transparantie via realtime dashboarding</li>
-            <li>Minder budgetverspilling door nauwkeurige doelgroepsegmentatie</li>
+      </div>
+
+      <div class="pm-container svc__float-wrap">
+        <div class="pm-card pm-card--lift svc__float" data-reveal>
+          <ul class="svc__metrics" aria-label="Kerncijfers">
+            {heroMetrics.map((m, i) => (
+              <li class="pm-stat svc__metric" data-reveal style={`--d: ${i}`}>
+                <span class="pm-stat__value">{m.value}</span>
+                <span class="pm-stat__label">{m.label}</span>
+              </li>
+            ))}
           </ul>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Intro: wat is SEA -->
-    <section class="sea-what" data-bg-color="#FEFEFE">
-      <div class="sea-container sea-what-grid">
-        <div class="sea-what-text">
-          <span class="sea-label">Wat is SEA?</span>
-          <h2>Search Engine Advertising: betaalde zichtbaarheid in zoekmachines</h2>
-          <p>Search Engine Advertising (SEA) is het plaatsen van betaalde advertenties in zoekmachines zoals Google en Bing. Adverteerders betalen per klik (CPC) en verschijnen direct bovenaan de zoekresultaten, vóór organische posities, op exact de zoektermen die relevant zijn voor hun doelgroep.</p>
-          <p>Waar SEO maanden nodig heeft om posities op te bouwen, levert SEA directe zichtbaarheid. Dat maakt het bij uitstek geschikt voor leadgeneratie, het valideren van nieuwe markten en het ondersteunen van seizoensgebonden campagnes. Structureel geoptimaliseerd SEA-beheer vormt een voorspelbare groeimotor met meetbaar rendement.</p>
-          <a href="#contact" class="sea-inline-cta" data-overlay-open>Gratis adviesgesprek →</a>
-        </div>
-        <div class="sea-what-visual" aria-hidden="true">
-          <div class="sea-stat-stack">
-            <div class="sea-stat-stack-header">
-              <span class="sea-stat-dot"></span>
-              <span>SEA Resultaten</span>
-            </div>
-            <div class="sea-stat-item">
-              <span class="sea-stat-num">01</span>
-              <div class="sea-stat-body">
-                <span class="sea-stat-value">4–8×</span>
-                <span class="sea-stat-desc">Gemiddelde ROAS</span>
-              </div>
-            </div>
-            <div class="sea-stat-item">
-              <span class="sea-stat-num">02</span>
-              <div class="sea-stat-body">
-                <span class="sea-stat-value">−40%</span>
-                <span class="sea-stat-desc">Lagere kosten per lead</span>
-              </div>
-            </div>
-            <div class="sea-stat-item">
-              <span class="sea-stat-num">03</span>
-              <div class="sea-stat-body">
-                <span class="sea-stat-value">vanaf dag 1</span>
-                <span class="sea-stat-desc">Eerste klikken</span>
-              </div>
-            </div>
+          <div class="svc__float-side">
+            <span class="pm-label">Meetbare uitkomsten</span>
+            <ul class="pm-checks">
+              {heroOutcomes.map((o) => <li>{o}</li>)}
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Campagnetypes / Services -->
-    <section class="sea-services" data-bg-color="#F7F9FC">
-      <div class="sea-container">
-        <div class="sea-section-head centered">
-          <span class="sea-label">Campagnetypes</span>
-          <h2>Het Google Ads ecosysteem in zes campagneformats</h2>
-          <p>Elk campagnetype bedient een ander moment in de klantreis. Effectief SEA-beheer combineert deze formats tot een samenhangende strategie met maximale dekking.</p>
+    <!-- Wat is SEA -->
+    <section class="pm-section svc__what" aria-labelledby="what-title">
+      <div class="pm-container pm-split svc__what-grid">
+        <div class="svc__what-text">
+          <header class="pm-head pm-head--left svc__head-left">
+            <span class="pm-label" data-reveal>Wat is SEA?</span>
+            <h2 id="what-title" class="pm-h2" data-reveal style="--d: 1">Search Engine Advertising: betaalde zichtbaarheid in zoekmachines</h2>
+          </header>
+          <p class="pm-text" data-reveal style="--d: 2">Search Engine Advertising (SEA) is het plaatsen van betaalde advertenties in zoekmachines zoals Google en Bing. Adverteerders betalen per klik (CPC) en verschijnen direct bovenaan de zoekresultaten, vóór organische posities, op exact de zoektermen die relevant zijn voor hun doelgroep.</p>
+          <p class="pm-text" data-reveal style="--d: 3">Waar SEO maanden nodig heeft om posities op te bouwen, levert SEA directe zichtbaarheid. Dat maakt het bij uitstek geschikt voor leadgeneratie, het valideren van nieuwe markten en het ondersteunen van seizoensgebonden campagnes. Structureel geoptimaliseerd SEA-beheer vormt een voorspelbare groeimotor met meetbaar rendement.</p>
+          <a href="#contact" class="pm-link svc__inline" data-overlay-open data-reveal style="--d: 4">Gratis adviesgesprek <Icon name="arrow" size={18} stroke={2.4} /></a>
         </div>
-        <div class="sea-cards-grid">
-          {campaignTypes.map((type) => (
-            <div class="sea-card">
-              <div class="sea-card-icon" aria-hidden="true">{type.icon}</div>
-              <h3>{type.title}</h3>
-              <p>{type.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
 
-    <!-- Voordelen: tekst links + accordion rechts -->
-    <section class="sea-benefits" data-bg-color="#FEFEFE">
-      <div class="sea-container sea-benefits-grid">
-        <div class="sea-benefits-left">
-          <span class="sea-label">Waarom uitbesteden?</span>
-          <h2>De impact van professioneel SEA-beheer</h2>
-          <p>Google Ads is een vakgebied op zich. De interface verandert continu, biedstrategieën worden complexer en de concurrentie neemt toe. Professioneel beheer levert structureel betere resultaten dan intern management zonder dedicated expertise.</p>
-          <div class="sea-benefit-stats">
-            <div class="sea-bstat">
-              <strong>95%</strong>
-              <span>van onze klanten ziet binnen 60 dagen resultaatstijging</span>
-            </div>
-            <div class="sea-bstat">
-              <strong>100%</strong>
-              <span>accounteigenaarschap bij de klant</span>
-            </div>
+        <div class="pm-card pm-card--yellow pm-card--lift svc__stack" aria-hidden="true" data-reveal style="--d: 1">
+          <div class="svc__stack-head">
+            <span class="pm-icon pm-icon--sm pm-icon--milk"><Icon name="chart" /></span>
+            <span>SEA Resultaten</span>
           </div>
+          <ol class="svc__stack-list">
+            {resultStack.map((r, i) => (
+              <li>
+                <span class="svc__stack-num">0{i + 1}</span>
+                <span class="svc__stack-body">
+                  <strong>{r.value}</strong>
+                  <span>{r.label}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
-        <div class="sea-benefits-right">
-          {benefits.map((b) => (
-            <details class="sea-benefit-item">
-              <summary>{b.title}</summary>
-              <p>{b.body}</p>
-            </details>
+      </div>
+    </section>
+
+    <!-- Campagnetypes -->
+    <section class="pm-section pm-band--paper svc__types" aria-labelledby="types-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>Campagnetypes</span>
+          <h2 id="types-title" class="pm-h2" data-reveal style="--d: 1">Het Google Ads ecosysteem in zes campagneformats</h2>
+          <p class="pm-opening" data-reveal style="--d: 2">Elk campagnetype bedient een ander moment in de klantreis. Effectief SEA-beheer combineert deze formats tot een samenhangende strategie met maximale dekking.</p>
+        </header>
+        <ul class="svc__grid">
+          {campaignTypes.map((t, i) => (
+            <li class="pm-card pm-card--milk pm-card--pad svc__tile" data-reveal style={`--d: ${i % 3}`}>
+              <span class:list={["pm-icon", t.tone]}><Icon name={t.icon} /></span>
+              <h3 class="pm-h3 svc__tile-title">{t.title}</h3>
+              <p class="pm-text">{t.description}</p>
+            </li>
           ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Waarom uitbesteden -->
+    <section class="pm-section svc__benefits" aria-labelledby="benefits-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>Waarom uitbesteden?</span>
+          <h2 id="benefits-title" class="pm-h2" data-reveal style="--d: 1">De impact van professioneel SEA-beheer</h2>
+          <p class="pm-opening" data-reveal style="--d: 2">Google Ads is een vakgebied op zich. De interface verandert continu, biedstrategieën worden complexer en de concurrentie neemt toe. Professioneel beheer levert structureel betere resultaten dan intern management zonder dedicated expertise.</p>
+        </header>
+        <div class="pm-split">
+          <div class="pm-card pm-card--pink pm-card--lift svc__statcard" data-reveal>
+            <div class="pm-stat">
+              <span class="pm-stat__value">95%</span>
+              <span class="pm-stat__label">van onze klanten ziet binnen 60 dagen resultaatstijging</span>
+            </div>
+            <span class="pm-dots" aria-hidden="true"></span>
+            <div class="pm-stat">
+              <span class="pm-stat__value">100%</span>
+              <span class="pm-stat__label">accounteigenaarschap bij de klant</span>
+            </div>
+            <span class="pm-icon pm-icon--yellow svc__statcard-badge" aria-hidden="true"><Icon name="shield" /></span>
+          </div>
+          <ul class="pm-accordion" data-reveal style="--d: 1">
+            {benefits.map((b, i) => (
+              <li>
+                <details class="pm-acc" name="sea-benefits" open={i === 0}>
+                  <summary>{b.title}</summary>
+                  <div class="pm-acc__body"><p>{b.body}</p></div>
+                </details>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Aanpak / Process -->
-    <section class="sea-approach" id="aanpak" data-bg-color="#F7F9FC">
-      <div class="sea-container">
-        <div class="sea-section-head">
-          <span class="sea-label">Aanpak</span>
-          <h2>Vier fases van analyse naar winstgevende campagnes.</h2>
-        </div>
-        <div class="sea-steps">
-          <article class="sea-step">
-            <span class="sea-step-num">01</span>
-            <h3>Audit & strategie</h3>
-            <p>Het bestaande account wordt geanalyseerd (of vanaf nul opgebouwd). Zoekwoordonderzoek, concurrentieanalyse en het vaststellen van doelstellingen, KPI's en budgetallocatie vormen de basis.</p>
-          </article>
-          <article class="sea-step">
-            <span class="sea-step-num">02</span>
-            <h3>Opzet & creatie</h3>
-            <p>De campagnestructuur wordt opgebouwd, advertentieteksten geschreven, conversietracking via GTM en GA4 geinstalleerd, en remarketingdoelgroepen ingericht.</p>
-          </article>
-          <article class="sea-step">
-            <span class="sea-step-num">03</span>
-            <h3>Livegang & monitoring</h3>
-            <p>Na livegang volgt dagelijkse monitoring op kwaliteitsscore, impressieshare, CTR en conversies. Snel bijsturen in de eerste weken is cruciaal voor campagnesucces.</p>
-          </article>
-          <article class="sea-step">
-            <span class="sea-step-num">04</span>
-            <h3>Optimalisatie & schaling</h3>
-            <p>Op basis van data worden biedstrategieën geoptimaliseerd, verliesgevende zoekwoorden uitgesloten, nieuwe advertentieformats getest en bewezen campagnes opgeschaald.</p>
-          </article>
+    <!-- Aanpak -->
+    <section class="pm-section pm-section--tight svc__approach" id="aanpak" aria-labelledby="approach-title">
+      <div class="pm-container">
+        <div class="pm-card pm-card--plum pm-card--lift svc__plum">
+          <header class="pm-head svc__plum-head">
+            <span class="pm-tag pm-tag--pink" data-reveal>Aanpak</span>
+            <h2 id="approach-title" class="pm-h2" data-reveal style="--d: 1">Vier fases van analyse naar winstgevende campagnes.</h2>
+          </header>
+          <ol class="svc__steps">
+            {steps.map((s, i) => (
+              <li class="svc__step" data-reveal style={`--d: ${i}`}>
+                <div class="svc__step-top">
+                  <span class="pm-icon pm-icon--milk"><Icon name={s.icon} /></span>
+                  <span class="svc__step-num">0{i + 1}</span>
+                </div>
+                <h3 class="svc__step-title">{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
 
-    <!-- Pijnpunten vs oplossingen -->
-    <section class="sea-context" data-bg-color="#FEFEFE">
-      <div class="sea-container sea-context-grid">
-        <article class="sea-block">
-          <h2>Veelvoorkomende knelpunten bij SEA</h2>
-          <ul class="sea-list sea-list--muted">
-            <li>Advertentiebudget verdwijnt zonder aantoonbaar rendement</li>
-            <li>Campagnes draaien te breed, zonder focus op de juiste doelgroepsegmenten</li>
-            <li>Zwakke aansluiting tussen advertentie, zoekwoord en landingspagina</li>
-            <li>Ontbrekende structurele optimalisatie op basis van data en conversies</li>
-            <li>Geen inzicht in welke campagnes daadwerkelijk omzet genereren</li>
-            <li>Onoverzichtelijke accountstructuur die bijsturing bemoeilijkt</li>
+    <!-- Knelpunten vs oplevering -->
+    <section class="pm-section svc__compare" aria-label="Knelpunten en oplossingen">
+      <div class="pm-container pm-split">
+        <article class="pm-card pm-card--pad svc__compare-card" data-reveal>
+          <span class="pm-icon pm-icon--pink" aria-hidden="true"><Icon name="alert" /></span>
+          <h2 class="pm-h3">Veelvoorkomende knelpunten bij SEA</h2>
+          <ul class="pm-checks pm-checks--x">
+            {pains.map((p) => <li>{p}</li>)}
           </ul>
         </article>
-        <article class="sea-block sea-block--soft">
-          <h2>Wat professioneel SEA-beheer oplevert</h2>
-          <ul class="sea-list">
-            <li>Campagnestructuur gebaseerd op zoekintentie en fase in de klantreis</li>
-            <li>Geoptimaliseerde advertentieteksten met doorlopende A/B-tests voor hogere CTR</li>
-            <li>Conversiegerichte landingspagina-analyse en concrete verbeterpunten</li>
-            <li>Wekelijkse optimalisatie op ROAS, CPL en kwaliteitsscore</li>
-            <li>Volledige conversietracking via GA4 en Google Tag Manager</li>
-            <li>Maandelijkse rapportage met conclusies en strategische aanbevelingen</li>
+        <article class="pm-card pm-card--milk pm-card--lift pm-card--pad svc__compare-card" data-reveal style="--d: 1">
+          <span class="pm-icon pm-icon--yellow" aria-hidden="true"><Icon name="check" /></span>
+          <h2 class="pm-h3">Wat professioneel SEA-beheer oplevert</h2>
+          <ul class="pm-checks">
+            {gains.map((g) => <li>{g}</li>)}
           </ul>
         </article>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section class="sea-faq" data-bg-color="#F7F9FC">
-      <div class="sea-container sea-faq-grid">
-        <div class="sea-faq-left">
-          <span class="sea-label">Veelgestelde vragen</span>
-          <h2>Alles over SEA uitbesteden</h2>
-          <p>Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
-          <a href="#contact" class="sea-inline-cta" data-overlay-open>Stel je vraag →</a>
-        </div>
-        <div class="sea-faq-right">
+    <section class="pm-section pm-band--paper svc__faq" aria-labelledby="faq-title">
+      <div class="pm-container svc__faq-grid">
+        <header class="pm-head pm-head--left svc__faq-head">
+          <span class="pm-label" data-reveal>Veelgestelde vragen</span>
+          <h2 id="faq-title" class="pm-h2" data-reveal style="--d: 1">Alles over SEA uitbesteden</h2>
+          <p class="pm-text" data-reveal style="--d: 2">Staat jouw vraag er niet bij? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+          <a href="#contact" class="pm-btn pm-btn--white pm-btn--sm" data-overlay-open data-reveal style="--d: 3">Stel je vraag <Icon name="arrow" /></a>
+        </header>
+        <ul class="pm-accordion" data-reveal style="--d: 1">
           {faq.map((item) => (
-            <details class="sea-faq-item">
-              <summary>{item.q}</summary>
-              <p>{item.a}</p>
-            </details>
+            <li>
+              <details class="pm-acc" name="sea-faq">
+                <summary>{item.q}</summary>
+                <div class="pm-acc__body"><p>{item.a}</p></div>
+              </details>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
 
-    <!-- Outcomes -->
-    <section class="sea-outcomes" data-bg-color="#0A0A0A">
-      <div class="sea-container">
-        <h2>Resultaten die je mag verwachten</h2>
-        <div class="sea-outcome-tags">
-          <span>Lagere kosten per acquisitie</span>
-          <span>Hogere leadkwaliteit</span>
-          <span>Realtime inzicht via dashboard</span>
-          <span>Snelle schaalbaarheid</span>
-          <span>Minder budgetverspilling</span>
-          <span>Voorspelbare leadinstroom</span>
-          <span>Volledig accounteigenaarschap</span>
-          <span>Geïntegreerde kanaalstrategie</span>
-        </div>
+    <!-- Resultaten -->
+    <section class="pm-section pm-section--tight svc__outcomes" aria-labelledby="outcomes-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-icon pm-icon--yellow" aria-hidden="true" data-reveal><Icon name="target" /></span>
+          <h2 id="outcomes-title" class="pm-h2" data-reveal style="--d: 1">Resultaten die je mag verwachten</h2>
+        </header>
+        <ul class="svc__chips">
+          {outcomes.map((o, i) => (
+            <li class:list={["pm-tag", i % 3 === 0 ? "pm-tag--yellow" : i % 3 === 1 ? "pm-tag--paper" : "pm-tag--pink"]} data-reveal style={`--d: ${i % 4}`}>{o}</li>
+          ))}
+        </ul>
       </div>
     </section>
 
-    <section class="sea-related-reads" data-bg-color="#F7F9FC">
-      <div class="sea-container">
-        <span class="sea-related-kicker">Gerelateerd</span>
-        <div class="sea-related-grid">
-          <a href="/vergelijk/seo-vs-sea" class="sea-related-card">
-            <strong>SEO vs. SEA</strong>
-            <span>Wanneer kies je organisch, wanneer betaald?</span>
-          </a>
-          <a href="/tracking-audit" class="sea-related-card">
-            <strong>Gratis Tracking-audit</strong>
-            <span>Ontdek of je Google Ads conversies correct meet.</span>
-          </a>
-          <a href="/diensten/online-marketing" class="sea-related-card">
-            <strong>Online Marketing</strong>
-            <span>SEA als onderdeel van een samenhangende marketingaanpak.</span>
-          </a>
-          <a href="/diensten/seo" class="sea-related-card">
-            <strong>SEO</strong>
-            <span>Structurele zichtbaarheid naast betaalde campagnes.</span>
-          </a>
-          <a href="/diensten/social-advertising" class="sea-related-card">
-            <strong>Social Advertising</strong>
-            <span>Bereik op Meta en LinkedIn naast Google Ads.</span>
-          </a>
-        </div>
+    <!-- Gerelateerd -->
+    <section class="pm-section pm-section--tight svc__related" aria-labelledby="related-title">
+      <div class="pm-container">
+        <header class="pm-head pm-head--left">
+          <span id="related-title" class="pm-label">Gerelateerd</span>
+        </header>
+        <ul class="svc__related-grid">
+          {related.map((r, i) => (
+            <li data-reveal style={`--d: ${i}`}>
+              <a href={r.href} class="pm-card svc__related-card">
+                <span class="svc__related-text">
+                  <strong>{r.title}</strong>
+                  <span>{r.desc}</span>
+                </span>
+                <span class="svc__arrow" aria-hidden="true"><Icon name="arrow" size={18} stroke={2.4} /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
-      <div class="cta-content">
-        <h2>Klaar voor winstgevende<br/>Google Ads campagnes?</h2>
-        <p>We vertalen jouw doelstellingen naar een concreet campagneplan met duidelijke KPI's, scope en verwachte resultaten.</p>
-        <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
+    <section class="pm-band svc__cta" id="contact" aria-labelledby="cta-title">
+      <div class="pm-container svc__cta-inner">
+        <span class="pm-icon pm-icon--yellow" aria-hidden="true" data-reveal><Icon name="megaphone" /></span>
+        <h2 id="cta-title" class="pm-h2 pm-outline svc__cta-title" data-reveal style="--d: 1">Klaar voor winstgevende Google Ads campagnes?</h2>
+        <p class="pm-opening svc__cta-text" data-reveal style="--d: 2">We vertalen jouw doelstellingen naar een concreet campagneplan met duidelijke KPI's, scope en verwachte resultaten.</p>
+        <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open data-reveal style="--d: 3">Plan kennismaking <Icon name="arrow" /></a>
       </div>
     </section>
 
@@ -394,650 +460,268 @@ const faqSchema = {
   </main>
 </BaseLayout>
 
-<style is:global>
-  .sea-page { background: var(--white); }
+<style>
+  /* ── Hero ───────────────────────────────────────────────────────────── */
+  .svc__hero { position: relative; padding-top: 72px; }
 
-  /* ── Shared ── */
-  .sea-container {
-    max-width: 1240px;
-    margin: 0 auto;
+  .svc__panel {
+    padding: clamp(4rem, 8vw, 6rem) var(--pm-gutter) clamp(12rem, 20vw, 15rem);
   }
 
-  .sea-label {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.45;
-    margin-bottom: 0.75rem;
-  }
-
-  .sea-section-head { margin-bottom: 3rem; }
-  .sea-section-head h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.9rem, 3.6vw, 3rem);
-    line-height: 1.08;
-    letter-spacing: -0.022em;
-  }
-
-  .sea-section-head.centered { text-align: center; }
-  .sea-section-head.centered h2,
-  .sea-section-head.centered p { margin-left: auto; margin-right: auto; }
-  .sea-section-head.centered p { max-width: 560px; }
-  .sea-section-head p {
-    color: rgba(10,10,10,0.62);
-    line-height: 1.8;
-    margin-top: 0.75rem;
-    max-width: 600px;
-  }
-
-  .sea-inline-cta {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--black);
-    border-bottom: 1.5px solid var(--black);
-    padding-bottom: 2px;
-    transition: opacity 0.2s ease;
-  }
-
-  .sea-inline-cta:hover { opacity: 0.6; }
-
-  /* ── Hero ── */
-  .sea-hero {
-    min-height: 88vh;
-    position: relative;
-    background: var(--black);
-    color: var(--white);
-    padding: 10rem 4rem 5.5rem;
-    overflow: hidden;
-  }
-
-  .sea-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 16% 18%, rgba(255, 214, 232, 0.18), transparent 42%),
-      radial-gradient(circle at 82% 24%, rgba(200, 231, 245, 0.14), transparent 38%);
-  }
-
-  .sea-hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 1240px;
-    margin: 0 auto;
+  .svc__hero-content {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 360px;
-    gap: 2rem;
-    align-items: end;
+    justify-items: center;
+    text-align: center;
+    gap: 1.4rem;
+    max-width: 880px;
+    margin-inline: auto;
   }
 
-  .sea-back-link {
-    display: inline-flex;
-    margin-bottom: 1.8rem;
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.6;
-    font-size: 0.9rem;
-    transition: opacity 0.25s ease;
-  }
-  .sea-back-link:hover { opacity: 1; }
-
-  .sea-kicker {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.48;
-    margin-bottom: 1rem;
-  }
-
-  .sea-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2.6rem, 6vw, 5.4rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.4rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.55rem;
-  }
-
-  .sea-icon { color: var(--pastel-pink); font-size: 0.68em; }
-
-  .sea-intro-p {
-    max-width: 700px;
-    font-size: clamp(1.04rem, 2.3vw, 1.3rem);
-    opacity: 0.88;
-    margin-bottom: 2rem;
-    line-height: 1.7;
-  }
-
-  .sea-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
-
-  .sea-btn-primary,
-  .sea-btn-secondary {
+  .svc__back {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 999px;
+    gap: 0.45rem;
+    color: var(--pm-milk);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     text-decoration: none;
-    font-weight: 500;
-    padding: 0.9rem 1.45rem;
-    transition: transform 0.25s ease;
+    opacity: 0.85;
   }
-  .sea-btn-primary { color: var(--black); background: var(--white); }
-  .sea-btn-secondary {
-    color: var(--white);
-    border: 1px solid rgba(255,255,255,0.28);
-    background: rgba(255,255,255,0.06);
-  }
-  .sea-btn-primary:hover,
-  .sea-btn-secondary:hover { transform: translateY(-2px); }
+  .svc__back :global(svg) { transform: rotate(180deg); }
+  @media (hover: hover) { .svc__back:hover { opacity: 1; color: var(--pm-yellow); } }
 
-  .sea-metrics {
+  .svc__tag { white-space: normal; }
+  .svc__title { color: var(--pm-milk); font-size: clamp(4rem, 11vw, 8.5rem); }
+  .svc__sub { max-width: 640px; }
+
+  .svc__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .svc__float-wrap {
+    position: relative;
+    margin-top: clamp(-10rem, -16vw, -8rem);
+    z-index: 2;
+  }
+
+  .svc__float {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 3.5vw, 3rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: center;
+  }
+
+  .svc__metrics {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.7rem;
-    max-width: 720px;
+    gap: 0.75rem;
   }
-
-  .sea-metric {
-    border-top: 1px solid rgba(255,255,255,0.2);
-    padding: 0.75rem 0;
-  }
-  .sea-metric strong {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.25rem;
-    margin-bottom: 0.2rem;
-  }
-  .sea-metric span {
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.72;
-  }
-
-  .sea-hero-panel {
-    border-left: 1px solid rgba(255,255,255,0.25);
-    padding: 0.5rem 0 0.5rem 1.5rem;
-  }
-  .sea-hero-panel > span {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.58;
-    margin-bottom: 0.75rem;
-  }
-  .sea-hero-panel ul { list-style: none; display: grid; gap: 0.65rem; }
-  .sea-hero-panel li {
-    line-height: 1.55;
-    padding-left: 1rem;
-    position: relative;
-    opacity: 0.92;
-  }
-  .sea-hero-panel li::before {
-    content: "";
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
-    position: absolute;
-    left: 0; top: 0.62rem;
-  }
-
-  /* ── Wat is SEA ── */
-  .sea-what { padding: 7rem 4rem; }
-
-  .sea-what-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .sea-what-text h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    line-height: 1.1;
-    letter-spacing: -0.022em;
-    margin-bottom: 1.25rem;
-  }
-  .sea-what-text p {
-    color: rgba(10,10,10,0.72);
-    line-height: 1.8;
-    margin-bottom: 0.9rem;
-  }
-
-  .sea-what-visual {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .sea-stat-stack {
-    width: 100%;
-    max-width: 380px;
-    border: 1px solid rgba(10,10,10,0.09);
-    border-radius: 24px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 16px 56px rgba(10,10,10,0.08);
-  }
-
-  .sea-stat-stack-header {
-    padding: 0.9rem 1.75rem;
-    background: var(--black);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .sea-stat-stack-header span {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-  }
-  .sea-stat-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #A07828;
-    flex-shrink: 0;
-  }
-
-  .sea-stat-item {
-    padding: 1.5rem 1.75rem;
-    border-bottom: 1px solid rgba(10,10,10,0.07);
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-  }
-  .sea-stat-item:last-child { border-bottom: none; }
-
-  .sea-stat-num {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: rgba(10,10,10,0.28);
-    flex-shrink: 0;
-    width: 1.2rem;
-  }
-
-  .sea-stat-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    min-width: 0;
-  }
-
-  .sea-stat-value {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.45rem;
-    letter-spacing: -0.025em;
-    color: var(--black);
-    line-height: 1.1;
-  }
-
-  .sea-stat-desc {
-    font-size: 0.78rem;
-    color: rgba(10,10,10,0.48);
-    line-height: 1.4;
-  }
-
-  /* ── Service Cards ── */
-  .sea-services { padding: 7rem 4rem; }
-
-  .sea-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-
-  .sea-card {
-    background: #fff;
-    border: 1px solid rgba(10,10,10,0.09);
-    border-radius: 20px;
-    padding: 2rem 1.75rem;
+  .svc__metric {
+    container-type: inline-size;
+    padding: 1.25rem 1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
     text-align: center;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    justify-items: center;
   }
+  .svc__metric .pm-stat__value { font-size: clamp(1.1rem, 16cqi, 2.6rem); color: var(--pm-wine); white-space: nowrap; }
 
-  .sea-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(10,10,10,0.09);
-  }
+  .svc__float-side { display: grid; gap: 1rem; }
 
-  .sea-card-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: rgba(10,10,10,0.05);
+  /* ── Wat is ─────────────────────────────────────────────────────────── */
+  .svc__what { padding-top: clamp(4rem, 8vw, 6.5rem); }
+  .svc__what-grid { align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+  .svc__head-left { margin-bottom: 1.5rem; }
+  .svc__what-text { display: grid; gap: 0; }
+  .svc__inline { margin-top: 1.75rem; justify-self: start; }
+
+  .svc__stack { max-width: 460px; justify-self: center; width: 100%; }
+  .svc__stack-head {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    margin: 0 auto 1.25rem;
-    transition: background 0.3s ease;
+    gap: 0.75rem;
+    padding: 1.1rem 1.5rem;
+    border-bottom: var(--pm-border);
+    font-family: var(--pm-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
   }
-
-  .sea-card:hover .sea-card-icon {
-    background: var(--black);
-    color: var(--white);
-  }
-
-  .sea-card h3 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-  }
-
-  .sea-card p {
-    font-size: 0.88rem;
-    color: rgba(10,10,10,0.65);
-    line-height: 1.7;
-  }
-
-  /* ── Benefits ── */
-  .sea-benefits { padding: 7rem 4rem; }
-
-  .sea-benefits-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .sea-benefits-left h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    line-height: 1.1;
-    letter-spacing: -0.022em;
-    margin-bottom: 1rem;
-  }
-  .sea-benefits-left p {
-    color: rgba(10,10,10,0.68);
-    line-height: 1.8;
-  }
-
-  .sea-benefit-stats {
-    margin-top: 2rem;
-    display: grid;
+  .svc__stack-head .pm-icon { box-shadow: none; }
+  .svc__stack-list { list-style: none; margin: 0; padding: 0; background: var(--pm-milk); }
+  .svc__stack-list li {
+    display: flex;
+    align-items: center;
     gap: 1.25rem;
+    padding: 1.35rem 1.5rem;
   }
+  .svc__stack-list li + li { border-top: 1px solid var(--pm-ink-line); }
+  .svc__stack-num { font-weight: 800; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--pm-red); }
+  .svc__stack-body { display: grid; gap: 0.15rem; }
+  .svc__stack-body strong { font-family: var(--pm-display); font-weight: 400; font-size: clamp(1.7rem, 2.6vw, 2.2rem); line-height: 1.05; }
+  .svc__stack-body span { font-size: 0.9rem; color: var(--pm-ink-soft); }
 
-  .sea-bstat {
-    border-left: 3px solid var(--black);
-    padding-left: 1rem;
-  }
-  .sea-bstat strong {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.8rem;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  .sea-bstat span {
-    font-size: 0.85rem;
-    color: rgba(10,10,10,0.65);
-    line-height: 1.5;
-  }
-
-  .sea-benefit-item {
-    border-top: 1px solid rgba(10,10,10,0.1);
-    padding: 1.25rem 0;
-  }
-  .sea-benefit-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
-
-  .sea-benefit-item summary {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
+  /* ── Tile grid ──────────────────────────────────────────────────────── */
+  .svc__grid {
     list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
-  .sea-benefit-item summary::-webkit-details-marker { display: none; }
-  .sea-benefit-item summary::after {
-    content: "+";
-    font-size: 1.3rem;
-    font-weight: 300;
-    flex-shrink: 0;
-    opacity: 0.45;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-  }
-  .sea-benefit-item[open] summary::after {
-    transform: rotate(45deg);
-    opacity: 1;
-  }
-  .sea-benefit-item p {
-    margin-top: 0.75rem;
-    color: rgba(10,10,10,0.68);
-    line-height: 1.8;
-    font-size: 0.92rem;
-  }
-
-  /* ── Approach ── */
-  .sea-approach { padding: 6rem 4rem; }
-
-  .sea-steps {
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid rgba(10,10,10,0.14);
-    border-bottom: 1px solid rgba(10,10,10,0.14);
-    margin-top: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .svc__tile { display: grid; align-content: start; gap: 1rem; transition: transform 0.5s var(--pm-ease), box-shadow 0.5s var(--pm-ease); }
+  .svc__tile .pm-icon { transition: transform 0.5s var(--pm-ease-spring); }
+  .svc__tile-title { font-size: clamp(1.4rem, 1.9vw, 1.7rem); }
+  @media (hover: hover) {
+    .svc__tile:hover { transform: translateY(-4px); box-shadow: var(--pm-drop); }
+    .svc__tile:hover .pm-icon { transform: rotate(-8deg) scale(1.06); }
   }
 
-  .sea-step {
-    padding: 1.75rem 1.25rem;
-    min-height: 210px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    border-right: 1px solid rgba(10,10,10,0.1);
-  }
-  .sea-step:last-child { border-right: none; }
-
-  .sea-step-num {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
-    opacity: 0.4;
-  }
-  .sea-step h3 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-  }
-  .sea-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
-
-  /* ── Context ── */
-  .sea-context { padding: 6rem 4rem; }
-
-  .sea-context-grid {
+  /* ── Benefits ───────────────────────────────────────────────────────── */
+  .svc__statcard {
+    padding: clamp(2rem, 4vw, 3rem);
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.4rem;
+    gap: 1.75rem;
+    min-height: 100%;
+    align-content: center;
   }
+  .svc__statcard .pm-stat__value { font-size: clamp(3.5rem, 7vw, 5.5rem); }
+  .svc__statcard .pm-stat__label { color: var(--pm-ink); font-size: 1rem; max-width: 30ch; }
+  .svc__statcard .pm-dots { background: repeating-linear-gradient(90deg, var(--pm-ink) 0 3px, transparent 3px 9px); }
+  .svc__statcard-badge { position: absolute; top: 1.5rem; right: 1.5rem; }
 
-  .sea-block {
-    border-top: 1px solid rgba(10,10,10,0.14);
-    padding: 1.8rem 0 0;
-  }
-  .sea-block--soft { border-top-color: rgba(10,10,10,0.28); }
-  .sea-block h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.75rem;
-    line-height: 1.08;
-    margin-bottom: 1.2rem;
-    max-width: 16ch;
-  }
+  /* ── Approach (plum card) ───────────────────────────────────────────── */
+  .svc__plum { padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem); }
+  .svc__plum-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
-  .sea-list { list-style: none; display: grid; gap: 0.8rem; }
-  .sea-list li {
-    position: relative;
-    padding-left: 1.1rem;
-    line-height: 1.65;
-    color: rgba(10,10,10,0.84);
-  }
-  .sea-list li::before {
-    content: "";
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--black);
-    position: absolute;
-    left: 0; top: 0.64rem;
-  }
-  .sea-list--muted li { color: rgba(10,10,10,0.65); }
-  .sea-list--muted li::before { background: rgba(10,10,10,0.35); }
-
-  /* ── FAQ ── */
-  .sea-faq { padding: 7rem 4rem; }
-
-  .sea-faq-grid {
+  .svc__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    gap: 5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .svc__step {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-wine);
+  }
+  .svc__step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.25rem; }
+  .svc__step-num { font-family: var(--pm-display); font-size: 2rem; line-height: 1; color: var(--pm-pink); }
+  .svc__step-title { margin: 0; font-family: var(--pm-display); font-weight: 400; font-size: 1.5rem; line-height: 1.1; letter-spacing: 0.01em; color: var(--pm-milk); }
+  .svc__step p { margin: 0; font-size: 0.95rem; color: rgba(255, 250, 240, 0.82); }
+
+  /* ── Compare ────────────────────────────────────────────────────────── */
+  .svc__compare .pm-split { gap: clamp(1rem, 2.5vw, 2rem); }
+  .svc__compare-card { display: grid; align-content: start; gap: 1.25rem; height: 100%; }
+
+  /* ── FAQ ────────────────────────────────────────────────────────────── */
+  .svc__faq-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
     align-items: start;
   }
+  .svc__faq-head { position: sticky; top: 120px; margin-bottom: 0; }
+  .svc__faq .pm-acc { background: var(--pm-milk); }
+  .svc__faq .pm-acc summary { font-size: clamp(1.2rem, 1.6vw, 1.45rem); }
 
-  .sea-faq-left h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.75rem;
-  }
-  .sea-faq-left p {
-    color: rgba(10,10,10,0.65);
-    line-height: 1.8;
-    font-size: 0.92rem;
-  }
-
-  .sea-faq-item {
-    border-top: 1px solid rgba(10,10,10,0.1);
-    padding: 1.25rem 0;
-  }
-  .sea-faq-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.1); }
-  .sea-faq-item summary {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
+  /* ── Outcomes chips ─────────────────────────────────────────────────── */
+  .svc__chips {
     list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 960px;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .svc__chips .pm-tag { font-size: 1rem; padding: 0.65rem 1.25rem; box-shadow: 0 4px 0 var(--pm-ink); white-space: normal; text-align: center; }
+
+  /* ── Related ────────────────────────────────────────────────────────── */
+  .svc__related { padding-top: 0; }
+  .svc__related .pm-head { margin-bottom: 1.25rem; }
+  .svc__related-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .svc__related-card {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
+    height: 100%;
+    padding: 1.25rem 1.4rem;
+    border-radius: var(--pm-r);
   }
-  .sea-faq-item summary::-webkit-details-marker { display: none; }
-  .sea-faq-item summary::after {
-    content: "+";
-    font-size: 1.3rem;
-    font-weight: 300;
-    flex-shrink: 0;
-    opacity: 0.45;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+  .svc__related-text { display: grid; gap: 0.2rem; }
+  .svc__related-text strong { font-family: var(--pm-display); font-weight: 400; font-size: 1.35rem; line-height: 1.1; letter-spacing: 0.01em; }
+  .svc__related-text span { font-size: 0.92rem; color: var(--pm-ink-soft); line-height: 1.45; }
+  .svc__arrow {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    transition: background-color 0.3s ease, transform 0.4s var(--pm-ease);
   }
-  .sea-faq-item[open] summary::after {
-    transform: rotate(45deg);
-    opacity: 1;
-  }
-  .sea-faq-item p {
-    margin-top: 0.75rem;
-    color: rgba(10,10,10,0.68);
-    line-height: 1.8;
-    font-size: 0.92rem;
-  }
-
-  /* ── Outcomes ── */
-  .sea-outcomes {
-    padding: 6rem 4rem;
-    background: var(--black);
-    color: var(--white);
-  }
-  .sea-outcomes h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2rem, 4.2vw, 3.4rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.4rem;
-  }
-  .sea-outcome-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
-  .sea-outcome-tags span {
-    border-bottom: 1px solid rgba(255,255,255,0.35);
-    padding: 0.3rem 0;
-    font-size: 0.9rem;
-    margin-right: 0.4rem;
+  @media (hover: hover) {
+    .svc__related-card:hover .svc__arrow { background: var(--pm-yellow); transform: translateX(3px); }
   }
 
-  /* ── Responsive ── */
-  @media (max-width: 1100px) {
-    .sea-hero-inner,
-    .sea-what-grid,
-    .sea-benefits-grid,
-    .sea-faq-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .sea-cards-grid { grid-template-columns: 1fr 1fr; }
-    .sea-steps { grid-template-columns: 1fr 1fr; }
-    .sea-step:nth-child(2n) { border-right: none; }
-    .sea-context-grid { grid-template-columns: 1fr; }
-    .sea-what-visual { display: none; }
+  /* ── CTA band ───────────────────────────────────────────────────────── */
+  .svc__cta {
+    padding: clamp(5rem, 10vw, 8rem) 0 clamp(3rem, 6vw, 4.5rem);
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 1;
   }
+  .svc__cta-inner { display: grid; justify-items: center; text-align: center; gap: 1.5rem; }
+  .svc__cta-title { max-width: 900px; font-size: clamp(2.6rem, 6vw, 4.75rem); }
+  .svc__cta-text { max-width: 600px; }
 
-  @media (max-width: 768px) {
-    .sea-hero,
-    .sea-what,
-    .sea-services,
-    .sea-benefits,
-    .sea-approach,
-    .sea-context,
-    .sea-faq,
-    .sea-outcomes {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-    .sea-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
-    .sea-cards-grid { grid-template-columns: 1fr; }
-    .sea-steps { grid-template-columns: 1fr; }
-    .sea-step {
-      border-right: none;
-      border-top: 1px solid rgba(10,10,10,0.1);
-      padding-left: 0; padding-right: 0;
-      min-height: auto;
-    }
-    .sea-step:first-child { border-top: none; }
-    .sea-metrics { grid-template-columns: 1fr 1fr; }
-    .sea-hero-panel {
-      border-left: none;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      padding-left: 0; padding-top: 1rem;
-    }
-    .sea-related-grid { grid-template-columns: 1fr; }
+  /* ── Responsive ─────────────────────────────────────────────────────── */
+  @media (max-width: 1080px) {
+    .svc__float { grid-template-columns: 1fr; }
+    .svc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .svc__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-
-  .sea-related-reads { padding: 4rem 4rem; }
-  .sea-related-kicker { display: inline-block; font-family: 'Matter Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.2rem; }
-  .sea-related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .sea-related-card { display: block; padding: 1.4rem 1.6rem; border: 1px solid rgba(10,10,10,0.12); border-radius: 10px; text-decoration: none; color: var(--black); transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
-  .sea-related-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(10,10,10,0.08); }
-  .sea-related-card strong { display: block; font-family: 'Matter Sans', sans-serif; font-size: 1.1rem; margin-bottom: 0.35rem; }
-  .sea-related-card span { font-size: 0.9rem; color: rgba(10,10,10,0.6); line-height: 1.5; }
-  @media (max-width: 768px) { .sea-related-reads { padding: 3rem 2rem; } }
+  @media (max-width: 860px) {
+    .svc__faq-grid { grid-template-columns: 1fr; }
+    .svc__faq-head { position: static; }
+  }
+  @media (max-width: 640px) {
+    .svc__hero { padding-top: 64px; }
+    .svc__actions { flex-direction: column; align-self: stretch; }
+    .svc__actions .pm-btn, .svc__cta .pm-btn { width: 100%; }
+    .svc__metrics { grid-template-columns: 1fr; }
+    .svc__grid, .svc__steps { grid-template-columns: 1fr; }
+    .svc__statcard-badge { display: none; }
+  }
 </style>

@@ -3,116 +3,150 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import ContactOverlay from "../components/ContactOverlay.astro";
+import Icon from "../components/pm/Icon.astro";
+
+const toc = [
+  { id: "privacy-1", n: "1", label: "Wie zijn wij?" },
+  { id: "privacy-2", n: "2", label: "Welke gegevens verzamelen wij?" },
+  { id: "privacy-3", n: "3", label: "Waarom verwerken wij deze gegevens?" },
+  { id: "privacy-4", n: "4", label: "Rechtsgrond" },
+  { id: "privacy-5", n: "5", label: "Cookies en tracking" },
+  { id: "privacy-6", n: "6", label: "Delen met derden" },
+  { id: "privacy-7", n: "7", label: "Bewaartermijnen" },
+  { id: "privacy-8", n: "8", label: "Je rechten" },
+  { id: "privacy-9", n: "9", label: "Beveiliging" },
+  { id: "privacy-10", n: "10", label: "Klachten" },
+  { id: "privacy-11", n: "11", label: "Wijzigingen" },
+];
 ---
 
 <BaseLayout
   title="Privacyverklaring | LuminX"
   description="Privacyverklaring van LuminX. Lees hoe wij omgaan met je persoonsgegevens conform de AVG."
 >
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="legal-page">
-    <section class="legal-hero" data-bg-color="#0A0A0A">
-      <div class="legal-hero-content">
-        <a href="/" class="legal-back-link">&larr; Terug naar homepage</a>
-        <span class="legal-kicker">Juridisch</span>
-        <h1>Privacyverklaring</h1>
-        <p>Laatst bijgewerkt: 19 maart 2026</p>
+  <main class="legal">
+    <section class="legal__hero" aria-labelledby="legal-title">
+      <div class="pm-stack pm-stack--light">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+
+        <div class="pm-stack__panel legal__panel">
+          <div class="legal__hero-content">
+            <a href="/" class="legal__back" data-reveal>
+              <Icon name="arrow" size={16} class="legal__back-icon" /> Terug naar homepage
+            </a>
+            <span class="pm-tag pm-tag--yellow" data-reveal style="--d: 1">Juridisch</span>
+            <h1 id="legal-title" class="pm-h1 legal__title" data-reveal style="--d: 2">Privacyverklaring</h1>
+            <p class="legal__updated" data-reveal style="--d: 3">Laatst bijgewerkt: 19 maart 2026</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="legal-body" data-bg-color="#FEFEFE">
-      <div class="legal-content">
+    <section class="pm-section legal__body">
+      <div class="pm-container legal__layout">
+        <nav class="pm-card legal__toc" aria-label="Inhoud">
+          <span class="pm-label">Inhoud</span>
+          <ol>
+            {toc.map((item) => (
+              <li><a href={`#${item.id}`}><span>{item.n}</span>{item.label}</a></li>
+            ))}
+          </ol>
+        </nav>
 
-        <h2>1. Wie zijn wij?</h2>
-        <p>
-          LuminX is een eenmanszaak gevestigd in Nederland, gespecialiseerd in online marketing, webdevelopment en marketing automation. Voor vragen over deze privacyverklaring kun je contact opnemen via <a href="mailto:hello@luminx.nl">hello@luminx.nl</a>.
-        </p>
+        <article class="pm-card pm-card--milk pm-card--lift legal__card">
+          <div class="pm-prose legal__prose">
+          <h2 id="privacy-1">1. Wie zijn wij?</h2>
+          <p>
+            LuminX is een eenmanszaak gevestigd in Nederland, gespecialiseerd in online marketing, webdevelopment en marketing automation. Voor vragen over deze privacyverklaring kun je contact opnemen via <a href="mailto:hello@luminx.nl">hello@luminx.nl</a>.
+          </p>
 
-        <h2>2. Welke gegevens verzamelen wij?</h2>
-        <p>Wij kunnen de volgende persoonsgegevens verwerken:</p>
-        <ul>
-          <li><strong>Contactgegevens:</strong> naam, e-mailadres, telefoonnummer — wanneer je ons contactformulier invult, een e-mail stuurt of belt.</li>
-          <li><strong>Bedrijfsgegevens:</strong> bedrijfsnaam en website-URL — wanneer je deze vrijwillig deelt.</li>
-          <li><strong>Websitegedrag:</strong> geanonimiseerde gegevens over je bezoek via Google Analytics 4 (GA4), zoals bezochte pagina's, sessieduur en apparaattype.</li>
-          <li><strong>Technische gegevens:</strong> IP-adres (geanonimiseerd), browsertype en besturingssysteem.</li>
-          <li><strong>Communicatie:</strong> berichten die je ons stuurt via WhatsApp, e-mail of het contactformulier.</li>
-        </ul>
+          <h2 id="privacy-2">2. Welke gegevens verzamelen wij?</h2>
+          <p>Wij kunnen de volgende persoonsgegevens verwerken:</p>
+          <ul>
+            <li><strong>Contactgegevens:</strong> naam, e-mailadres, telefoonnummer, wanneer je ons contactformulier invult, een e-mail stuurt of belt.</li>
+            <li><strong>Bedrijfsgegevens:</strong> bedrijfsnaam en website-URL, wanneer je deze vrijwillig deelt.</li>
+            <li><strong>Websitegedrag:</strong> geanonimiseerde gegevens over je bezoek via Google Analytics 4 (GA4), zoals bezochte pagina's, sessieduur en apparaattype.</li>
+            <li><strong>Technische gegevens:</strong> IP-adres (geanonimiseerd), browsertype en besturingssysteem.</li>
+            <li><strong>Communicatie:</strong> berichten die je ons stuurt via WhatsApp, e-mail of het contactformulier.</li>
+          </ul>
 
-        <h2>3. Waarom verwerken wij deze gegevens?</h2>
-        <p>Wij verwerken persoonsgegevens voor de volgende doeleinden:</p>
-        <ul>
-          <li>Om je vraag of aanvraag te beantwoorden en contact met je op te nemen.</li>
-          <li>Om onze diensten uit te voeren en projecten te beheren.</li>
-          <li>Om onze website te verbeteren en het gebruiksgemak te optimaliseren.</li>
-          <li>Om te voldoen aan wettelijke verplichtingen (zoals belastingwetgeving).</li>
-        </ul>
+          <h2 id="privacy-3">3. Waarom verwerken wij deze gegevens?</h2>
+          <p>Wij verwerken persoonsgegevens voor de volgende doeleinden:</p>
+          <ul>
+            <li>Om je vraag of aanvraag te beantwoorden en contact met je op te nemen.</li>
+            <li>Om onze diensten uit te voeren en projecten te beheren.</li>
+            <li>Om onze website te verbeteren en het gebruiksgemak te optimaliseren.</li>
+            <li>Om te voldoen aan wettelijke verplichtingen (zoals belastingwetgeving).</li>
+          </ul>
 
-        <h2>4. Rechtsgrond</h2>
-        <p>Wij verwerken je gegevens op basis van:</p>
-        <ul>
-          <li><strong>Toestemming:</strong> voor het plaatsen van analytische en marketing cookies (via ons cookiebanner/consent management).</li>
-          <li><strong>Uitvoering van een overeenkomst:</strong> wanneer je een dienst bij ons afneemt.</li>
-          <li><strong>Gerechtvaardigd belang:</strong> voor het verbeteren van onze website en dienstverlening.</li>
-        </ul>
+          <h2 id="privacy-4">4. Rechtsgrond</h2>
+          <p>Wij verwerken je gegevens op basis van:</p>
+          <ul>
+            <li><strong>Toestemming:</strong> voor het plaatsen van analytische en marketing cookies (via ons cookiebanner/consent management).</li>
+            <li><strong>Uitvoering van een overeenkomst:</strong> wanneer je een dienst bij ons afneemt.</li>
+            <li><strong>Gerechtvaardigd belang:</strong> voor het verbeteren van onze website en dienstverlening.</li>
+          </ul>
 
-        <h2>5. Cookies en tracking</h2>
-        <p>
-          Onze website maakt gebruik van Google Analytics 4 (GA4) en Google Tag Manager (GTM) om websitestatistieken te verzamelen. Wij gebruiken Consent Mode v2, wat betekent dat tracking pas wordt geactiveerd nadat je hiervoor toestemming hebt gegeven via ons cookiebanner.
-        </p>
-        <p>Wij gebruiken de volgende soorten cookies:</p>
-        <ul>
-          <li><strong>Noodzakelijke cookies:</strong> voor het functioneren van de website (geen toestemming vereist).</li>
-          <li><strong>Analytische cookies:</strong> Google Analytics 4 — om websitegebruik te analyseren (toestemming vereist).</li>
-          <li><strong>Marketing cookies:</strong> voor het meten van advertentieprestaties (toestemming vereist).</li>
-        </ul>
-        <p>Je kunt je cookievoorkeuren op elk moment wijzigen via het cookiebanner onderaan de pagina.</p>
+          <h2 id="privacy-5">5. Cookies en tracking</h2>
+          <p>
+            Onze website maakt gebruik van Google Analytics 4 (GA4) en Google Tag Manager (GTM) om websitestatistieken te verzamelen. Wij gebruiken Consent Mode v2, wat betekent dat tracking pas wordt geactiveerd nadat je hiervoor toestemming hebt gegeven via ons cookiebanner.
+          </p>
+          <p>Wij gebruiken de volgende soorten cookies:</p>
+          <ul>
+            <li><strong>Noodzakelijke cookies:</strong> voor het functioneren van de website (geen toestemming vereist).</li>
+            <li><strong>Analytische cookies:</strong> Google Analytics 4, om websitegebruik te analyseren (toestemming vereist).</li>
+            <li><strong>Marketing cookies:</strong> voor het meten van advertentieprestaties (toestemming vereist).</li>
+          </ul>
+          <p>Je kunt je cookievoorkeuren op elk moment wijzigen via het cookiebanner onderaan de pagina.</p>
 
-        <h2>6. Delen met derden</h2>
-        <p>Wij delen je gegevens niet met derden, tenzij dit noodzakelijk is voor onze dienstverlening of wettelijk verplicht is. Wij kunnen gebruikmaken van de volgende verwerkers:</p>
-        <ul>
-          <li><strong>Google</strong> (Analytics, Tag Manager) — voor websitestatistieken.</li>
-          <li><strong>Vercel / hosting provider</strong> — voor het hosten van de website.</li>
-          <li><strong>E-mailprovider</strong> — voor het versturen van e-mails.</li>
-        </ul>
-        <p>Met al onze verwerkers hebben wij passende afspraken gemaakt over de bescherming van je gegevens.</p>
+          <h2 id="privacy-6">6. Delen met derden</h2>
+          <p>Wij delen je gegevens niet met derden, tenzij dit noodzakelijk is voor onze dienstverlening of wettelijk verplicht is. Wij kunnen gebruikmaken van de volgende verwerkers:</p>
+          <ul>
+            <li><strong>Google</strong> (Analytics, Tag Manager), voor websitestatistieken.</li>
+            <li><strong>Vercel / hosting provider</strong>: voor het hosten van de website.</li>
+            <li><strong>E-mailprovider</strong>: voor het versturen van e-mails.</li>
+          </ul>
+          <p>Met al onze verwerkers hebben wij passende afspraken gemaakt over de bescherming van je gegevens.</p>
 
-        <h2>7. Bewaartermijnen</h2>
-        <p>
-          Wij bewaren je persoonsgegevens niet langer dan noodzakelijk voor het doel waarvoor ze zijn verzameld. Contactgegevens worden maximaal 2 jaar na het laatste contact bewaard, tenzij een lopende overeenkomst of wettelijke verplichting een langere termijn vereist.
-        </p>
+          <h2 id="privacy-7">7. Bewaartermijnen</h2>
+          <p>
+            Wij bewaren je persoonsgegevens niet langer dan noodzakelijk voor het doel waarvoor ze zijn verzameld. Contactgegevens worden maximaal 2 jaar na het laatste contact bewaard, tenzij een lopende overeenkomst of wettelijke verplichting een langere termijn vereist.
+          </p>
 
-        <h2>8. Je rechten</h2>
-        <p>Op grond van de AVG heb je de volgende rechten:</p>
-        <ul>
-          <li><strong>Recht op inzage:</strong> je mag opvragen welke gegevens wij van je hebben.</li>
-          <li><strong>Recht op rectificatie:</strong> je mag onjuiste gegevens laten corrigeren.</li>
-          <li><strong>Recht op verwijdering:</strong> je mag verzoeken om je gegevens te laten verwijderen.</li>
-          <li><strong>Recht op beperking:</strong> je mag vragen om de verwerking van je gegevens te beperken.</li>
-          <li><strong>Recht op overdraagbaarheid:</strong> je mag je gegevens in een gestructureerd formaat ontvangen.</li>
-          <li><strong>Recht op bezwaar:</strong> je mag bezwaar maken tegen de verwerking van je gegevens.</li>
-        </ul>
-        <p>
-          Neem contact op via <a href="mailto:hello@luminx.nl">hello@luminx.nl</a> om een van deze rechten uit te oefenen. Wij reageren binnen 30 dagen op je verzoek.
-        </p>
+          <h2 id="privacy-8">8. Je rechten</h2>
+          <p>Op grond van de AVG heb je de volgende rechten:</p>
+          <ul>
+            <li><strong>Recht op inzage:</strong> je mag opvragen welke gegevens wij van je hebben.</li>
+            <li><strong>Recht op rectificatie:</strong> je mag onjuiste gegevens laten corrigeren.</li>
+            <li><strong>Recht op verwijdering:</strong> je mag verzoeken om je gegevens te laten verwijderen.</li>
+            <li><strong>Recht op beperking:</strong> je mag vragen om de verwerking van je gegevens te beperken.</li>
+            <li><strong>Recht op overdraagbaarheid:</strong> je mag je gegevens in een gestructureerd formaat ontvangen.</li>
+            <li><strong>Recht op bezwaar:</strong> je mag bezwaar maken tegen de verwerking van je gegevens.</li>
+          </ul>
+          <p>
+            Neem contact op via <a href="mailto:hello@luminx.nl">hello@luminx.nl</a> om een van deze rechten uit te oefenen. Wij reageren binnen 30 dagen op je verzoek.
+          </p>
 
-        <h2>9. Beveiliging</h2>
-        <p>
-          Wij nemen passende technische en organisatorische maatregelen om je persoonsgegevens te beschermen tegen verlies, misbruik of ongeoorloofde toegang. Onze website maakt gebruik van SSL-encryptie (HTTPS).
-        </p>
+          <h2 id="privacy-9">9. Beveiliging</h2>
+          <p>
+            Wij nemen passende technische en organisatorische maatregelen om je persoonsgegevens te beschermen tegen verlies, misbruik of ongeoorloofde toegang. Onze website maakt gebruik van SSL-encryptie (HTTPS).
+          </p>
 
-        <h2>10. Klachten</h2>
-        <p>
-          Heb je een klacht over hoe wij omgaan met je persoonsgegevens? Neem dan eerst contact met ons op via <a href="mailto:hello@luminx.nl">hello@luminx.nl</a>. Je hebt ook altijd het recht om een klacht in te dienen bij de Autoriteit Persoonsgegevens (<a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener noreferrer">autoriteitpersoonsgegevens.nl</a>).
-        </p>
+          <h2 id="privacy-10">10. Klachten</h2>
+          <p>
+            Heb je een klacht over hoe wij omgaan met je persoonsgegevens? Neem dan eerst contact met ons op via <a href="mailto:hello@luminx.nl">hello@luminx.nl</a>. Je hebt ook altijd het recht om een klacht in te dienen bij de Autoriteit Persoonsgegevens (<a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener noreferrer">autoriteitpersoonsgegevens.nl</a>).
+          </p>
 
-        <h2>11. Wijzigingen</h2>
-        <p>
-          Wij behouden ons het recht voor om deze privacyverklaring te wijzigen. De meest actuele versie is altijd beschikbaar op deze pagina. Bij substantiële wijzigingen zullen wij je hierover informeren.
-        </p>
-
+          <h2 id="privacy-11">11. Wijzigingen</h2>
+          <p>
+            Wij behouden ons het recht voor om deze privacyverklaring te wijzigen. De meest actuele versie is altijd beschikbaar op deze pagina. Bij substantiële wijzigingen zullen wij je hierover informeren.
+          </p>
+          </div>
+        </article>
       </div>
     </section>
   </main>
@@ -122,112 +156,110 @@ import ContactOverlay from "../components/ContactOverlay.astro";
 </BaseLayout>
 
 <style>
-  .legal-page {
-    min-height: 100vh;
+  .legal { background: var(--pm-cream); min-height: 100vh; }
+
+  .legal__hero { padding-top: 72px; }
+
+  .legal__panel {
+    padding: clamp(3rem, 6vw, 4.5rem) var(--pm-gutter) clamp(3rem, 6vw, 4.5rem);
   }
 
-  .legal-hero {
-    position: relative;
-    padding: clamp(8rem, 14vw, 12rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
-    background: #0A0A0A;
-    color: #fff;
+  .legal__hero-content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.1rem;
+    max-width: 820px;
+    margin-inline: auto;
   }
 
-  .legal-hero-content {
-    max-width: 48rem;
-    margin: 0 auto;
-  }
+  .legal__title { color: var(--pm-milk); font-size: clamp(2.6rem, 6vw, 5rem); }
 
-  .legal-back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    color: rgba(255,255,255,0.4);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.3s ease;
-  }
-
-  .legal-back-link:hover {
-    color: rgba(255,255,255,0.7);
-  }
-
-  .legal-kicker {
-    display: block;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 1rem;
-  }
-
-  .legal-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-  }
-
-  .legal-hero p {
-    color: rgba(255,255,255,0.4);
-    font-size: 0.85rem;
-  }
-
-  .legal-body {
-    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-    background: #FEFEFE;
-    color: #1a1a1a;
-  }
-
-  .legal-content {
-    max-width: 48rem;
-    margin: 0 auto;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+  .legal__updated {
+    margin: 0;
+    color: rgba(255, 250, 240, 0.8);
     font-size: 0.95rem;
-    line-height: 1.75;
+    font-weight: 600;
   }
 
-  .legal-content h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 1.35rem;
+  .legal__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--pm-pink);
+    font-size: var(--pm-fs-label);
     font-weight: 700;
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-    color: #0a0a0a;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .legal__back :global(.legal__back-icon) { transform: rotate(180deg); }
+  @media (hover: hover) { .legal__back:hover { color: var(--pm-milk); } }
+
+  .legal__body { padding-top: clamp(3rem, 6vw, 4.5rem); }
+
+  .legal__layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: start;
+    max-width: calc(1120px + var(--pm-gutter) * 2);
   }
 
-  .legal-content p {
-    margin-bottom: 1rem;
-    color: #333;
+  /* sticky table of contents (desktop) */
+  .legal__toc {
+    position: sticky;
+    top: 110px;
+    padding: 1.5rem;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+  }
+  .legal__toc ol {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .legal__toc a {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 10px;
+    color: var(--pm-ink-soft);
+    font-size: 0.925rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+  .legal__toc a span {
+    flex: none;
+    min-width: 1.4em;
+    color: var(--pm-red);
+    font-weight: 800;
+  }
+  @media (hover: hover) {
+    .legal__toc a:hover { background: var(--pm-milk); color: var(--pm-ink); }
   }
 
-  .legal-content ul {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
+  .legal__card { padding: clamp(1.5rem, 4vw, 3.5rem); }
+
+  .legal__prose { font-size: 1.0625rem; }
+  .legal__prose :global(h2) { scroll-margin-top: 110px; font-size: clamp(1.6rem, 2.4vw, 2rem); }
+  .legal__prose :global(> h2:first-child) { margin-top: 0; }
+  .legal__prose :global(h2 + *) { margin-top: 0.6em; }
+  .legal__prose :global(p) { margin-block: 0; }
+  .legal__prose :global(> * + p) { margin-top: 1em; }
+  .legal__prose :global(h2 + p) { margin-top: 0.6em; }
+  .legal__prose :global(ul) { margin-bottom: 0; }
+  .legal__prose :global(li::marker) { color: var(--pm-red); }
+
+  @media (max-width: 960px) {
+    .legal__layout { grid-template-columns: 1fr; }
+    .legal__toc { display: none; }
   }
 
-  .legal-content li {
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-
-  .legal-content a {
-    color: #0a0a0a;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: opacity 0.3s ease;
-  }
-
-  .legal-content a:hover {
-    opacity: 0.6;
-  }
-
-  @media (max-width: 768px) {
-    .legal-hero {
-      padding-top: 7rem;
-    }
+  @media (max-width: 640px) {
+    .legal__card { border-radius: var(--pm-r); }
   }
 </style>

@@ -1,10 +1,12 @@
 ---
+import Logo from "./pm/Logo.astro";
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import Nav from "./Nav.astro";
 import Footer from "./Footer.astro";
 import ContactOverlay from "./ContactOverlay.astro";
 import CaseSlider from "./CaseSlider.astro";
+import Icon from "./pm/Icon.astro";
 import websiteGsmteamImage from "../assets/images/website-gsmteam.png";
 import repairPluginImage from "../assets/images/repair-plugin.png";
 import digitalMarketingImage from "../assets/images/digital-marketing-pexels.jpg";
@@ -26,6 +28,12 @@ interface NarrativeBlock {
   text: string;
 }
 
+interface Quote {
+  text: string;
+  name: string;
+  role?: string;
+}
+
 interface Props {
   title: string;
   client: string;
@@ -41,6 +49,7 @@ interface Props {
   gallery?: GalleryImage[];
   narrative?: NarrativeBlock[];
   duration?: string;
+  quote?: Quote;
 }
 
 const {
@@ -58,6 +67,7 @@ const {
   gallery,
   narrative,
   duration,
+  quote,
 } = Astro.props;
 
 const localCaseImages: Record<string, ImageMetadata> = {
@@ -88,382 +98,503 @@ const caseSchema = {
     url: siteOrigin,
   },
 };
+
+// Case index for the "volgende case" card (same copy as FeaturedProjects).
+const allCases = [
+  { href: "/cases/dg-rubber-profiles", title: "DG Rubber Profiles", tag: "Custom WordPress", description: "Volledig custom WordPress-website met eigen huisstijl in front-end én back-end, met nagenoeg geen plugins.", image: "/images/dg-rubber-profiles.png" },
+  { href: "/cases/migraties", title: "GSM Team", tag: "Migratie", description: "WordPress → Shopify-migratie met volledig behoud van SEO-waarde.", image: "/images/website-gsmteam.png" },
+  { href: "/cases/custom-applicaties", title: "ReservaX / ActifAid", tag: "Websites · Procesautomation", description: "Custom afsprakensysteem dat handmatige planning volledig vervangt.", image: "/images/reservaxactifaid.png" },
+  { href: "/cases/digital-marketing", title: "Ascendio", tag: "SEO · AI-automation", description: "AI-gedreven contentclusters die autoriteit en verkeer laten samenkomen.", image: "/images/ascendio seo automation.jpg" },
+];
+const path = Astro.url.pathname.replace(/\/$/, "");
+const currentIndex = allCases.findIndex((c) => c.href === path);
+const nextCase = allCases[(currentIndex + 1) % allCases.length];
+
+const statTones = ["case__stat--yellow", "case__stat--milk", "case__stat--pink"];
 ---
 
-<div class="cursor"></div>
-<div class="cursor-follower"></div>
 <Nav basePath="/" />
 <script type="application/ld+json" set:html={JSON.stringify(caseSchema)}></script>
 
-<main class="case-page">
-  <section class="case-hero" data-bg-color="#0A0A0A">
-    <div class="case-hero-bg" aria-hidden="true"></div>
-    <div class="case-hero-grid">
-      <div class="case-hero-content">
-        <a href="/#werk" class="case-back-link">Terug naar werk</a>
-        <span class="case-kicker">Case</span>
-        <h1>{title}</h1>
-        <p>{intro}</p>
+<main class="case">
+  <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
+  <section class="case__hero" aria-labelledby="case-title">
+    <div class="pm-stack">
+      <span class="pm-stack__layer" aria-hidden="true"></span>
+      <span class="pm-stack__layer" aria-hidden="true"></span>
+      <span class="pm-stack__layer" aria-hidden="true"></span>
 
-        <div class="case-meta">
-          <div>
-            <span>Klant</span>
-            <strong>{client}</strong>
-          </div>
-          <div>
-            <span>Sector</span>
-            <strong>{sector}</strong>
-          </div>
-          <div>
-            <span>Services</span>
-            <strong>{services.join(" · ")}</strong>
-          </div>
-          {duration && (
-            <div>
-              <span>Doorlooptijd</span>
-              <strong>{duration}</strong>
-            </div>
-          )}
+      <div class="pm-stack__panel case__panel">
+        <div class="case__hero-content">
+          <a href="/#werk" class="case__back" data-reveal><Icon name="arrow" size={18} stroke={2.4} /> Terug naar werk</a>
+          <span class="pm-tag pm-tag--pink" data-reveal>Case · {client}</span>
+          <h1 id="case-title" class="pm-h1 case__title" data-reveal style="--d: 1">{title}</h1>
+          <p class="pm-opening case__intro" data-reveal style="--d: 2">{intro}</p>
+
+          <dl class="case__meta" data-reveal style="--d: 3">
+            <div class="case__chip"><dt>Klant</dt><dd>{client}</dd></div>
+            <div class="case__chip"><dt>Sector</dt><dd>{sector}</dd></div>
+            {duration && <div class="case__chip"><dt>Doorlooptijd</dt><dd>{duration}</dd></div>}
+            {metrics[0] && (
+              <div class="case__chip case__chip--result">
+                <dt><Icon name="trending-up" size={16} stroke={2.4} /> Resultaat</dt>
+                <dd>{metrics[0].value} {metrics[0].label.toLowerCase()}</dd>
+              </div>
+            )}
+          </dl>
+
+          <ul class="case__services" aria-label="Services" data-reveal style="--d: 4">
+            {services.map((s) => <li class="pm-tag pm-tag--paper">{s}</li>)}
+          </ul>
         </div>
       </div>
+    </div>
 
-      <div class="case-hero-image-wrap">
-        {isRemoteImage ? (
-          <img
-            src={resolvedImageSrc}
-            alt={imageAlt}
-            class="case-hero-image"
-            loading="lazy"
-            decoding="async"
-          />
-        ) : (
-          <Image
-            src={resolvedImageSrc}
-            alt={imageAlt}
-            class="case-hero-image"
-            width={960}
-            height={640}
-            widths={[480, 768, 960]}
-            sizes="(max-width: 1024px) 100vw, 420px"
-            quality={70}
-            loading="lazy"
-          />
+    <div class="pm-container case__media-wrap">
+      <figure class="pm-card pm-card--lift case__media" data-reveal>
+        <span class="pm-media case__media-frame">
+          {isRemoteImage ? (
+            <img src={resolvedImageSrc} alt={imageAlt} loading="eager" decoding="async" />
+          ) : (
+            <Image
+              src={resolvedImageSrc}
+              alt={imageAlt}
+              width={1440}
+              height={900}
+              widths={[480, 768, 1120, 1440]}
+              sizes="(max-width: 1180px) 100vw, 1120px"
+              quality={75}
+              loading="eager"
+            />
+          )}
+        </span>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ─── Challenge ↔ approach ──────────────────────────────────────────── -->
+  <section class="pm-section case__work" aria-label="Uitdaging en aanpak">
+    <div class="pm-container">
+      <div class="case__work-grid">
+        <article class="pm-card pm-card--milk pm-card--pad case__challenge" data-reveal>
+          <span class="pm-label">Het probleem</span>
+          <h2 class="pm-h2 case__block-title">Uitdaging</h2>
+          <ul class="pm-checks pm-checks--x">
+            {challenge.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+
+        <article class="pm-card pm-card--plum pm-card--lift pm-card--pad case__approach" data-reveal style="--d: 1">
+          <span class="pm-tag pm-tag--pink">Wat we deden</span>
+          <h2 class="pm-h2 case__block-title">Aanpak</h2>
+          <ol class="case__steps">
+            {approach.map((item, i) => (
+              <li>
+                <span class="case__step-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Narrative ─────────────────────────────────────────────────────── -->
+  {narrative && narrative.length > 0 && (
+    <section class="pm-band pm-band--paper case__story" aria-labelledby="case-story-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>Het verhaal</span>
+          <h2 id="case-story-title" class="pm-h2" data-reveal style="--d: 1">Zo pakten we het aan.</h2>
+        </header>
+        <ol class="case__story-list">
+          {narrative.map((block, i) => (
+            <li class="pm-card pm-card--milk case__story-block" data-reveal style={`--d: ${i % 2}`}>
+              <span class:list={["pm-icon", "pm-icon--sm", i % 2 ? "pm-icon--pink" : "pm-icon--yellow", "case__story-num"]} aria-hidden="true">{i + 1}</span>
+              <h3 class="pm-h3">{block.heading}</h3>
+              <p class="pm-text">{block.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <!-- ─── Gallery ───────────────────────────────────────────────────────── -->
+  {gallery && gallery.length > 0 && (
+    <section class="pm-section case__gallery" aria-labelledby="case-gallery-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>In beeld</span>
+          <h2 id="case-gallery-title" class="pm-h2" data-reveal style="--d: 1">Een kijkje in het product.</h2>
+        </header>
+      </div>
+      <CaseSlider slides={gallery} />
+    </section>
+  )}
+
+  <!-- ─── Results ───────────────────────────────────────────────────────── -->
+  <section class="pm-section case__results" aria-labelledby="case-results-title">
+    <div class="pm-container">
+      <header class="pm-head">
+        <span class="pm-label" data-reveal>Bewezen resultaat</span>
+        <h2 id="case-results-title" class="pm-h2" data-reveal style="--d: 1">Resultaten</h2>
+      </header>
+
+      <ul class="case__stats">
+        {metrics.map((metric, i) => (
+          <li class:list={["pm-card", "pm-stat", "case__stat", statTones[i % statTones.length]]} data-reveal style={`--d: ${i}`}>
+            <strong class="pm-stat__value">{metric.value}</strong>
+            <span class="pm-stat__label">{metric.label}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class:list={["case__results-grid", !quote && "case__results-grid--single"]}>
+        <div class="pm-card pm-card--pad case__results-card" data-reveal>
+          <span class="pm-icon pm-icon--sm pm-icon--yellow" aria-hidden="true"><Icon name="check" /></span>
+          <ul class="pm-checks">
+            {results.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+
+        {quote && (
+          <figure class="pm-card pm-card--pink pm-card--lift case__quote" data-reveal style="--d: 1">
+            <span class="case__quote-mark" aria-hidden="true">“</span>
+            <blockquote class="pm-display">{quote.text}</blockquote>
+            <figcaption>
+              <strong>{quote.name}</strong>
+              {quote.role && <span>{quote.role}</span>}
+            </figcaption>
+          </figure>
         )}
       </div>
     </div>
   </section>
 
-  <section class="case-content" data-bg-color="#FEFEFE">
-    <div class="case-content-grid">
-      <article>
-        <h2>Uitdaging</h2>
-        <ul>
-          {challenge.map((item) => <li>{item}</li>)}
-        </ul>
-      </article>
-
-      <article>
-        <h2>Aanpak</h2>
-        <ol>
-          {approach.map((item) => <li>{item}</li>)}
-        </ol>
-      </article>
+  <!-- ─── Next case ─────────────────────────────────────────────────────── -->
+  <section class="pm-section--tight case__next" aria-labelledby="case-next-title">
+    <div class="pm-container">
+      <a href={nextCase.href} class="pm-card pm-card--lift case__next-card" data-reveal>
+        <span class="case__next-body">
+          <span class="pm-label">Volgende case</span>
+          <span id="case-next-title" class="pm-h2 case__next-title">{nextCase.title}</span>
+          <span class="pm-tag">{nextCase.tag}</span>
+          <span class="pm-text">{nextCase.description}</span>
+          <span class="pm-link">Bekijk de case <Icon name="arrow" size={18} stroke={2.4} /></span>
+        </span>
+        <span class="pm-media case__next-media">
+          <img src={nextCase.image} alt={`Project ${nextCase.title}`} loading="lazy" decoding="async" />
+        </span>
+      </a>
     </div>
   </section>
 
-  {narrative && narrative.length > 0 && (
-    <section class="case-narrative" data-bg-color="#FEFEFE">
-      <div class="case-narrative-inner">
-        {narrative.map((block) => (
-          <div class="case-narrative-block">
-            <h3>{block.heading}</h3>
-            <p>{block.text}</p>
-          </div>
-        ))}
+  <!-- ─── CTA band ──────────────────────────────────────────────────────── -->
+  <section class="pm-band case__cta" id="contact" aria-labelledby="case-cta-title">
+    <div class="pm-container case__cta-inner">
+      <Logo aria-hidden="true" data-reveal />
+      <h2 id="case-cta-title" class="pm-h2 pm-outline case__cta-title" data-reveal style="--d: 1">Ook zo'n case realiseren?</h2>
+      <p class="pm-opening case__cta-text" data-reveal style="--d: 2">Vertel ons je vraagstuk. We denken mee in aanpak, scope en implementatie.</p>
+      <div class="case__cta-actions" data-reveal style="--d: 3">
+        <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open>Plan kennismaking <Icon name="arrow" /></a>
       </div>
-    </section>
-  )}
-
-  {gallery && gallery.length > 0 && (
-    <section class="case-gallery" data-bg-color="#F6F8FB">
-      <CaseSlider slides={gallery} />
-    </section>
-  )}
-
-  <section class="case-results" data-bg-color="#F6F8FB">
-    <div class="case-results-inner">
-      <h2>Resultaten</h2>
-
-      <div class="case-metrics">
-        {metrics.map((metric) => (
-          <article class="case-metric">
-            <strong>{metric.value}</strong>
-            <span>{metric.label}</span>
-          </article>
-        ))}
-      </div>
-
-      <ul class="case-results-list">
-        {results.map((item) => <li>{item}</li>)}
+      <ul class="case__cta-contact" data-reveal style="--d: 4">
+        <li><a href="mailto:hello@luminx.nl"><Icon name="mail" size={20} /> hello@luminx.nl</a></li>
+        <li><a href="tel:+31613698596"><Icon name="phone" size={20} /> +31 6 1369 8596</a></li>
       </ul>
     </div>
   </section>
-
-  <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
-    <div class="cta-content">
-      <h2>Ook Zo'n Case<br/>Realiseren?</h2>
-      <p>Vertel ons je vraagstuk. We denken mee in aanpak, scope en implementatie.</p>
-      <a href="#" class="cta-button" data-overlay-open>Plan kennismaking</a>
-    </div>
-  </section>
-
-  <Footer />
-  <ContactOverlay />
 </main>
 
+<Footer />
+<ContactOverlay />
+
 <style>
-  .case-page {
-    background: var(--white);
+  /* ── Hero ── */
+  .case__hero { position: relative; padding-top: 72px; }
+
+  .case__panel {
+    padding: clamp(3.5rem, 7vw, 5.5rem) var(--pm-gutter) clamp(12rem, 22vw, 18rem);
   }
 
-  .case-hero {
+  .case__hero-content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.4rem;
+    max-width: 960px;
+    margin-inline: auto;
+  }
+
+  .case__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(255, 250, 240, 0.8);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .case__back :global(svg) { transform: rotate(180deg); transition: transform 0.4s var(--pm-ease); }
+  @media (hover: hover) {
+    .case__back:hover { color: var(--pm-milk); }
+    .case__back:hover :global(svg) { transform: rotate(180deg) translateX(4px); }
+  }
+
+  .case__title { color: var(--pm-milk); font-size: clamp(2.6rem, 6vw, 5.25rem); overflow-wrap: anywhere; }
+  .case__intro { max-width: 720px; }
+
+  .case__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 0.5rem 0 0;
+  }
+  .case__chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-pill);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+  }
+  .case__chip dt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pm-ink-mute);
+  }
+  .case__chip dd { margin: 0; font-weight: 700; font-size: 0.95rem; }
+  .case__chip--result { background: var(--pm-yellow); box-shadow: 0 4px 0 var(--pm-ink); }
+  .case__chip--result dt { color: var(--pm-ink); }
+
+  .case__services {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .case__media-wrap {
     position: relative;
-    background: var(--black);
-    color: var(--white);
-    padding: 9rem 4rem 0;
+    z-index: 2;
+    margin-top: clamp(-15rem, -19vw, -10rem);
+  }
+  .case__media {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(0.6rem, 1.2vw, 1rem);
+    background: var(--pm-paper);
+  }
+  .case__media-frame {
+    aspect-ratio: 16 / 10;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
     overflow: hidden;
   }
+  .case__media-frame :global(img) { object-position: top center; }
 
-  .case-hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 18% 22%, rgba(255, 214, 232, 0.2), transparent 45%),
-      radial-gradient(circle at 85% 16%, rgba(200, 231, 245, 0.15), transparent 40%);
-  }
-
-  .case-hero-grid {
-    position: relative;
-    z-index: 1;
-    max-width: 1240px;
-    margin: 0 auto;
+  /* ── Challenge / approach ── */
+  .case__work-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 400px;
-    gap: 3rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
     align-items: start;
   }
+  .case__challenge, .case__approach { display: grid; gap: 1rem; justify-items: start; }
+  .case__block-title { margin-bottom: 0.5rem; }
+  .case__challenge .pm-checks { width: 100%; }
+  .case__approach { margin-top: clamp(0rem, 5vw, 4rem); }
 
-  .case-hero-content {
-    padding-bottom: 4rem;
-  }
-
-  .case-back-link {
-    display: inline-flex;
-    margin-bottom: 1.5rem;
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.55;
-    font-size: 0.88rem;
-    transition: opacity 0.2s ease;
-  }
-
-  .case-back-link:hover { opacity: 1; }
-
-  .case-kicker {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.5;
-    margin-bottom: 0.9rem;
-  }
-
-  .case-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.6rem);
-    line-height: 1.04;
-    letter-spacing: -0.025em;
-    margin-bottom: 1.25rem;
-    max-width: 18ch;
-  }
-
-  .case-hero p {
-    max-width: 58ch;
-    opacity: 0.75;
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
-    font-size: 1rem;
-  }
-
-  .case-meta {
-    display: flex;
-    gap: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
-  }
-
-  .case-meta div {
-    flex: 1;
-    padding: 0.9rem 1rem 0.9rem 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .case-meta div:last-child {
-    border-right: none;
-  }
-
-  .case-meta span {
-    display: block;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.45;
-    margin-bottom: 0.3rem;
-  }
-
-  .case-meta strong {
-    font-size: 0.9rem;
-    font-weight: 500;
-    line-height: 1.4;
-    opacity: 0.9;
-  }
-
-  .case-hero-image-wrap {
-    border-radius: 16px 16px 0 0;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-bottom: none;
-    height: 440px;
-    align-self: end;
-  }
-
-  .case-hero-image {
+  .case__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    display: block;
   }
-
-  .case-content,
-  .case-results {
-    padding: 5.5rem 4rem;
-  }
-
-  .case-gallery {
-    padding: 2rem 0 0;
-  }
-
-  .case-content-grid {
-    max-width: 1240px;
-    margin: 0 auto;
+  .case__steps li {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.2rem;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+    color: rgba(255, 250, 240, 0.9);
   }
-
-  .case-content h2,
-  .case-results h2 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    line-height: 1.06;
-    margin-bottom: 1.2rem;
-  }
-
-  .case-content ul,
-  .case-content ol,
-  .case-results-list {
-    display: grid;
-    gap: 0.8rem;
-    line-height: 1.7;
-    color: rgba(10, 10, 10, 0.82);
-    padding-left: 1.1rem;
-  }
-
-  .case-narrative {
-    padding: 4rem 4rem 5rem;
-    border-top: 1px solid rgba(10, 10, 10, 0.06);
-  }
-
-  .case-narrative-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    display: grid;
-    gap: 2.5rem;
-  }
-
-  .case-narrative-block h3 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.15rem, 2vw, 1.4rem);
-    line-height: 1.15;
-    margin-bottom: 0.65rem;
-  }
-
-  .case-narrative-block p {
-    color: rgba(10, 10, 10, 0.72);
-    line-height: 1.85;
-    font-size: 0.95rem;
-  }
-
-  .case-results-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-
-  .case-metrics {
-    margin: 1.2rem 0 2rem;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.9rem;
-  }
-
-  .case-metric {
-    border-top: 1px solid rgba(10, 10, 10, 0.2);
-    padding-top: 0.7rem;
-  }
-
-  .case-metric strong {
-    display: block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(1.45rem, 3vw, 2.35rem);
+  .case__step-num {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-milk);
+    color: var(--pm-ink);
+    font-family: var(--pm-display);
+    font-size: 1.1rem;
     line-height: 1;
-    margin-bottom: 0.3rem;
+  }
+  .case__steps li:last-child .case__step-num { background: var(--pm-yellow); }
+  .case__steps li > span:last-child { padding-top: 0.55rem; }
+
+  /* ── Story ── */
+  .case__story { padding-block: clamp(4.5rem, 9vw, 7rem); }
+  .case__story-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .case__story-block {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--pm-r);
+  }
+  .case__story-block:nth-child(even) { transform: translateY(clamp(0rem, 3vw, 2.5rem)); }
+  .case__story-num { font-family: var(--pm-display); font-size: 1.35rem; }
+
+  /* ── Gallery ── */
+  .case__gallery { padding-bottom: calc(var(--pm-section) * 0.5); }
+
+  /* ── Results ── */
+  .case__results { padding-top: calc(var(--pm-section) * 0.7); }
+  .case__stats {
+    list-style: none;
+    margin: 0 0 clamp(1rem, 2.5vw, 2rem);
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(0.9rem, 2vw, 1.25rem);
+  }
+  .case__stat {
+    padding: 1.6rem 1.75rem;
+    border-radius: var(--pm-r);
+    box-shadow: var(--pm-drop);
+  }
+  .case__stat .pm-stat__value { font-weight: 400; overflow-wrap: anywhere; }
+  .case__stat--yellow { background: var(--pm-yellow); }
+  .case__stat--milk { background: var(--pm-milk); }
+  .case__stat--pink { background: var(--pm-blush); }
+
+  .case__results-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(1rem, 2.5vw, 2rem);
+    align-items: stretch;
+  }
+  .case__results-grid--single { grid-template-columns: 1fr; }
+  .case__results-card { display: grid; gap: 1.25rem; align-content: start; }
+  .case__results-card .pm-checks li { color: var(--pm-ink); font-weight: 600; }
+  .case__results-grid--single .pm-checks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2rem; }
+
+  .case__quote {
+    margin: 0;
+    padding: clamp(2rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .case__quote-mark {
+    font-family: var(--pm-display);
+    font-size: 7rem;
+    line-height: 0.6;
+    height: 2.5rem;
+    color: var(--pm-milk);
+    -webkit-text-stroke: 2px var(--pm-ink);
+    paint-order: stroke fill;
+  }
+  .case__quote blockquote { margin: 0; font-size: clamp(1.5rem, 2.4vw, 2.1rem); line-height: 1.18; }
+  .case__quote figcaption { display: grid; gap: 0.1rem; }
+  .case__quote figcaption strong { font-size: 1.1rem; }
+  .case__quote figcaption span { font-weight: 600; color: var(--pm-ink-soft); }
+
+  /* ── Next case ── */
+  .case__next { padding-top: 0; }
+  .case__next-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    background: var(--pm-yellow);
+  }
+  .case__next-body {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+    align-content: center;
+    padding: clamp(1.75rem, 4vw, 3.5rem);
+  }
+  .case__next-body .pm-label { color: var(--pm-wine); }
+  .case__next-body .pm-text { color: var(--pm-ink); }
+  .case__next-media {
+    border-left: var(--pm-border);
+    min-height: 280px;
+  }
+  .case__next-media img { object-position: top center; }
+
+  /* ── CTA ── */
+  .case__cta {
+    padding: clamp(5rem, 10vw, 8rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: -1px;
+  }
+  .case__cta-inner { display: grid; justify-items: center; text-align: center; gap: 1.4rem; }
+  .case__cta-title { font-size: clamp(2.6rem, 6vw, 4.75rem); }
+  .case__cta-text { color: var(--pm-ink); max-width: 560px; }
+  .case__cta-actions { display: flex; justify-content: center; margin-top: 0.5rem; }
+  .case__cta-contact {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 2rem;
+  }
+  .case__cta-contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--pm-milk);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  @media (hover: hover) { .case__cta-contact a:hover { color: var(--pm-ink); } }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .case__work-grid,
+    .case__story-list,
+    .case__results-grid,
+    .case__next-card { grid-template-columns: 1fr; }
+    .case__approach { margin-top: 0; }
+    .case__story-block:nth-child(even) { transform: none; }
+    .case__results-grid--single .pm-checks { grid-template-columns: 1fr; }
+    .case__next-media { border-left: 0; border-top: var(--pm-border); min-height: 220px; order: -1; }
   }
 
-  .case-metric span {
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(10, 10, 10, 0.62);
-  }
-
-  @media (max-width: 1024px) {
-    .case-hero-grid,
-    .case-content-grid,
-    .case-metrics {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .case-hero,
-    .case-content,
-    .case-results,
-    .case-narrative {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-
-    .case-hero {
-      padding-top: 8.5rem;
-    }
-
-    .case-meta {
-      grid-template-columns: 1fr;
-    }
-
-    .case-hero-image-wrap {
-      height: 260px;
-    }
+  @media (max-width: 640px) {
+    .case__hero { padding-top: 64px; }
+    .case__media-frame { aspect-ratio: 4 / 3; }
+    .case__cta-actions { flex-direction: column; align-self: stretch; }
+    .case__cta-actions .pm-btn { width: 100%; }
+    .case__chip { flex-wrap: wrap; }
   }
 </style>

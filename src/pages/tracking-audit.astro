@@ -3,42 +3,46 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import ContactOverlay from "../components/ContactOverlay.astro";
-
-const siteOrigin = Astro.site?.toString() ?? "https://luminx.nl";
-const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+import Icon from "../components/pm/Icon.astro";
 
 const auditItems = [
   {
-    icon: "◎",
+    icon: "layers",
+    tone: "",
     title: "GTM-container controle",
     description: "We beoordelen jouw GTM-container op dubbele tags, onjuiste triggers, niet-gepubliceerde versies en verouderde pixels die de betrouwbaarheid van je data ondermijnen.",
   },
   {
-    icon: "◈",
+    icon: "chart",
+    tone: "pm-icon--pink",
     title: "GA4 event- & conversietracking",
     description: "Zijn de juiste events ingesteld? Worden formuliersubmissies, klikken en conversies correct gemeten? Of meet je alleen pageviews en sessies zonder zinvolle inzichten?",
   },
   {
-    icon: "◉",
+    icon: "shield",
+    tone: "pm-icon--yellow",
     title: "Consent Mode v2 check",
     description: "Controleren of jouw Consent Mode v2 correct is geconfigureerd: regiogebaseerde instellingen, alle vier parameters, Advanced Mode en technische koppeling met de cookiebanner.",
   },
   {
-    icon: "◌",
+    icon: "target",
+    tone: "pm-icon--wine",
     title: "Google Ads conversiekoppeling",
     description: "Is jouw Google Ads-account correct gekoppeld aan GA4 of een directe conversietag? Optimaliseert jouw biedstrategie op echte conversies of op schijndata?",
   },
   {
-    icon: "✦",
+    icon: "copy",
+    tone: "pm-icon--pink",
     title: "Dubbele tracking detectie",
-    description: "Detectie van dubbele GA4-tags die sessies en conversies kunstmatig opblazen — een van de meest voorkomende en meest schadelijke trackingproblemen.",
+    description: "Detectie van dubbele GA4-tags die sessies en conversies kunstmatig opblazen: een van de meest voorkomende en meest schadelijke trackingproblemen.",
   },
   {
-    icon: "●",
+    icon: "users",
+    tone: "pm-icon--yellow",
     title: "Remarketingdoelgroepen",
     description: "Zijn er remarketingdoelgroepen aangemaakt op basis van gedrag? Worden ze gevuld met de juiste doelgroepen, inclusief EER-bezoekers via Consent Mode?",
   },
-];
+] as const;
 
 const resultaten = [
   "Volledig overzicht van wat je nu mist in je trackingdata",
@@ -47,160 +51,181 @@ const resultaten = [
   "Inzicht of je Consent Mode v2 DMA-compliant is",
   "Advies over prioriteiten voor een correcte GTM-setup",
 ];
+
+const stats = [
+  { value: "67%", label: "van besluitvormers vertrouwt eigen data niet" },
+  { value: "+37%", label: "meer conversies na correcte GTM-implementatie" },
+  { value: "Verplicht", label: "Consent Mode v2 voor alle EER-websites met Google Ads" },
+];
+
+const steps = [
+  { num: "01", title: "Aanvraag", body: "Je stuurt ons de URL van je website en geeft ons leesrechten op je GTM-container en GA4-property. Dat is alles wat we nodig hebben." },
+  { num: "02", title: "Analyse", body: "We doorlichten jouw volledige trackingopzet: GTM-container, GA4-events, conversies, Consent Mode v2 en Google Ads koppeling. Binnen vijf werkdagen." },
+  { num: "03", title: "Rapport & bespreking", body: "Je ontvangt een helder rapport met bevindingen gerangschikt op impact, plus concrete aanbevelingen. Optioneel bespreken we het rapport in een kort videogesprek." },
+];
+
+const related = [
+  { href: "/diensten/google-tag-manager", icon: "layers", tone: "pink", title: "Google Tag Manager", body: "Complete GTM-implementatie of opschoning van bestaande container. Gestructureerd, gedocumenteerd en betrouwbaar.", link: "Meer over GTM" },
+  { href: "/diensten/ga4-implementatie", icon: "chart", tone: "yellow", title: "GA4 Implementatie", body: "Correcte GA4-inrichting met events, conversies en remarketingdoelgroepen. Van lege property naar bruikbaar analytics-systeem.", link: "Meer over GA4" },
+  { href: "/diensten/consent-mode-v2", icon: "shield", tone: "red", title: "Consent Mode v2", body: "DMA-compliant Consent Mode v2 implementatie die zowel juridisch waterdicht is als jouw datakwaliteit maximaliseert.", link: "Meer over Consent Mode" },
+] as const;
 ---
 
 <BaseLayout
   title="Gratis Tracking-audit | Ontdek wat jouw website nu mist | LuminX"
-  description="Laat jouw tracking gratis doorlichten. Wij checken GTM, GA4, Consent Mode v2 en Google Ads conversiekoppeling — en laten zien wat je nu mist."
+  description="Laat jouw tracking gratis doorlichten. Wij checken GTM, GA4, Consent Mode v2 en Google Ads conversiekoppeling, en laten zien wat je nu mist."
 >
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <Nav basePath="/" />
 
-  <main class="audit-page">
+  <main class="aud">
 
-    <section class="audit-hero" data-bg-color="#0A0A0A">
-      <div class="audit-hero-overlay" aria-hidden="true"></div>
-      <div class="audit-hero-inner">
-        <div class="audit-hero-content">
-          <span class="audit-kicker">Gratis dienst</span>
-          <h1>Tracking-<br/>audit</h1>
-          <p class="audit-intro-p">Je website heeft tracking. Maar klopt het? Wij doorlichten jouw GTM-container, GA4-implementatie en Consent Mode v2 — gratis, zonder verplichtingen, met een concreet rapport.</p>
-          <div class="audit-actions">
-            <a href="#contact" class="audit-btn-primary" data-overlay-open>Start gratis audit</a>
-            <a href="#wat-checken" class="audit-btn-secondary">Wat checken we?</a>
-          </div>
-          <div class="audit-badges">
-            <span>✓ Gratis & vrijblijvend</span>
-            <span>✓ Rapport binnen 5 werkdagen</span>
-            <span>✓ Concreet & actionable</span>
+    <!-- Hero -->
+    <section class="aud__hero" aria-labelledby="aud-title">
+      <div class="pm-stack">
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <span class="pm-stack__layer" aria-hidden="true"></span>
+        <div class="pm-stack__panel aud__panel">
+          <div class="aud__hero-content">
+            <span class="pm-tag" data-reveal>Gratis dienst</span>
+            <h1 id="aud-title" class="pm-h1 aud__title" data-reveal style="--d: 1">Tracking-audit</h1>
+            <p class="pm-opening" data-reveal style="--d: 2">Je website heeft tracking. Maar klopt het? Wij doorlichten jouw GTM-container, GA4-implementatie en Consent Mode v2, gratis, zonder verplichtingen, met een concreet rapport.</p>
+            <div class="aud__actions" data-reveal style="--d: 3">
+              <a href="#contact" class="pm-btn pm-btn--yellow" data-overlay-open>Start gratis audit <Icon name="arrow" /></a>
+              <a href="#wat-checken" class="pm-btn pm-btn--white">Wat checken we?</a>
+            </div>
+            <ul class="aud__badges" data-reveal style="--d: 4">
+              <li><Icon name="check" size={16} stroke={2.6} /> Gratis &amp; vrijblijvend</li>
+              <li><Icon name="check" size={16} stroke={2.6} /> Rapport binnen 5 werkdagen</li>
+              <li><Icon name="check" size={16} stroke={2.6} /> Concreet &amp; actionable</li>
+            </ul>
           </div>
         </div>
-        <aside class="audit-hero-panel">
-          <span>Wat je ontvangt</span>
-          <ul>
+      </div>
+
+      <div class="pm-container aud__float-wrap">
+        <aside class="pm-card pm-card--lift aud__float" aria-labelledby="aud-receive" data-reveal>
+          <div class="aud__float-head">
+            <span class="pm-icon pm-icon--yellow" aria-hidden="true"><Icon name="clipboard" /></span>
+            <h2 id="aud-receive" class="pm-h3">Wat je ontvangt</h2>
+          </div>
+          <ul class="pm-checks aud__receive">
             {resultaten.map((r) => <li>{r}</li>)}
           </ul>
         </aside>
       </div>
     </section>
 
-    <section class="audit-why" data-bg-color="#FEFEFE">
-      <div class="audit-container audit-why-grid">
-        <div class="audit-why-text">
-          <span class="audit-label">Waarom een audit?</span>
-          <h2>De meeste websites meten — maar meten niet wat er toe doet</h2>
-          <p>GA4 geïnstalleerd, GTM aanwezig, een cookiebanner op de site. Alles lijkt in orde. Maar bij een audit zien we keer op keer hetzelfde: conversies worden niet gemeten, tags vuren dubbel, Consent Mode is incorrect geconfigureerd, of de container staat niet gepubliceerd.</p>
-          <p>Het gevolg: marketingbeslissingen gebaseerd op data die niet klopt. Budget dat naar de verkeerde kanalen gaat. Remarketing die niet werkt voor EER-bezoekers.</p>
-          <p>Een tracking-audit legt bloot wat er ontbreekt — zodat je kunt bijsturen voor het te laat is.</p>
+    <!-- Why -->
+    <section class="pm-section aud__why" aria-labelledby="aud-why-title">
+      <div class="pm-container pm-split aud__why-grid">
+        <div class="aud__why-text" data-reveal>
+          <span class="pm-label">Waarom een audit?</span>
+          <h2 id="aud-why-title" class="pm-h2">De meeste websites meten, maar meten niet wat er toe doet</h2>
+          <p class="pm-text">GA4 geïnstalleerd, GTM aanwezig, een cookiebanner op de site. Alles lijkt in orde. Maar bij een audit zien we keer op keer hetzelfde: conversies worden niet gemeten, tags vuren dubbel, Consent Mode is incorrect geconfigureerd, of de container staat niet gepubliceerd.</p>
+          <p class="pm-text">Het gevolg: marketingbeslissingen gebaseerd op data die niet klopt. Budget dat naar de verkeerde kanalen gaat. Remarketing die niet werkt voor EER-bezoekers.</p>
+          <p class="aud__punch">Een tracking-audit legt bloot wat er ontbreekt, zodat je kunt bijsturen voor het te laat is.</p>
         </div>
-        <div class="audit-why-stats">
-          <div class="audit-stat">
-            <strong>67%</strong>
-            <span>van besluitvormers vertrouwt eigen data niet</span>
-          </div>
-          <div class="audit-stat">
-            <strong>+37%</strong>
-            <span>meer conversies na correcte GTM-implementatie</span>
-          </div>
-          <div class="audit-stat">
-            <strong>Verplicht</strong>
-            <span>Consent Mode v2 voor alle EER-websites met Google Ads</span>
-          </div>
+        <ul class="aud__stats">
+          {stats.map((s, i) => (
+            <li class:list={["pm-card", "aud__stat", `aud__stat--${i}`]} data-reveal style={`--d: ${i + 1}`}>
+              <div class="pm-stat">
+                <span class="pm-stat__value">{s.value}</span>
+                <span class="pm-stat__label">{s.label}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- What we check -->
+    <section class="pm-band pm-band--paper pm-section aud__checks" id="wat-checken" aria-labelledby="aud-checks-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>Wat wij checken</span>
+          <h2 id="aud-checks-title" class="pm-h2" data-reveal style="--d: 1">Een volledig beeld van jouw trackingsituatie</h2>
+          <p class="pm-opening" data-reveal style="--d: 2">We beoordelen alle lagen van je tracking, van GTM-container tot Google Ads koppeling, en geven je een duidelijk beeld van wat werkt, wat ontbreekt en wat prioriteit heeft.</p>
+        </header>
+        <ul class="aud__grid">
+          {auditItems.map((item, i) => (
+            <li class="pm-card pm-card--milk pm-card--pad aud__card" data-reveal style={`--d: ${i % 3}`}>
+              <span class:list={["pm-icon", item.tone]}><Icon name={item.icon} /></span>
+              <h3 class="pm-h3">{item.title}</h3>
+              <p class="pm-text">{item.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="pm-section aud__process" aria-labelledby="aud-process-title">
+      <div class="pm-container">
+        <div class="pm-card pm-card--plum pm-card--lift aud__process-card" data-reveal>
+          <header class="pm-head aud__process-head">
+            <span class="pm-label aud__on-dark">Hoe het werkt</span>
+            <h2 id="aud-process-title" class="pm-h2">Van aanvraag naar rapport in drie stappen.</h2>
+          </header>
+          <ol class="aud__steps">
+            {steps.map((s, i) => (
+              <li class="aud__step" data-reveal style={`--d: ${i + 1}`}>
+                <span class="aud__step-num">{s.num}</span>
+                <h3 class="pm-h3">{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
 
-    <section class="audit-checks" id="wat-checken" data-bg-color="#F7F9FC">
-      <div class="audit-container">
-        <div class="audit-section-head centered">
-          <span class="audit-label">Wat wij checken</span>
-          <h2>Een volledig beeld van jouw trackingsituatie</h2>
-          <p>We beoordelen alle lagen van je tracking — van GTM-container tot Google Ads koppeling — en geven je een duidelijk beeld van wat werkt, wat ontbreekt en wat prioriteit heeft.</p>
+    <!-- Mid CTA -->
+    <section class="pm-band pm-band--plum aud__band" aria-labelledby="aud-band-title">
+      <div class="pm-container aud__band-inner">
+        <div data-reveal>
+          <h2 id="aud-band-title" class="pm-h2 aud__band-title">Klaar om te ontdekken wat jouw tracking nu mist?</h2>
+          <p class="pm-opening">Gratis, vrijblijvend, concreet. Je weet binnen vijf werkdagen waar je staat.</p>
         </div>
-        <div class="audit-cards-grid">
-          {auditItems.map((item) => (
-            <div class="audit-card">
-              <div class="audit-card-icon" aria-hidden="true">{item.icon}</div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </div>
+        <div class="aud__band-action" data-reveal style="--d: 1">
+          <a href="#contact" class="pm-btn pm-btn--yellow" data-overlay-open>Start gratis tracking-audit <Icon name="arrow" /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related services -->
+    <section class="pm-section aud__related" aria-labelledby="aud-related-title">
+      <div class="pm-container">
+        <header class="pm-head">
+          <span class="pm-label" data-reveal>Na de audit</span>
+          <h2 id="aud-related-title" class="pm-h2" data-reveal style="--d: 1">Alles gevonden? Wij lossen het op.</h2>
+          <p class="pm-opening" data-reveal style="--d: 2">Als de audit aantoonbare problemen blootlegt, helpen we je ze ook op te lossen. Dit zijn de diensten die het vaakst volgen op een tracking-audit.</p>
+        </header>
+        <div class="aud__rel-grid" data-reveal>
+          {related.map((r) => (
+            <a href={r.href} class:list={["pm-card", "pm-card--lift", "aud__rel"]}>
+              <div class:list={["aud__rel-top", `aud__rel-top--${r.tone}`]}>
+                <span class:list={["pm-icon", r.tone === "yellow" ? "pm-icon--milk" : "pm-icon--wine"]}><Icon name={r.icon} /></span>
+                <h3 class="pm-h3">{r.title}</h3>
+              </div>
+              <div class="aud__rel-body">
+                <p class="pm-text">{r.body}</p>
+                <span class="pm-link">{r.link} <Icon name="arrow" size={18} /></span>
+              </div>
+            </a>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="audit-process" data-bg-color="#FEFEFE">
-      <div class="audit-container">
-        <div class="audit-section-head">
-          <span class="audit-label">Hoe het werkt</span>
-          <h2>Van aanvraag naar rapport in drie stappen.</h2>
+    <!-- Closing CTA -->
+    <section class="pm-band aud__cta" id="contact" aria-labelledby="aud-cta-title">
+      <div class="pm-container aud__cta-inner">
+        <h2 id="aud-cta-title" class="pm-h2 pm-outline aud__cta-title" data-reveal>Start vandaag met<br />jouw gratis audit</h2>
+        <p class="pm-opening aud__cta-text" data-reveal style="--d: 1">Stuur ons je website-URL en we laten je weten hoe je tracking ervoor staat, inclusief wat je nu mist en hoe je het oplost.</p>
+        <div class="aud__cta-actions" data-reveal style="--d: 2">
+          <a href="#" class="pm-btn pm-btn--yellow" data-overlay-open>Plan gratis tracking-audit <Icon name="arrow" /></a>
         </div>
-        <div class="audit-steps">
-          <article class="audit-step">
-            <span class="audit-step-num">01</span>
-            <h3>Aanvraag</h3>
-            <p>Je stuurt ons de URL van je website en geeft ons leesrechten op je GTM-container en GA4-property. Dat is alles wat we nodig hebben.</p>
-          </article>
-          <article class="audit-step">
-            <span class="audit-step-num">02</span>
-            <h3>Analyse</h3>
-            <p>We doorlichten jouw volledige trackingopzet: GTM-container, GA4-events, conversies, Consent Mode v2 en Google Ads koppeling. Binnen vijf werkdagen.</p>
-          </article>
-          <article class="audit-step">
-            <span class="audit-step-num">03</span>
-            <h3>Rapport & bespreking</h3>
-            <p>Je ontvangt een helder rapport met bevindingen gerangschikt op impact, plus concrete aanbevelingen. Optioneel bespreken we het rapport in een kort videogesprek.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="audit-cta-band" data-bg-color="#0A0A0A">
-      <div class="audit-container audit-cta-band-inner">
-        <div>
-          <h2>Klaar om te ontdekken wat jouw tracking nu mist?</h2>
-          <p>Gratis, vrijblijvend, concreet. Je weet binnen vijf werkdagen waar je staat.</p>
-        </div>
-        <a href="#contact" class="audit-cta-btn" data-overlay-open>Start gratis tracking-audit</a>
-      </div>
-    </section>
-
-    <section class="audit-related" data-bg-color="#FEFEFE">
-      <div class="audit-container">
-        <div class="audit-section-head">
-          <span class="audit-label">Na de audit</span>
-          <h2>Alles gevonden? Wij lossen het op.</h2>
-          <p>Als de audit aantoonbare problemen blootlegt, helpen we je ze ook op te lossen. Dit zijn de diensten die het vaakst volgen op een tracking-audit.</p>
-        </div>
-        <div class="audit-related-grid">
-          <a href="/diensten/google-tag-manager" class="audit-related-card">
-            <span class="audit-related-icon" aria-hidden="true">◎</span>
-            <h3>Google Tag Manager</h3>
-            <p>Complete GTM-implementatie of opschoning van bestaande container. Gestructureerd, gedocumenteerd en betrouwbaar.</p>
-            <span class="audit-related-link">Meer over GTM →</span>
-          </a>
-          <a href="/diensten/ga4-implementatie" class="audit-related-card">
-            <span class="audit-related-icon" aria-hidden="true">◈</span>
-            <h3>GA4 Implementatie</h3>
-            <p>Correcte GA4-inrichting met events, conversies en remarketingdoelgroepen. Van lege property naar bruikbaar analytics-systeem.</p>
-            <span class="audit-related-link">Meer over GA4 →</span>
-          </a>
-          <a href="/diensten/consent-mode-v2" class="audit-related-card">
-            <span class="audit-related-icon" aria-hidden="true">◉</span>
-            <h3>Consent Mode v2</h3>
-            <p>DMA-compliant Consent Mode v2 implementatie die zowel juridisch waterdicht is als jouw datakwaliteit maximaliseert.</p>
-            <span class="audit-related-link">Meer over Consent Mode →</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-section" id="contact" data-bg-color="#0A0A0A">
-      <div class="cta-content">
-        <h2>Start vandaag met<br/>jouw gratis audit</h2>
-        <p>Stuur ons je website-URL en we laten je weten hoe je tracking ervoor staat — inclusief wat je nu mist en hoe je het oplost.</p>
-        <a href="#" class="cta-button" data-overlay-open>Plan gratis tracking-audit</a>
       </div>
     </section>
 
@@ -210,143 +235,158 @@ const resultaten = [
 </BaseLayout>
 
 <style>
-  .audit-page { background: var(--white); }
-  .audit-container { max-width: 1240px; margin: 0 auto; }
-
-  .audit-label {
-    display: inline-block;
-    font-family: 'Matter Sans', sans-serif;
-    font-size: 0.74rem;
+  /* ── Hero ─────────────────────────────────────────── */
+  .aud__hero { position: relative; padding-top: 72px; }
+  .aud__panel { padding: clamp(4.5rem, 8vw, 6.5rem) var(--pm-gutter) clamp(11rem, 18vw, 14rem); }
+  .aud__hero-content {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    max-width: 880px;
+    margin-inline: auto;
+  }
+  .aud__title { color: var(--pm-milk); }
+  .aud__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
+  .aud__badges {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    opacity: 0.45;
-    margin-bottom: 0.75rem;
+    color: var(--pm-milk);
+  }
+  .aud__badges li { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .aud__badges :global(svg) { color: var(--pm-yellow); }
+
+  .aud__float-wrap { position: relative; z-index: 2; margin-top: clamp(-9rem, -14vw, -7rem); }
+  .aud__float {
+    max-width: 880px;
+    margin-inline: auto;
+    padding: clamp(1.75rem, 3.5vw, 2.75rem);
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    align-items: start;
+  }
+  .aud__float-head { display: grid; justify-items: start; gap: 1rem; }
+
+  /* ── Why ──────────────────────────────────────────── */
+  .aud__why-grid { align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+  .aud__why-text { display: grid; gap: 1rem; }
+  .aud__why-text .pm-text + .pm-text { margin-top: 0; }
+  .aud__punch { margin: 0; font-weight: 700; color: var(--pm-ink); }
+  .aud__stats { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .aud__stat { padding: 1.5rem 1.75rem; box-shadow: var(--pm-drop); background: var(--pm-milk); }
+  .aud__stat--1 { background: var(--pm-pink); }
+  .aud__stat--2 { background: var(--pm-yellow); }
+  .aud__stat--1 .pm-stat__label, .aud__stat--2 .pm-stat__label { color: var(--pm-ink); }
+
+  /* ── Checks ───────────────────────────────────────── */
+  .aud__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .aud__card { display: grid; align-content: start; gap: 1rem; }
+  .aud__card .pm-icon { transition: transform 0.5s var(--pm-ease-spring); }
+  @media (hover: hover) {
+    .aud__card:hover .pm-icon { transform: rotate(-8deg) scale(1.06); }
   }
 
-  .audit-section-head { margin-bottom: 3rem; }
-  .audit-section-head h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.022em; }
-  .audit-section-head.centered { text-align: center; }
-  .audit-section-head.centered h2, .audit-section-head.centered p { margin-left: auto; margin-right: auto; }
-  .audit-section-head.centered p { max-width: 560px; }
-  .audit-section-head p { color: rgba(10,10,10,0.62); line-height: 1.8; margin-top: 0.75rem; max-width: 600px; }
-
-  /* Hero */
-  .audit-hero { min-height: 88vh; position: relative; background: var(--black); color: var(--white); padding: 10rem 4rem 5.5rem; overflow: hidden; }
-  .audit-hero-overlay {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 14% 18%, rgba(125, 211, 252, 0.15), transparent 44%),
-      radial-gradient(circle at 82% 24%, rgba(253, 164, 175, 0.12), transparent 40%),
-      radial-gradient(circle at 50% 80%, rgba(196, 181, 253, 0.08), transparent 50%);
+  /* ── Process ──────────────────────────────────────── */
+  .aud__process-card { padding: clamp(2rem, 5vw, 4rem); }
+  .aud__process-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .aud__on-dark { color: var(--pm-yellow); }
+  .aud__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    counter-reset: none;
   }
-  .audit-hero-inner { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 2rem; align-items: center; }
-
-  .audit-kicker { display: block; font-family: 'Matter Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.48; margin-bottom: 1rem; }
-
-  .audit-hero h1 {
-    font-family: 'Matter Sans', sans-serif;
-    font-size: clamp(3.2rem, 8vw, 7rem);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    margin-bottom: 1.6rem;
+  .aud__step {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border: var(--pm-border);
+    border-radius: var(--pm-r);
+    background: var(--pm-milk);
+    color: var(--pm-ink);
   }
-
-  .audit-intro-p { max-width: 640px; font-size: clamp(1.04rem, 2.2vw, 1.25rem); opacity: 0.88; margin-bottom: 2rem; line-height: 1.75; }
-
-  .audit-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
-  .audit-btn-primary, .audit-btn-secondary { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; text-decoration: none; font-weight: 500; padding: 0.9rem 1.6rem; transition: transform 0.25s ease; }
-  .audit-btn-primary { color: var(--black); background: var(--white); font-family: 'Matter Sans', sans-serif; font-weight: 700; }
-  .audit-btn-secondary { color: var(--white); border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); }
-  .audit-btn-primary:hover, .audit-btn-secondary:hover { transform: translateY(-2px); }
-
-  .audit-badges { display: flex; flex-wrap: wrap; gap: 1rem; }
-  .audit-badges span { font-size: 0.8rem; opacity: 0.68; letter-spacing: 0.04em; }
-
-  .audit-hero-panel {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 20px;
-    padding: 2rem;
+  .aud__step p { margin: 0; color: var(--pm-ink-soft); }
+  .aud__step-num {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: var(--pm-border);
+    border-radius: 50%;
+    background: var(--pm-yellow);
+    box-shadow: 0 4px 0 var(--pm-ink);
+    font-family: var(--pm-display);
+    font-size: 1.35rem;
   }
-  .audit-hero-panel > span { display: block; font-family: 'Matter Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; margin-bottom: 1.25rem; }
-  .audit-hero-panel ul { list-style: none; display: grid; gap: 0.9rem; }
-  .audit-hero-panel li { font-size: 0.9rem; line-height: 1.6; padding-left: 1.2rem; position: relative; opacity: 0.88; }
-  .audit-hero-panel li::before { content: "✓"; position: absolute; left: 0; top: 0; color: #86EFAC; font-size: 0.75rem; }
+  .aud__step:nth-child(2) .aud__step-num { background: var(--pm-pink); }
+  .aud__step:nth-child(3) .aud__step-num { background: var(--pm-red); color: var(--pm-milk); }
 
-  /* Why section */
-  .audit-why { padding: 7rem 4rem; }
-  .audit-why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .audit-why-text h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 1.25rem; }
-  .audit-why-text p { color: rgba(10,10,10,0.72); line-height: 1.8; margin-bottom: 0.9rem; }
-
-  .audit-why-stats { display: grid; gap: 1.5rem; }
-  .audit-stat { border-left: 3px solid var(--black); padding-left: 1.25rem; }
-  .audit-stat strong { display: block; font-family: 'Matter Sans', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.3rem; }
-  .audit-stat span { font-size: 0.85rem; color: rgba(10,10,10,0.65); line-height: 1.5; }
-
-  /* Cards */
-  .audit-checks { padding: 7rem 4rem; }
-  .audit-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  .audit-card { background: #fff; border: 1px solid rgba(10,10,10,0.09); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
-  .audit-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
-  .audit-card-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(10,10,10,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem; transition: background 0.3s ease; }
-  .audit-card:hover .audit-card-icon { background: var(--black); color: var(--white); }
-  .audit-card h3 { font-family: 'Matter Sans', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
-  .audit-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; }
-
-  /* Process */
-  .audit-process { padding: 6rem 4rem; }
-  .audit-steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(10,10,10,0.14); border-bottom: 1px solid rgba(10,10,10,0.14); margin-top: 2rem; }
-  .audit-step { padding: 1.75rem 1.25rem; min-height: 200px; display: flex; flex-direction: column; gap: 0.65rem; border-right: 1px solid rgba(10,10,10,0.1); }
-  .audit-step:last-child { border-right: none; }
-  .audit-step-num { display: inline-block; font-family: 'Matter Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.16em; opacity: 0.4; }
-  .audit-step h3 { font-family: 'Matter Sans', sans-serif; font-size: 1rem; font-weight: 700; }
-  .audit-step p { color: rgba(10,10,10,0.72); line-height: 1.7; font-size: 0.88rem; }
-
-  /* CTA band */
-  .audit-cta-band { padding: 5rem 4rem; background: var(--black); color: var(--white); }
-  .audit-cta-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
-  .audit-cta-band h2 { font-family: 'Matter Sans', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-  .audit-cta-band p { opacity: 0.7; font-size: 0.95rem; }
-  .audit-cta-btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    white-space: nowrap;
-    background: var(--white); color: var(--black);
-    border-radius: 999px; padding: 1rem 2rem;
-    font-family: 'Matter Sans', sans-serif; font-weight: 700;
-    text-decoration: none; font-size: 0.95rem;
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
+  /* ── Band ─────────────────────────────────────────── */
+  .aud__band { padding-block: clamp(3.5rem, 7vw, 5.5rem); border-block: var(--pm-border); }
+  .aud__band-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem 3rem;
+    flex-wrap: wrap;
   }
-  .audit-cta-btn:hover { transform: translateY(-2px); }
+  .aud__band-inner > div:first-child { display: grid; gap: 0.75rem; max-width: 720px; }
+  .aud__band-title { font-size: clamp(2rem, 3.6vw, 3rem); }
 
-  /* Related */
-  .audit-related { padding: 6rem 4rem; }
-  .audit-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
-  .audit-related-card { display: flex; flex-direction: column; background: #fff; border: 1px solid rgba(10,10,10,0.1); border-radius: 20px; padding: 2rem 1.75rem; text-decoration: none; color: var(--black); transition: transform 0.25s ease, box-shadow 0.25s ease; }
-  .audit-related-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,10,10,0.09); }
-  .audit-related-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-  .audit-related-card h3 { font-family: 'Matter Sans', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
-  .audit-related-card p { font-size: 0.88rem; color: rgba(10,10,10,0.65); line-height: 1.7; flex: 1; }
-  .audit-related-link { display: inline-block; margin-top: 1.25rem; font-family: 'Matter Sans', sans-serif; font-size: 0.84rem; font-weight: 700; border-bottom: 1.5px solid rgba(10,10,10,0.3); padding-bottom: 2px; }
+  /* ── Related ──────────────────────────────────────── */
+  .aud__rel-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .aud__rel { display: flex; flex-direction: column; background: var(--pm-milk); }
+  .aud__rel-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-bottom: var(--pm-border);
+  }
+  .aud__rel-top--pink { background: var(--pm-pink); }
+  .aud__rel-top--yellow { background: var(--pm-yellow); }
+  .aud__rel-top--red { background: var(--pm-red); color: var(--pm-milk); }
+  .aud__rel-body { display: flex; flex-direction: column; gap: 1.25rem; flex: 1; padding: 1.5rem; }
+  .aud__rel-body .pm-text { flex: 1; }
 
+  /* ── Closing CTA ──────────────────────────────────── */
+  .aud__cta { padding: clamp(5rem, 10vw, 8rem) 0; }
+  .aud__cta-inner { display: grid; justify-items: center; text-align: center; gap: 1.5rem; }
+  .aud__cta-title { font-size: clamp(2.6rem, 6vw, 4.75rem); }
+  .aud__cta-text { color: var(--pm-ink); }
+
+  /* ── Responsive ───────────────────────────────────── */
   @media (max-width: 1100px) {
-    .audit-hero-inner, .audit-why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .audit-cards-grid { grid-template-columns: 1fr 1fr; }
-    .audit-steps { grid-template-columns: 1fr 1fr; }
-    .audit-step:nth-child(2n) { border-right: none; }
-    .audit-related-grid { grid-template-columns: 1fr 1fr; }
+    .aud__grid, .aud__rel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-
-  @media (max-width: 768px) {
-    .audit-hero, .audit-why, .audit-checks, .audit-process, .audit-cta-band, .audit-related { padding-left: 2rem; padding-right: 2rem; }
-    .audit-hero { padding-top: 8.6rem; padding-bottom: 4rem; }
-    .audit-cards-grid { grid-template-columns: 1fr; }
-    .audit-steps { grid-template-columns: 1fr; }
-    .audit-step { border-right: none; border-top: 1px solid rgba(10,10,10,0.1); padding-left: 0; padding-right: 0; min-height: auto; }
-    .audit-step:first-child { border-top: none; }
-    .audit-cta-band-inner { flex-direction: column; align-items: flex-start; }
-    .audit-related-grid { grid-template-columns: 1fr; }
+  @media (max-width: 860px) {
+    .aud__float { grid-template-columns: 1fr; }
+    .aud__steps { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .aud__hero { padding-top: 64px; }
+    .aud__actions { flex-direction: column; align-self: stretch; }
+    .aud__actions .pm-btn, .aud__band-action, .aud__band-action .pm-btn, .aud__cta-actions, .aud__cta-actions .pm-btn { width: 100%; }
+    .aud__grid, .aud__rel-grid { grid-template-columns: 1fr; }
+    .pm-btn { white-space: normal; text-align: center; }
   }
 </style>

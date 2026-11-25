@@ -15,6 +15,9 @@
 
   const ctaSelector = [
     "[data-overlay-open]",
+    "[data-track-label]",
+    ".pm-btn",
+    ".pm-link",
     ".cta-button",
     ".footer-contact-cta",
     ".nav-cta",

@@ -1,5 +1,5 @@
 /**
- * IndexNow — notify Bing of all URLs after a production build.
+ * IndexNow - notify Bing of all URLs after a production build.
  * Run with: node scripts/indexnow.mjs
  */
 
@@ -28,7 +28,7 @@ async function fetchSitemapUrls() {
     );
     console.log(`  → Found ${locs.length} <loc> entries`);
 
-    // If the first <loc> values are .xml files, this is an index — fetch children
+    // If the first <loc> values are .xml files, this is an index - fetch children
     const childXmlUrls = locs.filter((u) => u.endsWith(".xml"));
     if (childXmlUrls.length > 0) {
       const pageUrls = [];
@@ -49,7 +49,7 @@ async function fetchSitemapUrls() {
       return [...new Set(pageUrls)];
     }
 
-    // Plain sitemap — all <loc> values are page URLs
+    // Plain sitemap - all <loc> values are page URLs
     return [...new Set(locs)];
   }
 
@@ -82,13 +82,13 @@ async function main() {
   if (res.status === 200 || res.status === 202) {
     console.log("URLs submitted successfully.");
   } else if (res.status === 429) {
-    console.warn("Rate limited by IndexNow — will retry on next deploy.");
+    console.warn("Rate limited by IndexNow - will retry on next deploy.");
   } else if (res.status === 403) {
-    console.warn("403 Forbidden — site not yet verified in Bing Webmaster Tools.");
+    console.warn("403 Forbidden - site not yet verified in Bing Webmaster Tools.");
     console.warn("Verify luminx.nl at https://www.bing.com/webmasters and retry.");
-    // Don't fail the workflow — site verification is a one-time manual step
+    // Don't fail the workflow - site verification is a one-time manual step
   } else {
-    console.error(`Unexpected status ${res.status} — check key file and host.`);
+    console.error(`Unexpected status ${res.status} - check key file and host.`);
     process.exit(1);
   }
 }
