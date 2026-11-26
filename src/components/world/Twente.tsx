@@ -58,44 +58,63 @@ function Skyline() {
   );
 }
 
-/* ─── brewery: stainless fermentation tanks and a brick brewhouse ───── */
+/* ─── Grolsch, Boekelo: a white block, tall blue glass bays, tanks behind ─ */
 function Brewery() {
   const s = FAR.brewery;
-  const M = materials();
   const steel = useMemo(() => new THREE.MeshStandardMaterial({ color: "#DCE1E3", metalness: 0.55, roughness: 0.32 }), []);
-  const glass = useFacadeGlass(8, 3);
-  const brick = useMemo(() => wrapMaterial(M.brickWarm, 30, 14), [M]);
+  const glass = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "#4A9CC6", metalness: 0.08, roughness: 0.28, emissive: new THREE.Color("#4FB4E0"), emissiveIntensity: 0 }),
+    [],
+  );
+  useFrame(() => { glass.emissiveIntensity = world.dusk * 0.42; });
+  const BASE = 3.6;
+  const TOP = 24;
+  // the glass bays (x from, x to) and the dark slim towers between them
+  const bays: [number, number][] = [[-7, 3], [5.2, 15.4], [17.4, 22]];
+  const towers: [number, number][] = [[3, 5.2], [15.4, 17.4]];
+  const D = 18;
   return (
     <group position={[s.x, s.h, s.z]} rotation={[0, faceCentre(s.x, s.z), 0]}>
-      <Box p={[-8, 7, 0]} s={[22, 14, 16]} c={M.brickWarm} />
-      <Box p={[-8, 14.3, 0]} s={[22.6, 0.6, 16.6]} c="#2E6E45" />
-      <mesh position={[-8, 7, 8.1]} material={glass}>
-        <planeGeometry args={[19, 10]} />
-      </mesh>
-      {/* two rows of tall tanks with cone tops */}
-      {Array.from({ length: 10 }, (_, i) => {
-        const x = 8 + (i % 5) * 5.4;
-        const z = i < 5 ? -4 : 4;
+      {/* brownish concrete plinth along the whole front */}
+      <Box p={[1.5, BASE / 2, 0]} s={[43, BASE, D + 0.4]} c="#9C8A7C" />
+      {/* the white block (where the name sits on the real one) */}
+      <Box p={[-14, (BASE + TOP) / 2, 0]} s={[14, TOP - BASE, D]} c="#F3F1EC" />
+      {bays.map(([a, b], i) => (
+        <group key={i}>
+          <mesh position={[(a + b) / 2, (BASE + TOP - 3) / 2, 0]} material={glass} castShadow>
+            <boxGeometry args={[b - a, TOP - 3 - BASE, D - 0.6]} />
+          </mesh>
+          {/* aluminium band above the glass */}
+          <Box p={[(a + b) / 2, TOP - 1.5, 0]} s={[b - a, 3, D - 0.6]} c="#D8DCDF" />
+          {/* mullions: a fine grid over the front glass */}
+          {Array.from({ length: 7 }, (_, r) => (
+            <Box key={"h" + r} p={[(a + b) / 2, BASE + 2.4 + r * 2.4, D / 2 - 0.25]} s={[b - a, 0.12, 0.12]} c="#1E3F52" shadow={false} />
+          ))}
+          {Array.from({ length: Math.round((b - a) / 1.6) - 1 }, (_, c) => (
+            <Box key={"v" + c} p={[a + ((c + 1) * (b - a)) / Math.round((b - a) / 1.6), (BASE + TOP - 3) / 2, D / 2 - 0.25]} s={[0.1, TOP - 3 - BASE, 0.1]} c="#1E3F52" shadow={false} />
+          ))}
+        </group>
+      ))}
+      {towers.map(([a, b], i) => (
+        <Box key={i} p={[(a + b) / 2, (BASE + TOP + 0.6) / 2, 0.3]} s={[b - a, TOP + 0.6 - BASE, D]} c="#2F363B" />
+      ))}
+      {/* fermentation tanks behind the building */}
+      {Array.from({ length: 6 }, (_, i) => {
+        const x = -8 + i * 5.6;
         return (
-          <group key={i} position={[x, 0, z]}>
-            <mesh position={[0, 11, 0]} material={steel} castShadow>
-              <cylinderGeometry args={[2.3, 2.3, 18, 16]} />
+          <group key={i} position={[x, 0, -D / 2 - 5]}>
+            <mesh position={[0, 12, 0]} material={steel} castShadow>
+              <cylinderGeometry args={[2.3, 2.3, 22, 16]} />
             </mesh>
-            <mesh position={[0, 20.9, 0]} material={steel}>
+            <mesh position={[0, 23.9, 0]} material={steel}>
               <coneGeometry args={[2.3, 1.8, 16]} />
-            </mesh>
-            <mesh position={[0, 1, 0]} material={mat("#4A4440")}>
-              <cylinderGeometry args={[1.2, 1.6, 2, 8]} />
             </mesh>
           </group>
         );
       })}
-      {/* catwalk on top of the tanks */}
-      <Box p={[18.8, 21.2, 0]} s={[25, 0.3, 1.2]} c="#3B3330" />
-      {/* the brewhouse chimney */}
-      <mesh position={[-16, 15, -6]} material={brick} castShadow>
-        <cylinderGeometry args={[1.0, 1.6, 30, 12]} />
-      </mesh>
+      {/* white flag at the gate */}
+      <Box p={[-24, 9, D / 2 + 5]} s={[0.25, 18, 0.25]} c="#E8E8E8" shadow={false} />
+      <Box p={[-24, 15.2, D / 2 + 6.6]} s={[0.08, 5, 3]} c="#F6F6F2" />
     </group>
   );
 }
