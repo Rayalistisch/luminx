@@ -1,4 +1,4 @@
-import { useMemo, useRef, type ReactNode } from "react";
+import { useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
 import { glowMats, lampMat, mat, windowMat } from "./materials";
@@ -446,68 +446,50 @@ const glowFragment = /* glsl */ `
   }
 `;
 
-/* ─── neon: a glowing tube that loops around every clickable place ─── */
-const neonVertex = /* glsl */ `
-  varying vec2 vUv;
-  void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
-`;
-const neonFragment = /* glsl */ `
-  uniform float uTime;
-  uniform float uHover;
-  uniform float uNight;
-  uniform float uSeed;
-  uniform vec3 uColor;
-  varying vec2 vUv;
-  void main() {
-    // a soft hum, and now and then a pulse of light running round the loop
-    float hum = 0.92 + 0.08 * sin(uTime * 7.0 + uSeed * 30.0) * sin(uTime * 2.3);
-    float run = fract(vUv.x * 2.0 - uTime * 0.12 + uSeed);
-    float pulse = smoothstep(0.0, 0.05, run) * smoothstep(0.16, 0.05, run);
-    // quiet by day, a soft glow at night; only a hover makes it sing
-    float k = (0.6 + uNight * 0.5) * hum + pulse * 0.4 + uHover * 1.8;
-    float a = clamp(0.45 + uNight * 0.25 + uHover * 0.45, 0.0, 1.0);
-    gl_FragColor = vec4(uColor * k * a, a);
-  }
-`;
-
-function NeonRing({ site, glow }: { site: Site; glow: THREE.ShaderMaterial }) {
-  const geometry = useMemo(() => {
-    const n = 96;
-    const r = site.r + 2.8;
-    const pts = Array.from({ length: n }, (_, i) => {
+/* ─── plateau: every clickable place stands on its own lit stage ────── */
+// A low round platform in a soft rosy cream with a rim, and a ring of warm
+// bulbs along its edge, so you can see at a glance where you can click.
+function Plateau({ site, glow }: { site: Site; glow: THREE.ShaderMaterial }) {
+  const R = site.r + 3;
+  const { top, rim, bulbs, bulbMat, topMat } = useMemo(() => {
+    const topMat = new THREE.MeshStandardMaterial({ color: "#F2DED3", roughness: 0.9, emissive: new THREE.Color("#FF9FAF"), emissiveIntensity: 0.06 });
+    const rim = new THREE.MeshStandardMaterial({ color: "#C99A86", roughness: 0.85 });
+    const bulbMat = lampMat.clone();
+    bulbMat.emissive = new THREE.Color("#FFD9A0");
+    const n = Math.max(24, Math.round((Math.PI * 2 * R) / 1.5));
+    const bulbs = Array.from({ length: n }, (_, i) => {
       const a = (i / n) * Math.PI * 2;
-      // slightly squarish loop, the way a neon sign would be bent
-      const k = 1 + 0.04 * Math.cos(a * 4);
-      const x = site.x + Math.cos(a) * r * k;
-      const z = site.z + Math.sin(a) * r * k;
-      return new THREE.Vector3(x, height(x, z) + 0.18, z);
+      return [site.x + Math.cos(a) * (R - 0.55), site.h + 0.36, site.z + Math.sin(a) * (R - 0.55)] as V3;
     });
-    return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true, "centripetal"), 240, 0.11, 6, true);
-  }, [site]);
-  const material = useMemo(
-    () => new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 },
-        uHover: { value: 0 },
-        uNight: { value: 0 },
-        uSeed: { value: glow.uniforms.uSeed.value },
-        uColor: { value: new THREE.Color("#FF8FA3") },
-      },
-      vertexShader: neonVertex,
-      fragmentShader: neonFragment,
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    }),
-    [glow],
-  );
+    return { top: topMat, rim, bulbs, bulbMat, topMat };
+  }, [site, R]);
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const bulbGeo = useMemo(() => new THREE.SphereGeometry(0.2, 8, 6), []);
+  useLayoutEffect(() => {
+    const m = new THREE.Matrix4();
+    bulbs.forEach((p, i) => { m.makeTranslation(p[0], p[1], p[2]); ref.current!.setMatrixAt(i, m); });
+    ref.current!.instanceMatrix.needsUpdate = true;
+    ref.current!.computeBoundingSphere();
+  }, [bulbs]);
   useFrame(({ clock }) => {
-    const u = material.uniforms;
-    u.uTime.value = world.reduced ? 0 : clock.elapsedTime;
-    u.uHover.value = glow.uniforms.uHover.value;
-    u.uNight.value = world.dusk;
+    const hover = glow.uniforms.uHover.value;
+    // a gentle shimmer, brighter at night and when you point at the place
+    const shimmer = 0.92 + Math.sin(clock.elapsedTime * 2.2 + glow.uniforms.uSeed.value * 9) * 0.08;
+    bulbMat.emissiveIntensity = (2.2 + world.dusk * 1.6) * shimmer + hover * 2.5;
+    topMat.emissiveIntensity = 0.06 + hover * 0.22 + world.dusk * 0.05;
   });
-  return <mesh geometry={geometry} material={material} />;
+  return (
+    <group userData={{ dynamic: true }}>
+      {/* the stage: rim + top, slightly raised above the yard */}
+      <mesh position={[site.x, site.h - 0.3, site.z]} material={rim} receiveShadow castShadow>
+        <cylinderGeometry args={[R, R + 0.35, 0.76, 64]} />
+      </mesh>
+      <mesh position={[site.x, site.h + 0.09, site.z]} rotation={[-Math.PI / 2, 0, 0]} material={top} receiveShadow>
+        <circleGeometry args={[R - 0.25, 64]} />
+      </mesh>
+      <instancedMesh ref={ref} args={[bulbGeo, bulbMat, bulbs.length]} />
+    </group>
+  );
 }
 
 let placeSeed = 0;
@@ -553,7 +535,7 @@ function Place({ id, site, children }: { id: string; site: Site; children: React
   return (
     <group onPointerOver={over} onPointerOut={out} onClick={click}>
       <StaticBatch>{children}</StaticBatch>
-      <NeonRing site={site} glow={material} />
+      <Plateau site={site} glow={material} />
       <mesh position={[site.x, site.h + 0.3, site.z]} rotation={[-Math.PI / 2, 0, 0]} material={material} raycast={() => null} renderOrder={2} userData={{ dynamic: true }}>
         <planeGeometry args={[size, size]} />
       </mesh>
