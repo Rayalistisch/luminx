@@ -162,10 +162,11 @@ export function CameraRig() {
     const fitW = LAND_HALF_W / Math.tan(halfH);
     const fitD = (LAND_HALF_D * Math.sin(OVERVIEW.el + 0.15)) / Math.tan(halfV) * 1.25;
     // on portrait screens show the heart of the land closer; drag to see the rest
-    const fit = portrait ? Math.max(fitD * 0.95, 190) : Math.max(fitW, fitD);
+    // ×1.15 leaves breathing room so the edge sites (the windmill) sit fully in frame
+    const fit = (portrait ? Math.max(fitD * 0.95, 190) : Math.max(fitW, fitD)) * 1.15;
     st.overview = {
       ...OVERVIEW,
-      dist: THREE.MathUtils.clamp(fit, 150, portrait ? 250 : 360),
+      dist: THREE.MathUtils.clamp(fit, 170, portrait ? 290 : 410),
       el: portrait ? 0.58 : aspect > 2 ? 0.34 : 0.4,
     };
     if (!st.focus) {
